@@ -14,13 +14,12 @@
 
 
 package com.kyloth.serleenacloud;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
 public class SerleenaCloud {
     public static void main(String[] args) {
-	ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
-	Hello obj = (Hello) context.getBean("helloBean");
-	obj.printHello();
+        SpringApplication.run(SerleenaCloud.class, args);
     }
 }
