@@ -20,13 +20,13 @@ package com.kyloth.serleenacloud;
  */
 
 public class Hello {
-    private String name;
+    private String vai;
 
-    public void setName(String name) {
-	this.name = name;
+    public void setVai(String vai) {
+        this.vai = vai;
     }
- 
-    public void printHello() {
-	System.out.println("Vai " + name);
+
+    public String getVai() {
+        return vai;
     }
 }
