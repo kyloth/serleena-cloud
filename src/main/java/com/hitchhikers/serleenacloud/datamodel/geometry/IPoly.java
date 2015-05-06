@@ -37,29 +37,10 @@ package com.kyloth.serleenacloud.datamodel.geometry;
 public interface IPoly {
 
     /**
-     * Ritorna true se il punto e` contenuto nell'area del poligono
-     *
-     * @param  Il punto da testare
-     * @return True se il punto e` contenuto nel poligono, altrimenti false
-     */
-
-    public boolean contains(IPoint p);
-
-    /**
      * Ritorna la collezione dei punti che delimitano il perimetro del poligono
      *
      * @return La collezione dei punti che delimitano il perimetro del poligono
      */
 
     public Iterable<IPoint> getPoints();
-
-    /**
-     * Ritorna true se il poligono corrente crea un'intersezione non vuota con
-     * il poligono da testare
-     *
-     * @param  Il poligono da testare
-     * @return True se l'intersezione tra i due poligoni e` non vuota, false altrimenti
-     */
-
-    public boolean intersects(IPoly p);
 }

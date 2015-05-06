@@ -58,20 +58,6 @@ public class Rect implements IRect {
     }
 
     /**
-     * Ritorna true se il punto e` contenuto nell'area del rettangolo
-     *
-     * @param  Il punto da testare
-     * @return True se il punto e` contenuto nel rettangolo, altrimenti false
-     */
-
-    public boolean contains(IPoint p) {
-        return (p.getLatitude() <= nw.getLatitude() &&
-                p.getLatitude() >= se.getLatitude() &&
-                p.getLongitude() <= nw.getLongitude() &&
-                p.getLongitude() >= se.getLongitude());
-    }
-
-    /**
      * Ritorna la collezione dei punti che delimitano il perimetro del rettangolo
      *
      * @return La collezione dei punti che delimitano il perimetro del rettangolo
@@ -84,21 +70,6 @@ public class Rect implements IRect {
             points = Arrays.asList(new IPoint[] {nw, ne, se, sw });
         }
         return points;
-    }
-
-    /**
-     * Ritorna true se il rettangolo corrente crea un'intersezione non vuota con
-     * il poligono da testare
-     *
-     * @param  Il poligono da testare
-     * @return True se l'intersezione tra i due poligoni e` non vuota, false altrimenti
-     */
-
-    public boolean intersects(IPoly p) {
-        for (IPoint point : p.getPoints())
-            if (contains(point))
-                return true;
-        return false;
     }
 
     /**
