@@ -28,6 +28,5 @@ public interface IDataSource {
     public IWeatherForecastDao weatherForecastDao();
     public ITrackDao trackDao();
     public IExperienceDao experienceDao();
-    public ITempTokenDao tempTokenDao();
     public IDataSource forUser(User u);
 }
