@@ -1,0 +1,115 @@
+/******************************************************************************
+* Copyright (c) 2015 Nicola Mometto
+* All rights reserved. This program and the accompanying materials
+* are made available under the terms of the Eclipse Public License v1.0
+* which accompanies this distribution, and is available at
+* http://www.eclipse.org/legal/epl-v10.html
+*
+* Contributors:
+*  Nicola Mometto
+*  Antonio Cavestro
+*  Sebastiano Valle
+*  Gabriele Pozzan
+******************************************************************************/
+
+
+/**
+ * Name: TelemetryTest.java
+ * Package: com.kyloth.serleenacloud.datamodel.business
+ * Author: Gabriele Pozzan
+ * Date: 2015-05-11
+ *
+ * History:
+ * Version  Programmer       Date        Changes
+ * 1.0.0    Gabriele Pozzan  2015-05-11  Creazione file e scrittura
+ *                                       codice e documentazione Javadoc
+ */
+
+package com.kyloth.serleenacloud.datamodel.business;
+
+import static org.junit.Assert.*;
+import org.junit.Test;
+import java.util.Arrays;
+import java.util.Iterator;
+import com.kyloth.serleenacloud.datamodel.geometry.IPoint;
+import com.kyloth.serleenacloud.datamodel.geometry.Point;
+import com.kyloth.serleenacloud.datamodel.geometry.IRect;
+import com.kyloth.serleenacloud.datamodel.geometry.Rect;
+
+/**
+ * Contiene i test di unità per la classe Experience.
+ *
+ * @author Gabriele Pozzan <gabriele.pozzan@studenti.unipd.it>
+ * @version 1.0.0
+ */
+
+public class ExperienceTest {
+    /**
+     * Testa la correttezza del costruttore e dei metodi
+     * "getter" della classe.
+     */
+    @Test
+    public void testConstructor() {
+        String name = "Jimi Hendrix Experience";
+        Point nw = new Point(5.32, 32.65);
+        Point se = new Point(2.12, 16.59);
+        Point ne = new Point(5.32, 16.59);
+        Point sw = new Point(2.12, 32.65);
+        Iterable<IPoint> points = Arrays.asList(new IPoint[] {nw, ne, se, sw});
+        Iterator<IPoint> points_iterator = points.iterator();
+        IRect rect = new Rect(nw, se);
+        Iterable<ITrack> tracks = Arrays.asList(new ITrack[] {
+                                                    new Track("Track_1", new CheckPoint[1], new ITelemetry[1]),
+                                                    new Track("Track_2", new CheckPoint[1], new ITelemetry[1])
+                                                });
+        Iterator<ITrack> tracks_iterator = tracks.iterator();
+        Iterable<UserPoint> userPoints = Arrays.asList(new UserPoint[] {
+                                             new UserPoint(0, 0, "up_1"),
+                                             new UserPoint(0, 0, "up_2")
+                                         });
+        Iterator<UserPoint> userPoints_iterator = userPoints.iterator();
+        Iterable<PointOfInterest> pois = Arrays.asList(new PointOfInterest[] {
+                                             new PointOfInterest(0, 0, "poi_1", PointOfInterest.POIType.FOOD),
+                                             new PointOfInterest(0, 0, "poi_2", PointOfInterest.POIType.FOOD)
+                                         });
+        Iterator<PointOfInterest> pois_iterator = pois.iterator();
+        Experience e = new Experience(name, rect, tracks, userPoints, pois);
+        IRect e_rect = e.getBoundingRect();
+        Iterable<IPoint> e_points = e_rect.getPoints();
+        Iterator<IPoint> e_points_iterator = e_points.iterator();
+        Iterable<ITrack> e_tracks = e.getTracks();
+        Iterator<ITrack> e_tracks_iterator = e_tracks.iterator();
+        Iterable<UserPoint> e_userPoints = e.getUserPoints();
+        Iterator<UserPoint> e_userPoints_iterator = e_userPoints.iterator();
+        Iterable<PointOfInterest> e_pois = e.getPOIs();
+        Iterator<PointOfInterest> e_pois_iterator = e_pois.iterator();
+
+
+        assertTrue(e.getName().equals("Jimi Hendrix Experience"));
+        while(points_iterator.hasNext() && e_points_iterator.hasNext()) {
+            IPoint input_point = points_iterator.next();
+            IPoint e_point = e_points_iterator.next();
+
+            assertTrue(input_point.getLatitude() == e_point.getLatitude());
+            assertTrue(input_point.getLongitude() == e_point.getLongitude());
+        }
+        while(tracks_iterator.hasNext() && e_tracks_iterator.hasNext()) {
+            ITrack input_track = tracks_iterator.next();
+            ITrack e_track = e_tracks_iterator.next();
+
+            assertTrue(input_track.getName().equals(e_track.getName()));
+        }
+        while(userPoints_iterator.hasNext() && e_userPoints_iterator.hasNext()) {
+            UserPoint input_userPoint = userPoints_iterator.next();
+            UserPoint e_userPoint = e_userPoints_iterator.next();
+
+            assertTrue(input_userPoint.getName().equals(e_userPoint.getName()));
+        }
+        while(pois_iterator.hasNext() && e_pois_iterator.hasNext()) {
+            PointOfInterest input_poi = pois_iterator.next();
+            PointOfInterest e_poi = e_pois_iterator.next();
+
+            assertTrue(input_poi.getName().equals(e_poi.getName()));
+        }
+    }
+}
