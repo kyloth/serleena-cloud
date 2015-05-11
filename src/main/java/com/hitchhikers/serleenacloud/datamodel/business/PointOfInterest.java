@@ -20,7 +20,7 @@ import com.kyloth.serleenacloud.datamodel.geometry.Point;
 public class PointOfInterest extends Point {
 
     public static enum POIType {
-        // TODO
+        FOOD, INFO, WARNING
     }
 
     String name;
