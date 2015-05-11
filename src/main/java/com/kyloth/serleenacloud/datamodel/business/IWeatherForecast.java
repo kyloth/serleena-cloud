@@ -22,7 +22,7 @@ import java.util.Date;
 public interface IWeatherForecast {
 
     public static enum WeatherCondition {
-        // TODO
+        SUNNY, CLOUDY, RAINY, STORMY, SNOWY
     }
 
     public WeatherCondition getForecast();
