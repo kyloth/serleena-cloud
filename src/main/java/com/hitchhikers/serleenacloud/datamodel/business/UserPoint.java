@@ -21,12 +21,12 @@ public class UserPoint extends Point {
 
     String name;
 
-    UserPoint(double latitude, double longitude, String name) {
+    public UserPoint(double latitude, double longitude, String name) {
         super(latitude, longitude);
         this.name = name;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 }

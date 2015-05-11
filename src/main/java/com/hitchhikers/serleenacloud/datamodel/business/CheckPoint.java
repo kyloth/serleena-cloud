@@ -21,12 +21,12 @@ public class CheckPoint extends Point {
 
     int id;
 
-    CheckPoint(double latitude, double longitude, int id) {
+    public CheckPoint(double latitude, double longitude, int id) {
         super(latitude, longitude);
         this.id = id;
     }
 
-    int getId() {
+    public int getId() {
         return id;
     }
 }
