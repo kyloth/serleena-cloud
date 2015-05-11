@@ -41,11 +41,11 @@ public class SyncInputData {
         return experienceName;
     }
 
-    private Iterable<UserPoint> getUserPoints() {
+    public Iterable<UserPoint> getUserPoints() {
         return userPoints;
     }
 
-    private Iterable<ITelemetry> getTelemetryData() {
+    public Iterable<ITelemetry> getTelemetryData() {
         return telemetryData;
     }
 
