@@ -26,17 +26,17 @@ public class PointOfInterest extends Point {
     String name;
     POIType type;
 
-    PointOfInterest(double latitude, double longitude, String name, POIType type) {
+    public PointOfInterest(double latitude, double longitude, String name, POIType type) {
         super(latitude, longitude);
         this.name = name;
         this.type = type;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
-    POIType getPOIType() {
+    public POIType getPOIType() {
         return type;
     }
 }
