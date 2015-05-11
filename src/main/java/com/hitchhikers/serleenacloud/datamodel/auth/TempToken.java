@@ -23,8 +23,12 @@ public class TempToken {
     private String deviceId;
 
     public TempToken(String deviceId) {
+        this(deviceId, new Date());
+    }
+
+    TempToken(String deviceId, Date currDate) {
         this.deviceId = deviceId;
-        String s = deviceId + currToken();
+        String s = deviceId + currToken(currDate);
         this.token = deviceId + "::" + Util.sha256(s);
     }
 
@@ -36,8 +40,8 @@ public class TempToken {
         return deviceId;
     }
 
-    private static String currToken() {
-        return new SimpleDateFormat("yyyyMMddHH").format(new Date());
+    private static String currToken(Date date) {
+        return new SimpleDateFormat("yyyyMMddHH").format(date);
     }
 
 }
