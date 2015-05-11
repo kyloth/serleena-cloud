@@ -20,7 +20,7 @@ import java.util.Date;
 
 public class TelemetryEvent {
     public static enum EventType {
-        CHECKPOINT, HEART // TODO
+        CHECKPOINT, HEART
     }
 
     private EventType type;
