@@ -42,11 +42,11 @@ public class SyncOutputData {
         return experiences;
     }
 
-    private Iterable<IWeatherForecast> getWeatherData() {
+    public Iterable<IWeatherForecast> getWeatherData() {
         return forecastData;
     }
 
-    private Iterable<IEmergencyContact> getEmergencyData() {
+    public Iterable<IEmergencyContact> getEmergencyData() {
         return emergencyData;
     }
 
