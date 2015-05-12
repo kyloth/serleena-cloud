@@ -13,14 +13,40 @@
 ******************************************************************************/
 
 
+/**
+ * Name: Util.java
+ * Package: com.kyloth.serleenacloud.datamodel.auth
+ * Author: Nicola Mometto
+ * Date: 2015-05-05
+ *
+ * History:
+ * Version  Programmer          Date        Changes
+ * 1.0.0    Nicola Mometto      2015-05-05  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.datamodel.auth;
 
 import java.security.MessageDigest;
 
+/**
+ * Classe di utilità che fornisce un metodo per calcolare un hash crittografico
+ * di una stringa.
+ *
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
+
 class Util {
 
+    /**
+     * Calcola l'hash crittografico di una stringa di input tramite SHA-256.
+     *
+     * @param base La stringa da crittografare.
+     * @return Restituisce l'hash crittografico della stringa di input.
+     */
+
     static String sha256(String base) {
-        try{
+        try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] hash = digest.digest(base.getBytes("UTF-8"));
             StringBuilder hexString = new StringBuilder();
@@ -32,7 +58,7 @@ class Util {
             }
 
             return hexString.toString();
-        } catch(Exception ex){
+        } catch(Exception ex) {
             throw new RuntimeException(ex);
         }
     }
