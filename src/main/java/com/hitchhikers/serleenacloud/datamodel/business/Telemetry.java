@@ -13,26 +13,72 @@
 ******************************************************************************/
 
 
+/**
+ * Name: Telemetry.java
+ * Package: com.kyloth.serleenacloud.datamodel.business
+ * Author: Nicola Mometto
+ *
+ * History:
+ * Version  Programmer      Changes
+ * 1.0.0    Nicola Mometto  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.datamodel.business;
 
 import java.util.Arrays;
 import java.util.Date;
 
+/**
+ * Classe che concretizza ITelemetry.
+ *
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
+
 public class Telemetry implements ITelemetry {
 
+    /**
+     * Insieme degli eventi associati al Tracciamento.
+     */
+
     Iterable<TelemetryEvent> events;
+
+    /**
+     * Crea un nuovo oggetto Telemetry inizializzandone i campi dati.
+     *
+     * @param events Insieme degli eventi associati al Tracciamento.
+     */
 
     public Telemetry(Iterable<TelemetryEvent> events) {
         this.events = events;
     }
 
+    /**
+     * Crea un nuovo oggetto Telemetry inizializzandone i campi dati.
+     *
+     * @param events Array degli eventi associati al Tracciamento.
+     */
+
     public Telemetry(TelemetryEvent[] events) {
         this.events = Arrays.asList(events);
     }
 
+    /**
+     * Metodo "getter" che permette di ottenere l'insieme degli eventi associati al Tracciamento.
+     *
+     * @return Restituisce l'insieme degli eventi associati al Tracciamento.
+     */
+
     public Iterable<TelemetryEvent> getEvents() {
         return events;
     }
+
+    /**
+     * Confronta due oggetti Telemetry sulla base del tempo totale registrato.
+     *
+     * @param telemetry Il Tracciamento contro il quale effettuare il confronto.
+     * @return Restituisce 0 se i due oggetti hanno lo stesso tempo totale registrato, 1 se l'oggetto su cui è invocato il metodo ha tempo totale maggiore, -1 altrimenti.
+     */
 
     public int compareTo(ITelemetry telemetry) {
         long thisDuration = duration(this);
@@ -44,6 +90,13 @@ public class Telemetry implements ITelemetry {
         else
             return -1;
     }
+
+    /**
+     * Calcola il tempo totale registrato per un dato Tracciamento, in particolare tale durata viene calcolata in base ai timestamp degli eventi di tipo CHECKPOINT.
+     *
+     * @param telemetry Il Tracciamento di cui calcolare il tempo totale.
+     * @return Restituisce il tempo totale registrato.
+     */
 
     private static long duration (ITelemetry telemetry) {
         long duration = 0;
