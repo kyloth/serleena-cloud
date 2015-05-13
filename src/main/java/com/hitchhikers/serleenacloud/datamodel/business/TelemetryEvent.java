@@ -13,19 +13,63 @@
 ******************************************************************************/
 
 
+/**
+ * Name: TelemetryEvent.java
+ * Package: com.kyloth.serleenacloud.datamodel.business
+ * Author: Nicola Mometto
+ *
+ * History:
+ * Version  Programmer      Changes
+ * 1.0.0    Nicola Mometto  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.datamodel.business;
 
 import java.util.Arrays;
 import java.util.Date;
 
+/**
+ * Classe che rappresenta un evento di Tracciamento.
+ *
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
+
 public class TelemetryEvent {
+
+    /**
+     * Enumerazione delle diverse possibili categorie di evento di Tracciamento.
+     */
+
     public static enum EventType {
         CHECKPOINT, HEART
     }
 
+    /**
+     * Categoria dell'evento di Tracciamento.
+     */
+
     private EventType type;
+
+    /**
+     * Valore dell'evento di Tracciamento.
+     */
+
     private double value;
+
+    /**
+     * Timestamp dell'evento di Tracciamento.
+     */
+
     private Date time;
+
+    /**
+     * Crea un nuovo oggetto TelemetryEvent inizializzandone i campi dati.
+     *
+     * @param type Categoria dell'evento di Telemetria.
+     * @param time Timestamp dell'evento di Telemetria.
+     * @param value Valore dell'evento di Telemetria.
+     */
 
     public TelemetryEvent(EventType type, Date time, double value) {
         this.type = type;
@@ -33,13 +77,31 @@ public class TelemetryEvent {
         this.value = value;
     }
 
+    /**
+     * Metodo "getter" per ottenere la categoria dell'evento di Telemetria.
+     *
+     * @return Restituisce la categoria dell'evento di Telemetria.
+     */
+
     public EventType eventType() {
         return type;
     }
 
+    /**
+     * Metodo "getter" per ottenere il valore dell'evento di Telemetria.
+     *
+     * @return Restituisce il valore dell'evento di Telemetria.
+     */
+
     public double getValue() {
         return value;
     }
+
+    /**
+     * Metodo "getter" per ottenere il timestamp dell'evento di Telemetria.
+     *
+     * @return Restituisce il timestamp dell'evento di Telemetria.
+     */
 
     public Date getTime() {
         return time;
