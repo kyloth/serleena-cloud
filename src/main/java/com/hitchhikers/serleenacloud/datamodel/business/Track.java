@@ -13,15 +13,54 @@
 ******************************************************************************/
 
 
+/**
+ * Name: Track.java
+ * Package: com.kyloth.serleenacloud.datamodel.business
+ * Author: Nicola Mometto
+ *
+ * History:
+ * Version  Programmer      Changes
+ * 1.0.0    Nicola Mometto  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.datamodel.business;
 
 import java.util.Arrays;
 
+/**
+ * Classe che implementa ITrack.
+ *
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
+
 public class Track implements ITrack {
 
+    /**
+     * Il nome del Percorso.
+     */
+
     private String name;
+
+    /**
+     * L'insieme dei Checkpoint del Percorso.
+     */
+
     private Iterable<CheckPoint> checkpoints;
+
+    /**
+     * L'insieme dei Tracciamenti relativi al Percorso.
+     */
+
     private Iterable<ITelemetry> telemetries;
+
+    /**
+     * Crea un nuovo Percorso inizializzandone i campi dati.
+     *
+     * @param name Il nome del Percorso.
+     * @param checkpoints Insieme dei Checkpoint del Percorso.
+     * @param telemetries Insieme dei Tracciamenti relativi al Percorso.
+     */
 
     public Track(String name, Iterable<CheckPoint> checkpoints, Iterable<ITelemetry> telemetries) {
         this.name = name;
@@ -29,23 +68,55 @@ public class Track implements ITrack {
         this.telemetries = telemetries;
     }
 
+    /**
+     * Crea un nuovo Percorso inizializzandone i campi dati.
+     *
+     * @param name Il nome del Percorso.
+     * @param checkpoints Array dei Checkpoint del Percorso.
+     * @param telemetries Array dei Tracciamenti relativi al Percorso.
+     */
+
     public Track(String name, CheckPoint[] checkpoints, ITelemetry[] telemetries) {
         this.name = name;
         this.checkpoints = Arrays.asList(checkpoints);
         this.telemetries = Arrays.asList(telemetries);
     }
 
+    /**
+     * Metodo "getter" che permette di ottenere l'insieme dei Checkpoint associati al Percorso.
+     *
+     * @return Restituisce l'insieme dei Checkpoint associati al Percorso.
+     */
+
     public Iterable<CheckPoint> getCheckPoints() {
         return checkpoints;
     }
+
+    /**
+     * Metodo "getter" che permette di ottenere il nome del Percorso.
+     *
+     * @return Restituisce il nome del Percorso.
+     */
 
     public String getName() {
         return name;
     }
 
+    /**
+     * Metodo "getter" che permette di ottenere l'insieme dei dati di Tracciamento relativi al Percorso.
+     *
+     * @return Restituisce l'insieme dei dati di Tracciamento relativi al Percorso.
+     */
+
     public Iterable<ITelemetry> getTelemetries() {
         return telemetries;
     }
+
+    /**
+     * Metodo che permette di ottenere il miglior Tracciamento disponibile per il Percorso.
+     *
+     * @return Restituisce il miglior Tracciamento disponibile per il Percorso.
+     */
 
     public ITelemetry getBestTelemetry() {
         ITelemetry best = null;
