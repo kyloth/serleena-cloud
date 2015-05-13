@@ -31,6 +31,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
 /**
  * Contiene i test di unità per la classe TempToken.
@@ -46,8 +47,9 @@ public class TempTokenTest {
      */
     @Test
     public void testConstructor() {
-        String token = "id::c0259f22a149359bcb4b0d9de2b33e82464246b242892383dc12635ef153f72a";
         String deviceId = "id";
+        String s = deviceId + new SimpleDateFormat("yyyyMMddHH").format(new Date(121542));
+        String token = deviceId + "::" + Util.sha256(s);
         TempToken tt = new TempToken(deviceId, new Date(121542));
 
         assertTrue(tt.getDeviceId().equals(deviceId));
