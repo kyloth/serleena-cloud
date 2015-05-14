@@ -19,6 +19,5 @@ import com.kyloth.serleenacloud.datamodel.business.IEmergencyContact;
 import com.kyloth.serleenacloud.datamodel.geometry.IRect;
 
 public interface IEmergencyContactDao {
-    public void persist(IEmergencyContact e);
     public Iterable<IEmergencyContact> findAll(IRect region);
 }
