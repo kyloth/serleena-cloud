@@ -27,8 +27,9 @@
 package com.kyloth.serleenacloud.datamodel.auth;
 
 /**
- * Classe che modella un utente del portale e interagisce con
- * AuthToken per gestione del token di autenticazione.
+ * Classe che modella un utente del portale
+ *
+ * @use Interagisce con AuthToken per la gestione del token di autenticazione
  *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0

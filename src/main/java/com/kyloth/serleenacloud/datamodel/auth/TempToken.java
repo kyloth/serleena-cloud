@@ -33,6 +33,8 @@ import java.util.Date;
  * Modella un token temporaneo richiesto per il pairing con l'applicativo
  * Android.
  *
+ * @use Espone metodi con il quale è possibile costruire un token con validità temporale limitata per un device id, ed ottenere il device id corrispondente ad un dato token
+ *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
