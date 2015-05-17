@@ -31,6 +31,8 @@ import com.kyloth.serleenacloud.datamodel.geometry.IWeighedPoint;
 /**
  * Classe che rappresenta un'entità di mappa di tipo fiume.
  *
+ * @use Viene utilizzata da Render.Renderer durante la creazione dei quadranti raster
+ *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
