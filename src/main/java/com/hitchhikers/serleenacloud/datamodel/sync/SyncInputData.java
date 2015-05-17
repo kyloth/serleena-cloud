@@ -32,7 +32,8 @@ import java.util.Arrays;
 
 /**
  * Classe che modella i dati di sincronizzazione in input.
- * In particolare ne verrà creata un'istanza per ogni Esperienza da sincronizzare.
+ *
+ * @use Aggrega tutte le informazioni inviate dall'applicativo Android durante la sincronizzazione, viene utilizzata da DataRestController. I dati verranno inseriti nella base di dati contemporaneamente alla creazione dell'oggetto
  *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
