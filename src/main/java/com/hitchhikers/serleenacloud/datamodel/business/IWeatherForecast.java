@@ -33,6 +33,8 @@ import java.util.Date;
  * Interfaccia che rappresenta informazioni riguardanti il meteo e la
  * temperatura di un'area di mappa in un certo periodo di tempo.
  *
+ * @use Viene utilizzata da DataRestController per creare JSON richiesto dall'applicazione android
+ *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */

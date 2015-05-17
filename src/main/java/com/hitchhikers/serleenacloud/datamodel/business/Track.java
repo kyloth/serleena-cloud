@@ -30,6 +30,8 @@ import java.util.Arrays;
 /**
  * Classe che implementa ITrack.
  *
+ * @use Viene utilizzata da Render.Renderer durante la creazione dei quadranti raster
+ *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
