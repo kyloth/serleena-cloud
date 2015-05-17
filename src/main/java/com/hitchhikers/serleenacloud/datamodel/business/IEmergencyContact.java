@@ -31,6 +31,8 @@ import com.kyloth.serleenacloud.datamodel.geometry.IRect;
  * Interfaccia che rappresenta informazioni riguardanti contatti di emergenza
  * disponibili in un'area di mappa.
  *
+ * @use Viene utilizzata da DataRestController per creare JSON richiesto dall'applicazione android
+ *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */

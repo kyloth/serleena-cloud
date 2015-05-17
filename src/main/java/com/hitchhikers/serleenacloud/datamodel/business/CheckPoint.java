@@ -30,6 +30,8 @@ import com.kyloth.serleenacloud.datamodel.geometry.Point;
 /**
  * Classe che rappresenta un Checkpoint in un Percorso.
  *
+ * @use Viene riferita da ITrack nella collezione di Punti Utente di ogni Percorso
+ *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */

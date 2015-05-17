@@ -34,6 +34,8 @@ import java.util.Arrays;
 /**
  * Classe che concretizza IExperience.
  *
+ * @use Utilizza Render.Renderer per creare in modo lazy i quadranti raster
+ *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
