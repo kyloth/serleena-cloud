@@ -34,6 +34,8 @@ import java.util.Arrays;
 /**
  * Classe che modella i dati di sincronizzazione in output.
  *
+ * @use Aggrega tutte le informazioni richiesta dall'applicativo Android durante la sincronizzazione, viene utilizzata da DataRestController
+ *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
