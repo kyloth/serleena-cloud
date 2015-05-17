@@ -31,6 +31,8 @@ import java.util.Date;
 /**
  * Classe che rappresenta un evento di Tracciamento.
  *
+ * @use Viene utilizzata da ITrack durante il calcolo del tracciamento migliore durante la creazione del JSON da condividere con l'applicazione android
+ *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */

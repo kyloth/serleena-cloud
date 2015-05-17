@@ -31,6 +31,8 @@ import com.kyloth.serleenacloud.datamodel.geometry.IRect;
 /**
  * Interfaccia che rappresenta un'Esperienza.
  *
+ * @use Viene utilizzata da DataRestController e ExperienceRestController per creare o elaborare il JSON fornito o richiesto da frontend e applicazione android
+ *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */

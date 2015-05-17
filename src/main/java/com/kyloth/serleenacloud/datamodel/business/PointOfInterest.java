@@ -30,6 +30,8 @@ import com.kyloth.serleenacloud.datamodel.geometry.Point;
 /**
  * Classe che rappresenta un Punto di Interesse nella mappa.
  *
+ * @use Viene utilizzata da Render.Renderer durante la creazione dei quadranti raster. E' disponibile un metodo che ritorna un valore di un enum che identifica il tipo di punto di interesse
+ *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
