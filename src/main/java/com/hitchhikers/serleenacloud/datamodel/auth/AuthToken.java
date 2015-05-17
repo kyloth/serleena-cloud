@@ -27,8 +27,9 @@
 package com.kyloth.serleenacloud.datamodel.auth;
 
 /**
- * Modella un token di autenticazione richiesto da alcune route, espone metodi
- * con il quale è possibile verificare se il token autentica un utente.
+ * Modella un token di autenticazione richiesto da alcune route
+ *
+ * @use Espone metodi con i quali è possibile verificare se il token autentica un utente, utilizzato dalla classe AbstractAuthenticationProcessingFilter
  *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
