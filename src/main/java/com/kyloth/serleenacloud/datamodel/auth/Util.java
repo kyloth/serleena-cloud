@@ -32,6 +32,8 @@ import java.security.MessageDigest;
  * Classe di utilità che fornisce un metodo per calcolare un hash crittografico
  * di una stringa.
  *
+ * @use Viene utilizzata da AuthToken e TempToken per il calcolo dell'hash crittografico da fornire come parte del token
+ *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
