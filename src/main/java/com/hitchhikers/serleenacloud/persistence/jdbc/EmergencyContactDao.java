@@ -37,10 +37,10 @@ public class EmergencyContactDao implements IEmergencyContactDao {
     }
 
     public Iterable<IEmergencyContact> findAll(IRect region) {
-        return tpl.query("SELECT nwlatitude, nwlongitude, selatitude, selongitude, name, number " +
-                         "FROM emergencycontacts " +
-                         "WHERE ((nwlatitude BETWEEN ? AND ?) AND (nwlongitude BETWEEN ? AND ?))" +
-                         "OR ((selatitude BETWEEN ? AND ?) AND (selongitude BETWEEN ? AND ?))",
+        return tpl.query("SELECT NWLatitude, NWLongitude, SELatitude, SELongitude, Name, Number " +
+                         "FROM EmergencyContacts " +
+                         "WHERE ((NWLatitude BETWEEN ? AND ?) AND (NWLongitude BETWEEN ? AND ?))" +
+                         "OR ((SELatitude BETWEEN ? AND ?) AND (SELongitude BETWEEN ? AND ?))",
                          new Object[] {
                              region.getNWPoint().getLatitude(),
                              region.getSEPoint().getLatitude(),
@@ -53,12 +53,12 @@ public class EmergencyContactDao implements IEmergencyContactDao {
                          new RowMapper<IEmergencyContact>() {
                              @Override
                              public IEmergencyContact mapRow(ResultSet rs, int rowNum) throws SQLException {
-                                 return new EmergencyContact(rs.getString("name"),
-                                                             new Rect(new Point(rs.getDouble("nwlatitude"),
-                                                                                rs.getDouble("nwlongitude")),
-                                                                      new Point(rs.getDouble("selatitude"),
-                                                                                rs.getDouble("selongitude"))),
-                                                             rs.getString("number"));
+                                 return new EmergencyContact(rs.getString("Name"),
+                                                             new Rect(new Point(rs.getDouble("NWLatitude"),
+                                                                                rs.getDouble("NWLongitude")),
+                                                                      new Point(rs.getDouble("SELatitude"),
+                                                                                rs.getDouble("SELongitude"))),
+                                                             rs.getString("Number"));
                              }
                          });
     }
