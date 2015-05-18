@@ -20,4 +20,6 @@ import com.kyloth.serleenacloud.datamodel.business.ITrack;
 public interface ITrackDao {
     public void persist(ITrack e);
     public ITrack find(String name);
+    public Iterable<ITrack> findAll(String experienceName);
+    public Iterable<ITrack> findAll();
 }
