@@ -34,26 +34,26 @@ public class UserDao implements IUserDao {
 
     public void persist(User u) {
         if (find(u.getEmail()) == null)
-            tpl.update("INSERT INTO users(email, password) VALUES (?, ?)",
+            tpl.update("INSERT INTO Users(Email, Password) VALUES (?, ?)",
                        new Object[] {u.getEmail(), u.getPassword()});
         else
-            tpl.update("UPDATE users SET passwrd = ? WHERE email = ?",
+            tpl.update("UPDATE Users SET Passwrd = ? WHERE Email = ?",
                        new Object[] {u.getPassword(), u.getEmail()});
         if (u.getDeviceId() != null)
-            tpl.update("UPDATE users SET deviceId = ? WHERE email = ?",
+            tpl.update("UPDATE Users SET DeviceId = ? WHERE Email = ?",
                        new Object[] {u.getDeviceId(), u.getEmail()});
         return;
     }
 
     public User find(final String email) {
-        return tpl.query("SELECT password, deviceId " +
-                         "FROM users " +
-                         "WHERE email = ?",
+        return tpl.query("SELECT Password, DeviceId " +
+                         "FROM Users " +
+                         "WHERE Email = ?",
                          new Object[] { email },
                          new ResultSetExtractor<User>() {
                              @Override
                              public User extractData(ResultSet rs) throws SQLException {
-                                 return new User(email, rs.getString("password"), rs.getString("deviceId"));
+                                 return new User(email, rs.getString("Password"), rs.getString("DeviceId"));
                              }
                          });
 

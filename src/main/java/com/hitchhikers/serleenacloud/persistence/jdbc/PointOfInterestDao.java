@@ -34,9 +34,9 @@ public class PointOfInterestDao implements IPointOfInterestDao {
     }
 
     public Iterable<PointOfInterest> findAll(IRect region) {
-        return tpl.query("SELECT latitude, longitude, name, type " +
-                         "FROM pois " +
-                         "WHERE (latitude BETWEEN ? AND ?) AND (longitude BETWEEN ? AND ?) ",
+        return tpl.query("SELECT Latitude, Longitude, Name, Type " +
+                         "FROM POIs " +
+                         "WHERE (Latitude BETWEEN ? AND ?) AND (Longitude BETWEEN ? AND ?) ",
                          new Object[] {
                              region.getNWPoint().getLatitude(),
                              region.getSEPoint().getLatitude(),
@@ -45,10 +45,10 @@ public class PointOfInterestDao implements IPointOfInterestDao {
                          new RowMapper<PointOfInterest>() {
                              @Override
                              public PointOfInterest mapRow(ResultSet rs, int rowNum) throws SQLException {
-                                 return new PointOfInterest(rs.getDouble("latitude"),
-                                                            rs.getDouble("longitude"),
-                                                            rs.getString("name"),
-                                                            PointOfInterest.POIType.valueOf(rs.getString("type")));
+                                 return new PointOfInterest(rs.getDouble("Latitude"),
+                                                            rs.getDouble("Longitude"),
+                                                            rs.getString("Name"),
+                                                            PointOfInterest.POIType.valueOf(rs.getString("Type")));
                              }
                          });
     }
