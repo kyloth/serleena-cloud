@@ -17,11 +17,10 @@
  * Name: CheckPointTest.java
  * Package: com.kyloth.serleenacloud.datamodel.business
  * Author: Gabriele Pozzan
- * Date: 2015-05-08
  *
  * History:
- * Version  Programmer       Date        Changes
- * 1.0.0    Gabriele Pozzan  2015-05-08  Creazione file e scrittura
+ * Version  Programmer       Changes
+ * 1.0.0    Gabriele Pozzan  Creazione file e scrittura
  *                                       codice e documentazione Javadoc
  */
 
@@ -32,7 +31,7 @@ import org.junit.Test;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 
 /**
- * Contiene i test di unità per la classe CheckPoint.
+ * Contiene test per la classe CheckPoint.
  *
  * @author Gabriele Pozzan <gabriele.pozzan@studenti.unipd.it>
  * @version 1.0.0
