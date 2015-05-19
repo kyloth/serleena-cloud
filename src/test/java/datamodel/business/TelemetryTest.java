@@ -17,11 +17,10 @@
  * Name: TelemetryTest.java
  * Package: com.kyloth.serleenacloud.datamodel.business
  * Author: Gabriele Pozzan
- * Date: 2015-05-11
  *
  * History:
- * Version  Programmer       Date        Changes
- * 1.0.0    Gabriele Pozzan  2015-05-11  Creazione file e scrittura
+ * Version  Programmer       Changes
+ * 1.0.0    Gabriele Pozzan  Creazione file e scrittura
  *                                       codice e documentazione Javadoc
  */
 
@@ -29,89 +28,59 @@ package com.kyloth.serleenacloud.datamodel.business;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
+import org.junit.Before;
+import static org.mockito.Mockito.*;
 import java.util.Date;
 import java.util.Arrays;
 import java.util.Iterator;
 
 /**
- * Contiene i test di unità per la classe Telemetry.
+ * Contiene test per la classe Telemetry.
  *
  * @author Gabriele Pozzan <gabriele.pozzan@studenti.unipd.it>
  * @version 1.0.0
  */
 
 public class TelemetryTest {
-    /**
-     * Testa la correttezza del costruttore e dei metodi
-     * "getter" della classe.
-     */
-    @Test
-    public void testConstructor() {
-        Date first_date = new Date(1124242);
-        Date second_date = new Date(95843);
-        TelemetryEvent first_event = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, first_date, 12.49);
-        TelemetryEvent second_event = new TelemetryEvent(TelemetryEvent.EventType.HEART, second_date, 94.23);
-        TelemetryEvent[] events = {first_event, second_event};
-        Iterable<TelemetryEvent> i_events = Arrays.asList(events);
-        Telemetry t1 = new Telemetry(events);
-        Telemetry t2 = new Telemetry(i_events);
-        Iterable<TelemetryEvent> t1_events = t1.getEvents();
-        Iterable<TelemetryEvent> t2_events = t2.getEvents();
-        Iterator<TelemetryEvent> t1_iterator = t1_events.iterator();
-        Iterator<TelemetryEvent> t2_iterator = t2_events.iterator();
-        Iterator<TelemetryEvent> input_iterator = i_events.iterator();
-        while(t1_iterator.hasNext() && t2_iterator.hasNext()
-                && input_iterator.hasNext()) {
-            TelemetryEvent te1 = t1_iterator.next();
-            TelemetryEvent te2 = t2_iterator.next();
-            TelemetryEvent ie = input_iterator.next();
-
-            assertTrue(te1.getValue() == ie.getValue());
-            assertTrue(te2.getValue() == ie.getValue());
-            assertTrue(te1.getTime().equals(ie.getTime()));
-            assertTrue(te2.getTime().equals(ie.getTime()));
-            assertTrue(te1.eventType() == ie.eventType());
-            assertTrue(te2.eventType() == ie.eventType());
-        }
+    TelemetryEvent event_1;
+    TelemetryEvent event_2;
+    TelemetryEvent event_3a;
+    TelemetryEvent event_3b;
+    TelemetryEvent event_4;
+    TelemetryEvent[] events_1;
+    TelemetryEvent[] events_2;
+    
+    @Before
+    public void initialize() {
+	event_1 = mock(TelemetryEvent.class); event_2 = mock(TelemetryEvent.class);
+	event_3a = mock(TelemetryEvent.class); event_3b = mock(TelemetryEvent.class);
+	event_4 = mock(TelemetryEvent.class);
+	when(event_1.eventType()).thenReturn(TelemetryEvent.EventType.CHECKPOINT);
+	when(event_2.eventType()).thenReturn(TelemetryEvent.EventType.CHECKPOINT);
+	when(event_3a.eventType()).thenReturn(TelemetryEvent.EventType.HEART);
+	when(event_3b.eventType()).thenReturn(TelemetryEvent.EventType.CHECKPOINT);
+	when(event_4.eventType()).thenReturn(TelemetryEvent.EventType.CHECKPOINT);
+	when(event_1.getTime()).thenReturn(new Date(100));
+	when(event_2.getTime()).thenReturn(new Date(150));
+	when(event_3a.getTime()).thenReturn(new Date(200));
+	when(event_3b.getTime()).thenReturn(new Date(200));
+	when(event_4.getTime()).thenReturn(new Date(300));
+	events_1 = new TelemetryEvent[] {event_1, event_2, event_3a, event_4};
+	events_2 = new TelemetryEvent[] {event_1, event_2, event_3b, event_4};
     }
-
+   
     /**
-     * Testa la correttezza del metodo "compareTo".
+     * Verifica che il metodo compareTo resistuisca i corretti valori in
+     * base ai diversi parametri.
      */
+       
     @Test
-    public void testCompareTo() {
-        Date d1_1 = new Date(100);
-        Date d1_2 = new Date(200);
-        Date d1_3 = new Date(300);
-        TelemetryEvent te1_1 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, d1_1, 10);
-        TelemetryEvent te1_2 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, d1_2, 8);
-        TelemetryEvent te1_3 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, d1_3, 15);
-        TelemetryEvent[] t1_events = {te1_1, te1_2, te1_3};
-        ITelemetry t1 = new Telemetry(t1_events);
-
-        Date d2_1 = new Date(100);
-        Date d2_2 = new Date(200);
-        Date d2_3 = new Date(300);
-        TelemetryEvent te2_1 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, d2_1, 10);
-        TelemetryEvent te2_2 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, d2_2, 8);
-        TelemetryEvent te2_3 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, d2_3, 15);
-        TelemetryEvent[] t2_events = {te2_1, te2_2, te2_3};
-        ITelemetry t2 = new Telemetry(t2_events);
-
-        Date d3_1 = new Date(100);
-        Date d3_2 = new Date(150);
-        Date d3_3 = new Date(200);
-        TelemetryEvent te3_1 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, d3_1, 10);
-        TelemetryEvent te3_2 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, d3_2, 8);
-        TelemetryEvent te3_3 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, d3_3, 15);
-        TelemetryEvent[] t3_events = {te3_1, te3_2, te3_3};
-        ITelemetry t3 = new Telemetry(t3_events);
-
-        assertTrue(t1.compareTo(t2) == 0);
-        assertTrue(t2.compareTo(t1) == 0);
-        assertTrue(t1.compareTo(t3) == 1);
-        assertTrue(t3.compareTo(t1) == -1);
+    public void compareToReturnTest() {
+	ITelemetry telemetry_1 = new Telemetry(Arrays.asList(events_1));
+	ITelemetry telemetry_2 = new Telemetry(Arrays.asList(events_2));
+	assertTrue(telemetry_1.compareTo(telemetry_2) == -1);
+	assertTrue(telemetry_2.compareTo(telemetry_1) == 1);
+	assertTrue(telemetry_1.compareTo(telemetry_1) == 0);
     }
-
 
 }

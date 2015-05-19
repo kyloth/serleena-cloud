@@ -31,7 +31,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Contiene i test di unità per la classe Util.
+ * Contiene test per la classe Util.
  *
  * @author Gabriele Pozzan <gabriele.pozzan@studenti.unipd.it>
  * @version 1.0.0

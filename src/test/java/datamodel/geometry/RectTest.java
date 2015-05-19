@@ -17,11 +17,10 @@
  * Name: RectTest.java
  * Package: com.kyloth.serleenacloud.datamodel.geometry
  * Author: Gabriele Pozzan
- * Date: 2015-05-06
  *
  * History:
- * Version  Programmer       Date         Changes
- * 1.0.0    Gabriele Pozzan  2015-05-06   Creazione file e scrittura
+ * Version  Programmer       Changes
+ * 1.0.0    Gabriele Pozzan  Creazione file e scrittura
  *                                        codice e documentazione in Javadoc
  */
 
@@ -33,11 +32,10 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 /**
- * Contiene i test di unità per la classe Rect.
+ * Contiene test per la classe Rect.
  *
  * @author Gabriele Pozzan <gabriele.pozzan@studenti.unipd.it>
  * @version 1.0.0
- * @since 2015-05-06
  */
 
 public class RectTest {
