@@ -19,6 +19,6 @@ import com.kyloth.serleenacloud.datamodel.business.IExperience;
 
 public interface IExperienceDao {
     public void persist(IExperience e);
-    public IExperience findAll(String name);
+    public Iterable<IExperience> findAll();
     public void delete(String name);
 }
