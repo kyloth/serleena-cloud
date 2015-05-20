@@ -53,6 +53,9 @@ public class UserDao implements IUserDao {
                          new ResultSetExtractor<User>() {
                              @Override
                              public User extractData(ResultSet rs) throws SQLException {
+                                 if (!rs.first())
+                                     return null;
+
                                  return new User(email, rs.getString("Password"), rs.getString("DeviceId"));
                              }
                          });

@@ -59,6 +59,10 @@ public class ExperienceDao implements IExperienceDao {
                          new RowMapper<IExperience>() {
                              @Override
                              public IExperience mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+                                 if (!rs.next())
+                                     return null;
+
                                  String eName = rs.getString("Name");
                                  return new Experience(eName,
                                                        new Rect(new Point(rs.getDouble("NWLatitude"),
@@ -73,6 +77,9 @@ public class ExperienceDao implements IExperienceDao {
                                                                  new RowMapper<UserPoint>() {
                                                                      @Override
                                                                      public UserPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
+                                                                         if (!rs.next())
+                                                                             return null;
+
                                                                          return new UserPoint(rs.getDouble("Latitude"),
                                                                                               rs.getDouble("Longitude"),
                                                                                               rs.getString("Name"));
@@ -85,6 +92,9 @@ public class ExperienceDao implements IExperienceDao {
                                                                  new RowMapper<PointOfInterest>() {
                                                                      @Override
                                                                      public PointOfInterest mapRow(ResultSet rs, int rowNum) throws SQLException {
+                                                                         if (!rs.next())
+                                                                             return null;
+
                                                                          return new PointOfInterest(rs.getDouble("Latitude"),
                                                                                                     rs.getDouble("Longitude"),
                                                                                                     rs.getString("Name"),
