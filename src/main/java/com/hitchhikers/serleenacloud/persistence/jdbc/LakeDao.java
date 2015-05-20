@@ -47,6 +47,10 @@ public class LakeDao implements ILakeDao {
                          new RowMapper<Lake>() {
                              @Override
                              public Lake mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+                                 if (!rs.next())
+                                     return null;
+
                                  String lakeName = rs.getString("LakeName");
                                  Iterable<IPoint> points = tpl.query("SELECT Latitude, Longitude" +
                                                                      "FROM LakePoints" +
