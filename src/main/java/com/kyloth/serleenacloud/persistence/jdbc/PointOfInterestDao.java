@@ -45,6 +45,10 @@ public class PointOfInterestDao implements IPointOfInterestDao {
                          new RowMapper<PointOfInterest>() {
                              @Override
                              public PointOfInterest mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+                                 if (!rs.next())
+                                     return null;
+
                                  return new PointOfInterest(rs.getDouble("Latitude"),
                                                             rs.getDouble("Longitude"),
                                                             rs.getString("Name"),
