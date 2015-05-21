@@ -37,7 +37,7 @@ public class UserDao implements IUserDao {
             tpl.update("INSERT INTO Users(Email, Password) VALUES (?, ?)",
                        new Object[] {u.getEmail(), u.getPassword()});
         else
-            tpl.update("UPDATE Users SET Passwrd = ? WHERE Email = ?",
+            tpl.update("UPDATE Users SET Password = ? WHERE Email = ?",
                        new Object[] {u.getPassword(), u.getEmail()});
         if (u.getDeviceId() != null)
             tpl.update("UPDATE Users SET DeviceId = ? WHERE Email = ?",
