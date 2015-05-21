@@ -47,10 +47,6 @@ public class PathDao implements IPathDao {
                          new RowMapper<Path>() {
                              @Override
                              public Path mapRow(ResultSet rs, int rowNum) throws SQLException {
-
-                                 if (!rs.next())
-                                     return null;
-
                                  String pathName = rs.getString("PathName");
                                  Iterable<IWeighedPoint> points = tpl.query("SELECT Latitude, Longitude, Radius" +
                                                                      "FROM PathPoints" +
