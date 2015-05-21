@@ -47,10 +47,6 @@ public class RiverDao implements IRiverDao {
                          new RowMapper<River>() {
                              @Override
                              public River mapRow(ResultSet rs, int rowNum) throws SQLException {
-
-                                 if (!rs.next())
-                                     return null;
-
                                  String riverName = rs.getString("RiverName");
                                  Iterable<IWeighedPoint> points = tpl.query("SELECT Latitude, Longitude, Radius" +
                                                                      "FROM RiverPoints" +

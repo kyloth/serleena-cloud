@@ -53,8 +53,6 @@ public class WeatherForecastDao implements IWeatherForecastDao {
                          new RowMapper<IWeatherForecast>() {
                              @Override
                              public IWeatherForecast mapRow(ResultSet rs, int rowNum) throws SQLException {
-                                 if (!rs.next())
-                                     return null;
                                  return new WeatherForecast(rs.getDate("Date"),
                                                             new Rect(new Point(rs.getDouble("NWLatitude"),
                                                                                rs.getDouble("NWLongitude")),

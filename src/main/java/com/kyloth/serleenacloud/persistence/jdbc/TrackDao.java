@@ -57,8 +57,6 @@ public class TrackDao implements ITrackDao {
                          new RowMapper<ITrack>() {
                              @Override
                              public ITrack mapRow(ResultSet rs, int rowNum) throws SQLException {
-                                 if (!rs.next())
-                                     return null;
                                  return find(rs.getString("TrackName"));
                              }
                          });
@@ -69,8 +67,6 @@ public class TrackDao implements ITrackDao {
                          new RowMapper<ITrack>() {
                              @Override
                              public ITrack mapRow(ResultSet rs, int rowNum) throws SQLException {
-                                 if (!rs.next())
-                                     return null;
                                  return find(rs.getString("TrackName"));
                              }
                          });
@@ -83,8 +79,6 @@ public class TrackDao implements ITrackDao {
                       new RowMapper<CheckPoint>() {
                           @Override
                           public CheckPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
-                              if (!rs.next())
-                                  return null;
                               return new CheckPoint(rs.getDouble("Latitude"),
                                                     rs.getDouble("Longitude"),
                                                     rs.getInt("Idx"));
