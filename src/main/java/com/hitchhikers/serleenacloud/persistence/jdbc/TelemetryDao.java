@@ -68,10 +68,6 @@ public class TelemetryDao implements ITelemetryDao {
                          new RowMapper<ITelemetry>() {
                              @Override
                              public ITelemetry mapRow(ResultSet rs, int rowNum) throws SQLException {
-
-                                 if (!rs.next())
-                                     return null;
-
                                  Iterable<TelemetryEvent> events =
                                      tpl.query("SELECT Value, Type, Date " +
                                                "FROM TelemetryEvents " +
