@@ -42,26 +42,27 @@ public class EmergencyContactDao implements IEmergencyContactDao {
                          "WHERE ((NWLatitude BETWEEN ? AND ?) AND (NWLongitude BETWEEN ? AND ?))" +
                          "OR ((SELatitude BETWEEN ? AND ?) AND (SELongitude BETWEEN ? AND ?))",
                          new Object[] {
-                             region.getNWPoint().getLatitude(),
                              region.getSEPoint().getLatitude(),
+                             region.getNWPoint().getLatitude(),
                              region.getNWPoint().getLongitude(),
                              region.getSEPoint().getLongitude(),
-                             region.getNWPoint().getLatitude(),
                              region.getSEPoint().getLatitude(),
+                             region.getNWPoint().getLatitude(),
                              region.getNWPoint().getLongitude(),
-                             region.getSEPoint().getLongitude()},
-                         new RowMapper<IEmergencyContact>() {
-                             @Override
-                             public IEmergencyContact mapRow(ResultSet rs, int rowNum) throws SQLException {
-                                 if (!rs.next())
-                                     return null;
-                                 return new EmergencyContact(rs.getString("Name"),
-                                                             new Rect(new Point(rs.getDouble("NWLatitude"),
-                                                                                rs.getDouble("NWLongitude")),
-                                                                      new Point(rs.getDouble("SELatitude"),
-                                                                                rs.getDouble("SELongitude"))),
-                                                             rs.getString("Number"));
-                             }
-                         });
+                             region.getSEPoint().getLongitude()
+                         },
+        new RowMapper<IEmergencyContact>() {
+            @Override
+            public IEmergencyContact mapRow(ResultSet rs, int rowNum) throws SQLException {
+                if (!rs.next())
+                    return null;
+                return new EmergencyContact(rs.getString("Name"),
+                                            new Rect(new Point(rs.getDouble("NWLatitude"),
+                                                     rs.getDouble("NWLongitude")),
+                                                     new Point(rs.getDouble("SELatitude"),
+                                                             rs.getDouble("SELongitude"))),
+                                            rs.getString("Number"));
+            }
+        });
     }
 }
