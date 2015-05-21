@@ -54,8 +54,6 @@ public class EmergencyContactDao implements IEmergencyContactDao {
         new RowMapper<IEmergencyContact>() {
             @Override
             public IEmergencyContact mapRow(ResultSet rs, int rowNum) throws SQLException {
-                if (!rs.next())
-                    return null;
                 return new EmergencyContact(rs.getString("Name"),
                                             new Rect(new Point(rs.getDouble("NWLatitude"),
                                                      rs.getDouble("NWLongitude")),
