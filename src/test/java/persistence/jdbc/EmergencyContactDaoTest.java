@@ -47,7 +47,7 @@ import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 
 /**
- * Contiene i test di unità per la classe EmergencyContactDao.
+ * Contiene test per la classe EmergencyContactDao.
  *
  * @author Gabriele Pozzan <gabriele.pozzan@studenti.unipd.it>
  * @version 1.0.0
