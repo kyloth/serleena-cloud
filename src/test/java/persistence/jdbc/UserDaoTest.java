@@ -38,7 +38,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import com.kyloth.serleenacloud.datamodel.auth.User;
 
 /**
- * Contiene i test di unità per la classe UserDao.
+ * Contiene test per la classe UserDao.
  *
  * @author Gabriele Pozzan <gabriele.pozzan@studenti.unipd.it>
  * @version 1.0.0
