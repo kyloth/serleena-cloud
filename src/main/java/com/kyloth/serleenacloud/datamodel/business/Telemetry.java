@@ -44,23 +44,33 @@ public class Telemetry implements ITelemetry {
     Iterable<TelemetryEvent> events;
 
     /**
+     * Traccia a cui è associato il Tracciamento.
+     */
+
+    String track;
+
+    /**
      * Crea un nuovo oggetto Telemetry inizializzandone i campi dati.
      *
      * @param events Insieme degli eventi associati al Tracciamento.
+     * @param track Traccia a cui è associato il Tracciamento.
      */
 
-    public Telemetry(Iterable<TelemetryEvent> events) {
+    public Telemetry(Iterable<TelemetryEvent> events, String track) {
         this.events = events;
+        this.track = track;
     }
 
     /**
      * Crea un nuovo oggetto Telemetry inizializzandone i campi dati.
      *
      * @param events Array degli eventi associati al Tracciamento.
+     * @param track Traccia a cui è associato il Tracciamento.
      */
 
-    public Telemetry(TelemetryEvent[] events) {
+    public Telemetry(TelemetryEvent[] events, String track) {
         this.events = Arrays.asList(events);
+        this.track = track;
     }
 
     /**
@@ -71,6 +81,16 @@ public class Telemetry implements ITelemetry {
 
     public Iterable<TelemetryEvent> getEvents() {
         return events;
+    }
+
+    /**
+     * Metodo "getter" che permette di ottenere la traccia a cui è associato il tracciamento
+     *
+     * @return Restituisce la traccia a cui è associato il tracciamentoTracciamento.
+     */
+
+    public String getTrack() {
+        return track;
     }
 
     /**

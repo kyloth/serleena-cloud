@@ -43,4 +43,13 @@ public interface ITelemetry extends Comparable<ITelemetry> {
      */
 
     Iterable<TelemetryEvent> getEvents();
+
+    /**
+     * Metodo "getter" che permette di ottenere la traccia a cui è associato il tracciamento
+     *
+     * @return Restituisce la traccia a cui è associato il tracciamentoTracciamento.
+     */
+
+    String getTrack();
+
 }
