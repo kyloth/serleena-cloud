@@ -38,18 +38,19 @@ public class PointOfInterestDao implements IPointOfInterestDao {
                          "FROM POIs " +
                          "WHERE (Latitude BETWEEN ? AND ?) AND (Longitude BETWEEN ? AND ?) ",
                          new Object[] {
-                             region.getNWPoint().getLatitude(),
                              region.getSEPoint().getLatitude(),
+                             region.getNWPoint().getLatitude(),
                              region.getNWPoint().getLongitude(),
-                             region.getSEPoint().getLongitude()},
-                         new RowMapper<PointOfInterest>() {
-                             @Override
-                             public PointOfInterest mapRow(ResultSet rs, int rowNum) throws SQLException {
-                                 return new PointOfInterest(rs.getDouble("Latitude"),
-                                                            rs.getDouble("Longitude"),
-                                                            rs.getString("Name"),
-                                                            PointOfInterest.POIType.valueOf(rs.getString("Type")));
-                             }
-                         });
+                             region.getSEPoint().getLongitude()
+                         },
+        new RowMapper<PointOfInterest>() {
+            @Override
+            public PointOfInterest mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new PointOfInterest(rs.getDouble("Latitude"),
+                                           rs.getDouble("Longitude"),
+                                           rs.getString("Name"),
+                                           PointOfInterest.POIType.valueOf(rs.getString("Type")));
+            }
+        });
     }
 }

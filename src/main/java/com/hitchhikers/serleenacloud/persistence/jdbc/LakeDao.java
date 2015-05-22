@@ -40,27 +40,28 @@ public class LakeDao implements ILakeDao {
                          "FROM LakePoints " +
                          "WHERE (Latitude BETWEEN ? AND ?) AND (Longitude BETWEEN ? AND ?) ",
                          new Object[] {
-                             region.getNWPoint().getLatitude(),
                              region.getSEPoint().getLatitude(),
+                             region.getNWPoint().getLatitude(),
                              region.getNWPoint().getLongitude(),
-                             region.getSEPoint().getLongitude()},
-                         new RowMapper<Lake>() {
-                             @Override
-                             public Lake mapRow(ResultSet rs, int rowNum) throws SQLException {
-                                 String lakeName = rs.getString("LakeName");
-                                 Iterable<IPoint> points = tpl.query("SELECT Latitude, Longitude" +
-                                                                     "FROM LakePoints" +
-                                                                     "WHERE LakeName = ? "+
-                                                                     "ORDER BY Idx",
-                                                                     new Object[] {lakeName},
-                                                                     new RowMapper<IPoint>() {
-                                                                         @Override
-                                                                         public IPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
-                                                                             return new Point(rs.getDouble("Latitude"), rs.getDouble("Longitude"));
-                                                                         }
-                                                                     });
-                                 return new Lake(points, lakeName);
-                             }
-                         });
+                             region.getSEPoint().getLongitude()
+                         },
+        new RowMapper<Lake>() {
+            @Override
+            public Lake mapRow(ResultSet rs, int rowNum) throws SQLException {
+                String lakeName = rs.getString("LakeName");
+                Iterable<IPoint> points = tpl.query("SELECT Latitude, Longitude " +
+                                                    "FROM LakePoints " +
+                                                    "WHERE LakeName = ? "+
+                                                    "ORDER BY Idx",
+                                                    new Object[] {lakeName},
+                new RowMapper<IPoint>() {
+                    @Override
+                    public IPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        return new Point(rs.getDouble("Latitude"), rs.getDouble("Longitude"));
+                    }
+                });
+                return new Lake(points, lakeName);
+            }
+        });
     }
 }
