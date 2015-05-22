@@ -15,19 +15,9 @@
 
 package com.kyloth.serleenacloud.persistence;
 
-import com.kyloth.serleenacloud.datamodel.auth.User;
+import com.kyloth.serleenacloud.datamodel.business.IExperience;
 
-public interface IDataSource {
-    public IUserDao userDao();
-    public IPointOfInterestDao pointOfInterestDao();
-    public IPathDao pathDao();
-    public ILakeDao lakeDao();
-    public IRiverDao riverDao();
-    public IEmergencyContactDao emergencyContactDao();
-    public ITelemetryDao telemetryDao();
-    public IWeatherForecastDao weatherForecastDao();
-    public ITrackDao trackDao();
-    public ISyncListDao syncListDao();
-    public IExperienceDao experienceDao();
-    public IDataSource forUser(User u);
+public interface ISyncListDao {
+    public void persist(Iterable<IExperience> es);
+    public Iterable<IExperience> findAll();
 }
