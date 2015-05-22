@@ -20,8 +20,8 @@
  * Date: 2015-05-11
  *
  * History:
- * Version  Programmer       Date        Changes
- * 1.0.0    Gabriele Pozzan  2015-05-11  Creazione file e scrittura
+ * Version  Programmer       Changes
+ * 1.0.0    Gabriele Pozzan  Creazione file e scrittura
  *                                       codice e documentazione Javadoc
  */
 
@@ -31,7 +31,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Contiene i test di unità per la classe User.
+ * Contiene test per la classe User.
  *
  * @author Gabriele Pozzan <gabriele.pozzan@studenti.unipd.it>
  * @version 1.0.0
