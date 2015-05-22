@@ -17,11 +17,10 @@
  * Name: TelemetryTest.java
  * Package: com.kyloth.serleenacloud.datamodel.business
  * Author: Gabriele Pozzan
- * Date: 2015-05-11
  *
  * History:
- * Version  Programmer       Date        Changes
- * 1.0.0    Gabriele Pozzan  2015-05-11  Creazione file e scrittura
+ * Version  Programmer       Changes
+ * 1.0.0    Gabriele Pozzan  Creazione file e scrittura
  *                                       codice e documentazione Javadoc
  */
 
@@ -34,7 +33,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 /**
- * Contiene i test di unità per la classe Telemetry.
+ * Contiene test per la classe Telemetry.
  *
  * @author Gabriele Pozzan <gabriele.pozzan@studenti.unipd.it>
  * @version 1.0.0

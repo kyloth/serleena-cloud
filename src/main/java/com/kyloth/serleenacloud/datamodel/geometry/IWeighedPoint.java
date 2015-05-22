@@ -17,11 +17,10 @@
  * Name: IWeighedPoint.java
  * Package: com.kyloth.serleenacloud.datamodel.geometry
  * Author: Nicola Mometto
- * Date: 2015-05-05
  *
  * History:
- * Version  Programmer          Date        Changes
- * 1.0.0    Nicola Mometto      2015-05-05  Creazione file, codice e javadoc iniziali
+ * Version  Programmer      Changes
+ * 1.0.0    Nicola Mometto  Creazione file, codice e javadoc iniziali
  */
 
 package com.kyloth.serleenacloud.datamodel.geometry;
@@ -30,9 +29,10 @@ package com.kyloth.serleenacloud.datamodel.geometry;
  * Interfaccia rappresentante un punto geografico a cui e` associata
  * una piccola circonferenza
  *
+ * @use Una collezione di IWeighedPoint viene utilizzata dalla classe WideLine
+ *
  * @author  Nicola Mometto <nicola.mometto@studenti.unipd.it>
- * @version 1.0
- * @since   2015-05-05
+ * @version 1.0 
  */
 
 public interface IWeighedPoint extends IPoint {
