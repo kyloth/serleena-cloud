@@ -16,10 +16,13 @@
 package com.kyloth.serleenacloud.persistence.jdbc;
 
 import com.kyloth.serleenacloud.datamodel.business.IExperience;
+import com.kyloth.serleenacloud.datamodel.business.ITrack;
 import com.kyloth.serleenacloud.datamodel.business.Experience;
 import com.kyloth.serleenacloud.datamodel.business.UserPoint;
 import com.kyloth.serleenacloud.datamodel.business.PointOfInterest;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
+import com.kyloth.serleenacloud.datamodel.geometry.IRect;
+import com.kyloth.serleenacloud.datamodel.geometry.IPoint;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 import com.kyloth.serleenacloud.datamodel.auth.User;
 import com.kyloth.serleenacloud.persistence.IExperienceDao;
@@ -44,12 +47,48 @@ public class ExperienceDao implements IExperienceDao {
     }
 
     public void persist(IExperience experience) {
+        String name = experience.getName();
+
+        IRect r = experience.getBoundingRect();
+        IPoint nw = r.getNWPoint();
+        IPoint se = r.getSEPoint();
+
+        if (find(name) != null)
+            tpl.update("DELETE FROM Experiences WHERE Name = ?", new Object[] {name});
+
+        tpl.update("INSERT INTO Experiences(Name, User, NWLongitude, NWLatitude, SELongitude, SELatitude) " +
+                   "VALUES(?, ?, ?, ?)", new Object[] {name,
+                                                       user.getEmail(),
+                                                       nw.getLongitude(),
+                                                       nw.getLatitude(),
+                                                       se.getLongitude(),
+                                                       se.getLatitude()});
+        for (ITrack t : experience.getTracks())
+            tpl.update("INSERT INTO ExperienceTracks(ExperienceName, TrackName) VALUES(?, ?)",
+                       new Object[] {name, t.getName()});
+
+        for (UserPoint p : experience.getUserPoints())
+            tpl.update("INSERT INTO ExperienceUserPoints(ExperienceName, Name, Longitude, Latitute) "+
+                       "VALUES(?, ?, ?, ?)",
+                       new Object[] {name, p.getName(), p.getLongitude(), p.getLatitude()});
+
+        for (PointOfInterest p : experience.getPOIs())
+            tpl.update("INSERT INTO ExperiencePOIs(ExperienceName, POIName VALUES(?, ?)",
+                       new Object[] {name, p.getName()});
 
     }
 
     public void delete(String name) {
-
+        tpl.update("DELETE FROM Experiences WHERE Name = ?", new Object[] {name});
     }
+
+    public IExperience find(String name) {
+        for (IExperience e : findAll())
+            if (e.getName().equals(name))
+                return e;
+        return null;
+    }
+
 
     public Iterable<IExperience> findAll() {
         return tpl.query("SELECT Name, NWLongitude, NWLatitude, SELongitude, SELatitude " +
