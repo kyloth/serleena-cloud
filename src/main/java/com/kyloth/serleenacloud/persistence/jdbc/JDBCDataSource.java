@@ -84,6 +84,10 @@ public class JDBCDataSource implements IDataSource {
         return new ExperienceDao(this);
     }
 
+    public ISyncListDao syncListDao() {
+        return new SyncListDao(this);
+    }
+
     public IDataSource forUser(User u) {
         return new JDBCDataSource(tpl, u);
     }
