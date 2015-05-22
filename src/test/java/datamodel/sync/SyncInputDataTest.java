@@ -17,11 +17,10 @@
  * Name: SyncInputData.java
  * Package: com.kyloth.serleenacloud.datamodel.business
  * Author: Gabriele Pozzan
- * Date: 2015-05-11
  *
  * History:
- * Version  Programmer       Date        Changes
- * 1.0.0    Gabriele Pozzan  2015-05-11  Creazione file e scrittura
+ * Version  Programmer       Changes
+ * 1.0.0    Gabriele Pozzan  Creazione file e scrittura
  *                                       codice e documentazione Javadoc
  */
 
@@ -38,7 +37,7 @@ import com.kyloth.serleenacloud.datamodel.business.Telemetry;
 import com.kyloth.serleenacloud.datamodel.business.TelemetryEvent;
 
 /**
- * Contiene i test di unità per la classe SyncInputData.
+ * Contiene test per la classe SyncInputData.
  *
  * @author Gabriele Pozzan <gabriele.pozzan@studenti.unipd.it>
  * @version 1.0.0
