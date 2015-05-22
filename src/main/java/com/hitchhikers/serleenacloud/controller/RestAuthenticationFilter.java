@@ -41,7 +41,8 @@ public class RestAuthenticationFilter extends GenericFilterBean {
     static IDataSource ds = DataSourceFactory.getDataSource();
 
     static String[] patterns = new String[] {
-        "/users/pair/?$"
+        "/users/pair/?$",
+        "/data.*"
     };
 
     @Override
