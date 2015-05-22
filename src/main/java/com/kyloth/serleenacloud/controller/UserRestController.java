@@ -35,6 +35,9 @@ import com.kyloth.serleenacloud.datamodel.auth.User;
 import com.kyloth.serleenacloud.datamodel.auth.AuthToken;
 import com.kyloth.serleenacloud.datamodel.auth.TempToken;
 
+import java.util.UUID;
+
+
 @RestController
 @RequestMapping("/users")
 public class UserRestController {
@@ -82,5 +85,17 @@ public class UserRestController {
         return u.getAuthToken().getToken();
 
     }
+
+    @RequestMapping(value= "/recovery", method = RequestMethod.PUT)
+    public void recovery(@RequestBody MultiValueMap<String,String> body) {
+
+        String email = body.getFirst("email");
+        String randomPassword = UUID.randomUUID().toString().substring(0,16);
+
+        Utils.sendMail(email, "Nuova Password", randomPassword);
+
+        ds.userDao().persist(new User(email, randomPassword, null));
+    }
+
 
 }
