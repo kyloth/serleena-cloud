@@ -39,13 +39,23 @@ public class EmergencyContactDao implements IEmergencyContactDao {
     public Iterable<IEmergencyContact> findAll(IRect region) {
         return tpl.query("SELECT NWLatitude, NWLongitude, SELatitude, SELongitude, Name, Number " +
                          "FROM EmergencyContacts " +
-                         "WHERE ((NWLatitude BETWEEN ? AND ?) AND (NWLongitude BETWEEN ? AND ?))" +
-                         "OR ((SELatitude BETWEEN ? AND ?) AND (SELongitude BETWEEN ? AND ?))",
+                         "WHERE ((NWLatitude BETWEEN ? AND ?) AND (NWLongitude BETWEEN ? AND ?)) " +
+                         "OR ((SELatitude BETWEEN ? AND ?) AND (SELongitude BETWEEN ? AND ?)) " +
+                         "OR ((NWLongitude BETWEEN ? AND ?) AND (SELatitude BETWEEN ? AND ?)) " +
+                         "OR ((NWLatitude BETWEEN ? AND ?) AND (SELongitude BETWEEN ? AND ?)) ",
                          new Object[] {
                              region.getSEPoint().getLatitude(),
                              region.getNWPoint().getLatitude(),
                              region.getNWPoint().getLongitude(),
                              region.getSEPoint().getLongitude(),
+                             region.getSEPoint().getLatitude(),
+                             region.getNWPoint().getLatitude(),
+                             region.getNWPoint().getLongitude(),
+                             region.getSEPoint().getLongitude(),
+                             region.getNWPoint().getLongitude(),
+                             region.getSEPoint().getLongitude(),
+                             region.getSEPoint().getLatitude(),
+                             region.getNWPoint().getLatitude(),
                              region.getSEPoint().getLatitude(),
                              region.getNWPoint().getLatitude(),
                              region.getNWPoint().getLongitude(),

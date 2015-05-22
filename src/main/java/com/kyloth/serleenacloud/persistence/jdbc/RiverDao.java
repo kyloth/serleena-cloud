@@ -40,28 +40,29 @@ public class RiverDao implements IRiverDao {
                          "FROM RiverPoints " +
                          "WHERE (Latitude BETWEEN ? AND ?) AND (Longitude BETWEEN ? AND ?) ",
                          new Object[] {
-                             region.getNWPoint().getLatitude(),
                              region.getSEPoint().getLatitude(),
+                             region.getNWPoint().getLatitude(),
                              region.getNWPoint().getLongitude(),
-                             region.getSEPoint().getLongitude()},
-                         new RowMapper<River>() {
-                             @Override
-                             public River mapRow(ResultSet rs, int rowNum) throws SQLException {
-                                 String riverName = rs.getString("RiverName");
-                                 Iterable<IWeighedPoint> points = tpl.query("SELECT Latitude, Longitude, Radius" +
-                                                                     "FROM RiverPoints" +
-                                                                     "WHERE RiverName = ? "+
-                                                                     "ORDER BY Idx",
-                                                                     new Object[] {riverName},
-                                                                     new RowMapper<IWeighedPoint>() {
-                                                                         @Override
-                                                                         public IWeighedPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
-                                                                             return new WeighedPoint(rs.getDouble("Latitude"), rs.getDouble("Longitude"),
-                                                                                                     rs.getDouble("Radius"));
-                                                                         }
-                                                                     });
-                                 return new River(points, riverName);
-                             }
-                         });
+                             region.getSEPoint().getLongitude()
+                         },
+        new RowMapper<River>() {
+            @Override
+            public River mapRow(ResultSet rs, int rowNum) throws SQLException {
+                String riverName = rs.getString("RiverName");
+                Iterable<IWeighedPoint> points = tpl.query("SELECT Latitude, Longitude, Radius " +
+                                                 "FROM RiverPoints " +
+                                                 "WHERE RiverName = ? "+
+                                                 "ORDER BY Idx",
+                                                 new Object[] {riverName},
+                new RowMapper<IWeighedPoint>() {
+                    @Override
+                    public IWeighedPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        return new WeighedPoint(rs.getDouble("Latitude"), rs.getDouble("Longitude"),
+                                                rs.getDouble("Radius"));
+                    }
+                });
+                return new River(points, riverName);
+            }
+        });
     }
 }

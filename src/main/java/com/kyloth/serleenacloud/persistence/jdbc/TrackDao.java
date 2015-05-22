@@ -35,6 +35,7 @@ public class TrackDao implements ITrackDao {
 
     TrackDao(JDBCDataSource ds) {
         this.tpl = ds.getTpl();
+        tDao = new TelemetryDao(ds);
     }
 
     public void persist(ITrack track) {
@@ -54,36 +55,36 @@ public class TrackDao implements ITrackDao {
     public Iterable<ITrack> findAll(String experienceName) {
         return tpl.query("SELECT TrackName FROM ExperienceTracks WHERE ExperienceName = ?",
                          new Object[] {experienceName},
-                         new RowMapper<ITrack>() {
-                             @Override
-                             public ITrack mapRow(ResultSet rs, int rowNum) throws SQLException {
-                                 return find(rs.getString("TrackName"));
-                             }
-                         });
+        new RowMapper<ITrack>() {
+            @Override
+            public ITrack mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return find(rs.getString("TrackName"));
+            }
+        });
     }
 
     public Iterable<ITrack> findAll() {
         return tpl.query("SELECT TrackName FROM ExperienceTracks",
-                         new RowMapper<ITrack>() {
-                             @Override
-                             public ITrack mapRow(ResultSet rs, int rowNum) throws SQLException {
-                                 return find(rs.getString("TrackName"));
-                             }
-                         });
+        new RowMapper<ITrack>() {
+            @Override
+            public ITrack mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return find(rs.getString("TrackName"));
+            }
+        });
     }
 
     public ITrack find(String name) {
         Iterable<CheckPoint> checkpoints =
             tpl.query("SELECT Idx, Longitude, Latitude FROM Checkpoints WHERE TrackName = ?",
                       new Object[] {name},
-                      new RowMapper<CheckPoint>() {
-                          @Override
-                          public CheckPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
-                              return new CheckPoint(rs.getDouble("Latitude"),
-                                                    rs.getDouble("Longitude"),
-                                                    rs.getInt("Idx"));
-                          }
-                      });
+        new RowMapper<CheckPoint>() {
+            @Override
+            public CheckPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new CheckPoint(rs.getDouble("Latitude"),
+                                      rs.getDouble("Longitude"),
+                                      rs.getInt("Idx"));
+            }
+        });
 
         return new Track(name, checkpoints, tDao.findAll(name));
 
