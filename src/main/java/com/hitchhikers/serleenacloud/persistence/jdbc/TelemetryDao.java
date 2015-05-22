@@ -63,7 +63,7 @@ public class TelemetryDao implements ITelemetryDao {
         }
     }
 
-    public Iterable<ITelemetry> findAll(String trackName) {
+    public Iterable<ITelemetry> findAll(final String trackName) {
         return tpl.query("SELECT Id FROM Telemetries WHERE TrackName = ?",
                          new Object[] {trackName},
         new RowMapper<ITelemetry>() {
@@ -82,7 +82,7 @@ public class TelemetryDao implements ITelemetryDao {
                                                   rs.getDouble("Value"));
                     }
                 });
-                return new Telemetry(events);
+                return new Telemetry(events, trackName);
             }
         });
     }
