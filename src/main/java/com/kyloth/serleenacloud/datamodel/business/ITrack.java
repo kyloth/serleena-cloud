@@ -13,11 +13,58 @@
 ******************************************************************************/
 
 
+/**
+ * Name: ITrack.java
+ * Package: com.kyloth.serleenacloud.datamodel.business
+ * Author: Nicola Mometto
+ *
+ * History:
+ * Version  Programmer      Changes
+ * 1.0.0    Nicola Mometto  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.datamodel.business;
 
+/**
+ * Interfaccia che rappresenta un Percorso.
+ *
+ * @use Viene utilizzata da DataRestController e ExperienceRestController per creare o elaborare il JSON fornito o richiesto da frontend e applicazione android
+ *
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
+
 public interface ITrack {
+
+    /**
+     * Metodo "getter" che permette di ottenere l'insieme dei Checkpoint associati al Percorso.
+     *
+     * @return Restituisce l'insieme dei Checkpoint associati al Percorso.
+     */
+
     public Iterable<CheckPoint> getCheckPoints();
+
+    /**
+     * Metodo "getter" che permette di ottenere il nome del Percorso.
+     *
+     * @return Restituisce il nome del Percorso.
+     */
+
     public String getName();
+
+    /**
+     * Metodo "getter" che permette di ottenere l'insieme dei dati di Tracciamento relativi al Percorso.
+     *
+     * @return Restituisce l'insieme dei dati di Tracciamento relativi al Percorso.
+     */
+
     public Iterable<ITelemetry> getTelemetries();
+
+    /**
+     * Metodo che permette di ottenere il miglior Tracciamento disponibile per il Percorso.
+     *
+     * @return Restituisce il miglior Tracciamento disponibile per il Percorso.
+     */
+
     public ITelemetry getBestTelemetry();
 }
