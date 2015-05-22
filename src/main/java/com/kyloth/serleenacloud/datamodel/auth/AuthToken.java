@@ -92,4 +92,16 @@ public class AuthToken {
     public boolean validFor(User u) {
         return u.getAuthToken().getToken().equals(getToken());
     }
+
+
+    /**
+     * Metodo "getter" per ottenere l'email.
+     *
+     * @return L'email associata al token..
+     */
+
+    public String getEmail() {
+        return email;
+    }
+
 }
