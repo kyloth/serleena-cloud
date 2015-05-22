@@ -71,8 +71,8 @@ public class UserRestController {
 
         AuthToken t = new AuthToken(authToken);
         User u = ds.userDao().find(t.getEmail());
-        if (t.validFor(u))
-            ds.userDao().persist(new User(u.getEmail(), u.getPassword(), tempToken.split("::")[0]));
+
+        ds.userDao().persist(new User(u.getEmail(), u.getPassword(), tempToken.split("::")[0]));
     }
 
     @RequestMapping(value= "/pair/{temp_token}", method = RequestMethod.GET)
