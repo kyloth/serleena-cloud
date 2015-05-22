@@ -41,26 +41,42 @@ public class WeatherForecastDao implements IWeatherForecastDao {
     public Iterable<IWeatherForecast> findAll(IRect region, Date from, Date to) {
         return tpl.query("SELECT Temperature, Date, Forecast, NWLongitude, NWLatitude, SELongitude, SELatitude " +
                          "FROM WeatherForecasts " +
-                         "WHERE (Latitude BETWEEN ? AND ?) AND (Longitude BETWEEN ? AND ?) " +
+                         "WHERE (((NWLatitude BETWEEN ? AND ?) AND (NWLongitude BETWEEN ? AND ?)) " +
+                         "OR ((SELatitude BETWEEN ? AND ? ) AND (SELongitude BETWEEN ? AND ? ))" +
+                         "OR ((NWLongitude BETWEEN ? AND ?) AND (SELatitude BETWEEN ? AND ?)) " +
+                         "OR ((NWLatitude BETWEEN ? AND ?) AND (SELongitude BETWEEN ? AND ?))) " +
                          "AND (Date BETWEEN ? AND ?)",
                          new Object[] {
+                             region.getSEPoint().getLatitude(),
+                             region.getNWPoint().getLatitude(),
+                             region.getNWPoint().getLongitude(),
+                             region.getSEPoint().getLongitude(),
+                             region.getSEPoint().getLatitude(),
+                             region.getNWPoint().getLatitude(),
+                             region.getNWPoint().getLongitude(),
+                             region.getSEPoint().getLongitude(),
+                             region.getNWPoint().getLongitude(),
+                             region.getSEPoint().getLongitude(),
+                             region.getSEPoint().getLatitude(),
                              region.getNWPoint().getLatitude(),
                              region.getSEPoint().getLatitude(),
+                             region.getNWPoint().getLatitude(),
                              region.getNWPoint().getLongitude(),
                              region.getSEPoint().getLongitude(),
                              from,
-                             to},
-                         new RowMapper<IWeatherForecast>() {
-                             @Override
-                             public IWeatherForecast mapRow(ResultSet rs, int rowNum) throws SQLException {
-                                 return new WeatherForecast(rs.getDate("Date"),
-                                                            new Rect(new Point(rs.getDouble("NWLatitude"),
-                                                                               rs.getDouble("NWLongitude")),
-                                                                     new Point(rs.getDouble("SELatitude"),
-                                                                               rs.getDouble("SELongitude"))),
-                                                            rs.getDouble("Temperature"),
-                                                            IWeatherForecast.WeatherCondition.valueOf(rs.getString("Forecast")));
-                             }
-                         });
+                             to
+                         },
+        new RowMapper<IWeatherForecast>() {
+            @Override
+            public IWeatherForecast mapRow(ResultSet rs, int rowNum) throws SQLException {
+                return new WeatherForecast(rs.getDate("Date"),
+                                           new Rect(new Point(rs.getDouble("NWLatitude"),
+                                                    rs.getDouble("NWLongitude")),
+                                                    new Point(rs.getDouble("SELatitude"),
+                                                            rs.getDouble("SELongitude"))),
+                                           rs.getDouble("Temperature"),
+                                           IWeatherForecast.WeatherCondition.valueOf(rs.getString("Forecast")));
+            }
+        });
     }
 }

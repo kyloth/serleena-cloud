@@ -54,48 +54,44 @@ public class ExperienceDao implements IExperienceDao {
     public Iterable<IExperience> findAll() {
         return tpl.query("SELECT Name, NWLongitude, NWLatitude, SELongitude, SELatitude " +
                          "FROM Experiences " +
-                         "WHERE User = ?",
+                         "WHERE User =  ? ",
                          new Object[] {user.getEmail()},
-                         new RowMapper<IExperience>() {
-                             @Override
-                             public IExperience mapRow(ResultSet rs, int rowNum) throws SQLException {
-
-                                 if (!rs.next())
-                                     return null;
-
-                                 String eName = rs.getString("Name");
-                                 return new Experience(eName,
-                                                       new Rect(new Point(rs.getDouble("NWLatitude"),
-                                                                          rs.getDouble("NWLongitude")),
-                                                                new Point(rs.getDouble("SELatitude"),
-                                                                          rs.getDouble("SELongitude"))),
-                                                       tDao.findAll(eName),
-                                                       tpl.query("SELECT Name, Longitude, Latitude " +
-                                                                 "FROM ExperienceUserPoints " +
-                                                                 "WHERE ExperienceName = ?",
-                                                                 new Object[] {eName},
-                                                                 new RowMapper<UserPoint>() {
-                                                                     @Override
-                                                                     public UserPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
-                                                                         return new UserPoint(rs.getDouble("Latitude"),
-                                                                                              rs.getDouble("Longitude"),
-                                                                                              rs.getString("Name"));
-                                                                     }
-                                                                 }),
-                                                       tpl.query("SELECT Name, Longitude, Latitude, Type" +
-                                                                 "FROM ExperiencePOIs ep, POIs p" +
-                                                                 "WHERE ep.ExperienceName = ? AND ep.POIName = p.Name",
-                                                                 new Object[] {eName},
-                                                                 new RowMapper<PointOfInterest>() {
-                                                                     @Override
-                                                                     public PointOfInterest mapRow(ResultSet rs, int rowNum) throws SQLException {
-                                                                         return new PointOfInterest(rs.getDouble("Latitude"),
-                                                                                                    rs.getDouble("Longitude"),
-                                                                                                    rs.getString("Name"),
-                                                                                                    PointOfInterest.POIType.valueOf(rs.getString("Type")));
-                                                                     }
-                                                                 }));
-                             }
-                         });
+        new RowMapper<IExperience>() {
+            @Override
+            public IExperience mapRow(ResultSet rs, int rowNum) throws SQLException {
+                String eName = rs.getString("Name");
+                return new Experience(eName,
+                                      new Rect(new Point(rs.getDouble("NWLatitude"),
+                                               rs.getDouble("NWLongitude")),
+                                               new Point(rs.getDouble("SELatitude"),
+                                                       rs.getDouble("SELongitude"))),
+                                      tDao.findAll(eName),
+                                      tpl.query("SELECT Name, Longitude, Latitude " +
+                                                "FROM ExperienceUserPoints " +
+                                                "WHERE ExperienceName =  ? ",
+                                                new Object[] {eName},
+                new RowMapper<UserPoint>() {
+                    @Override
+                    public UserPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        return new UserPoint(rs.getDouble("Latitude"),
+                                             rs.getDouble("Longitude"),
+                                             rs.getString("Name"));
+                    }
+                }),
+                tpl.query("SELECT Name, Longitude, Latitude, Type " +
+                          "FROM ExperiencePOIs ep, POIs p " +
+                          "WHERE ep.ExperienceName =  ?  AND ep.POIName = p.Name",
+                          new Object[] {eName},
+                new RowMapper<PointOfInterest>() {
+                    @Override
+                    public PointOfInterest mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        return new PointOfInterest(rs.getDouble("Latitude"),
+                                                   rs.getDouble("Longitude"),
+                                                   rs.getString("Name"),
+                                                   PointOfInterest.POIType.valueOf(rs.getString("Type")));
+                    }
+                }));
+            }
+        });
     }
 }

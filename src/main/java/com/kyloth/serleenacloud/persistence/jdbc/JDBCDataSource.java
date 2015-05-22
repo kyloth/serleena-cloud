@@ -44,47 +44,47 @@ public class JDBCDataSource implements IDataSource {
         return user;
     }
 
-    public IUserDao userDao(){
+    public IUserDao userDao() {
         return new UserDao(this);
     }
 
-    public IPointOfInterestDao pointOfInterestDao(){
+    public IPointOfInterestDao pointOfInterestDao() {
         return new PointOfInterestDao(this);
     }
 
-    public IPathDao pathDao(){
+    public IPathDao pathDao() {
         return new PathDao(this);
     }
 
-    public ILakeDao lakeDao(){
+    public ILakeDao lakeDao() {
         return new LakeDao(this);
     }
 
-    public IRiverDao riverDao(){
+    public IRiverDao riverDao() {
         return new RiverDao(this);
     }
 
-    public IEmergencyContactDao emergencyContactDao(){
+    public IEmergencyContactDao emergencyContactDao() {
         return new EmergencyContactDao(this);
     }
 
-    public ITelemetryDao telemetryDao(){
+    public ITelemetryDao telemetryDao() {
         return new TelemetryDao(this);
     }
 
-    public IWeatherForecastDao weatherForecastDao(){
+    public IWeatherForecastDao weatherForecastDao() {
         return new WeatherForecastDao(this);
     }
 
-    public ITrackDao trackDao(){
+    public ITrackDao trackDao() {
         return new TrackDao(this);
     }
 
-    public IExperienceDao experienceDao(){
+    public IExperienceDao experienceDao() {
         return new ExperienceDao(this);
     }
 
-    public IDataSource forUser(User u){
+    public IDataSource forUser(User u) {
         return new JDBCDataSource(tpl, u);
     }
 }
