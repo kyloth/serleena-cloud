@@ -54,12 +54,12 @@ public class ExperienceDao implements IExperienceDao {
             tpl.update("DELETE FROM Experiences WHERE Name = ?", new Object[] {name});
 
         tpl.update("INSERT INTO Experiences(Name, User, NWLongitude, NWLatitude, SELongitude, SELatitude) " +
-                   "VALUES(?, ?, ?, ?)", new Object[] {name,
-                                                       user.getEmail(),
-                                                       nw.getLongitude(),
-                                                       nw.getLatitude(),
-                                                       se.getLongitude(),
-                                                       se.getLatitude()});
+                   "VALUES(?, ?, ?, ?, ?, ?)", new Object[] {name,
+                                                             user.getEmail(),
+                                                             nw.getLongitude(),
+                                                             nw.getLatitude(),
+                                                             se.getLongitude(),
+                                                             se.getLatitude()});
         for (Track t : experience.getTracks())
             tpl.update("INSERT INTO ExperienceTracks(ExperienceName, TrackName) VALUES(?, ?)",
                        new Object[] {name, t.getName()});
