@@ -26,8 +26,9 @@
 package com.kyloth.serleenacloud.datamodel.business;
 
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
-//import com.kyloth.serleenacloud.render.IRasterQuadrant;
-//import com.kyloth.serleenacloud.render.Renderer;
+
+import com.kyloth.serleenacloud.render.RasterQuadrant;
+import com.kyloth.serleenacloud.render.Renderer;
 
 import java.util.Arrays;
 
@@ -158,8 +159,8 @@ public class Experience {
         return pois;
     }
 
-    // public Iterable<IRasterQuadrant> getRasterData() {
-    //     Renderer.fromExperience(this).getRasterQuadrants();
-    // }
+    public Iterable<RasterQuadrant> getRasterData() {
+        return Renderer.fromExperience(this).getRasterQuadrants();
+    }
 
 }
