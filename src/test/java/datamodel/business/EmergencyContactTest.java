@@ -28,9 +28,7 @@ package com.kyloth.serleenacloud.datamodel.business;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
-import com.kyloth.serleenacloud.datamodel.geometry.IPoint;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -57,16 +55,16 @@ public class EmergencyContactTest {
         String name = "Karma Police";
         String number = "01239473";
         EmergencyContact ec = new EmergencyContact(name, boundingRect, number);
-        Iterable<IPoint> points = ec.getBoundingRect().getPoints();
-        Iterable<IPoint> testPoints = Arrays.asList(new IPoint[] {nw, ne, se, sw});
-        Iterator<IPoint> i = points.iterator();
-        Iterator<IPoint> j = testPoints.iterator();
+        Iterable<Point> points = ec.getBoundingRect().getPoints();
+        Iterable<Point> testPoints = Arrays.asList(new Point[] {nw, ne, se, sw});
+        Iterator<Point> i = points.iterator();
+        Iterator<Point> j = testPoints.iterator();
 
         assertTrue(ec.getName().equals("Karma Police"));
         assertTrue(ec.getNumber().equals("01239473"));
         while(i.hasNext() && j.hasNext()) {
-            IPoint p = i.next();
-            IPoint tp = j.next();
+            Point p = i.next();
+            Point tp = j.next();
             assertTrue(p.getLatitude() == tp.getLatitude());
             assertTrue(p.getLongitude() == tp.getLongitude());
         }

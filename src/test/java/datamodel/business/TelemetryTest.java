@@ -86,7 +86,7 @@ public class TelemetryTest {
         TelemetryEvent te1_2 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, d1_2, 8);
         TelemetryEvent te1_3 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, d1_3, 15);
         TelemetryEvent[] t1_events = {te1_1, te1_2, te1_3};
-        ITelemetry t1 = new Telemetry(t1_events);
+        Telemetry t1 = new Telemetry(t1_events);
 
         Date d2_1 = new Date(100);
         Date d2_2 = new Date(200);
@@ -95,7 +95,7 @@ public class TelemetryTest {
         TelemetryEvent te2_2 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, d2_2, 8);
         TelemetryEvent te2_3 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, d2_3, 15);
         TelemetryEvent[] t2_events = {te2_1, te2_2, te2_3};
-        ITelemetry t2 = new Telemetry(t2_events);
+        Telemetry t2 = new Telemetry(t2_events);
 
         Date d3_1 = new Date(100);
         Date d3_2 = new Date(150);
@@ -104,7 +104,7 @@ public class TelemetryTest {
         TelemetryEvent te3_2 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, d3_2, 8);
         TelemetryEvent te3_3 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, d3_3, 15);
         TelemetryEvent[] t3_events = {te3_1, te3_2, te3_3};
-        ITelemetry t3 = new Telemetry(t3_events);
+        Telemetry t3 = new Telemetry(t3_events);
 
         assertTrue(t1.compareTo(t2) == 0);
         assertTrue(t2.compareTo(t1) == 0);
