@@ -16,8 +16,8 @@
 package com.kyloth.serleenacloud.persistence;
 
 import com.kyloth.serleenacloud.datamodel.business.Lake;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
+import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 
 public interface ILakeDao {
-    public Iterable<Lake> findAll(IRect region);
+    public Iterable<Lake> findAll(Rect region);
 }

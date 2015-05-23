@@ -15,11 +15,11 @@
 
 package com.kyloth.serleenacloud.persistence;
 
-import com.kyloth.serleenacloud.datamodel.business.IExperience;
+import com.kyloth.serleenacloud.datamodel.business.Experience;
 
 public interface IExperienceDao {
-    public void persist(IExperience e);
-    public Iterable<IExperience> findAll();
-    public IExperience find(String name);
+    public void persist(Experience e);
+    public Iterable<Experience> findAll();
+    public Experience find(String name);
     public void delete(String name);
 }
