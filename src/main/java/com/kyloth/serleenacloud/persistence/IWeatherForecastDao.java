@@ -15,11 +15,11 @@
 
 package com.kyloth.serleenacloud.persistence;
 
-import com.kyloth.serleenacloud.datamodel.business.IWeatherForecast;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
+import com.kyloth.serleenacloud.datamodel.business.WeatherForecast;
+import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 
 import java.util.Date;
 
 public interface IWeatherForecastDao {
-    Iterable<IWeatherForecast> findAll(IRect region, Date start, Date end);
+    Iterable<WeatherForecast> findAll(Rect region, Date start, Date end);
 }

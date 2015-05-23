@@ -16,8 +16,8 @@
 package com.kyloth.serleenacloud.persistence;
 
 import com.kyloth.serleenacloud.datamodel.business.PointOfInterest;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
+import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 
 public interface IPointOfInterestDao {
-    public Iterable<PointOfInterest> findAll(IRect region);
+    public Iterable<PointOfInterest> findAll(Rect region);
 }
