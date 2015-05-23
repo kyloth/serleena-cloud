@@ -15,7 +15,6 @@
 
 package com.kyloth.serleenacloud.persistence.jdbc;
 
-import com.kyloth.serleenacloud.datamodel.business.ITelemetry;
 import com.kyloth.serleenacloud.datamodel.business.Telemetry;
 import com.kyloth.serleenacloud.datamodel.business.TelemetryEvent;
 import com.kyloth.serleenacloud.persistence.ITelemetryDao;
@@ -41,7 +40,7 @@ public class TelemetryDao implements ITelemetryDao {
         this.tpl = ds.getTpl();
     }
 
-    public void persist(final String trackName, ITelemetry t) {
+    public void persist(final String trackName, Telemetry t) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         tpl.update(new PreparedStatementCreator() {
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
@@ -63,12 +62,12 @@ public class TelemetryDao implements ITelemetryDao {
         }
     }
 
-    public Iterable<ITelemetry> findAll(final String trackName) {
+    public Iterable<Telemetry> findAll(final String trackName) {
         return tpl.query("SELECT Id FROM Telemetries WHERE TrackName = ?",
                          new Object[] {trackName},
-        new RowMapper<ITelemetry>() {
+        new RowMapper<Telemetry>() {
             @Override
-            public ITelemetry mapRow(ResultSet rs, int rowNum) throws SQLException {
+            public Telemetry mapRow(ResultSet rs, int rowNum) throws SQLException {
                 Iterable<TelemetryEvent> events =
                     tpl.query("SELECT Value, Type, Date " +
                               "FROM TelemetryEvents " +
