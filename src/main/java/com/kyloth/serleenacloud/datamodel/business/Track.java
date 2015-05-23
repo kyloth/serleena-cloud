@@ -27,6 +27,9 @@ package com.kyloth.serleenacloud.datamodel.business;
 
 import java.util.Arrays;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Classe che implementa ITrack.
  *
@@ -64,7 +67,10 @@ public class Track {
      * @param telemetries Insieme dei Tracciamenti relativi al Percorso.
      */
 
-    public Track(String name, Iterable<CheckPoint> checkpoints, Iterable<Telemetry> telemetries) {
+    @JsonCreator
+    public Track(@JsonProperty("name") String name,
+                 @JsonProperty("checkpoints") Iterable<CheckPoint> checkpoints,
+                 @JsonProperty("telemetries") Iterable<Telemetry> telemetries) {
         this.name = name;
         this.checkpoints = checkpoints;
         this.telemetries = telemetries;

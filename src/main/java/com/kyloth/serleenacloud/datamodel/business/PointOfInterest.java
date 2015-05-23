@@ -27,6 +27,9 @@ package com.kyloth.serleenacloud.datamodel.business;
 
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Classe che rappresenta un Punto di Interesse nella mappa.
  *
@@ -43,7 +46,12 @@ public class PointOfInterest extends Point {
      */
 
     public static enum POIType {
-        FOOD, INFO, WARNING
+        FOOD, INFO, WARNING;
+
+        @JsonCreator
+        public POIType fromJson(String value) {
+            return POIType.valueOf(value);
+        }
     }
 
     /**
@@ -67,7 +75,11 @@ public class PointOfInterest extends Point {
      * @param type La categoria del Punto di Interesse.
      */
 
-    public PointOfInterest(double latitude, double longitude, String name, POIType type) {
+    @JsonCreator
+    public PointOfInterest(@JsonProperty("latitude") double latitude,
+                           @JsonProperty("longitude") double longitude,
+                           @JsonProperty("name") String name,
+                           @JsonProperty("type") POIType type) {
         super(latitude, longitude);
         this.name = name;
         this.type = type;
