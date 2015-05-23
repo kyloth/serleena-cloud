@@ -67,8 +67,8 @@ public class TrackTest {
             new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, new Date(150), 1)
         };
         telemetries = Arrays.asList(new Telemetry[] {
-                                        new Telemetry(first_events),
-                                        new Telemetry(second_events)
+		new Telemetry(first_events, "track"),
+		new Telemetry(second_events, "track")
                                     });
         checkpoints_iterator = checkpoints.iterator();
         telemetries_iterator = telemetries.iterator();
@@ -106,7 +106,7 @@ public class TrackTest {
      */
     @Test
     public void testGetBestTelemetry() {
-        Telemetry target = new Telemetry(second_events);
+        Telemetry target = new Telemetry(second_events, "track");
         Telemetry best = t.getBestTelemetry();
 
         assertTrue(target.compareTo(best) == 0);
