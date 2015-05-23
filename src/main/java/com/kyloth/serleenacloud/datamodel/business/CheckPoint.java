@@ -25,6 +25,9 @@
 
 package com.kyloth.serleenacloud.datamodel.business;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 
 /**
@@ -52,7 +55,10 @@ public class CheckPoint extends Point {
      * @param id L'id del Checkpoint.
      */
 
-    public CheckPoint(double latitude, double longitude, int id) {
+    @JsonCreator
+    public CheckPoint(@JsonProperty("latitude") double latitude,
+                      @JsonProperty("longitude") double longitude,
+                      @JsonProperty("id") int id) {
         super(latitude, longitude);
         this.id = id;
     }
