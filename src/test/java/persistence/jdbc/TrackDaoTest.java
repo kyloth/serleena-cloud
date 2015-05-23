@@ -104,7 +104,7 @@ public class TrackDaoTest {
         TelemetryEvent[] events = {
             new TelemetryEvent(TelemetryEvent.EventType.HEART, new Date(), 1)
         };
-        Telemetry[] telemetries = {new Telemetry(events)};
+        Telemetry[] telemetries = {new Telemetry(events, "track")};
         Track track = new Track("Track1", cp, telemetries);
         td.persist(track);
         String query = "SELECT Name FROM Tracks WHERE Name = 'Track1';";
