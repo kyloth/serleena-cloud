@@ -28,6 +28,9 @@ package com.kyloth.serleenacloud.datamodel.sync;
 import com.kyloth.serleenacloud.datamodel.business.UserPoint;
 import com.kyloth.serleenacloud.datamodel.business.Telemetry;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Arrays;
 
 /**
@@ -83,7 +86,10 @@ public class SyncInputData {
      * @param telemetryData Array dei dati di telemetria da sincronizzare.
      */
 
-    public SyncInputData(String experienceName, UserPoint[] userPoints, Telemetry[] telemetryData) {
+    @JsonCreator
+    public SyncInputData(@JsonProperty("experience") String experienceName,
+                         @JsonProperty("userPoints") UserPoint[] userPoints,
+                         @JsonProperty("telemetryData") Telemetry[] telemetryData) {
         this.experienceName = experienceName;
         this.telemetryData = Arrays.asList(telemetryData);
         this.userPoints = Arrays.asList(userPoints);

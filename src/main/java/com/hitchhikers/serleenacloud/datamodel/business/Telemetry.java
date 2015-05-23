@@ -28,6 +28,9 @@ package com.kyloth.serleenacloud.datamodel.business;
 import java.util.Arrays;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Classe che concretizza ITelemetry.
  *
@@ -68,7 +71,9 @@ public class Telemetry {
      * @param track Traccia a cui è associato il Tracciamento.
      */
 
-    public Telemetry(TelemetryEvent[] events, String track) {
+    @JsonCreator
+    public Telemetry(@JsonProperty("events") TelemetryEvent[] events,
+                     @JsonProperty("track") String track) {
         this.events = Arrays.asList(events);
         this.track = track;
     }
