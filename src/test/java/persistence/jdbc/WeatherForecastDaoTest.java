@@ -43,8 +43,6 @@ import com.kyloth.serleenacloud.persistence.jdbc.JDBCDataSource;
 import com.kyloth.serleenacloud.persistence.IWeatherForecastDao;
 
 import com.kyloth.serleenacloud.datamodel.business.WeatherForecast;
-import com.kyloth.serleenacloud.datamodel.business.IWeatherForecast;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 import com.kyloth.serleenacloud.persistence.IWeatherForecastDao;
@@ -96,12 +94,12 @@ public class WeatherForecastDaoTest {
     public void testFindAll() {
         long timestamp_1 = 284043191000L;
         long timestamp_2 = 347201591000L;
-        IRect region = new Rect(new Point(10, 1), new Point(1, 10));
-        Iterable<IWeatherForecast> forecasts = wfd.findAll(region, new Date(timestamp_1), new Date(timestamp_2));
-        Iterator<IWeatherForecast> i_forecasts = forecasts.iterator();
-        WeatherForecast wf = (WeatherForecast) i_forecasts.next();
+        Rect region = new Rect(new Point(10, 1), new Point(1, 10));
+        Iterable<WeatherForecast> forecasts = wfd.findAll(region, new Date(timestamp_1), new Date(timestamp_2));
+        Iterator<WeatherForecast> i_forecasts = forecasts.iterator();
+        WeatherForecast wf = i_forecasts.next();
         assertFalse(i_forecasts.hasNext());
-        assertTrue(wf.getForecast() == IWeatherForecast.WeatherCondition.CLOUDY);
+        assertTrue(wf.getForecast() == WeatherForecast.WeatherCondition.CLOUDY);
 
     }
 }
