@@ -25,6 +25,9 @@
 
 package com.kyloth.serleenacloud.datamodel.geometry;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Rappresenta un generico punto geografico
  *
@@ -44,7 +47,9 @@ public class Point {
      * @param  longitude Coordinata longitudinale del punto da creare
      */
 
-    public Point(double latitude, double longitude) {
+    @JsonCreator
+    public Point(@JsonProperty("latitude") double latitude,
+                 @JsonProperty("longitude") double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }
