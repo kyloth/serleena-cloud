@@ -25,9 +25,9 @@
 
 package com.kyloth.serleenacloud.datamodel.sync;
 
-import com.kyloth.serleenacloud.datamodel.business.IExperience;
-import com.kyloth.serleenacloud.datamodel.business.IWeatherForecast;
-import com.kyloth.serleenacloud.datamodel.business.IEmergencyContact;
+import com.kyloth.serleenacloud.datamodel.business.Experience;
+import com.kyloth.serleenacloud.datamodel.business.WeatherForecast;
+import com.kyloth.serleenacloud.datamodel.business.EmergencyContact;
 
 import java.util.Arrays;
 
@@ -46,19 +46,19 @@ public class SyncOutputData {
      * Insieme delle Esperienze da sincronizzare.
      */
 
-    private Iterable<IExperience> experiences;
+    private Iterable<Experience> experiences;
 
     /**
      * Insieme dei dati meteo da sincronizzare.
      */
 
-    private Iterable<IWeatherForecast> forecastData;
+    private Iterable<WeatherForecast> forecastData;
 
     /**
      * Insieme dei contatti di emergenza da sincronizzare.
      */
 
-    private Iterable<IEmergencyContact> emergencyData;
+    private Iterable<EmergencyContact> emergencyData;
 
     /**
      * Crea un nuovo oggetto SyncOutputData.
@@ -68,7 +68,7 @@ public class SyncOutputData {
      * @param emergencyData Insieme dei contatti di emergenza da sincronizzare.
      */
 
-    public SyncOutputData(Iterable<IExperience> experiences, Iterable<IWeatherForecast> forecastData, Iterable<IEmergencyContact> emergencyData) {
+    public SyncOutputData(Iterable<Experience> experiences, Iterable<WeatherForecast> forecastData, Iterable<EmergencyContact> emergencyData) {
         this.experiences = experiences;
         this.forecastData = forecastData;
         this.emergencyData = emergencyData;
@@ -82,7 +82,7 @@ public class SyncOutputData {
      * @param emergencyData Array dei contatti di emergenza da sincronizzare.
      */
 
-    public SyncOutputData(IExperience[] experiences, IWeatherForecast[] forecastData, IEmergencyContact[] emergencyData) {
+    public SyncOutputData(Experience[] experiences, WeatherForecast[] forecastData, EmergencyContact[] emergencyData) {
         this.experiences = Arrays.asList(experiences);
         this.forecastData = Arrays.asList(forecastData);
         this.emergencyData = Arrays.asList(emergencyData);
@@ -94,7 +94,7 @@ public class SyncOutputData {
      * @return Restituisce l'insieme delle Esperienze da sincronizzare.
      */
 
-    public Iterable<IExperience> getExperiences() {
+    public Iterable<Experience> getExperiences() {
         return experiences;
     }
 
@@ -104,7 +104,7 @@ public class SyncOutputData {
      * @return Restituisce l'insieme dei dati meteo da sincronizzare.
      */
 
-    public Iterable<IWeatherForecast> getWeatherData() {
+    public Iterable<WeatherForecast> getWeatherData() {
         return forecastData;
     }
 
@@ -114,7 +114,7 @@ public class SyncOutputData {
      * @return Restituisce l'insieme dei contatti di emergenza da sincronizzare.
      */
 
-    public Iterable<IEmergencyContact> getEmergencyData() {
+    public Iterable<EmergencyContact> getEmergencyData() {
         return emergencyData;
     }
 

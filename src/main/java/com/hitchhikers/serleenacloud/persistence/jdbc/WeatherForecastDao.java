@@ -16,8 +16,6 @@
 package com.kyloth.serleenacloud.persistence.jdbc;
 
 import com.kyloth.serleenacloud.datamodel.business.WeatherForecast;
-import com.kyloth.serleenacloud.datamodel.business.IWeatherForecast;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 import com.kyloth.serleenacloud.persistence.IWeatherForecastDao;
@@ -38,7 +36,7 @@ public class WeatherForecastDao implements IWeatherForecastDao {
         this.tpl = ds.getTpl();
     }
 
-    public Iterable<IWeatherForecast> findAll(IRect region, Date from, Date to) {
+    public Iterable<WeatherForecast> findAll(Rect region, Date from, Date to) {
         return tpl.query("SELECT Temperature, Date, Forecast, NWLongitude, NWLatitude, SELongitude, SELatitude " +
                          "FROM WeatherForecasts " +
                          "WHERE (((NWLatitude BETWEEN ? AND ?) AND (NWLongitude BETWEEN ? AND ?)) " +
@@ -66,16 +64,16 @@ public class WeatherForecastDao implements IWeatherForecastDao {
                              from,
                              to
                          },
-        new RowMapper<IWeatherForecast>() {
+        new RowMapper<WeatherForecast>() {
             @Override
-            public IWeatherForecast mapRow(ResultSet rs, int rowNum) throws SQLException {
+            public WeatherForecast mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new WeatherForecast(rs.getDate("Date"),
                                            new Rect(new Point(rs.getDouble("NWLatitude"),
                                                     rs.getDouble("NWLongitude")),
                                                     new Point(rs.getDouble("SELatitude"),
                                                             rs.getDouble("SELongitude"))),
                                            rs.getDouble("Temperature"),
-                                           IWeatherForecast.WeatherCondition.valueOf(rs.getString("Forecast")));
+                                           WeatherForecast.WeatherCondition.valueOf(rs.getString("Forecast")));
             }
         });
     }

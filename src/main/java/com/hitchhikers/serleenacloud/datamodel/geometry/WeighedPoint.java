@@ -32,7 +32,7 @@ package com.kyloth.serleenacloud.datamodel.geometry;
  * @version 1.0
  */
 
-public class WeighedPoint extends Point implements IWeighedPoint {
+public class WeighedPoint extends Point {
     private double radius;
 
 

@@ -25,7 +25,7 @@
 
 package com.kyloth.serleenacloud.datamodel.business;
 
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
+import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 //import com.kyloth.serleenacloud.render.IRasterQuadrant;
 //import com.kyloth.serleenacloud.render.Renderer;
 
@@ -40,13 +40,13 @@ import java.util.Arrays;
  * @version 1.0
  */
 
-public class Experience implements IExperience {
+public class Experience {
 
     /**
      * Insieme dei Percorsi relativi all'Esperienza.
      */
 
-    private Iterable<ITrack> tracks;
+    private Iterable<Track> tracks;
 
     /**
      * Insieme dei Punti Utente relativi all'Esperienza.
@@ -64,7 +64,7 @@ public class Experience implements IExperience {
      * Rappresenta l'area geografica in cui è situata l'Esperienza.
      */
 
-    private IRect rect;
+    private Rect rect;
 
     /**
      * Nome dell'Esperienza.
@@ -82,7 +82,7 @@ public class Experience implements IExperience {
      * @param pois L'insieme dei Punti di Interesse relativi all'Esperienza.
      */
 
-    public Experience(String name, IRect rect, Iterable<ITrack> tracks, Iterable<UserPoint> userPoints, Iterable<PointOfInterest> pois) {
+    public Experience(String name, Rect rect, Iterable<Track> tracks, Iterable<UserPoint> userPoints, Iterable<PointOfInterest> pois) {
         this.name = name;
         this.rect = rect;
         this.tracks = tracks;
@@ -100,7 +100,7 @@ public class Experience implements IExperience {
      * @param pois L'array dei Punti di Interesse relativi all'Esperienza.
      */
 
-    public Experience(String name, IRect rect, ITrack[] tracks, UserPoint[] userPoints, PointOfInterest[] pois) {
+    public Experience(String name, Rect rect, Track[] tracks, UserPoint[] userPoints, PointOfInterest[] pois) {
         this.name = name;
         this.rect = rect;
         this.tracks = Arrays.asList(tracks);
@@ -114,7 +114,7 @@ public class Experience implements IExperience {
      * @return Restituisce l'insieme dei percorsi relativi all'Esperienza.
      */
 
-    public Iterable<ITrack> getTracks() {
+    public Iterable<Track> getTracks() {
         return tracks;
     }
 
@@ -134,7 +134,7 @@ public class Experience implements IExperience {
      * @return Restituisce un IRect che rappresenta l'area geografica dell'Esperienza.
      */
 
-    public IRect getBoundingRect() {
+    public Rect getBoundingRect() {
         return rect;
     }
 

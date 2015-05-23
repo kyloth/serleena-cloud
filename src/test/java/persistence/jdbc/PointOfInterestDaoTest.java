@@ -42,7 +42,6 @@ import com.kyloth.serleenacloud.persistence.jdbc.JDBCDataSource;
 import com.kyloth.serleenacloud.persistence.IPointOfInterestDao;
 
 import com.kyloth.serleenacloud.datamodel.business.PointOfInterest;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 
@@ -89,7 +88,7 @@ public class PointOfInterestDaoTest {
 
     @Test
     public void testFindAll() {
-        IRect region = new Rect(new Point(10, 1), new Point(1, 10));
+        Rect region = new Rect(new Point(10, 1), new Point(1, 10));
         Iterable<PointOfInterest> pois = poid.findAll(region);
         Iterator<PointOfInterest> i_pois = pois.iterator();
         PointOfInterest poi1 = i_pois.next();

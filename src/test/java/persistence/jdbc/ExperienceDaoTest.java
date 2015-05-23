@@ -41,7 +41,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import com.kyloth.serleenacloud.persistence.jdbc.JDBCDataSource;
 import com.kyloth.serleenacloud.persistence.IExperienceDao;
 
-import com.kyloth.serleenacloud.datamodel.business.IExperience;
 import com.kyloth.serleenacloud.datamodel.business.Experience;
 import com.kyloth.serleenacloud.datamodel.business.UserPoint;
 import com.kyloth.serleenacloud.datamodel.business.PointOfInterest;
@@ -106,9 +105,9 @@ public class ExperienceDaoTest {
 
     @Test
     public void testFindAll() {
-        Iterable<IExperience> experiences = ed.findAll();
-        Iterator<IExperience> i_experiences = experiences.iterator();
-        Experience exp = (Experience) i_experiences.next();
+        Iterable<Experience> experiences = ed.findAll();
+        Iterator<Experience> i_experiences = experiences.iterator();
+        Experience exp = i_experiences.next();
         assertTrue(exp.getName().equals("Experience"));
         Iterable<UserPoint> userPoints = exp.getUserPoints();
         Iterator<UserPoint> i_userPoints = userPoints.iterator();

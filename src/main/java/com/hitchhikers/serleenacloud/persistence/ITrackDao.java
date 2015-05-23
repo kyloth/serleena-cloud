@@ -15,11 +15,11 @@
 
 package com.kyloth.serleenacloud.persistence;
 
-import com.kyloth.serleenacloud.datamodel.business.ITrack;
+import com.kyloth.serleenacloud.datamodel.business.Track;
 
 public interface ITrackDao {
-    public void persist(ITrack e);
-    public ITrack find(String name);
-    public Iterable<ITrack> findAll(String experienceName);
-    public Iterable<ITrack> findAll();
+    public void persist(Track e);
+    public Track find(String name);
+    public Iterable<Track> findAll(String experienceName);
+    public Iterable<Track> findAll();
 }

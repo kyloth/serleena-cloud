@@ -43,9 +43,9 @@ import java.util.Date;
 public class TrackTest {
     private String name;
     private Iterable<CheckPoint> checkpoints;
-    private Iterable<ITelemetry> telemetries;
+    private Iterable<Telemetry> telemetries;
     private Iterator<CheckPoint> checkpoints_iterator;
-    private Iterator<ITelemetry> telemetries_iterator;
+    private Iterator<Telemetry> telemetries_iterator;
     private TelemetryEvent[] first_events;
     private TelemetryEvent[] second_events;
     private Track t;
@@ -66,9 +66,9 @@ public class TrackTest {
             new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, new Date(100), 1),
             new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, new Date(150), 1)
         };
-        telemetries = Arrays.asList(new ITelemetry[] {
-                                        new Telemetry(first_events),
-                                        new Telemetry(second_events)
+        telemetries = Arrays.asList(new Telemetry[] {
+		new Telemetry(first_events, "track"),
+		new Telemetry(second_events, "track")
                                     });
         checkpoints_iterator = checkpoints.iterator();
         telemetries_iterator = telemetries.iterator();
@@ -81,9 +81,9 @@ public class TrackTest {
     @Test
     public void testConstructor() {
         Iterable<CheckPoint> t_checkpoints = t.getCheckPoints();
-        Iterable<ITelemetry> t_telemetries = t.getTelemetries();
+        Iterable<Telemetry> t_telemetries = t.getTelemetries();
         Iterator<CheckPoint> i_c = t_checkpoints.iterator();
-        Iterator<ITelemetry> i_t = t_telemetries.iterator();
+        Iterator<Telemetry> i_t = t_telemetries.iterator();
 
         assertTrue(t.getName().equals("Track_1"));
         while (i_c.hasNext() && checkpoints_iterator.hasNext()) {
@@ -95,8 +95,8 @@ public class TrackTest {
             assertTrue(t_checkpoint.getId() == input_checkpoint.getId());
         }
         while(i_t.hasNext() && telemetries_iterator.hasNext()) {
-            ITelemetry input_telemetry = telemetries_iterator.next();
-            ITelemetry t_telemetry = i_t.next();
+            Telemetry input_telemetry = telemetries_iterator.next();
+            Telemetry t_telemetry = i_t.next();
 
             assertTrue(input_telemetry.compareTo(t_telemetry) == 0);
         }
@@ -106,8 +106,8 @@ public class TrackTest {
      */
     @Test
     public void testGetBestTelemetry() {
-        ITelemetry target = new Telemetry(second_events);
-        ITelemetry best = t.getBestTelemetry();
+        Telemetry target = new Telemetry(second_events, "track");
+        Telemetry best = t.getBestTelemetry();
 
         assertTrue(target.compareTo(best) == 0);
     }

@@ -42,10 +42,8 @@ import com.kyloth.serleenacloud.persistence.jdbc.JDBCDataSource;
 import com.kyloth.serleenacloud.persistence.IRiverDao;
 
 import com.kyloth.serleenacloud.datamodel.business.River;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
-import com.kyloth.serleenacloud.datamodel.geometry.IWeighedPoint;
 import com.kyloth.serleenacloud.datamodel.geometry.WeighedPoint;
 
 /**
@@ -95,16 +93,16 @@ public class RiverDaoTest {
 
     @Test
     public void testFindAll() {
-        IRect region = new Rect(new Point(10, 1), new Point(1, 10));
+        Rect region = new Rect(new Point(10, 1), new Point(1, 10));
         Iterable<River> rivers = rd.findAll(region);
         Iterator<River> i_rivers = rivers.iterator();
         River river = i_rivers.next();
         assertFalse(i_rivers.hasNext());
-        Iterable<IWeighedPoint> points = river.getPoints();
-        Iterator<IWeighedPoint> i_points = points.iterator();
-        WeighedPoint wp1 = (WeighedPoint) i_points.next();
-        WeighedPoint wp2 = (WeighedPoint) i_points.next();
-        WeighedPoint wp3 = (WeighedPoint) i_points.next();
+        Iterable<WeighedPoint> points = river.getPoints();
+        Iterator<WeighedPoint> i_points = points.iterator();
+        WeighedPoint wp1 = i_points.next();
+        WeighedPoint wp2 = i_points.next();
+        WeighedPoint wp3 = i_points.next();
         assertTrue(wp1.getLatitude() == 3);
         assertTrue(wp1.getLongitude() == 2);
         assertTrue(wp2.getLatitude() == 5);
