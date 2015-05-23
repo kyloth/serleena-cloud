@@ -67,14 +67,14 @@ public class RectTest {
         Rect r = new Rect(nw, se);
         Point ne = new Point(15, 35);
         Point sw = new Point(10, 50);
-        Iterable<IPoint> points = r.getPoints();
-        Iterable<IPoint> testPoints = Arrays.asList(new IPoint[] {nw, ne, se, sw });
-        Iterator<IPoint> i = points.iterator();
-        Iterator<IPoint> j = testPoints.iterator();
+        Iterable<Point> points = r.getPoints();
+        Iterable<Point> testPoints = Arrays.asList(new Point[] {nw, ne, se, sw });
+        Iterator<Point> i = points.iterator();
+        Iterator<Point> j = testPoints.iterator();
 
         while(i.hasNext() && j.hasNext()) {
-            IPoint p = i.next();
-            IPoint tp = j.next();
+            Point p = i.next();
+            Point tp = j.next();
             assertTrue(p.getLatitude() == tp.getLatitude());
             assertTrue(p.getLongitude() == tp.getLongitude());
         }
