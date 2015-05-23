@@ -106,9 +106,9 @@ public class TelemetryDaoTest {
             new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, new Date(), 11),
             new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, new Date(), 12)
         };
-        Telemetry t1 = new Telemetry(events_1);
-        Telemetry t2 = new Telemetry(events_2);
-        Telemetry t3 = new Telemetry(events_3);
+        Telemetry t1 = new Telemetry(events_1, "track");
+        Telemetry t2 = new Telemetry(events_2, "track");
+        Telemetry t3 = new Telemetry(events_3, "track");
         td.persist("Track1", t1);
         td.persist("Track1", t2);
         td.persist("Track2", t3);

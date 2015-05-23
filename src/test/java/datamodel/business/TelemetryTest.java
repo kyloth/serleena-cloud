@@ -52,8 +52,8 @@ public class TelemetryTest {
         TelemetryEvent second_event = new TelemetryEvent(TelemetryEvent.EventType.HEART, second_date, 94.23);
         TelemetryEvent[] events = {first_event, second_event};
         Iterable<TelemetryEvent> i_events = Arrays.asList(events);
-        Telemetry t1 = new Telemetry(events);
-        Telemetry t2 = new Telemetry(i_events);
+        Telemetry t1 = new Telemetry(events, "track");
+        Telemetry t2 = new Telemetry(i_events, "track");
         Iterable<TelemetryEvent> t1_events = t1.getEvents();
         Iterable<TelemetryEvent> t2_events = t2.getEvents();
         Iterator<TelemetryEvent> t1_iterator = t1_events.iterator();
@@ -86,7 +86,7 @@ public class TelemetryTest {
         TelemetryEvent te1_2 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, d1_2, 8);
         TelemetryEvent te1_3 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, d1_3, 15);
         TelemetryEvent[] t1_events = {te1_1, te1_2, te1_3};
-        Telemetry t1 = new Telemetry(t1_events);
+        Telemetry t1 = new Telemetry(t1_events, "track");
 
         Date d2_1 = new Date(100);
         Date d2_2 = new Date(200);
@@ -95,7 +95,7 @@ public class TelemetryTest {
         TelemetryEvent te2_2 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, d2_2, 8);
         TelemetryEvent te2_3 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, d2_3, 15);
         TelemetryEvent[] t2_events = {te2_1, te2_2, te2_3};
-        Telemetry t2 = new Telemetry(t2_events);
+        Telemetry t2 = new Telemetry(t2_events, "track");
 
         Date d3_1 = new Date(100);
         Date d3_2 = new Date(150);
@@ -104,7 +104,7 @@ public class TelemetryTest {
         TelemetryEvent te3_2 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, d3_2, 8);
         TelemetryEvent te3_3 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, d3_3, 15);
         TelemetryEvent[] t3_events = {te3_1, te3_2, te3_3};
-        Telemetry t3 = new Telemetry(t3_events);
+        Telemetry t3 = new Telemetry(t3_events, "track");
 
         assertTrue(t1.compareTo(t2) == 0);
         assertTrue(t2.compareTo(t1) == 0);
