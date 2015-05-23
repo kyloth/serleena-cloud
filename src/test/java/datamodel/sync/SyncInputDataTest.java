@@ -59,11 +59,11 @@ public class SyncInputDataTest {
                                                  new Telemetry(Arrays.asList(new TelemetryEvent[] {
                                                              new TelemetryEvent(null, new Date(100), 0),
                                                              new TelemetryEvent(null, new Date(200), 1)
-                                                         })),
+                                                         }), "track"),
                                                  new Telemetry(Arrays.asList(new TelemetryEvent[] {
                                                              new TelemetryEvent(null, new Date(50), 0),
                                                              new TelemetryEvent(null, new Date(300), 1)
-                                                         }))
+                                                         }), "track")
                                              });
         Iterator<Telemetry> i_telemetryData = telemetryData.iterator();
         SyncInputData sid = new SyncInputData(experienceName, userPoints, telemetryData);
