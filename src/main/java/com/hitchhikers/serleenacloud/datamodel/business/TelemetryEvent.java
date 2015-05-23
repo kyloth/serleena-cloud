@@ -28,6 +28,9 @@ package com.kyloth.serleenacloud.datamodel.business;
 import java.util.Arrays;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Classe che rappresenta un evento di Tracciamento.
  *
@@ -44,7 +47,13 @@ public class TelemetryEvent {
      */
 
     public static enum EventType {
-        CHECKPOINT, HEART
+        CHECKPOINT, HEART;
+
+        @JsonCreator
+        public EventType fromJson(String value) {
+            return EventType.valueOf(value);
+        }
+
     }
 
     /**
@@ -73,7 +82,10 @@ public class TelemetryEvent {
      * @param value Valore dell'evento di Telemetria.
      */
 
-    public TelemetryEvent(EventType type, Date time, double value) {
+    @JsonCreator
+    public TelemetryEvent(@JsonProperty("type") EventType type,
+                          @JsonProperty("time") Date time,
+                          @JsonProperty("value") double value) {
         this.type = type;
         this.time = time;
         this.value = value;

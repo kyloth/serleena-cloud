@@ -27,6 +27,9 @@ package com.kyloth.serleenacloud.datamodel.business;
 
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Classe che rappresente un Punto Utente in un'Esperienza.
  *
@@ -52,7 +55,10 @@ public class UserPoint extends Point {
      * @param name Nome del Punto Utente.
      */
 
-    public UserPoint(double latitude, double longitude, String name) {
+    @JsonCreator
+    public UserPoint(@JsonProperty("latitude") double latitude,
+                     @JsonProperty("longitude") double longitude,
+                     @JsonProperty("name") String name) {
         super(latitude, longitude);
         this.name = name;
     }
