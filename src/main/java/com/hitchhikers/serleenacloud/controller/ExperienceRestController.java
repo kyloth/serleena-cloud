@@ -51,6 +51,8 @@ import java.util.ArrayList;
 public class ExperienceRestController {
 
     static IDataSource ds = DataSourceFactory.getDataSource();
+    static ObjectMapper mapper = new ObjectMapper();
+
 
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<String> list(@RequestHeader("X-AuthToken") String authToken) {
@@ -79,7 +81,7 @@ public class ExperienceRestController {
 
     @RequestMapping(value= "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") String id,
-                          @RequestHeader("X-AuthToken") String authToken) {
+                       @RequestHeader("X-AuthToken") String authToken) {
 
         AuthToken token = new AuthToken(authToken);
         User user = ds.userDao().find(token.getEmail());
@@ -92,19 +94,29 @@ public class ExperienceRestController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestParam("name") String name,
-                       @RequestParam("pois") Iterable<PointOfInterest> pois,
-                       @RequestParam("ups") Iterable<UserPoint> ups,
-                       @RequestParam("tracks") Iterable<Track> tracks,
-                       @RequestParam("from") Point from,
-                       @RequestParam("to") Point to,
+                       @RequestParam("pois") String pois,
+                       @RequestParam("ups") String ups,
+                       @RequestParam("tracks") String tracks,
+                       @RequestParam("from") String from,
+                       @RequestParam("to") String to,
                        @RequestHeader("X-AuthToken") String authToken) {
 
         AuthToken token = new AuthToken(authToken);
         User user = ds.userDao().find(token.getEmail());
         IDataSource dataSource = ds.forUser(user);
+        try {
 
-        Experience experience = new Experience(name, new Rect(from, to), tracks, ups, pois);
-        dataSource.experienceDao().persist(experience);
+            PointOfInterest[] _pois = mapper.readValue(pois, PointOfInterest[].class);
+            UserPoint[] _ups = mapper.readValue(ups, UserPoint[].class);
+            Track[] _tracks = mapper.readValue(tracks, Track[].class);
+            Point _from = mapper.readValue(from, Point.class);
+            Point _to = mapper.readValue(to, Point.class);
+
+            Experience experience = new Experience(name, new Rect(_from, _to), _tracks, _ups, _pois);
+            dataSource.experienceDao().persist(experience);
+        } catch (IOException e) {
+            System.err.println(e);
+        }
     }
 
 
@@ -116,7 +128,6 @@ public class ExperienceRestController {
         User user = ds.userDao().find(token.getEmail());
         IDataSource dataSource = ds.forUser(user);
 
-        ObjectMapper mapper = new ObjectMapper();
         try {
 
             String name = mapper.readValue(body.getFirst("name"), String.class);
