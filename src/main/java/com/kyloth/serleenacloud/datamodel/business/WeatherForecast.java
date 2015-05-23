@@ -25,7 +25,7 @@
 
 package com.kyloth.serleenacloud.datamodel.business;
 
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
+import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 
 import java.util.Date;
 
@@ -36,7 +36,11 @@ import java.util.Date;
  * @version 1.0
  */
 
-public class WeatherForecast implements IWeatherForecast {
+public class WeatherForecast {
+
+    public static enum WeatherCondition {
+        SUNNY, CLOUDY, RAINY, STORMY, SNOWY
+    }
 
     /**
      * Rappresenta la condizione meteo prevista.
@@ -48,7 +52,7 @@ public class WeatherForecast implements IWeatherForecast {
      * Rappresenta l'area geografica associata alla previsione meteo.
      */
 
-    private IRect boundingRect;
+    private Rect boundingRect;
 
     /**
      * Rappresenta la temperatura prevista.
@@ -66,7 +70,7 @@ public class WeatherForecast implements IWeatherForecast {
      * Crea una nuova previsione meteo inizializzandone i campi dati.
      */
 
-    public WeatherForecast(Date time, IRect boundingRect, double temperature, WeatherCondition forecast) {
+    public WeatherForecast(Date time, Rect boundingRect, double temperature, WeatherCondition forecast) {
         this.time = time;
         this.boundingRect = boundingRect;
         this.temperature = temperature;
@@ -99,7 +103,7 @@ public class WeatherForecast implements IWeatherForecast {
      * @return Restituisce un oggetto di tipo IRect che rappresenta l'area geografica relativa alle previsioni meteo.
      */
 
-    public IRect getBoundingRect() {
+    public Rect getBoundingRect() {
         return boundingRect;
     }
 

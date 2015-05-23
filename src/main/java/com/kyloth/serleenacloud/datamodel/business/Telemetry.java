@@ -35,7 +35,7 @@ import java.util.Date;
  * @version 1.0
  */
 
-public class Telemetry implements ITelemetry {
+public class Telemetry {
 
     /**
      * Insieme degli eventi associati al Tracciamento.
@@ -100,7 +100,7 @@ public class Telemetry implements ITelemetry {
      * @return Restituisce 0 se i due oggetti hanno lo stesso tempo totale registrato, 1 se l'oggetto su cui è invocato il metodo ha tempo totale maggiore, -1 altrimenti.
      */
 
-    public int compareTo(ITelemetry telemetry) {
+    public int compareTo(Telemetry telemetry) {
         long thisDuration = duration(this);
         long othDuration = duration(telemetry);
         if (thisDuration == othDuration)
@@ -118,7 +118,7 @@ public class Telemetry implements ITelemetry {
      * @return Restituisce il tempo totale registrato.
      */
 
-    private static long duration (ITelemetry telemetry) {
+    private static long duration (Telemetry telemetry) {
         long duration = 0;
         Date lastDate = null;
 
