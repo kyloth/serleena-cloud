@@ -16,8 +16,7 @@
 package com.kyloth.serleenacloud.persistence.jdbc;
 
 import com.kyloth.serleenacloud.datamodel.business.Lake;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
-import com.kyloth.serleenacloud.datamodel.geometry.IPoint;
+import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 import com.kyloth.serleenacloud.persistence.ILakeDao;
 
@@ -35,7 +34,7 @@ public class LakeDao implements ILakeDao {
         this.tpl = ds.getTpl();
     }
 
-    public Iterable<Lake> findAll(IRect region) {
+    public Iterable<Lake> findAll(Rect region) {
         return tpl.query("SELECT DISTINCT LakeName " +
                          "FROM LakePoints " +
                          "WHERE (Latitude BETWEEN ? AND ?) AND (Longitude BETWEEN ? AND ?) ",
@@ -49,14 +48,14 @@ public class LakeDao implements ILakeDao {
             @Override
             public Lake mapRow(ResultSet rs, int rowNum) throws SQLException {
                 String lakeName = rs.getString("LakeName");
-                Iterable<IPoint> points = tpl.query("SELECT Latitude, Longitude " +
+                Iterable<Point> points = tpl.query("SELECT Latitude, Longitude " +
                                                     "FROM LakePoints " +
                                                     "WHERE LakeName = ? "+
                                                     "ORDER BY Idx",
                                                     new Object[] {lakeName},
-                new RowMapper<IPoint>() {
+                new RowMapper<Point>() {
                     @Override
-                    public IPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    public Point mapRow(ResultSet rs, int rowNum) throws SQLException {
                         return new Point(rs.getDouble("Latitude"), rs.getDouble("Longitude"));
                     }
                 });
