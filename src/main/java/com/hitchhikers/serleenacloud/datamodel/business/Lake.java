@@ -25,8 +25,7 @@
 
 package com.kyloth.serleenacloud.datamodel.business;
 
-import com.kyloth.serleenacloud.datamodel.geometry.IPoly;
-import com.kyloth.serleenacloud.datamodel.geometry.IPoint;
+import com.kyloth.serleenacloud.datamodel.geometry.Point;
 
 import java.util.Arrays;
 
@@ -39,13 +38,13 @@ import java.util.Arrays;
  * @version 1.0
  */
 
-public class Lake implements IPoly {
+public class Lake {
 
     /**
      * Insieme dei punti che delimitano il perimetro dell'area poligonale del lago.
      */
 
-    private Iterable<IPoint> points;
+    private Iterable<Point> points;
 
     /**
      * Nome del lago.
@@ -60,7 +59,7 @@ public class Lake implements IPoly {
      * @param name Nome del lago.
      */
 
-    public Lake(Iterable<IPoint> points, String name) {
+    public Lake(Iterable<Point> points, String name) {
         this.points = points;
         this.name = name;
     }
@@ -72,7 +71,7 @@ public class Lake implements IPoly {
      * @param name Nome del lago.
      */
 
-    public Lake(IPoint[] points, String name) {
+    public Lake(Point[] points, String name) {
         this.points = Arrays.asList(points);
         this.name = name;
     }
@@ -93,7 +92,7 @@ public class Lake implements IPoly {
      * @return Restituisce l'insieme dei punti che delimitano il perimetro del lago.
      */
 
-    public Iterable<IPoint> getPoints() {
+    public Iterable<Point> getPoints() {
         return points;
     }
 }
