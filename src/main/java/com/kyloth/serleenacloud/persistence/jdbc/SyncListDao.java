@@ -15,7 +15,7 @@
 
 package com.kyloth.serleenacloud.persistence.jdbc;
 
-import com.kyloth.serleenacloud.datamodel.business.IExperience;
+import com.kyloth.serleenacloud.datamodel.business.Experience;
 import com.kyloth.serleenacloud.datamodel.auth.User;
 
 import com.kyloth.serleenacloud.persistence.IExperienceDao;
@@ -39,20 +39,20 @@ public class SyncListDao implements ISyncListDao {
         this.ed = ds.experienceDao();
     }
 
-    public void persist(Iterable<IExperience> es) {
+    public void persist(Iterable<Experience> es) {
         tpl.update("DELETE FROM SyncList WHERE User = ?", new Object[] {user.getEmail()});
 
-        for (IExperience e : es)
+        for (Experience e : es)
             tpl.update("INSERT INTO SyncList(ExperienceName, User) VALUES(?, ?)",
                        new Object[] {e.getName(), user.getEmail()});
     }
 
-    public Iterable<IExperience> findAll() {
+    public Iterable<Experience> findAll() {
         return tpl.query("SELECT ExperienceName FROM SyncList WHERE User = ?",
                          new Object[] {user.getEmail()},
-                         new RowMapper<IExperience>() {
+                         new RowMapper<Experience>() {
                              @Override
-                             public IExperience mapRow(ResultSet rs, int rowNum) throws SQLException {
+                             public Experience mapRow(ResultSet rs, int rowNum) throws SQLException {
                                  return ed.find(rs.getString("ExperienceName"));
                              }
                          });
