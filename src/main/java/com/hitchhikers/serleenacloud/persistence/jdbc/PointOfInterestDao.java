@@ -16,7 +16,7 @@
 package com.kyloth.serleenacloud.persistence.jdbc;
 
 import com.kyloth.serleenacloud.datamodel.business.PointOfInterest;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
+import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 import com.kyloth.serleenacloud.persistence.IPointOfInterestDao;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -33,7 +33,7 @@ public class PointOfInterestDao implements IPointOfInterestDao {
         this.tpl = ds.getTpl();
     }
 
-    public Iterable<PointOfInterest> findAll(IRect region) {
+    public Iterable<PointOfInterest> findAll(Rect region) {
         return tpl.query("SELECT Latitude, Longitude, Name, Type " +
                          "FROM POIs " +
                          "WHERE (Latitude BETWEEN ? AND ?) AND (Longitude BETWEEN ? AND ?) ",
