@@ -15,9 +15,9 @@
 
 package com.kyloth.serleenacloud.persistence;
 
-import com.kyloth.serleenacloud.datamodel.business.IEmergencyContact;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
+import com.kyloth.serleenacloud.datamodel.business.EmergencyContact;
+import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 
 public interface IEmergencyContactDao {
-    public Iterable<IEmergencyContact> findAll(IRect region);
+    public Iterable<EmergencyContact> findAll(Rect region);
 }

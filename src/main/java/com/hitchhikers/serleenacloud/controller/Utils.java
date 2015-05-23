@@ -13,20 +13,12 @@
 ******************************************************************************/
 
 
-package com.kyloth.serleenacloud;
+package com.kyloth.serleenacloud.controller;
 
-/**
- * Example Spring bean
- */
+public class Utils {
 
-public class Hello {
-    private String vai;
-
-    public void setVai(String vai) {
-        this.vai = vai;
+    public static void sendMail(String to, String subj, String body) {
+        // TODO
     }
 
-    public String getVai() {
-        return vai;
-    }
 }

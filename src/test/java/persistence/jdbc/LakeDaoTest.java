@@ -42,9 +42,7 @@ import com.kyloth.serleenacloud.persistence.jdbc.JDBCDataSource;
 import com.kyloth.serleenacloud.persistence.ILakeDao;
 
 import com.kyloth.serleenacloud.datamodel.business.Lake;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
-import com.kyloth.serleenacloud.datamodel.geometry.IPoint;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 import com.kyloth.serleenacloud.persistence.ILakeDao;
 
@@ -97,17 +95,17 @@ public class LakeDaoTest {
 
     @Test
     public void testFindAll() {
-        IRect region = new Rect(new Point(10, 1), new Point(1, 10));
+        Rect region = new Rect(new Point(10, 1), new Point(1, 10));
         Iterable<Lake> lakes = ld.findAll(region);
         Iterator<Lake> i_lakes = lakes.iterator();
         Lake lake = i_lakes.next();
         assertTrue(lake.getName().equals("Lake1"));
         assertFalse(i_lakes.hasNext());
-        Iterable<IPoint> points = lake.getPoints();
-        Iterator<IPoint> i_points = points.iterator();
-        Point p1 = (Point) i_points.next();
-        Point p2 = (Point) i_points.next();
-        Point p3 = (Point) i_points.next();
+        Iterable<Point> points = lake.getPoints();
+        Iterator<Point> i_points = points.iterator();
+        Point p1 = i_points.next();
+        Point p2 = i_points.next();
+        Point p3 = i_points.next();
         assertTrue(p1.getLatitude() == 3);
         assertTrue(p1.getLongitude() == 7);
         assertTrue(p2.getLatitude() == 4);

@@ -41,7 +41,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.kyloth.serleenacloud.persistence.ITelemetryDao;
 
-import com.kyloth.serleenacloud.datamodel.business.ITelemetry;
 import com.kyloth.serleenacloud.datamodel.business.Telemetry;
 import com.kyloth.serleenacloud.datamodel.business.TelemetryEvent;
 
@@ -107,22 +106,22 @@ public class TelemetryDaoTest {
             new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, new Date(), 11),
             new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, new Date(), 12)
         };
-        Telemetry t1 = new Telemetry(events_1);
-        Telemetry t2 = new Telemetry(events_2);
-        Telemetry t3 = new Telemetry(events_3);
+        Telemetry t1 = new Telemetry(events_1, "track");
+        Telemetry t2 = new Telemetry(events_2, "track");
+        Telemetry t3 = new Telemetry(events_3, "track");
         td.persist("Track1", t1);
         td.persist("Track1", t2);
         td.persist("Track2", t3);
-        Iterable<ITelemetry> telemetries_1 = td.findAll("Track1");
-        Iterable<ITelemetry> telemetries_2 = td.findAll("Track2");
-        Iterable<ITelemetry> telemetries_3 = td.findAll("FalseTrack");
-        Iterator<ITelemetry> i_t_1 = telemetries_1.iterator();
-        Iterator<ITelemetry> i_t_2 = telemetries_2.iterator();
-        Iterator<ITelemetry> i_t_f = telemetries_3.iterator();
+        Iterable<Telemetry> telemetries_1 = td.findAll("Track1");
+        Iterable<Telemetry> telemetries_2 = td.findAll("Track2");
+        Iterable<Telemetry> telemetries_3 = td.findAll("FalseTrack");
+        Iterator<Telemetry> i_t_1 = telemetries_1.iterator();
+        Iterator<Telemetry> i_t_2 = telemetries_2.iterator();
+        Iterator<Telemetry> i_t_f = telemetries_3.iterator();
         assertFalse(i_t_f.hasNext());
-        Telemetry tel_1 = (Telemetry) i_t_1.next();
-        Telemetry tel_2 = (Telemetry) i_t_1.next();
-        Telemetry tel_3 = (Telemetry) i_t_2.next();
+        Telemetry tel_1 = i_t_1.next();
+        Telemetry tel_2 = i_t_1.next();
+        Telemetry tel_3 = i_t_2.next();
         assertFalse(i_t_1.hasNext());
         assertFalse(i_t_2.hasNext());
         Iterable<TelemetryEvent> t_events_1 = tel_1.getEvents();

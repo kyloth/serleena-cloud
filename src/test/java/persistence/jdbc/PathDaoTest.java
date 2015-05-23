@@ -42,9 +42,7 @@ import com.kyloth.serleenacloud.persistence.jdbc.JDBCDataSource;
 import com.kyloth.serleenacloud.persistence.IPathDao;
 
 import com.kyloth.serleenacloud.datamodel.business.Path;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
-import com.kyloth.serleenacloud.datamodel.geometry.IWeighedPoint;
 import com.kyloth.serleenacloud.datamodel.geometry.WeighedPoint;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 
@@ -97,16 +95,16 @@ public class PathDaoTest {
 
     @Test
     public void testFindAll() {
-        IRect region = new Rect(new Point(10, 1), new Point(1, 10));
+        Rect region = new Rect(new Point(10, 1), new Point(1, 10));
         Iterable<Path> paths = pd.findAll(region);
         Iterator<Path> i_paths = paths.iterator();
         Path path = i_paths.next();
         assertFalse(i_paths.hasNext());
         assertTrue(path.getName().equals("Path1"));
-        Iterable<IWeighedPoint> points = path.getPoints();
-        Iterator<IWeighedPoint> i_points = points.iterator();
-        WeighedPoint wp1 = (WeighedPoint) i_points.next();
-        WeighedPoint wp2 = (WeighedPoint) i_points.next();
+        Iterable<WeighedPoint> points = path.getPoints();
+        Iterator<WeighedPoint> i_points = points.iterator();
+        WeighedPoint wp1 = i_points.next();
+        WeighedPoint wp2 = i_points.next();
         assertTrue(wp1.getLatitude() == 3);
         assertTrue(wp1.getLongitude() == 7);
         assertTrue(wp2.getLatitude() == 4);

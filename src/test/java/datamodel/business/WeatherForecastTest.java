@@ -31,9 +31,7 @@ import org.junit.Test;
 import java.util.Date;
 import java.util.Arrays;
 import java.util.Iterator;
-import com.kyloth.serleenacloud.datamodel.geometry.IPoint;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 
 /**
@@ -50,27 +48,27 @@ public class WeatherForecastTest {
      */
     @Test
     public void testConstructor() {
-        IWeatherForecast.WeatherCondition forecast = IWeatherForecast.WeatherCondition.SNOWY;
+        WeatherForecast.WeatherCondition forecast = WeatherForecast.WeatherCondition.SNOWY;
         Point nw = new Point(12.32, 74.23);
         Point se = new Point(7.44, 44);
         Point ne = new Point(12.32, 44);
         Point sw = new Point(7.44, 74.23);
-        Iterable<IPoint> points = Arrays.asList(new IPoint[] {nw, ne, se, sw});
-        Iterator<IPoint> points_iterator = points.iterator();
-        IRect boundingRect = new Rect(nw, se);
+        Iterable<Point> points = Arrays.asList(new Point[] {nw, ne, se, sw});
+        Iterator<Point> points_iterator = points.iterator();
+        Rect boundingRect = new Rect(nw, se);
         double temperature = 88.23;
         Date time = new Date(1500);
         WeatherForecast wf = new WeatherForecast(time, boundingRect, temperature, forecast);
-        IRect wf_rect = wf.getBoundingRect();
-        Iterable<IPoint> wf_points = wf_rect.getPoints();
-        Iterator<IPoint> wf_iterator = wf_points.iterator();
+        Rect wf_rect = wf.getBoundingRect();
+        Iterable<Point> wf_points = wf_rect.getPoints();
+        Iterator<Point> wf_iterator = wf_points.iterator();
 
-        assertTrue(wf.getForecast() == IWeatherForecast.WeatherCondition.SNOWY);
+        assertTrue(wf.getForecast() == WeatherForecast.WeatherCondition.SNOWY);
         assertTrue(wf.getTemperature() == 88.23);
         assertTrue(wf.getTime().equals(time));
         while(points_iterator.hasNext() && wf_iterator.hasNext()) {
-            IPoint input_point = points_iterator.next();
-            IPoint wf_point = wf_iterator.next();
+            Point input_point = points_iterator.next();
+            Point wf_point = wf_iterator.next();
 
             assertTrue(input_point.getLatitude() == wf_point.getLatitude());
             assertTrue(input_point.getLongitude() == wf_point.getLongitude());

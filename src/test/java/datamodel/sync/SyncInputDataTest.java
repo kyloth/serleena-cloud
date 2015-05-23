@@ -32,7 +32,6 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Date;
 import com.kyloth.serleenacloud.datamodel.business.UserPoint;
-import com.kyloth.serleenacloud.datamodel.business.ITelemetry;
 import com.kyloth.serleenacloud.datamodel.business.Telemetry;
 import com.kyloth.serleenacloud.datamodel.business.TelemetryEvent;
 
@@ -56,22 +55,22 @@ public class SyncInputDataTest {
                                              new UserPoint(0, 0, "UserPoint_2")
                                          });
         Iterator<UserPoint> i_userPoints = userPoints.iterator();
-        Iterable<ITelemetry> telemetryData = Arrays.asList(new ITelemetry[] {
+        Iterable<Telemetry> telemetryData = Arrays.asList(new Telemetry[] {
                                                  new Telemetry(Arrays.asList(new TelemetryEvent[] {
                                                              new TelemetryEvent(null, new Date(100), 0),
                                                              new TelemetryEvent(null, new Date(200), 1)
-                                                         })),
+                                                         }), "track"),
                                                  new Telemetry(Arrays.asList(new TelemetryEvent[] {
                                                              new TelemetryEvent(null, new Date(50), 0),
                                                              new TelemetryEvent(null, new Date(300), 1)
-                                                         }))
+                                                         }), "track")
                                              });
-        Iterator<ITelemetry> i_telemetryData = telemetryData.iterator();
+        Iterator<Telemetry> i_telemetryData = telemetryData.iterator();
         SyncInputData sid = new SyncInputData(experienceName, userPoints, telemetryData);
         Iterable<UserPoint> sid_userPoints = sid.getUserPoints();
         Iterator<UserPoint> i_sid_userPoints = sid_userPoints.iterator();
-        Iterable<ITelemetry> sid_telemetryData = sid.getTelemetryData();
-        Iterator<ITelemetry> i_sid_telemetryData = sid_telemetryData.iterator();
+        Iterable<Telemetry> sid_telemetryData = sid.getTelemetryData();
+        Iterator<Telemetry> i_sid_telemetryData = sid_telemetryData.iterator();
 
         assertTrue(sid.getExperienceName().equals(experienceName));
         while(i_userPoints.hasNext() && i_sid_userPoints.hasNext()) {
@@ -81,8 +80,8 @@ public class SyncInputDataTest {
             assertTrue(input_userPoint.getName().equals(sid_userPoint.getName()));
         }
         while(i_telemetryData.hasNext() && i_sid_telemetryData.hasNext()) {
-            ITelemetry input_telemetry = i_telemetryData.next();
-            ITelemetry sid_telemetry = i_sid_telemetryData.next();
+            Telemetry input_telemetry = i_telemetryData.next();
+            Telemetry sid_telemetry = i_sid_telemetryData.next();
 
             assertTrue(input_telemetry.compareTo(sid_telemetry) == 0);
         }

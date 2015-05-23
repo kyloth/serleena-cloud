@@ -110,4 +110,8 @@ public class User {
         return deviceId;
     }
 
+    public boolean equals(User u) {
+        return u.getEmail().equals(email)
+            && u.getPassword().equals(password);
+    }
 }

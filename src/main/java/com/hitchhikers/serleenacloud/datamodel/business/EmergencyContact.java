@@ -25,7 +25,7 @@
 
 package com.kyloth.serleenacloud.datamodel.business;
 
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
+import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 
 import java.util.Date;
 
@@ -36,13 +36,13 @@ import java.util.Date;
  * @version 1.0
  */
 
-public class EmergencyContact implements IEmergencyContact {
+public class EmergencyContact {
 
     /**
      * Rappresenta l'area geografica relativa al contatto di emergenza.
      */
 
-    private IRect boundingRect;
+    private Rect boundingRect;
 
     /**
      * Nome del contatto di emergenza.
@@ -64,7 +64,7 @@ public class EmergencyContact implements IEmergencyContact {
      * @param number Il numero del contatto.
      */
 
-    public EmergencyContact(String name, IRect boundingRect, String number) {
+    public EmergencyContact(String name, Rect boundingRect, String number) {
         this.name = name;
         this.boundingRect = boundingRect;
         this.number = number;
@@ -76,7 +76,7 @@ public class EmergencyContact implements IEmergencyContact {
      * @return Restituisce un oggetto di tipo IRect che rappresenta l'area geografica relativa al contatto.
      */
 
-    public IRect getBoundingRect() {
+    public Rect getBoundingRect() {
         return boundingRect;
     }
 

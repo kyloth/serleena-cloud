@@ -35,12 +35,12 @@ import java.util.Arrays;
  * @version 1.0
  */
 
-public class Rect implements IRect {
+public class Rect {
 
-    private IPoint nw;
-    private IPoint se;
+    private Point nw;
+    private Point se;
 
-    private Iterable<IPoint> points;
+    private Iterable<Point> points;
 
     /**
      * Costruisce un nuovo oggetto Rect dati i due punti geografici degli angoli
@@ -50,7 +50,7 @@ public class Rect implements IRect {
      * @param Punto geografico dell'angolo Sud-Est
      */
 
-    public Rect(IPoint nw, IPoint se) {
+    public Rect(Point nw, Point se) {
         this.nw = nw;
         this.se = se;
     }
@@ -61,11 +61,11 @@ public class Rect implements IRect {
      * @return La collezione dei punti che delimitano il perimetro del rettangolo
      */
 
-    public Iterable<IPoint> getPoints() {
+    public Iterable<Point> getPoints() {
         if (points == null) {
             Point ne = new Point(nw.getLatitude(), se.getLongitude());
             Point sw = new Point(se.getLatitude(), nw.getLongitude());
-            points = Arrays.asList(new IPoint[] {nw, ne, se, sw });
+            points = Arrays.asList(new Point[] {nw, ne, se, sw });
         }
         return points;
     }
@@ -76,7 +76,7 @@ public class Rect implements IRect {
      * @return La coordinata geografica dell'angolo Nord-Ovest
      */
 
-    public IPoint getNWPoint() {
+    public Point getNWPoint() {
         return nw;
     }
 
@@ -86,7 +86,7 @@ public class Rect implements IRect {
      * @return La coordinata geografica dell'angolo Sud-Est
      */
 
-    public IPoint getSEPoint() {
+    public Point getSEPoint() {
         return se;
     }
 

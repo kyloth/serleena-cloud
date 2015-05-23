@@ -15,9 +15,9 @@
 
 package com.kyloth.serleenacloud.persistence;
 
-import com.kyloth.serleenacloud.datamodel.business.ITelemetry;
+import com.kyloth.serleenacloud.datamodel.business.Telemetry;
 
 public interface ITelemetryDao {
-    public void persist(String trackName, ITelemetry t);
-    public Iterable<ITelemetry> findAll(String trackName);
+    public void persist(String trackName, Telemetry t);
+    public Iterable<Telemetry> findAll(String trackName);
 }

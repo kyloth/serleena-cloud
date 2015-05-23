@@ -16,8 +16,8 @@
 package com.kyloth.serleenacloud.persistence;
 
 import com.kyloth.serleenacloud.datamodel.business.River;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
+import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 
 public interface IRiverDao {
-    public Iterable<River> findAll(IRect region);
+    public Iterable<River> findAll(Rect region);
 }

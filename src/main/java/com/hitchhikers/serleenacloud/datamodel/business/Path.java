@@ -26,7 +26,7 @@
 package com.kyloth.serleenacloud.datamodel.business;
 
 import com.kyloth.serleenacloud.datamodel.geometry.AWideLine;
-import com.kyloth.serleenacloud.datamodel.geometry.IWeighedPoint;
+import com.kyloth.serleenacloud.datamodel.geometry.WeighedPoint;
 
 /**
  * Classe che rappresenta un'entità di mappa di tipo sentiero.
@@ -52,7 +52,7 @@ public class Path extends AWideLine {
      * @param name Il nome del sentiero.
      */
 
-    public Path(Iterable<IWeighedPoint> points, String name) {
+    public Path(Iterable<WeighedPoint> points, String name) {
         super(points);
         this.name = name;
     }
@@ -64,7 +64,7 @@ public class Path extends AWideLine {
      * @param name Il nome del sentiero.
      */
 
-    public Path(IWeighedPoint[] points, String name) {
+    public Path(WeighedPoint[] points, String name) {
         super(points);
         this.name = name;
     }
