@@ -36,7 +36,7 @@ import java.util.Arrays;
  * @version 1.0
  */
 
-public class Track implements ITrack {
+public class Track {
 
     /**
      * Il nome del Percorso.
@@ -54,7 +54,7 @@ public class Track implements ITrack {
      * L'insieme dei Tracciamenti relativi al Percorso.
      */
 
-    private Iterable<ITelemetry> telemetries;
+    private Iterable<Telemetry> telemetries;
 
     /**
      * Crea un nuovo Percorso inizializzandone i campi dati.
@@ -64,7 +64,7 @@ public class Track implements ITrack {
      * @param telemetries Insieme dei Tracciamenti relativi al Percorso.
      */
 
-    public Track(String name, Iterable<CheckPoint> checkpoints, Iterable<ITelemetry> telemetries) {
+    public Track(String name, Iterable<CheckPoint> checkpoints, Iterable<Telemetry> telemetries) {
         this.name = name;
         this.checkpoints = checkpoints;
         this.telemetries = telemetries;
@@ -78,7 +78,7 @@ public class Track implements ITrack {
      * @param telemetries Array dei Tracciamenti relativi al Percorso.
      */
 
-    public Track(String name, CheckPoint[] checkpoints, ITelemetry[] telemetries) {
+    public Track(String name, CheckPoint[] checkpoints, Telemetry[] telemetries) {
         this.name = name;
         this.checkpoints = Arrays.asList(checkpoints);
         this.telemetries = Arrays.asList(telemetries);
@@ -110,7 +110,7 @@ public class Track implements ITrack {
      * @return Restituisce l'insieme dei dati di Tracciamento relativi al Percorso.
      */
 
-    public Iterable<ITelemetry> getTelemetries() {
+    public Iterable<Telemetry> getTelemetries() {
         return telemetries;
     }
 
@@ -120,9 +120,9 @@ public class Track implements ITrack {
      * @return Restituisce il miglior Tracciamento disponibile per il Percorso.
      */
 
-    public ITelemetry getBestTelemetry() {
-        ITelemetry best = null;
-        for (ITelemetry telemetry : getTelemetries())
+    public Telemetry getBestTelemetry() {
+        Telemetry best = null;
+        for (Telemetry telemetry : getTelemetries())
             if (best == null || best.compareTo(telemetry) > 0)
                 best = telemetry;
         return best;

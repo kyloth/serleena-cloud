@@ -15,9 +15,9 @@
 
 package com.kyloth.serleenacloud.persistence;
 
-import com.kyloth.serleenacloud.datamodel.business.IExperience;
+import com.kyloth.serleenacloud.datamodel.business.Experience;
 
 public interface ISyncListDao {
-    public void persist(Iterable<IExperience> es);
-    public Iterable<IExperience> findAll();
+    public void persist(Iterable<Experience> es);
+    public Iterable<Experience> findAll();
 }

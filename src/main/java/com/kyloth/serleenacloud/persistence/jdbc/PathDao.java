@@ -16,8 +16,7 @@
 package com.kyloth.serleenacloud.persistence.jdbc;
 
 import com.kyloth.serleenacloud.datamodel.business.Path;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
-import com.kyloth.serleenacloud.datamodel.geometry.IWeighedPoint;
+import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 import com.kyloth.serleenacloud.datamodel.geometry.WeighedPoint;
 import com.kyloth.serleenacloud.persistence.IPathDao;
 
@@ -35,7 +34,7 @@ public class PathDao implements IPathDao {
         this.tpl = ds.getTpl();
     }
 
-    public Iterable<Path> findAll(IRect region) {
+    public Iterable<Path> findAll(Rect region) {
         return tpl.query("SELECT DISTINCT PathName " +
                          "FROM PathPoints " +
                          "WHERE (Latitude BETWEEN ? AND ?) AND (Longitude BETWEEN ? AND ?) ",
@@ -49,14 +48,14 @@ public class PathDao implements IPathDao {
             @Override
             public Path mapRow(ResultSet rs, int rowNum) throws SQLException {
                 String pathName = rs.getString("PathName");
-                Iterable<IWeighedPoint> points = tpl.query("SELECT Latitude, Longitude, Radius " +
+                Iterable<WeighedPoint> points = tpl.query("SELECT Latitude, Longitude, Radius " +
                                                  "FROM PathPoints " +
                                                  "WHERE PathName = ? "+
                                                  "ORDER BY Idx",
                                                  new Object[] {pathName},
-                new RowMapper<IWeighedPoint>() {
+                new RowMapper<WeighedPoint>() {
                     @Override
-                    public IWeighedPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    public WeighedPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
                         return new WeighedPoint(rs.getDouble("Latitude"), rs.getDouble("Longitude"),
                                                 rs.getDouble("Radius"));
                     }

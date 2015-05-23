@@ -40,9 +40,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.kyloth.serleenacloud.persistence.jdbc.JDBCDataSource;
 import com.kyloth.serleenacloud.persistence.IEmergencyContactDao;
-import com.kyloth.serleenacloud.datamodel.business.IEmergencyContact;
 import com.kyloth.serleenacloud.datamodel.business.EmergencyContact;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 
@@ -93,12 +91,12 @@ public class EmergencyContactDaoTest {
 
     @Test
     public void testFindAll() {
-        IRect region = new Rect(new Point(16.18, 3.2), new Point(13.12, 4.9));
-        Iterable<IEmergencyContact> contacts = ecd.findAll(region);
-        Iterator<IEmergencyContact> i_contacts = contacts.iterator();
-        EmergencyContact ec_1 = (EmergencyContact) i_contacts.next();
+        Rect region = new Rect(new Point(16.18, 3.2), new Point(13.12, 4.9));
+        Iterable<EmergencyContact> contacts = ecd.findAll(region);
+        Iterator<EmergencyContact> i_contacts = contacts.iterator();
+        EmergencyContact ec_1 = i_contacts.next();
         assertTrue(ec_1.getName().equals("Contact_1"));
-        EmergencyContact ec_2 = (EmergencyContact) i_contacts.next();
+        EmergencyContact ec_2 = i_contacts.next();
         assertTrue(ec_2.getName().equals("Contact_2"));
         assertFalse(i_contacts.hasNext());
     }

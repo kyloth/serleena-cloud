@@ -26,7 +26,7 @@
 package com.kyloth.serleenacloud.datamodel.sync;
 
 import com.kyloth.serleenacloud.datamodel.business.UserPoint;
-import com.kyloth.serleenacloud.datamodel.business.ITelemetry;
+import com.kyloth.serleenacloud.datamodel.business.Telemetry;
 
 import java.util.Arrays;
 
@@ -51,7 +51,7 @@ public class SyncInputData {
      * Insieme di dati telemetrici relativi all'Esperienza da sincronizzare.
      */
 
-    private Iterable<ITelemetry> telemetryData;
+    private Iterable<Telemetry> telemetryData;
 
     /**
      * Nome dell'Esperienza da sincronizzare.
@@ -68,7 +68,7 @@ public class SyncInputData {
      * @param telemetryData Insieme dei dati di telemetria da sincronizzare.
      */
 
-    public SyncInputData(String experienceName, Iterable<UserPoint> userPoints, Iterable<ITelemetry> telemetryData) {
+    public SyncInputData(String experienceName, Iterable<UserPoint> userPoints, Iterable<Telemetry> telemetryData) {
         this.experienceName = experienceName;
         this.telemetryData = telemetryData;
         this.userPoints = userPoints;
@@ -83,7 +83,7 @@ public class SyncInputData {
      * @param telemetryData Array dei dati di telemetria da sincronizzare.
      */
 
-    public SyncInputData(String experienceName, UserPoint[] userPoints, ITelemetry[] telemetryData) {
+    public SyncInputData(String experienceName, UserPoint[] userPoints, Telemetry[] telemetryData) {
         this.experienceName = experienceName;
         this.telemetryData = Arrays.asList(telemetryData);
         this.userPoints = Arrays.asList(userPoints);
@@ -115,7 +115,7 @@ public class SyncInputData {
      * @return Restituisce l'insieme dei dati di telemetria da sincronizzare.
      */
 
-    public Iterable<ITelemetry> getTelemetryData() {
+    public Iterable<Telemetry> getTelemetryData() {
         return telemetryData;
     }
 

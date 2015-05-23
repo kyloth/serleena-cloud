@@ -15,9 +15,7 @@
 
 package com.kyloth.serleenacloud.persistence.jdbc;
 
-import com.kyloth.serleenacloud.datamodel.business.IEmergencyContact;
 import com.kyloth.serleenacloud.datamodel.business.EmergencyContact;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 import com.kyloth.serleenacloud.persistence.IEmergencyContactDao;
@@ -36,7 +34,7 @@ public class EmergencyContactDao implements IEmergencyContactDao {
         this.tpl = ds.getTpl();
     }
 
-    public Iterable<IEmergencyContact> findAll(IRect region) {
+    public Iterable<EmergencyContact> findAll(Rect region) {
         return tpl.query("SELECT NWLatitude, NWLongitude, SELatitude, SELongitude, Name, Number " +
                          "FROM EmergencyContacts " +
                          "WHERE ((NWLatitude BETWEEN ? AND ?) AND (NWLongitude BETWEEN ? AND ?)) " +
@@ -61,9 +59,9 @@ public class EmergencyContactDao implements IEmergencyContactDao {
                              region.getNWPoint().getLongitude(),
                              region.getSEPoint().getLongitude()
                          },
-        new RowMapper<IEmergencyContact>() {
+        new RowMapper<EmergencyContact>() {
             @Override
-            public IEmergencyContact mapRow(ResultSet rs, int rowNum) throws SQLException {
+            public EmergencyContact mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return new EmergencyContact(rs.getString("Name"),
                                             new Rect(new Point(rs.getDouble("NWLatitude"),
                                                      rs.getDouble("NWLongitude")),

@@ -15,14 +15,11 @@
 
 package com.kyloth.serleenacloud.persistence.jdbc;
 
-import com.kyloth.serleenacloud.datamodel.business.IExperience;
-import com.kyloth.serleenacloud.datamodel.business.ITrack;
+import com.kyloth.serleenacloud.datamodel.business.Track;
 import com.kyloth.serleenacloud.datamodel.business.Experience;
 import com.kyloth.serleenacloud.datamodel.business.UserPoint;
 import com.kyloth.serleenacloud.datamodel.business.PointOfInterest;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
-import com.kyloth.serleenacloud.datamodel.geometry.IPoint;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 import com.kyloth.serleenacloud.datamodel.auth.User;
 import com.kyloth.serleenacloud.persistence.IExperienceDao;
@@ -46,12 +43,12 @@ public class ExperienceDao implements IExperienceDao {
         this.tDao = ds.trackDao();
     }
 
-    public void persist(IExperience experience) {
+    public void persist(Experience experience) {
         String name = experience.getName();
 
-        IRect r = experience.getBoundingRect();
-        IPoint nw = r.getNWPoint();
-        IPoint se = r.getSEPoint();
+        Rect r = experience.getBoundingRect();
+        Point nw = r.getNWPoint();
+        Point se = r.getSEPoint();
 
         if (find(name) != null)
             tpl.update("DELETE FROM Experiences WHERE Name = ?", new Object[] {name});
@@ -63,7 +60,7 @@ public class ExperienceDao implements IExperienceDao {
                                                        nw.getLatitude(),
                                                        se.getLongitude(),
                                                        se.getLatitude()});
-        for (ITrack t : experience.getTracks())
+        for (Track t : experience.getTracks())
             tpl.update("INSERT INTO ExperienceTracks(ExperienceName, TrackName) VALUES(?, ?)",
                        new Object[] {name, t.getName()});
 
@@ -82,22 +79,22 @@ public class ExperienceDao implements IExperienceDao {
         tpl.update("DELETE FROM Experiences WHERE Name = ?", new Object[] {name});
     }
 
-    public IExperience find(String name) {
-        for (IExperience e : findAll())
+    public Experience find(String name) {
+        for (Experience e : findAll())
             if (e.getName().equals(name))
                 return e;
         return null;
     }
 
 
-    public Iterable<IExperience> findAll() {
+    public Iterable<Experience> findAll() {
         return tpl.query("SELECT Name, NWLongitude, NWLatitude, SELongitude, SELatitude " +
                          "FROM Experiences " +
                          "WHERE User =  ? ",
                          new Object[] {user.getEmail()},
-        new RowMapper<IExperience>() {
+        new RowMapper<Experience>() {
             @Override
-            public IExperience mapRow(ResultSet rs, int rowNum) throws SQLException {
+            public Experience mapRow(ResultSet rs, int rowNum) throws SQLException {
                 String eName = rs.getString("Name");
                 return new Experience(eName,
                                       new Rect(new Point(rs.getDouble("NWLatitude"),

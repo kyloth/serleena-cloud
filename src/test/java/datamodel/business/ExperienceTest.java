@@ -30,9 +30,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 import java.util.Arrays;
 import java.util.Iterator;
-import com.kyloth.serleenacloud.datamodel.geometry.IPoint;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 
 /**
@@ -54,14 +52,14 @@ public class ExperienceTest {
         Point se = new Point(2.12, 16.59);
         Point ne = new Point(5.32, 16.59);
         Point sw = new Point(2.12, 32.65);
-        Iterable<IPoint> points = Arrays.asList(new IPoint[] {nw, ne, se, sw});
-        Iterator<IPoint> points_iterator = points.iterator();
-        IRect rect = new Rect(nw, se);
-        Iterable<ITrack> tracks = Arrays.asList(new ITrack[] {
-                                                    new Track("Track_1", new CheckPoint[1], new ITelemetry[1]),
-                                                    new Track("Track_2", new CheckPoint[1], new ITelemetry[1])
+        Iterable<Point> points = Arrays.asList(new Point[] {nw, ne, se, sw});
+        Iterator<Point> points_iterator = points.iterator();
+        Rect rect = new Rect(nw, se);
+        Iterable<Track> tracks = Arrays.asList(new Track[] {
+                                                    new Track("Track_1", new CheckPoint[1], new Telemetry[1]),
+                                                    new Track("Track_2", new CheckPoint[1], new Telemetry[1])
                                                 });
-        Iterator<ITrack> tracks_iterator = tracks.iterator();
+        Iterator<Track> tracks_iterator = tracks.iterator();
         Iterable<UserPoint> userPoints = Arrays.asList(new UserPoint[] {
                                              new UserPoint(0, 0, "up_1"),
                                              new UserPoint(0, 0, "up_2")
@@ -73,11 +71,11 @@ public class ExperienceTest {
                                          });
         Iterator<PointOfInterest> pois_iterator = pois.iterator();
         Experience e = new Experience(name, rect, tracks, userPoints, pois);
-        IRect e_rect = e.getBoundingRect();
-        Iterable<IPoint> e_points = e_rect.getPoints();
-        Iterator<IPoint> e_points_iterator = e_points.iterator();
-        Iterable<ITrack> e_tracks = e.getTracks();
-        Iterator<ITrack> e_tracks_iterator = e_tracks.iterator();
+        Rect e_rect = e.getBoundingRect();
+        Iterable<Point> e_points = e_rect.getPoints();
+        Iterator<Point> e_points_iterator = e_points.iterator();
+        Iterable<Track> e_tracks = e.getTracks();
+        Iterator<Track> e_tracks_iterator = e_tracks.iterator();
         Iterable<UserPoint> e_userPoints = e.getUserPoints();
         Iterator<UserPoint> e_userPoints_iterator = e_userPoints.iterator();
         Iterable<PointOfInterest> e_pois = e.getPOIs();
@@ -86,15 +84,15 @@ public class ExperienceTest {
 
         assertTrue(e.getName().equals("Jimi Hendrix Experience"));
         while(points_iterator.hasNext() && e_points_iterator.hasNext()) {
-            IPoint input_point = points_iterator.next();
-            IPoint e_point = e_points_iterator.next();
+            Point input_point = points_iterator.next();
+            Point e_point = e_points_iterator.next();
 
             assertTrue(input_point.getLatitude() == e_point.getLatitude());
             assertTrue(input_point.getLongitude() == e_point.getLongitude());
         }
         while(tracks_iterator.hasNext() && e_tracks_iterator.hasNext()) {
-            ITrack input_track = tracks_iterator.next();
-            ITrack e_track = e_tracks_iterator.next();
+            Track input_track = tracks_iterator.next();
+            Track e_track = e_tracks_iterator.next();
 
             assertTrue(input_track.getName().equals(e_track.getName()));
         }

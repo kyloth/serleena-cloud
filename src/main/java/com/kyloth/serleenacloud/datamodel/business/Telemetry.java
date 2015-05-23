@@ -35,7 +35,7 @@ import java.util.Date;
  * @version 1.0
  */
 
-public class Telemetry implements ITelemetry {
+public class Telemetry {
 
     /**
      * Insieme degli eventi associati al Tracciamento.
@@ -44,23 +44,33 @@ public class Telemetry implements ITelemetry {
     Iterable<TelemetryEvent> events;
 
     /**
+     * Traccia a cui è associato il Tracciamento.
+     */
+
+    String track;
+
+    /**
      * Crea un nuovo oggetto Telemetry inizializzandone i campi dati.
      *
      * @param events Insieme degli eventi associati al Tracciamento.
+     * @param track Traccia a cui è associato il Tracciamento.
      */
 
-    public Telemetry(Iterable<TelemetryEvent> events) {
+    public Telemetry(Iterable<TelemetryEvent> events, String track) {
         this.events = events;
+        this.track = track;
     }
 
     /**
      * Crea un nuovo oggetto Telemetry inizializzandone i campi dati.
      *
      * @param events Array degli eventi associati al Tracciamento.
+     * @param track Traccia a cui è associato il Tracciamento.
      */
 
-    public Telemetry(TelemetryEvent[] events) {
+    public Telemetry(TelemetryEvent[] events, String track) {
         this.events = Arrays.asList(events);
+        this.track = track;
     }
 
     /**
@@ -74,13 +84,23 @@ public class Telemetry implements ITelemetry {
     }
 
     /**
+     * Metodo "getter" che permette di ottenere la traccia a cui è associato il tracciamento
+     *
+     * @return Restituisce la traccia a cui è associato il tracciamentoTracciamento.
+     */
+
+    public String getTrack() {
+        return track;
+    }
+
+    /**
      * Confronta due oggetti Telemetry sulla base del tempo totale registrato.
      *
      * @param telemetry Il Tracciamento contro il quale effettuare il confronto.
      * @return Restituisce 0 se i due oggetti hanno lo stesso tempo totale registrato, 1 se l'oggetto su cui è invocato il metodo ha tempo totale maggiore, -1 altrimenti.
      */
 
-    public int compareTo(ITelemetry telemetry) {
+    public int compareTo(Telemetry telemetry) {
         long thisDuration = duration(this);
         long othDuration = duration(telemetry);
         if (thisDuration == othDuration)
@@ -98,7 +118,7 @@ public class Telemetry implements ITelemetry {
      * @return Restituisce il tempo totale registrato.
      */
 
-    private static long duration (ITelemetry telemetry) {
+    private static long duration (Telemetry telemetry) {
         long duration = 0;
         Date lastDate = null;
 
