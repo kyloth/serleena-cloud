@@ -29,7 +29,6 @@ package com.kyloth.serleenacloud.datamodel.business;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.Before;
-import com.kyloth.serleenacloud.datamodel.geometry.IWeighedPoint;
 import com.kyloth.serleenacloud.datamodel.geometry.WeighedPoint;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -46,9 +45,9 @@ public class RiverTest {
     private double[] latitudes;
     private double[] longitudes;
     private double[] radiuses;
-    private IWeighedPoint[] weighed_points;
-    private Iterable<IWeighedPoint> i_weighed_points;
-    private Iterator<IWeighedPoint> input_iterator;
+    private WeighedPoint[] weighed_points;
+    private Iterable<WeighedPoint> i_weighed_points;
+    private Iterator<WeighedPoint> input_iterator;
     /**
      * Imposta i dati per i test.
      */
@@ -58,7 +57,7 @@ public class RiverTest {
         latitudes = new double[] {-23.14, 912.574, 23.21, 55.11};
         longitudes = new double[] {63.53, -12, -95.93, -3.16};
         radiuses = new double[] {32, 33, 17, 61};
-        weighed_points = new IWeighedPoint[] {new WeighedPoint(latitudes[0], longitudes[0], radiuses[0]),
+        weighed_points = new WeighedPoint[] {new WeighedPoint(latitudes[0], longitudes[0], radiuses[0]),
                            new WeighedPoint(latitudes[1], longitudes[1], radiuses[1]),
                            new WeighedPoint(latitudes[2], longitudes[2], radiuses[2]),
                            new WeighedPoint(latitudes[3], longitudes[3], radiuses[3])
@@ -86,16 +85,16 @@ public class RiverTest {
     public void testAbstractGetter() {
         River r_1 = new River(i_weighed_points, name);
         River r_2 = new River(weighed_points, name);
-        Iterable<IWeighedPoint> r_1_points = r_1.getPoints();
-        Iterable<IWeighedPoint> r_2_points = r_2.getPoints();
-        Iterator<IWeighedPoint> r_1_iterator = r_1_points.iterator();
-        Iterator<IWeighedPoint> r_2_iterator = r_2_points.iterator();
+        Iterable<WeighedPoint> r_1_points = r_1.getPoints();
+        Iterable<WeighedPoint> r_2_points = r_2.getPoints();
+        Iterator<WeighedPoint> r_1_iterator = r_1_points.iterator();
+        Iterator<WeighedPoint> r_2_iterator = r_2_points.iterator();
 
         while(r_1_iterator.hasNext() && r_2_iterator.hasNext()
                 && input_iterator.hasNext()) {
-            IWeighedPoint r_1_point = r_1_iterator.next();
-            IWeighedPoint r_2_point = r_2_iterator.next();
-            IWeighedPoint input_point = input_iterator.next();
+            WeighedPoint r_1_point = r_1_iterator.next();
+            WeighedPoint r_2_point = r_2_iterator.next();
+            WeighedPoint input_point = input_iterator.next();
             assertTrue(r_1_point.getLatitude() == input_point.getLatitude());
             assertTrue(r_2_point.getLatitude() == input_point.getLatitude());
             assertTrue(r_1_point.getLongitude() == input_point.getLongitude());
