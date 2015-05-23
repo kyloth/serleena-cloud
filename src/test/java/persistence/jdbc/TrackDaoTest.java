@@ -41,10 +41,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.kyloth.serleenacloud.persistence.ITrackDao;
 import com.kyloth.serleenacloud.datamodel.business.CheckPoint;
-import com.kyloth.serleenacloud.datamodel.business.ITelemetry;
 import com.kyloth.serleenacloud.datamodel.business.Telemetry;
 import com.kyloth.serleenacloud.datamodel.business.TelemetryEvent;
-import com.kyloth.serleenacloud.datamodel.business.ITrack;
 import com.kyloth.serleenacloud.datamodel.business.Track;
 
 /**
@@ -121,16 +119,16 @@ public class TrackDaoTest {
 
     @Test
     public void testFindAllExperience() {
-        Iterable<ITrack> tracks = td.findAll("Experience_1");
-        Iterator<ITrack> i_tracks = tracks.iterator();
-        Track track = (Track) i_tracks.next();
+        Iterable<Track> tracks = td.findAll("Experience_1");
+        Iterator<Track> i_tracks = tracks.iterator();
+        Track track = i_tracks.next();
         assertFalse(i_tracks.hasNext());
         assertTrue(track.getName().equals("Track_1"));
         Iterable<CheckPoint> checkPoints = track.getCheckPoints();
         Iterator<CheckPoint> i_check = checkPoints.iterator();
         assertTrue(i_check.next().getLatitude() == 1);
-        Iterable<ITelemetry> telemetries = track.getTelemetries();
-        Iterator<ITelemetry> i_tel = telemetries.iterator();
+        Iterable<Telemetry> telemetries = track.getTelemetries();
+        Iterator<Telemetry> i_tel = telemetries.iterator();
         Iterable<TelemetryEvent> events = i_tel.next().getEvents();
         Iterator<TelemetryEvent> i_events = events.iterator();
         assertTrue(i_events.next().getValue() == 1);
@@ -143,10 +141,10 @@ public class TrackDaoTest {
 
     @Test
     public void testFindAllWithoutParam() {
-        Iterable<ITrack> tracks = td.findAll();
-        Iterator<ITrack> i_tracks = tracks.iterator();
-        Track track_1 = (Track) i_tracks.next();
-        Track track_2 = (Track) i_tracks.next();
+        Iterable<Track> tracks = td.findAll();
+        Iterator<Track> i_tracks = tracks.iterator();
+        Track track_1 = i_tracks.next();
+        Track track_2 = i_tracks.next();
         assertFalse(i_tracks.hasNext());
         assertTrue(track_1.getName().equals("Track_1"));
         assertTrue(track_2.getName().equals("Track_2"));
