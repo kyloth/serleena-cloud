@@ -51,6 +51,7 @@ import java.util.ArrayList;
 public class DataRestController {
 
     static IDataSource ds = DataSourceFactory.getDataSource();
+    static ObjectMapper mapper = new ObjectMapper();
 
     @RequestMapping(method = RequestMethod.GET)
     public SyncOutputData get(@RequestHeader("X-AuthToken") String authToken) {
@@ -79,29 +80,30 @@ public class DataRestController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public void put(@RequestParam("data") Iterable<SyncInputData> id,
+    public void put(@RequestParam("data") String id,
                     @RequestHeader("X-AuthToken") String authToken) {
 
         AuthToken token = new AuthToken(authToken);
         User user = ds.userDao().find(token.getEmail());
         IDataSource dataSource = ds.forUser(user);
+        try {
+            for (SyncInputData input : mapper.readValue(id, SyncInputData[].class)) {
 
-        for (SyncInputData input : id) {
+                Experience e = dataSource.experienceDao().find(input.getExperienceName());
+                ArrayList<UserPoint> userPoints = new ArrayList<UserPoint>();
 
-            Experience e = dataSource.experienceDao().find(input.getExperienceName());
-            ArrayList<UserPoint> userPoints = new ArrayList<UserPoint>();
+                for (UserPoint u : input.getUserPoints())
+                    userPoints.add(u);
+                for (UserPoint u : e.getUserPoints())
+                    userPoints.add(u);
 
-            for (UserPoint u : input.getUserPoints())
-                userPoints.add(u);
-            for (UserPoint u : e.getUserPoints())
-                userPoints.add(u);
+                Experience newE = new Experience(e.getName(), e.getBoundingRect(), e.getTracks(), userPoints, e.getPOIs());
+                dataSource.experienceDao().persist(newE);
 
-            Experience newE = new Experience(e.getName(), e.getBoundingRect(), e.getTracks(), userPoints, e.getPOIs());
-            dataSource.experienceDao().persist(newE);
-
-            for (Telemetry t : input.getTelemetryData())
-                dataSource.telemetryDao().persist(t.getTrack(), t);
-        }
+                for (Telemetry t : input.getTelemetryData())
+                    dataSource.telemetryDao().persist(t.getTrack(), t);
+            }
+        } catch (IOException e) {}
     }
 
 
@@ -128,7 +130,7 @@ public class DataRestController {
         IDataSource dataSource = ds.forUser(user);
 
         String lists = body.getFirst("exp_list");
-        ObjectMapper mapper = new ObjectMapper();
+
         try {
             String[] experiences = mapper.readValue(lists, String[].class);
             ArrayList<Experience> syncList = new ArrayList<Experience>();
