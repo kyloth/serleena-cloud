@@ -24,13 +24,12 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import com.kyloth.serleenacloud.persistence.IDataSource;
 import com.kyloth.serleenacloud.persistence.DataSourceFactory;
 
-import com.kyloth.serleenacloud.datamodel.business.IExperience;
-import com.kyloth.serleenacloud.datamodel.business.ITelemetry;
 import com.kyloth.serleenacloud.datamodel.business.Experience;
-import com.kyloth.serleenacloud.datamodel.business.IEmergencyContact;
-import com.kyloth.serleenacloud.datamodel.business.IWeatherForecast;
+import com.kyloth.serleenacloud.datamodel.business.Telemetry;
+import com.kyloth.serleenacloud.datamodel.business.EmergencyContact;
+import com.kyloth.serleenacloud.datamodel.business.WeatherForecast;
 import com.kyloth.serleenacloud.datamodel.business.UserPoint;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
+import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 import com.kyloth.serleenacloud.datamodel.sync.SyncOutputData;
 import com.kyloth.serleenacloud.datamodel.sync.SyncInputData;
 import com.kyloth.serleenacloud.datamodel.auth.User;
@@ -52,20 +51,20 @@ public class DataRestController {
         AuthToken t = new AuthToken(authToken);
         User u = ds.userDao().find(t.getEmail());
 
-        Iterable<IExperience> es = ds.forUser(u).syncListDao().findAll();
-        ArrayList<IEmergencyContact> ec = new ArrayList<IEmergencyContact>();
-        ArrayList<IWeatherForecast> wf = new ArrayList<IWeatherForecast>();
+        Iterable<Experience> es = ds.forUser(u).syncListDao().findAll();
+        ArrayList<EmergencyContact> ec = new ArrayList<EmergencyContact>();
+        ArrayList<WeatherForecast> wf = new ArrayList<WeatherForecast>();
 
-        for (IExperience e : es) {
-            IRect r = e.getBoundingRect();
+        for (Experience e : es) {
+            Rect r = e.getBoundingRect();
 
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.DAY_OF_MONTH, 5);
 
-            for (IWeatherForecast forecast : ds.weatherForecastDao().findAll(r, new Date(), cal.getTime()))
+            for (WeatherForecast forecast : ds.weatherForecastDao().findAll(r, new Date(), cal.getTime()))
                 wf.add(forecast);
 
-            for (IEmergencyContact contact : ds.emergencyContactDao().findAll(r))
+            for (EmergencyContact contact : ds.emergencyContactDao().findAll(r))
                 ec.add(contact);
         }
 
@@ -82,7 +81,7 @@ public class DataRestController {
 
         for (SyncInputData input : id) {
 
-            IExperience e = dataSource.experienceDao().find(input.getExperienceName());
+            Experience e = dataSource.experienceDao().find(input.getExperienceName());
             ArrayList<UserPoint> userPoints = new ArrayList<UserPoint>();
 
             for (UserPoint u : input.getUserPoints())
@@ -90,10 +89,10 @@ public class DataRestController {
             for (UserPoint u : e.getUserPoints())
                 userPoints.add(u);
 
-            IExperience newE = new Experience(e.getName(), e.getBoundingRect(), e.getTracks(), userPoints, e.getPOIs());
+            Experience newE = new Experience(e.getName(), e.getBoundingRect(), e.getTracks(), userPoints, e.getPOIs());
             dataSource.experienceDao().persist(newE);
 
-            for (ITelemetry t : input.getTelemetryData())
+            for (Telemetry t : input.getTelemetryData())
                 dataSource.telemetryDao().persist(t.getTrack(), t);
         }
     }
