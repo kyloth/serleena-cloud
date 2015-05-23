@@ -31,13 +31,10 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Date;
-import com.kyloth.serleenacloud.datamodel.business.IExperience;
 import com.kyloth.serleenacloud.datamodel.business.Experience;
-import com.kyloth.serleenacloud.datamodel.business.IWeatherForecast;
 import com.kyloth.serleenacloud.datamodel.business.WeatherForecast;
-import com.kyloth.serleenacloud.datamodel.business.IEmergencyContact;
 import com.kyloth.serleenacloud.datamodel.business.EmergencyContact;
-import com.kyloth.serleenacloud.datamodel.business.ITrack;
+import com.kyloth.serleenacloud.datamodel.business.Track;
 import com.kyloth.serleenacloud.datamodel.business.UserPoint;
 import com.kyloth.serleenacloud.datamodel.business.PointOfInterest;
 
@@ -55,45 +52,45 @@ public class SyncOutputDataTest {
      */
     @Test
     public void testConstructor() {
-        Iterable<IExperience> experiences = Arrays.asList(new IExperience[] {
-                                                new Experience("Experience_1", null, new ITrack[1], new UserPoint[1], new PointOfInterest[1]),
-                                                new Experience("Experience_2", null, new ITrack[1], new UserPoint[1], new PointOfInterest[1])
+        Iterable<Experience> experiences = Arrays.asList(new Experience[] {
+                                                new Experience("Experience_1", null, new Track[1], new UserPoint[1], new PointOfInterest[1]),
+                                                new Experience("Experience_2", null, new Track[1], new UserPoint[1], new PointOfInterest[1])
                                             });
-        Iterator<IExperience> i_experiences = experiences.iterator();
-        Iterable<IWeatherForecast> forecastData = Arrays.asList(new IWeatherForecast[] {
+        Iterator<Experience> i_experiences = experiences.iterator();
+        Iterable<WeatherForecast> forecastData = Arrays.asList(new WeatherForecast[] {
                     new WeatherForecast(new Date(100), null, 999, null),
                     new WeatherForecast(new Date(200), null, 333, null)
                 });
-        Iterator<IWeatherForecast> i_forecasts = forecastData.iterator();
-        Iterable<IEmergencyContact> emergencyData = Arrays.asList(new IEmergencyContact[] {
+        Iterator<WeatherForecast> i_forecasts = forecastData.iterator();
+        Iterable<EmergencyContact> emergencyData = Arrays.asList(new EmergencyContact[] {
                     new EmergencyContact("Contact_1", null, "0"),
                     new EmergencyContact("Contact_2", null, "1")
                 });
-        Iterator<IEmergencyContact> i_emergencies = emergencyData.iterator();
+        Iterator<EmergencyContact> i_emergencies = emergencyData.iterator();
         SyncOutputData sod = new SyncOutputData(experiences, forecastData, emergencyData);
-        Iterable<IExperience> sod_experiences = sod.getExperiences();
-        Iterator<IExperience> i_sod_experiences = sod_experiences.iterator();
-        Iterable<IWeatherForecast> sod_forecasts = sod.getWeatherData();
-        Iterator<IWeatherForecast> i_sod_forecasts = sod_forecasts.iterator();
-        Iterable<IEmergencyContact> sod_emergencies = sod.getEmergencyData();
-        Iterator<IEmergencyContact> i_sod_emergencies = sod_emergencies.iterator();
+        Iterable<Experience> sod_experiences = sod.getExperiences();
+        Iterator<Experience> i_sod_experiences = sod_experiences.iterator();
+        Iterable<WeatherForecast> sod_forecasts = sod.getWeatherData();
+        Iterator<WeatherForecast> i_sod_forecasts = sod_forecasts.iterator();
+        Iterable<EmergencyContact> sod_emergencies = sod.getEmergencyData();
+        Iterator<EmergencyContact> i_sod_emergencies = sod_emergencies.iterator();
 
         while(i_experiences.hasNext() && i_sod_experiences.hasNext()) {
-            IExperience input_experience = i_experiences.next();
-            IExperience sod_experience = i_sod_experiences.next();
+            Experience input_experience = i_experiences.next();
+            Experience sod_experience = i_sod_experiences.next();
 
             assertTrue(input_experience.getName().equals(sod_experience.getName()));
         }
         while(i_forecasts.hasNext() && i_sod_forecasts.hasNext()) {
-            IWeatherForecast input_forecast = i_forecasts.next();
-            IWeatherForecast sod_forecast = i_sod_forecasts.next();
+            WeatherForecast input_forecast = i_forecasts.next();
+            WeatherForecast sod_forecast = i_sod_forecasts.next();
 
             assertTrue(input_forecast.getTime().equals(sod_forecast.getTime()));
             assertTrue(input_forecast.getTemperature() == sod_forecast.getTemperature());
         }
         while(i_emergencies.hasNext() && i_sod_emergencies.hasNext()) {
-            IEmergencyContact i_emergency = i_emergencies.next();
-            IEmergencyContact i_sod_emergency = i_sod_emergencies.next();
+            EmergencyContact i_emergency = i_emergencies.next();
+            EmergencyContact i_sod_emergency = i_sod_emergencies.next();
 
             assertTrue(i_emergency.getName().equals(i_sod_emergency.getName()));
         }

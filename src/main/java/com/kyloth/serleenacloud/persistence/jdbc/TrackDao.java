@@ -15,9 +15,8 @@
 
 package com.kyloth.serleenacloud.persistence.jdbc;
 
-import com.kyloth.serleenacloud.datamodel.business.ITrack;
 import com.kyloth.serleenacloud.datamodel.business.Track;
-import com.kyloth.serleenacloud.datamodel.business.ITelemetry;
+import com.kyloth.serleenacloud.datamodel.business.Telemetry;
 import com.kyloth.serleenacloud.datamodel.business.CheckPoint;
 import com.kyloth.serleenacloud.persistence.ITrackDao;
 import com.kyloth.serleenacloud.persistence.ITelemetryDao;
@@ -38,11 +37,11 @@ public class TrackDao implements ITrackDao {
         tDao = new TelemetryDao(ds);
     }
 
-    public void persist(ITrack track) {
+    public void persist(Track track) {
         String trackName = track.getName();
         tpl.update("INSERT INTO Tracks(Name) VALUES(?)", new Object[] {trackName});
 
-        for (ITelemetry t : track.getTelemetries())
+        for (Telemetry t : track.getTelemetries())
             tDao.persist(trackName, t);
 
         for (CheckPoint p : track.getCheckPoints())
@@ -52,28 +51,28 @@ public class TrackDao implements ITrackDao {
 
     }
 
-    public Iterable<ITrack> findAll(String experienceName) {
+    public Iterable<Track> findAll(String experienceName) {
         return tpl.query("SELECT TrackName FROM ExperienceTracks WHERE ExperienceName = ?",
                          new Object[] {experienceName},
-        new RowMapper<ITrack>() {
+        new RowMapper<Track>() {
             @Override
-            public ITrack mapRow(ResultSet rs, int rowNum) throws SQLException {
+            public Track mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return find(rs.getString("TrackName"));
             }
         });
     }
 
-    public Iterable<ITrack> findAll() {
+    public Iterable<Track> findAll() {
         return tpl.query("SELECT TrackName FROM ExperienceTracks",
-        new RowMapper<ITrack>() {
+        new RowMapper<Track>() {
             @Override
-            public ITrack mapRow(ResultSet rs, int rowNum) throws SQLException {
+            public Track mapRow(ResultSet rs, int rowNum) throws SQLException {
                 return find(rs.getString("TrackName"));
             }
         });
     }
 
-    public ITrack find(String name) {
+    public Track find(String name) {
         Iterable<CheckPoint> checkpoints =
             tpl.query("SELECT Idx, Longitude, Latitude FROM Checkpoints WHERE TrackName = ?",
                       new Object[] {name},

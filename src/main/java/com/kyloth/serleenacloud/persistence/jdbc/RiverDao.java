@@ -16,8 +16,7 @@
 package com.kyloth.serleenacloud.persistence.jdbc;
 
 import com.kyloth.serleenacloud.datamodel.business.River;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
-import com.kyloth.serleenacloud.datamodel.geometry.IWeighedPoint;
+import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 import com.kyloth.serleenacloud.datamodel.geometry.WeighedPoint;
 import com.kyloth.serleenacloud.persistence.IRiverDao;
 
@@ -35,7 +34,7 @@ public class RiverDao implements IRiverDao {
         this.tpl = ds.getTpl();
     }
 
-    public Iterable<River> findAll(IRect region) {
+    public Iterable<River> findAll(Rect region) {
         return tpl.query("SELECT DISTINCT RiverName " +
                          "FROM RiverPoints " +
                          "WHERE (Latitude BETWEEN ? AND ?) AND (Longitude BETWEEN ? AND ?) ",
@@ -49,14 +48,14 @@ public class RiverDao implements IRiverDao {
             @Override
             public River mapRow(ResultSet rs, int rowNum) throws SQLException {
                 String riverName = rs.getString("RiverName");
-                Iterable<IWeighedPoint> points = tpl.query("SELECT Latitude, Longitude, Radius " +
+                Iterable<WeighedPoint> points = tpl.query("SELECT Latitude, Longitude, Radius " +
                                                  "FROM RiverPoints " +
                                                  "WHERE RiverName = ? "+
                                                  "ORDER BY Idx",
                                                  new Object[] {riverName},
-                new RowMapper<IWeighedPoint>() {
+                new RowMapper<WeighedPoint>() {
                     @Override
-                    public IWeighedPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    public WeighedPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
                         return new WeighedPoint(rs.getDouble("Latitude"), rs.getDouble("Longitude"),
                                                 rs.getDouble("Radius"));
                     }

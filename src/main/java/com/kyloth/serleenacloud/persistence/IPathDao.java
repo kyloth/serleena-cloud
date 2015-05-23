@@ -16,8 +16,8 @@
 package com.kyloth.serleenacloud.persistence;
 
 import com.kyloth.serleenacloud.datamodel.business.Path;
-import com.kyloth.serleenacloud.datamodel.geometry.IRect;
+import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 
 public interface IPathDao {
-    public Iterable<Path> findAll(IRect region);
+    public Iterable<Path> findAll(Rect region);
 }
