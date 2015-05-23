@@ -32,7 +32,7 @@ package com.kyloth.serleenacloud.datamodel.geometry;
  * @version 1.0
  */
 
-public class Point implements IPoint {
+public class Point {
     private double latitude;
     private double longitude;
 

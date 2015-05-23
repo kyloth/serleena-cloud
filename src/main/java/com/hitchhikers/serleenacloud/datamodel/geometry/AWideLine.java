@@ -36,9 +36,9 @@ import java.util.Arrays;
  * @version 1.0
  */
 
-public abstract class AWideLine implements IWideLine {
+public abstract class AWideLine {
 
-    private Iterable<IWeighedPoint> points;
+    private Iterable<WeighedPoint> points;
 
     /**
      * Crea un nuovo oggetto AWideLine
@@ -46,7 +46,7 @@ public abstract class AWideLine implements IWideLine {
      * @param  La collezione di oggetti IWeighedPoint associati
      */
 
-    public AWideLine(Iterable<IWeighedPoint> points) {
+    public AWideLine(Iterable<WeighedPoint> points) {
         this.points = points;
     }
     /**
@@ -55,7 +55,7 @@ public abstract class AWideLine implements IWideLine {
      * @param  Array di oggetti IWeighedPoint associati
      */
 
-    public AWideLine(IWeighedPoint[] points) {
+    public AWideLine(WeighedPoint[] points) {
         this.points = Arrays.asList(points);
     }
 
@@ -65,7 +65,7 @@ public abstract class AWideLine implements IWideLine {
      * @return La collezione di oggetti IWeighedPoint
      */
 
-    public Iterable<IWeighedPoint> getPoints() {
+    public Iterable<WeighedPoint> getPoints() {
         return points;
     }
 
