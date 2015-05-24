@@ -53,6 +53,10 @@ public class DataRestController {
     static IDataSource ds = DataSourceFactory.getDataSource();
     static ObjectMapper mapper = new ObjectMapper();
 
+    void setDataSource(IDataSource ds) {
+        this.ds = ds;
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public SyncOutputData get(@RequestHeader("X-AuthToken") String authToken) {
 
