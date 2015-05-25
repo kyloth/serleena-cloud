@@ -13,6 +13,16 @@
 ******************************************************************************/
 
 
+/**
+ * Name: UserRestController.java
+ * Package: com.kyloth.serleenacloud.controller
+ * Author: Nicola Mometto
+ *
+ * History:
+ * Version  Programmer      Changes
+ * 1.0.0    Nicola Mometto  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +47,14 @@ import com.kyloth.serleenacloud.datamodel.auth.TempToken;
 
 import java.util.UUID;
 
+/**
+ * Controller REST per la gestione delle richieste riguardanti la gestione degli utenti e del pairing utente-dispositivo.
+ *
+ * @use Risponde alle richieste REST riguardanti la creazione di utenti, pairing tra dispositivo e utente e recupero password.
+ *
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
 
 @RestController
 @RequestMapping("/users")
@@ -48,6 +66,14 @@ public class UserRestController {
         UserRestController.ds = ds;
     }
 
+    /**
+     * Metodo che implementa la richiesta POST per creare un nuovo
+     * utente.
+     *
+     * @param username Email del nuovo utente.
+     * @param password Password del nuovo utente.
+     */
+
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestParam("username") String username,
@@ -57,6 +83,14 @@ public class UserRestController {
         ds.userDao().persist(u);
         return;
     }
+    
+    /**
+     * Metodo che implementa la richiesta GET per ottenere
+     * il token di autenticazione di un utente.
+     *
+     * @param token Concatenazione di email e password dell'utente.
+     * @return Restituisce il token di autenticazione per l'utente.
+     */
 
     @RequestMapping(value= "/token", method = RequestMethod.GET)
     public String token(@RequestHeader("X-AuthData") String token) {
@@ -69,6 +103,14 @@ public class UserRestController {
 
         return null;
     }
+    
+    /**
+     * Metodo che implementa la richiesta PUT per effettuare
+     * il pairing tra backend e applicazione android.
+     *
+     * @param authToken Token di riconoscimento.
+     * @param body Mappa che contiene il token temporaneo di identificazione necessario al pairing in formato JSON.
+     */
 
     @RequestMapping(value= "/pair", method = RequestMethod.PUT)
     public void pair(@RequestHeader("X-AuthToken") String authToken,
@@ -81,6 +123,14 @@ public class UserRestController {
 
         ds.userDao().persist(new User(u.getEmail(), u.getPassword(), tempToken.split("::")[0]));
     }
+    
+    /**
+     * Metodo che implementa la richiesta GET per la conferma del pairing
+     * da parte dell'applicazione android.
+     *
+     * @param tempToken Token temporaneo passato dall'applicazione android per la conferma.
+     * @return Restituisce il token di autenticazione come conferma della buona riuscita del pairing.
+     */
 
     @RequestMapping(value= "/pair/{temp_token}", method = RequestMethod.GET)
     public String pair(@PathVariable("temp_token") String tempToken) {
@@ -89,6 +139,15 @@ public class UserRestController {
         return u.getAuthToken().getToken();
 
     }
+
+    /**
+     * Metodo che implementa la richiesta PUT per il recupero della
+     * password. La buona riuscita di tale chiamata comporta la creazione
+     * di una nuova password e la sua comunicazione all'utente tramite
+     * un'email.
+     *
+     * @param body Mappa che contiene l'email dell'utente in formato JSON.
+     */
 
     @RequestMapping(value= "/recovery", method = RequestMethod.PUT)
     public void recovery(@RequestBody MultiValueMap<String,String> body) {

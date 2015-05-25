@@ -13,6 +13,16 @@
 ******************************************************************************/
 
 
+/**
+ * Name: RestAuthenticationFilter.java
+ * Package: com.kyloth.serleenacloud.controller
+ * Author: Nicola Mometto
+ *
+ * History:
+ * Version  Programmer      Changes
+ * 1.0.0    Nicola Mometto  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.controller;
 
 import java.io.IOException;
@@ -35,6 +45,15 @@ import com.kyloth.serleenacloud.datamodel.auth.AuthToken;
 
 import java.util.regex.Pattern;
 
+/**
+ * Classe che si occupa di filtrare le richieste in arrivo assicurandosi che la richiesta contenga un token di autenticazione valido dove necessario.
+ *
+ * @use Ogni richiesta viene filtrata dal metodo doFilter, se la richiesta appartiene ad una classe di richieste definite nell'apposito file di configurazione come richiedente autenticazione, controlla che sia presente un token di autenticazione valido interagendo con AuthToken, rispondendo altrimenti alla richiesta con uno stato di errore.
+ *
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
+
 @Component
 public class RestAuthenticationFilter extends GenericFilterBean {
 
@@ -45,6 +64,16 @@ public class RestAuthenticationFilter extends GenericFilterBean {
         "/data.*",
         "/experiences.*"
     };
+    
+    /**
+     * Metodo di filtraggio delle richieste.
+     *
+     * @param request
+     * @param response
+     * @param chain
+     * @throws IOException
+     * @throws ServletException
+     */
 
     @Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -68,6 +97,14 @@ public class RestAuthenticationFilter extends GenericFilterBean {
         } else
             chain.doFilter(request, response);
     }
+    
+    /**
+     * Metodo che permette di stabilire se una richiesta richiede
+     * autenticazione.
+     *
+     * @param path La richiesta.
+     * @return Restituisce True se la richiesta richiede autenticazione, False altrimenti.
+     */
 
     boolean requiresAuth(String path) {
         for (String p : patterns)
