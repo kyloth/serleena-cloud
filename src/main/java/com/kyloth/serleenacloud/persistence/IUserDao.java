@@ -13,12 +13,45 @@
 ******************************************************************************/
 
 
+/**
+ * Name: IUserDao.java
+ * Package: com.kyloth.serleenacloud.persistence
+ * Author: Nicola Mometto
+ *
+ * History:
+ * Version  Programmer      Changes
+ * 1.0.0    Nicola Mometto  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.persistence;
 
 import com.kyloth.serleenacloud.datamodel.auth.User;
 
+/**
+ * Interfaccia implementata da una classe che realizza la persistenza su database degli oggetti di tipo User.
+ *
+ * @use Contiene metodi per cercare e inserire nuovi utenti nella base di dati.
+ *
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
+
 public interface IUserDao {
+    
+    /**
+     * Permette di inserire un nuovo utente nella base di dati.
+     * 
+     * @param token Utente da inserire.
+     */
+
     public void persist(User token);
+    
+    /**
+     * Permette di ottenere un utente a partire dalla sua email.
+     *
+     * @param email Email dell'utente che si vuole ottenere.
+     */
+
     public User find(String email);
     public User findDeviceId(String deviceId);
 }
