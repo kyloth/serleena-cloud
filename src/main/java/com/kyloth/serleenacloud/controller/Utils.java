@@ -13,6 +13,16 @@
 ******************************************************************************/
 
 
+/**
+ * Name: Utils.java
+ * Package: com.kyloth.serleenacloud.controller
+ * Author: Nicola Mometto
+ *
+ * History:
+ * Version  Programmer      Changes
+ * 1.0.0    Nicola Mometto  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.controller;
 
 import org.springframework.mail.MailException;
@@ -24,6 +34,13 @@ import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+/**
+ * Classe di utilità generale per il package controller.
+ *
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
 
 public class Utils {
     private static JavaMailSenderImpl mailSender;
@@ -41,6 +58,14 @@ public class Utils {
         mailSender.setJavaMailProperties(properties);
     }
 
+    /**
+     * Metodo che permette di inviare una email.
+     *
+     * @param to Indirizzo del destinatario.
+     * @param subj Soggetto della email.
+     * @param body Corpo del messaggio.
+     */
+    
     public static void sendMail(String to, String subj, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
