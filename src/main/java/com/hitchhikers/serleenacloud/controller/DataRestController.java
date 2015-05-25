@@ -13,6 +13,16 @@
 ******************************************************************************/
 
 
+/**
+ * Name: DataRestController.java
+ * Package: com.kyloth.serleenacloud.controller
+ * Author: Nicola Mometto
+ *
+ * History:
+ * Version  Programmer      Changes
+ * 1.0.0    Nicola Mometto  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.controller;
 
 import java.io.IOException;
@@ -46,6 +56,15 @@ import java.util.Date;
 import java.util.Calendar;
 import java.util.ArrayList;
 
+/**
+ * Controller REST per la gestione delle richieste riguardanti la gestione dei dati di sincronizzazione tra backend e applicativo android.
+ *
+ * @use Risponde alle richieste REST riguardanti la richiesta e offerta di dati di sincronizzazione, offrendo e ricevendo oggetti dal model che verranno automaticamente convertiti da o in JSON a Spring.
+ *
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
+
 @RestController
 @RequestMapping("/data")
 public class DataRestController {
@@ -56,6 +75,15 @@ public class DataRestController {
     void setDataSource(IDataSource ds) {
         this.ds = ds;
     }
+
+    /**
+     * Metodo che implementa la richiesta GET per ottenere la
+     * lista di dati di sincronizzazione dal backend all'applicazione
+     * android.
+     *
+     * @param authToken Token di riconoscimento.
+     * @return Restituisce un oggetto di tipo SyncOutputData contenente i dati da sincronizzare.
+     */
 
     @RequestMapping(method = RequestMethod.GET)
     public SyncOutputData get(@RequestHeader("X-AuthToken") String authToken) {
@@ -82,6 +110,14 @@ public class DataRestController {
 
         return new SyncOutputData(es, wf, ec);
     }
+    
+    /**
+     * Metodo che implementa la richiesta PUT per sincronizzare dati
+     * dall'applicazione android al backend.
+     *
+     * @param id JSON rappresentante una lista di oggetti di tipo SyncInputData.
+     * @param authToken Token di riconoscimento.
+     */
 
     @RequestMapping(method = RequestMethod.POST)
     public void put(@RequestParam("data") String id,
@@ -110,6 +146,13 @@ public class DataRestController {
         } catch (IOException e) {}
     }
 
+    /**
+     * Metodo che implementa la richiesta GET per ottenere la lista
+     * di Esperienze in lista di sincronizzazione.
+     *
+     * @param authToken Token di riconoscimento.
+     * @return Restituisce la lista dei nomi delle Esperienze in lista di sincronizzazione.
+     */
 
     @RequestMapping(value= "/sync", method = RequestMethod.GET)
     public Iterable<String> getSync(@RequestHeader("X-AuthToken") String authToken) {
@@ -124,6 +167,13 @@ public class DataRestController {
 
         return syncList;
     }
+    
+    /**
+     * Metodo che implementa la richiesta PUT per aggiungere Esperienze
+     * alla lista di sincronizzazione.
+     *
+     * @param body Mappa che contiene la lista delle Esperienze da sincronizzare in formato JSON.
+     */
 
     @RequestMapping(value= "/sync", method = RequestMethod.PUT)
     public void putSync(@RequestBody MultiValueMap<String,String> body,
