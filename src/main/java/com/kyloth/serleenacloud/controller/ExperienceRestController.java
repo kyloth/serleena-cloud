@@ -13,6 +13,16 @@
 ******************************************************************************/
 
 
+/**
+ * Name: ExperienceRestController.java
+ * Package: com.kyloth.serleenacloud.controller
+ * Author: Nicola Mometto
+ *
+ * History:
+ * Version  Programmer      Changes
+ * 1.0.0    Nicola Mometto  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.controller;
 
 import java.io.IOException;
@@ -47,6 +57,15 @@ import org.springframework.util.MultiValueMap;
 
 import java.util.ArrayList;
 
+/**
+ * Controller REST per la gestione delle richieste CRUD riguardanti la gestione delle Esperienze.
+ *
+ * @use Risponde alle richieste REST riguardanti le Esperienze, ritornando oggetti del model che Spring convertirà automaticamente in risposte JSON.
+ *
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
+
 @RestController
 @RequestMapping("/experiences")
 public class ExperienceRestController {
@@ -54,11 +73,18 @@ public class ExperienceRestController {
     static IDataSource ds = DataSourceFactory.getDataSource();
     static ObjectMapper mapper = new ObjectMapper();
 
-
     static void setDataSource(IDataSource ds) {
         ExperienceRestController.ds = ds;
     }
 
+    /**
+     * Implementa la richiesta GET per ottenere la lista dei nomi delle
+     * Esperienze di un utente.
+     *
+     * @param authToken Token di riconoscimento.
+     * @return Restituisce la lista dei nomi delle Esperienze di un utente.
+     */
+    
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<String> list(@RequestHeader("X-AuthToken") String authToken) {
 
@@ -84,6 +110,14 @@ public class ExperienceRestController {
         return dataSource.experienceDao().find(id);
     }
 
+    /**
+     * Metodo che implementa la richiesta DELETE per cancellare
+     * un'Esperienza esistente.
+     *
+     * @param id Nome dell'Esperienza da cancellare.
+     * @param authToken Token di riconoscimento.
+     */
+
     @RequestMapping(value= "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") String id,
                        @RequestHeader("X-AuthToken") String authToken) {
@@ -95,6 +129,18 @@ public class ExperienceRestController {
         dataSource.experienceDao().delete(id);
     }
 
+    /**
+     * Metodo che implementa la richiesta POST per l'inserimento di
+     * una nuova Esperienza.
+     *
+     * @param name Nome della nuova Esperienza.
+     * @param pois Lista dei nomi dei Punti di Interesse in formato JSON.
+     * @param ups Lista dei nomi dei Punti Utente in formato JSON.
+     * @param tracks Lista dei Percorsi in formato JSON.
+     * @param from Punto che delimita la regione dell'Esperienza all'angolo nord ovest.
+     * @param to Punto che delimita la regione dell'Esperienza all'angolo sud-est.
+     * @param authToke Token di riconoscimento.
+     */
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
@@ -123,7 +169,14 @@ public class ExperienceRestController {
             System.err.println(e);
         }
     }
-
+    
+    /**
+     * Metodo che implementa la richiesta PUT per modificare una
+     * Esperienza esistente.
+     *
+     * @param body Mappa contenente i dati necessari all'aggiornamento in formato JSON.
+     * @param authToken Token di riconoscimento.
+     */
 
     @RequestMapping(value="/{id}", method = RequestMethod.PUT)
     public void update(@RequestBody MultiValueMap<String,String> body,
@@ -148,6 +201,14 @@ public class ExperienceRestController {
         } catch (IOException e) {}
     }
 
+    /**
+     * Metodo che implementa la richiesta GET per ottenere un Percorso
+     * al suo nome e al nome dell'Esperienza relativa.
+     *
+     * @param id Nome dell'Esperienza cui il Percorso è relativo.
+     * @param track_id Nome del Percorso da ottenere.
+     * @return Restituisce un oggetto Track rappresentante il Percorso richiesto.
+     */
 
     @RequestMapping(value= "/{id}/tracks/{track_id}", method = RequestMethod.GET)
     public Track get(@PathVariable("id") String id,
