@@ -30,7 +30,10 @@ import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 import java.util.Date;
 
 /**
- * Classe che concretizza IWeatherForecast.
+ * Classe che rappresenta informazioni riguardanti il meteo e la
+ * temperatura di un'area di mappa in un certo periodo di tempo.
+ *
+ * @use Viene utilizzata da DataRestController per creare JSON richiesto dall'applicazione android
  *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
@@ -78,7 +81,7 @@ public class WeatherForecast {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere le condizioni meteo previste.
+     * Metodo getter che permette di ottenere le condizioni meteo previste.
      *
      * @return Restituisce un valore WeatherCondition che rappresenta una condizione meteo.
      */
@@ -88,7 +91,7 @@ public class WeatherForecast {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere la temperatura prevista.
+     * Metodo getter che permette di ottenere la temperatura prevista.
      *
      * @return Restituisce un valore double che rappresenta la temperatura prevista.
      */
@@ -98,9 +101,9 @@ public class WeatherForecast {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere l'area geografica relativa alle previsioni.
+     * Metodo getter che permette di ottenere l'area geografica relativa alle previsioni.
      *
-     * @return Restituisce un oggetto di tipo IRect che rappresenta l'area geografica relativa alle previsioni meteo.
+     * @return Restituisce un oggetto di tipo Rect che rappresenta l'area geografica relativa alle previsioni meteo.
      */
 
     public Rect getBoundingRect() {
@@ -108,7 +111,7 @@ public class WeatherForecast {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere la data alla quale le previsioni sono relative.
+     * Metodo getter che permette di ottenere la data alla quale le previsioni sono relative.
      *
      * @return Restituisce un oggetto Date che rappresenta la data alla quale le previsioni sono relative.
      */

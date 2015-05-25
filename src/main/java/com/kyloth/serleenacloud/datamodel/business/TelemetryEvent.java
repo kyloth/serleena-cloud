@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Classe che rappresenta un evento di Tracciamento.
  *
- * @use Viene utilizzata da ITrack durante il calcolo del tracciamento migliore durante la creazione del JSON da condividere con l'applicazione android
+ * @use Viene utilizzata da Track durante il calcolo del tracciamento migliore durante la creazione del JSON da condividere con l'applicazione android
  *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
@@ -104,7 +104,7 @@ public class TelemetryEvent {
     }
 
     /**
-     * Metodo "getter" per ottenere il valore dell'evento di Telemetria.
+     * Metodo getter per ottenere il valore dell'evento di Telemetria.
      *
      * @return Restituisce il valore dell'evento di Telemetria.
      */
@@ -114,7 +114,7 @@ public class TelemetryEvent {
     }
 
     /**
-     * Metodo "getter" per ottenere il timestamp dell'evento di Telemetria.
+     * Metodo getter per ottenere il timestamp dell'evento di Telemetria.
      *
      * @return Restituisce il timestamp dell'evento di Telemetria.
      */
