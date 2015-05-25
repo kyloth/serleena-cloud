@@ -13,6 +13,16 @@
 ******************************************************************************/
 
 
+/**
+ * Name: WeatherForecastDao.java
+ * Package: com.kyloth.serleenacloud.persistence.jdbc
+ * Author: Nicola Mometto
+ *
+ * History:
+ * Version  Programmer      Changes
+ * 1.0.0    Nicola Mometto  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.persistence.jdbc;
 
 import com.kyloth.serleenacloud.datamodel.business.WeatherForecast;
@@ -28,13 +38,35 @@ import java.sql.SQLException;
 
 import java.util.Date;
 
+/**
+ * Classe che concretizza IWeatherForecastDao per database MySQL utilizzando JDBC.
+ *
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
+
 public class WeatherForecastDao implements IWeatherForecastDao {
 
     private JdbcTemplate tpl;
 
+    /**
+     * Costruisce un nuovo WeatherForecastDao.
+     *
+     * @param ds DataSource per la connessione al database.
+     */
+
     WeatherForecastDao(JDBCDataSource ds) {
         this.tpl = ds.getTpl();
     }
+    
+    /**
+     * Metodo che implementa IWeatherForecast.findAll(Rect, Date, Date).
+     *
+     * @param region La regione di interesse.
+     * @param start Inizio dell'intervallo temporale di interesse.
+     * @param end Fine dell'intervallo temporale di interesse.
+     * @return Restituisce la lista delle informazioni meteo in base ai parametri specificati.
+     */
 
     public Iterable<WeatherForecast> findAll(Rect region, Date from, Date to) {
         return tpl.query("SELECT Temperature, Date, Forecast, NWLongitude, NWLatitude, SELongitude, SELatitude " +

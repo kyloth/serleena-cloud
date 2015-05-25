@@ -13,6 +13,16 @@
 ******************************************************************************/
 
 
+/**
+ * Name: SyncListDao.java
+ * Package: com.kyloth.serleenacloud.persistence.jdbc
+ * Author: Nicola Mometto
+ *
+ * History:
+ * Version  Programmer      Changes
+ * 1.0.0    Nicola Mometto  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.persistence.jdbc;
 
 import com.kyloth.serleenacloud.datamodel.business.Experience;
@@ -27,17 +37,36 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Classe che concretizza ISyncListDao per database MySQL utilizzando JDBC.
+ *
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
+
 public class SyncListDao implements ISyncListDao {
 
     private JdbcTemplate tpl;
     private User user;
     private IExperienceDao ed;
+    
+    /**
+     * Costruisce un nuovo SyncListDao.
+     *
+     * @param ds DataSource per la connessione al database.
+     */
 
     SyncListDao(JDBCDataSource ds) {
         this.tpl = ds.getTpl();
         this.user = ds.getUser();
         this.ed = ds.experienceDao();
     }
+
+    /**
+     * Metodo che implementa ISyncListDao.persist(Iterable<Experience>).
+     *
+     * @param es L'Esperienza da inserire nella lista.
+     */
 
     public void persist(Iterable<Experience> es) {
         tpl.update("DELETE FROM SyncList WHERE User = ?", new Object[] {user.getEmail()});
@@ -46,6 +75,12 @@ public class SyncListDao implements ISyncListDao {
             tpl.update("INSERT INTO SyncList(ExperienceName, User) VALUES(?, ?)",
                        new Object[] {e.getName(), user.getEmail()});
     }
+    
+    /**
+     * Metodo che implementa ISyncListDao.findAll().
+     *
+     * @return Restituisce la lista delle Esperienze in lista di sincronizzazione.
+     */
 
     public Iterable<Experience> findAll() {
         return tpl.query("SELECT ExperienceName FROM SyncList WHERE User = ?",

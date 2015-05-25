@@ -13,6 +13,16 @@
 ******************************************************************************/
 
 
+/**
+ * Name: TelemetryDao.java
+ * Package: com.kyloth.serleenacloud.persistence.jdbc
+ * Author: Nicola Mometto
+ *
+ * History:
+ * Version  Programmer      Changes
+ * 1.0.0    Nicola Mometto  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.persistence.jdbc;
 
 import com.kyloth.serleenacloud.datamodel.business.Telemetry;
@@ -32,13 +42,33 @@ import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+/**
+ * Classe che concretizza ITelemetryDao per database MySQL utilizzando JDBC.
+ *
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
+
 public class TelemetryDao implements ITelemetryDao {
 
     private JdbcTemplate tpl;
 
+    /**
+     * Costruisce un nuovo TelemetryDao.
+     *
+     * @param ds DataSource per la connessione al database.
+     */
+
     TelemetryDao(JDBCDataSource ds) {
         this.tpl = ds.getTpl();
     }
+    
+    /**
+     * Metodo che implementa ITelemetryDao.persist(String, Telemetry).
+     *
+     * @param trackName Nome del percorso cui è relativo il tracciamento.
+     * @param t Tracciamento da inserire.
+     */
 
     public void persist(final String trackName, Telemetry t) {
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -61,6 +91,13 @@ public class TelemetryDao implements ITelemetryDao {
                                     });
         }
     }
+
+    /**
+     * Metodo che implementa ITelemetryDao.findAll(String).
+     *
+     * @param trackName Nome del percorso per il quale si vuole ottenere la lista di tracciamenti.
+     * @return Restituisce la lista dei tracciamenti per il percorso specificato.
+     */
 
     public Iterable<Telemetry> findAll(final String trackName) {
         return tpl.query("SELECT Id FROM Telemetries WHERE TrackName = ?",
