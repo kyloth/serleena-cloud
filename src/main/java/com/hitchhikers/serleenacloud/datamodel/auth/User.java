@@ -80,7 +80,7 @@ public class User {
     }
 
     /**
-     * Metodo "getter" per ottenere l'indirizzo email dell'utente.
+     * Metodo getter per ottenere l'indirizzo email dell'utente.
      *
      * @return Restituisce l'indirizzo email dell'utente.
      */
@@ -90,7 +90,7 @@ public class User {
     }
 
     /**
-     * Metodo "getter" per ottenere la password dell'utente.
+     * Metodo getter per ottenere la password dell'utente.
      *
      * @return Restituisce la password dell'utente.
      */
@@ -100,7 +100,7 @@ public class User {
     }
 
     /**
-     * Metodo "getter" per ottenere l'id del dispositivo associato all'utente.
+     * Metodo getter per ottenere l'id del dispositivo associato all'utente.
      *
      * @return Restituisce l'id del dispositivo associato all'utente.
      */
@@ -108,6 +108,12 @@ public class User {
     public String getDeviceId() {
         return deviceId;
     }
+    
+    /**
+     * Confronta due utenti e stabilisce se sono uguali.
+     *
+     * @return True se i due utenti sono uguali, False altrimenti.
+     */
 
     public boolean equals(User u) {
         return u.getEmail().equals(email)

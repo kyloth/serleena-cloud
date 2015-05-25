@@ -30,7 +30,10 @@ import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 import java.util.Date;
 
 /**
- * Classe che concretizza IEmergencyContact.
+ * Classe che rappresenta informazioni riguardanti contatti di emergenza
+ * disponibili in un'area di mappa.
+ *
+ * @use Viene utilizzata da DataRestController per creare JSON richiesto dall'applicazione android
  *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
@@ -73,7 +76,7 @@ public class EmergencyContact {
     /**
      * Metodo "getter" che permette di ottenere l'area geografica relativa al contatto.
      *
-     * @return Restituisce un oggetto di tipo IRect che rappresenta l'area geografica relativa al contatto.
+     * @return Restituisce un oggetto di tipo Rect che rappresenta l'area geografica relativa al contatto.
      */
 
     public Rect getBoundingRect() {
@@ -81,7 +84,7 @@ public class EmergencyContact {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere il numero del contatto.
+     * Metodo getter che permette di ottenere il numero del contatto.
      *
      * @return Restituisce il numero del contatto.
      */
@@ -91,7 +94,7 @@ public class EmergencyContact {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere il nome del contatto.
+     * Metodo getter che permette di ottenere il nome del contatto.
      *
      * @return Restituisce il nome del contatto.
      */

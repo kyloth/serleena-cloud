@@ -32,7 +32,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Classe che concretizza ITelemetry.
+ * Classe che rappresenta informazioni di Tracciamento.
+ *
+ * @use Viene utilizzata da DataRestController e ExperienceRestController per creare o elaborare il JSON fornito o richiesto da frontend e applicazione android
  *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
@@ -110,7 +112,7 @@ public class Telemetry {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere la traccia a cui è associato il tracciamento
+     * Metodo getter che permette di ottenere la traccia a cui è associato il tracciamento
      *
      * @return Restituisce la traccia a cui è associato il tracciamentoTracciamento.
      */

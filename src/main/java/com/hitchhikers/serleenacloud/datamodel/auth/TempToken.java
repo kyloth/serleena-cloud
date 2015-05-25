@@ -32,7 +32,7 @@ import java.util.Date;
  * Modella un token temporaneo richiesto per il pairing con l'applicativo
  * Android.
  *
- * @use Espone metodi con il quale è possibile costruire un token con validità temporale limitata per un device id, ed ottenere il device id corrispondente ad un dato token
+ * @use Espone metodi con il quale è possibile costruire un token con validità temporale limitata per un device id, ed ottenere il device id corrispondente ad un dato token.
  *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
@@ -41,7 +41,7 @@ import java.util.Date;
 public class TempToken {
 
     /**
-     * Token temporaneo costruito secondo lo schema {deviceId}:{sha256(concat(deviceId, currentDate))} dove "currentDate" è un timestamp del momento attuale.
+     * Token temporaneo costruito secondo lo schema {deviceId}:{sha256(concat(deviceId, currentDate))} dove currentDate è un timestamp del momento attuale.
      */
 
     private String token;
@@ -77,7 +77,7 @@ public class TempToken {
     }
 
     /**
-     * Metodo "getter" per ottenere il token.
+     * Metodo getter per ottenere il token.
      *
      * @return Restituisce il token temporaneo.
      */
@@ -87,7 +87,7 @@ public class TempToken {
     }
 
     /**
-     * Metodo "getter" per ottenere l'id del dispositivo.
+     * Metodo getter per ottenere l'id del dispositivo.
      *
      * @return Restituisce l'id del dispositivo.
      */

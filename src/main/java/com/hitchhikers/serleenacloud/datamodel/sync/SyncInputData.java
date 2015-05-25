@@ -36,7 +36,7 @@ import java.util.Arrays;
 /**
  * Classe che modella i dati di sincronizzazione in input.
  *
- * @use Aggrega tutte le informazioni inviate dall'applicativo Android durante la sincronizzazione, viene utilizzata da DataRestController. I dati verranno inseriti nella base di dati contemporaneamente alla creazione dell'oggetto
+ * @use Aggrega tutte le informazioni inviate dall'applicativo Android durante la sincronizzazione, viene utilizzata da DataRestController. I dati verranno inseriti nella base di dati contemporaneamente alla creazione dell'oggetto.
  *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
@@ -96,7 +96,7 @@ public class SyncInputData {
     }
 
     /**
-     * Metodo "getter" per ottenere il nome dell'Esperienza da sincronizzare.
+     * Metodo getter per ottenere il nome dell'Esperienza da sincronizzare.
      *
      * @return Restituisce il nome dell'Esperienza da sincronizzare.
      */
@@ -106,7 +106,7 @@ public class SyncInputData {
     }
 
     /**
-     * Metodo "getter" per ottenere l'insieme dei Punti Utente da sincronizzare.
+     * Metodo getter per ottenere l'insieme dei Punti Utente da sincronizzare.
      *
      * @return Restituisce l'insieme dei Punti Utente da sincronizzare.
      */
@@ -116,9 +116,9 @@ public class SyncInputData {
     }
 
     /**
-     * Metodo "getter" per ottenere l'insieme dei dati di telemetria da sincronizzare.
+     * Metodo getter per ottenere l'insieme dei dati di tracciamento da sincronizzare.
      *
-     * @return Restituisce l'insieme dei dati di telemetria da sincronizzare.
+     * @return Restituisce l'insieme dei dati di tracciamento da sincronizzare.
      */
 
     public Iterable<Telemetry> getTelemetryData() {
