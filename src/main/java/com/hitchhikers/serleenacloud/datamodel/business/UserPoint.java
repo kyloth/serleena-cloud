@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Classe che rappresente un Punto Utente in un'Esperienza.
  *
- * @use Viene riferita da IExperience nella collezione di Punti Utente di ogni esperienza
+ * @use Viene riferita da Experience nella collezione di Punti Utente di ogni esperienza
  *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
@@ -64,7 +64,7 @@ public class UserPoint extends Point {
     }
 
     /**
-     * Metodo "getter" per ottenere il nome del Punto Utente.
+     * Metodo getter per ottenere il nome del Punto Utente.
      *
      * @return Restituisce il nome del Punto Utente.
      */

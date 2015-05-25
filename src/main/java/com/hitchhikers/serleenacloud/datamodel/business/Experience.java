@@ -33,9 +33,9 @@ import com.kyloth.serleenacloud.render.Renderer;
 import java.util.Arrays;
 
 /**
- * Classe che concretizza IExperience.
+ * Classe che rappresenta un'Esperienza.
  *
- * @use Utilizza Render.Renderer per creare in modo lazy i quadranti raster
+ * @use Viene utilizzata da DataRestController e ExperienceRestController per creare o elaborare il JSON fornito o richiesto da frontend e applicazione android. Utilizza Render.Renderer per creare in modo lazy i quadranti raster.
  *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
@@ -110,7 +110,7 @@ public class Experience {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere l'insieme dei Percorsi relativi all'Esperienza.
+     * Metodo getter che permette di ottenere l'insieme dei Percorsi relativi all'Esperienza.
      *
      * @return Restituisce l'insieme dei percorsi relativi all'Esperienza.
      */
@@ -132,7 +132,7 @@ public class Experience {
     /**
      * Metodo "getter" che permette di ottenere un oggetto di tipo IRect che rappresenta l'area geografica relativa all'Esperienza.
      *
-     * @return Restituisce un IRect che rappresenta l'area geografica dell'Esperienza.
+     * @return Restituisce un Rect che rappresenta l'area geografica dell'Esperienza.
      */
 
     public Rect getBoundingRect() {
@@ -140,7 +140,7 @@ public class Experience {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere il nome dell'Esperienza.
+     * Metodo getter che permette di ottenere il nome dell'Esperienza.
      *
      * @return Restituisce il nome dell'Esperienza.
      */
@@ -150,7 +150,7 @@ public class Experience {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere l'insieme dei Punti di Interesse dell'Esperienza.
+     * Metodo getter che permette di ottenere l'insieme dei Punti di Interesse dell'Esperienza.
      *
      * @return Restituisce l'insieme dei Punti di Interesse dell'Esperienza.
      */
@@ -158,6 +158,13 @@ public class Experience {
     public Iterable<PointOfInterest> getPOIs() {
         return pois;
     }
+    
+    /**
+     * Metodo getter che permette di ottenere l'insieme dei quadranti raster
+     * associati all'Esperienza.
+     *
+     * @return Restituisce l'insieme dei quadranti raster associati all'Esperienza.
+     */
 
     public Iterable<RasterQuadrant> getRasterData() {
         return Renderer.fromExperience(this).getRasterQuadrants();

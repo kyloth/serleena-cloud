@@ -48,7 +48,7 @@ public class River extends AWideLine {
     /**
      * Crea un nuovo oggetto River inizializzandone i campi dati.
      *
-     * @param points Insieme di IWeighedPoint che definiscono il fiume.
+     * @param points Insieme di WeighedPoint che definiscono il fiume.
      * @param name Il nome del fiume.
      */
 
@@ -70,7 +70,7 @@ public class River extends AWideLine {
     }
 
     /**
-     * Metodo "getter" per ottenere il nome del fiume.
+     * Metodo getter per ottenere il nome del fiume.
      *
      * @return Restituisce il nome del fiume.
      */

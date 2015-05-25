@@ -30,7 +30,7 @@ import java.util.Arrays;
 
 /**
  * Rappresenta una generica entita` di mappa composta da una collezione ordinata
- * di IWeighedPoint
+ * di WeighedPoint
  *
  * @author  Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
@@ -43,7 +43,7 @@ public abstract class AWideLine {
     /**
      * Crea un nuovo oggetto AWideLine
      *
-     * @param  La collezione di oggetti IWeighedPoint associati
+     * @param  La collezione di oggetti WeighedPoint associati
      */
 
     public AWideLine(Iterable<WeighedPoint> points) {
@@ -52,7 +52,7 @@ public abstract class AWideLine {
     /**
      * Crea un nuovo oggetto AWideLine
      *
-     * @param  Array di oggetti IWeighedPoint associati
+     * @param  Array di oggetti WeighedPoint associati
      */
 
     public AWideLine(WeighedPoint[] points) {
@@ -60,9 +60,9 @@ public abstract class AWideLine {
     }
 
     /**
-     * Ritorna la collezione di oggetti IWeighedPoint associata
+     * Ritorna la collezione di oggetti WeighedPoint associata
      *
-     * @return La collezione di oggetti IWeighedPoint
+     * @return La collezione di oggetti WeighedPoint
      */
 
     public Iterable<WeighedPoint> getPoints() {

@@ -26,10 +26,13 @@
 package com.kyloth.serleenacloud.datamodel.geometry;
 
 /**
- * Rappresenta un punto geografico a cui e` associata una piccola circonferenza
+ * Classe rappresentante un punto geografico a cui e` associata
+ * una piccola circonferenza
+ *
+ * @use Una collezione di WeighedPoint viene utilizzata dalla classe WideLine
  *
  * @author  Nicola Mometto <nicola.mometto@studenti.unipd.it>
- * @version 1.0
+ * @version 1.0 
  */
 
 public class WeighedPoint extends Point {

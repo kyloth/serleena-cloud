@@ -48,7 +48,7 @@ public class Path extends AWideLine {
     /**
      * Crea un nuovo oggetto Path inizializzandone i campi dati.
      *
-     * @param points Insieme di IWeighedPoint che definiscono il sentiero.
+     * @param points Insieme di WeighedPoint che definiscono il sentiero.
      * @param name Il nome del sentiero.
      */
 
@@ -60,7 +60,7 @@ public class Path extends AWideLine {
     /**
      * Crea un nuovo oggetto Path inizializzandone i campi dati.
      *
-     * @param points Array di IWeighedPoint che definiscono il sentiero.
+     * @param points Array di WeighedPoint che definiscono il sentiero.
      * @param name Il nome del sentiero.
      */
 
@@ -70,7 +70,7 @@ public class Path extends AWideLine {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere il nome del sentiero.
+     * Metodo getter che permette di ottenere il nome del sentiero.
      *
      * @return Restituisce il nome del sentiero.
      */
