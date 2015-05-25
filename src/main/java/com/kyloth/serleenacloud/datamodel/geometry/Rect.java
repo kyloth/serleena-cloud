@@ -28,11 +28,12 @@ package com.kyloth.serleenacloud.datamodel.geometry;
 import java.util.Arrays;
 
 /**
- * Rappresenta una generica area rettangolare di mappa delimitata da
- * coordinate geografiche
+ * Classe rappresentante un'area rettangolare delimitata da coordinate geografiche.
+ *
+ * @use Contiene metodi per ottenere i due vertici da cui è delimitato il rettangolo. Viene utilizzata da numerose classi nel data model quando è necessario rappresentare una regione di mappa.
  *
  * @author  Nicola Mometto <nicola.mometto@studenti.unipd.it>
- * @version 1.0
+ * @version 1.0 
  */
 
 public class Rect {

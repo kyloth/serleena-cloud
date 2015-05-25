@@ -32,9 +32,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
- * Classe che implementa ITrack.
+ * Classe che rappresenta un Percorso.
  *
- * @use Viene utilizzata da Render.Renderer durante la creazione dei quadranti raster
+ * @use Viene utilizzata da DataRestController e ExperienceRestController per creare o elaborare il JSON fornito o richiesto da frontend e applicazione android. Viene utilizzata da Render.Renderer durante la creazione dei quadranti raster.
  *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
@@ -93,7 +93,7 @@ public class Track {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere l'insieme dei Checkpoint associati al Percorso.
+     * Metodo getter che permette di ottenere l'insieme dei Checkpoint associati al Percorso.
      *
      * @return Restituisce l'insieme dei Checkpoint associati al Percorso.
      */
@@ -103,7 +103,7 @@ public class Track {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere il nome del Percorso.
+     * Metodo getter che permette di ottenere il nome del Percorso.
      *
      * @return Restituisce il nome del Percorso.
      */
@@ -113,7 +113,7 @@ public class Track {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere l'insieme dei dati di Tracciamento relativi al Percorso.
+     * Metodo getter che permette di ottenere l'insieme dei dati di Tracciamento relativi al Percorso.
      *
      * @return Restituisce l'insieme dei dati di Tracciamento relativi al Percorso.
      */

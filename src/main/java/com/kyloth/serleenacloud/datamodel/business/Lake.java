@@ -77,7 +77,7 @@ public class Lake {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere il nome del lago.
+     * Metodo getter che permette di ottenere il nome del lago.
      *
      * @return Restituisce il nome del lago.
      */
@@ -87,7 +87,7 @@ public class Lake {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere l'insieme dei punti che delimitano il perimetro del lago.
+     * Metodo getter che permette di ottenere l'insieme dei punti che delimitano il perimetro del lago.
      *
      * @return Restituisce l'insieme dei punti che delimitano il perimetro del lago.
      */
