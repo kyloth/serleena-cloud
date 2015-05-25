@@ -13,6 +13,16 @@
 ******************************************************************************/
 
 
+/**
+ * Name: ExperienceDao.java
+ * Package: com.kyloth.serleenacloud.persistence.jdbc
+ * Author: Nicola Mometto
+ *
+ * History:
+ * Version  Programmer      Changes
+ * 1.0.0    Nicola Mometto  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.persistence.jdbc;
 
 import com.kyloth.serleenacloud.datamodel.business.Track;
@@ -31,17 +41,36 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Classe che concretizza IExperienceDao per database MySQL utilizzando JDBC.
+ *
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
+
 public class ExperienceDao implements IExperienceDao {
 
     private JdbcTemplate tpl;
     private User user;
     private ITrackDao tDao;
 
+    /**
+     * Costruisce un nuovo ExperienceDao.
+     *
+     * @param ds DataSource per la connessione al database.
+     */
+
     ExperienceDao(JDBCDataSource ds) {
         this.tpl = ds.getTpl();
         this.user = ds.getUser();
         this.tDao = ds.trackDao();
     }
+
+    /**
+     * Metodo che implementa IExperienceDao.persist(Experience).
+     *
+     * @param experience Esperienza da inserire.
+     */
 
     public void persist(Experience experience) {
         String name = experience.getName();
@@ -80,6 +109,12 @@ public class ExperienceDao implements IExperienceDao {
 
     }
 
+    /**
+     * Metodo che implementa IExperienceDao.delete(String).
+     *
+     * @param name Nome dell'Esperienza da eliminare.
+     */
+
     public void delete(String name) {
         tpl.update("DELETE FROM SyncList WHERE ExperienceName = ?", new Object[] {name});
         tpl.update("DELETE FROM ExperienceTracks WHERE ExperienceName = ?", new Object[] {name});
@@ -88,6 +123,13 @@ public class ExperienceDao implements IExperienceDao {
         tpl.update("DELETE FROM Experiences WHERE Name = ?", new Object[] {name});
     }
 
+    /**
+     * Metodo che implementa IExperienceDao.find(String).
+     *
+     * @param name Nome dell'Esperienza da ottenere.
+     * @return Restituisce l'Esperienza cercata, se presente.
+     */
+
     public Experience find(String name) {
         for (Experience e : findAll())
             if (e.getName().equals(name))
@@ -95,6 +137,11 @@ public class ExperienceDao implements IExperienceDao {
         return null;
     }
 
+    /**
+     * Metodo che implementa IExperienceDao.findAll().
+     *
+     * @return Restituisce la lista delle Esperienze relative all'utente.
+     */
 
     public Iterable<Experience> findAll() {
         return tpl.query("SELECT Name, NWLongitude, NWLatitude, SELongitude, SELatitude " +

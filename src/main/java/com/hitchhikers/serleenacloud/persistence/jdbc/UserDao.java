@@ -13,6 +13,16 @@
 ******************************************************************************/
 
 
+/**
+ * Name: UserDao.java
+ * Package: com.kyloth.serleenacloud.persistence.jdbc
+ * Author: Nicola Mometto
+ *
+ * History:
+ * Version  Programmer      Changes
+ * 1.0.0    Nicola Mometto  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.persistence.jdbc;
 
 import com.kyloth.serleenacloud.datamodel.auth.User;
@@ -24,13 +34,32 @@ import org.springframework.jdbc.core.ResultSetExtractor;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Classe che concretizza IUserDao per database MySQL utilizzando JDBC.
+ *
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
+
 public class UserDao implements IUserDao {
 
     private JdbcTemplate tpl;
 
+    /**
+     * Costruisce un nuovo UserDao.
+     *
+     * @param ds DataSource per la connessione al database.
+     */
+    
     UserDao(JDBCDataSource ds) {
         this.tpl = ds.getTpl();
     }
+    
+    /**
+     * Metodo che implementa IUserDao.persist(User).
+     * 
+     * @param token Utente da inserire.
+     */
 
     public void persist(User u) {
         if (find(u.getEmail()) == null)
@@ -44,6 +73,12 @@ public class UserDao implements IUserDao {
                        new Object[] {u.getDeviceId(), u.getEmail()});
         return;
     }
+
+    /**
+     * Metodo che implementa IUserDao.find(String).
+     *
+     * @param email Email dell'utente che si vuole ottenere.
+     */
 
     public User find(final String email) {
         return tpl.query("SELECT Password, DeviceId " +

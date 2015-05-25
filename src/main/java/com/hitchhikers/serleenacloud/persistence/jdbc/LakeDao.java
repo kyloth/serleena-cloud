@@ -13,6 +13,16 @@
 ******************************************************************************/
 
 
+/**
+ * Name: LakeDao.java
+ * Package: com.kyloth.serleenacloud.persistence.jdbc
+ * Author: Nicola Mometto
+ *
+ * History:
+ * Version  Programmer      Changes
+ * 1.0.0    Nicola Mometto  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.persistence.jdbc;
 
 import com.kyloth.serleenacloud.datamodel.business.Lake;
@@ -26,13 +36,33 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Classe che concretizza ILakeDao per database MySQL utilizzando JDBC.
+ *
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
+
 public class LakeDao implements ILakeDao {
 
     private JdbcTemplate tpl;
 
+    /**
+     * Costruisce un nuovo LakeDao.
+     *
+     * @param ds DataSource per la connessione al database.
+     */
+
     LakeDao(JDBCDataSource ds) {
         this.tpl = ds.getTpl();
     }
+
+    /**
+     * Metodo che implementa ILakeDao.findAll(Rect).
+     *
+     * @param region La regione di interesse.
+     * @return Restituisce la lista dei laghi relativi alla regione specificata.
+     */
 
     public Iterable<Lake> findAll(Rect region) {
         return tpl.query("SELECT DISTINCT LakeName " +
