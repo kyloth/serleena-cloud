@@ -13,10 +13,27 @@
 ******************************************************************************/
 
 
+/**
+ * Name: DataSourceFactory.java
+ * Package: com.kyloth.serleenacloud.persistence
+ * Author: Nicola Mometto
+ *
+ * History:
+ * Version  Programmer      Changes
+ * 1.0.0    Nicola Mometto  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.persistence;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+/**
+ * Classe factory per la creazione di un oggetto IDataSource.
+ *
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
 
 public class DataSourceFactory {
     public static IDataSource getDataSource() {
