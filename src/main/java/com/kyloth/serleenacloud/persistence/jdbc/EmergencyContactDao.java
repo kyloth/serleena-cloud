@@ -13,6 +13,16 @@
 ******************************************************************************/
 
 
+/**
+ * Name: EmergencyContactDao.java
+ * Package: com.kyloth.serleenacloud.persistence.jdbc
+ * Author: Nicola Mometto
+ *
+ * History:
+ * Version  Programmer      Changes
+ * 1.0.0    Nicola Mometto  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.persistence.jdbc;
 
 import com.kyloth.serleenacloud.datamodel.business.EmergencyContact;
@@ -26,13 +36,33 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Classe che concretizza IEmergencyContactDao per database MySQL utilizzando JDBC.
+ *
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
+
 public class EmergencyContactDao implements IEmergencyContactDao {
 
     private JdbcTemplate tpl;
 
+    /**
+     * Costruisce un nuovo EmergencyContactDao.
+     *
+     * @param ds DataSource per la connessione al database.
+     */
+
     EmergencyContactDao(JDBCDataSource ds) {
         this.tpl = ds.getTpl();
     }
+
+    /**
+     * Classe che concretizza IEmergencyContactDao.findAll(Rect).
+     *
+     * @param region La regione di mappa di interesse.
+     * @return Restituisce la lista dei contatti di emergenza relativi alla regione specificata.
+     */
 
     public Iterable<EmergencyContact> findAll(Rect region) {
         return tpl.query("SELECT NWLatitude, NWLongitude, SELatitude, SELongitude, Name, Number " +

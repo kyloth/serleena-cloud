@@ -13,6 +13,16 @@
 ******************************************************************************/
 
 
+/**
+ * Name: PointOfInterestDao.java
+ * Package: com.kyloth.serleenacloud.persistence.jdbc
+ * Author: Nicola Mometto
+ *
+ * History:
+ * Version  Programmer      Changes
+ * 1.0.0    Nicola Mometto  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.persistence.jdbc;
 
 import com.kyloth.serleenacloud.datamodel.business.PointOfInterest;
@@ -25,13 +35,33 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Classe che concretizza IPointOfInterestDao per database MySQL utilizzando JDBC.
+ *
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
+
 public class PointOfInterestDao implements IPointOfInterestDao {
 
     private JdbcTemplate tpl;
 
+    /**
+     * Costruisce un nuovo PointOfInterestDao.
+     *
+     * @param ds DataSource per la connessione al database.
+     */
+
     PointOfInterestDao(JDBCDataSource ds) {
         this.tpl = ds.getTpl();
     }
+
+    /**
+     * Metodo che implementa IPointOfInterestDao.findAll(Rect).
+     *
+     * @param region La regione di interesse.
+     * @return Restituisce la lista dei punti di interesse relativi alla regione specificata.
+     */
 
     public Iterable<PointOfInterest> findAll(Rect region) {
         return tpl.query("SELECT Latitude, Longitude, Name, Type " +
