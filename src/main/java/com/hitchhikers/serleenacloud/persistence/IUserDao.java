@@ -20,4 +20,5 @@ import com.kyloth.serleenacloud.datamodel.auth.User;
 public interface IUserDao {
     public void persist(User token);
     public User find(String email);
+    public User findDeviceId(String deviceId);
 }

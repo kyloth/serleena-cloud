@@ -61,4 +61,21 @@ public class UserDao implements IUserDao {
         });
 
     }
+
+    public User findDeviceId(final String deviceId) {
+        return tpl.query("SELECT Email, Password " +
+                         "FROM Users " +
+                         "WHERE DeviceId = ?",
+                         new Object[] { deviceId },
+        new ResultSetExtractor<User>() {
+            @Override
+            public User extractData(ResultSet rs) throws SQLException {
+                if (!rs.first())
+                    return null;
+
+                return new User(rs.getString("Email"), rs.getString("Password"), deviceId);
+            }
+        });
+
+    }
 }
