@@ -44,6 +44,10 @@ public class UserRestController {
 
     static IDataSource ds = DataSourceFactory.getDataSource();
 
+    static void setDataSource(IDataSource ds) {
+        UserRestController.ds = ds;
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestParam("username") String username,
@@ -81,7 +85,7 @@ public class UserRestController {
     @RequestMapping(value= "/pair/{temp_token}", method = RequestMethod.GET)
     public String pair(@PathVariable("temp_token") String tempToken) {
 
-        User u = ds.userDao().find(tempToken.split("::")[0]);
+        User u = ds.userDao().findDeviceId(tempToken.split("::")[0]);
         return u.getAuthToken().getToken();
 
     }

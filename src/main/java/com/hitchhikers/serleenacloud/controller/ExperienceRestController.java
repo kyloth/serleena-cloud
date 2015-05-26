@@ -54,6 +54,10 @@ public class ExperienceRestController {
     static ObjectMapper mapper = new ObjectMapper();
 
 
+    static void setDataSource(IDataSource ds) {
+        ExperienceRestController.ds = ds;
+    }
+
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<String> list(@RequestHeader("X-AuthToken") String authToken) {
 
