@@ -30,6 +30,7 @@ import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 import com.kyloth.serleenacloud.render.RasterQuadrant;
 import com.kyloth.serleenacloud.render.Renderer;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import java.util.Arrays;
 
 /**
@@ -125,6 +126,7 @@ public class Experience {
      * @return Restituisce l'insieme dei Punti Utente relativi all'Esperienza.
      */
 
+    @JsonGetter("user_points")
     public Iterable<UserPoint> getUserPoints() {
         return userPoints;
     }
@@ -155,6 +157,7 @@ public class Experience {
      * @return Restituisce l'insieme dei Punti di Interesse dell'Esperienza.
      */
 
+    @JsonGetter("points_of_interest")
     public Iterable<PointOfInterest> getPOIs() {
         return pois;
     }
