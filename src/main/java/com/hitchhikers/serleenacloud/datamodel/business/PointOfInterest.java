@@ -29,6 +29,7 @@ import com.kyloth.serleenacloud.datamodel.geometry.Point;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonGetter;
 
 /**
  * Classe che rappresenta un Punto di Interesse nella mappa.
@@ -79,7 +80,7 @@ public class PointOfInterest extends Point {
     public PointOfInterest(@JsonProperty("latitude") double latitude,
                            @JsonProperty("longitude") double longitude,
                            @JsonProperty("name") String name,
-                           @JsonProperty("poitype") POIType type) {
+                           @JsonProperty("type") POIType type) {
         super(latitude, longitude);
         this.name = name;
         this.type = type;
@@ -101,6 +102,7 @@ public class PointOfInterest extends Point {
      * @return Restituisce la categoria del Punto di Interesse.
      */
 
+    @JsonGetter("type")
     public POIType getPOIType() {
         return type;
     }
