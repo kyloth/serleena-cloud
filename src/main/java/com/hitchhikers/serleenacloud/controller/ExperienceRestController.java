@@ -98,8 +98,8 @@ public class ExperienceRestController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestParam("name") String name,
-                       @RequestParam("pois") String pois,
-                       @RequestParam("ups") String ups,
+                       @RequestParam("points_of_interest") String pois,
+                       @RequestParam("user_points") String ups,
                        @RequestParam("tracks") String tracks,
                        @RequestParam("from") String from,
                        @RequestParam("to") String to,
@@ -135,8 +135,8 @@ public class ExperienceRestController {
         try {
 
             String name = mapper.readValue(body.getFirst("name"), String.class);
-            PointOfInterest[] pois = mapper.readValue(body.getFirst("pois"), PointOfInterest[].class);
-            UserPoint[] ups = mapper.readValue(body.getFirst("ups"), UserPoint[].class);
+            PointOfInterest[] pois = mapper.readValue(body.getFirst("points_of_interest"), PointOfInterest[].class);
+            UserPoint[] ups = mapper.readValue(body.getFirst("user_points"), UserPoint[].class);
             Track[] tracks = mapper.readValue(body.getFirst("tracks"), Track[].class);
             Point from = mapper.readValue(body.getFirst("from"), Point.class);
             Point to = mapper.readValue(body.getFirst("to"), Point.class);
