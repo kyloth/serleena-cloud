@@ -50,32 +50,41 @@ public class ExperienceDao implements IExperienceDao {
         Point nw = r.getNWPoint();
         Point se = r.getSEPoint();
 
-        if (find(name) != null)
-            tpl.update("DELETE FROM Experiences WHERE Name = ?", new Object[] {name});
+        if (find(name) != null) {
+            delete(name);
+        }
 
-        tpl.update("INSERT INTO Experiences(Name, User, NWLongitude, NWLatitude, SELongitude, SELatitude) " +
-                   "VALUES(?, ?, ?, ?, ?, ?)", new Object[] {name,
-                                                             user.getEmail(),
-                                                             nw.getLongitude(),
-                                                             nw.getLatitude(),
-                                                             se.getLongitude(),
-                                                             se.getLatitude()});
-        for (Track t : experience.getTracks())
+        tpl.update("INSERT INTO Experiences (Name, User, NWLongitude, NWLatitude, SELongitude, SELatitude) " +
+                   "VALUES (?, ?, ?, ?, ?, ?)", new Object[] {name,
+                           user.getEmail(),
+                           nw.getLongitude(),
+                           nw.getLatitude(),
+                           se.getLongitude(),
+                           se.getLatitude()
+                                                             });
+        for (Track t : experience.getTracks()) {
+            tpl.update("DELETE FROM Tracks WHERE Name = ?", new Object[] {t.getName()});
+            tpl.update("INSERT INTO Tracks(Name) VALUES (?)", new Object[] {t.getName()});
             tpl.update("INSERT INTO ExperienceTracks(ExperienceName, TrackName) VALUES(?, ?)",
                        new Object[] {name, t.getName()});
+        }
 
         for (UserPoint p : experience.getUserPoints())
-            tpl.update("INSERT INTO ExperienceUserPoints(ExperienceName, Name, Longitude, Latitute) "+
-                       "VALUES(?, ?, ?, ?)",
+            tpl.update("INSERT INTO ExperienceUserPoints(ExperienceName, Name, Longitude, Latitude) VALUES (?, ?, ?, ?) ",
                        new Object[] {name, p.getName(), p.getLongitude(), p.getLatitude()});
 
+
         for (PointOfInterest p : experience.getPOIs())
-            tpl.update("INSERT INTO ExperiencePOIs(ExperienceName, POIName VALUES(?, ?)",
+            tpl.update("INSERT INTO ExperiencePOIs(ExperienceName, POIName) VALUES(?, ?)",
                        new Object[] {name, p.getName()});
 
     }
 
     public void delete(String name) {
+        tpl.update("DELETE FROM SyncList WHERE ExperienceName = ?", new Object[] {name});
+        tpl.update("DELETE FROM ExperienceTracks WHERE ExperienceName = ?", new Object[] {name});
+        tpl.update("DELETE FROM ExperiencePOIs WHERE ExperienceName = ?", new Object[] {name});
+        tpl.update("DELETE FROM ExperienceUserPoints WHERE ExperienceName = ?", new Object[] {name});
         tpl.update("DELETE FROM Experiences WHERE Name = ?", new Object[] {name});
     }
 
