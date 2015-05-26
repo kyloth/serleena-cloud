@@ -13,6 +13,16 @@
 ******************************************************************************/
 
 
+/**
+ * Name: ControllerTest.java
+ * Package: com.kyloth.serleenacloud.controller
+ * Author: Gabriele Pozzan
+ *
+ * History:
+ * Version  Programmer       Changes
+ * 1.0.0    Gabriele Pozzan  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.controller;
 
 import org.junit.Test;
@@ -44,6 +54,15 @@ import com.kyloth.serleenacloud.persistence.jdbc.UserDao;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
+/**
+ * Contiene test per il package com.kyloth.serleenacloud.controller.
+ * Tali test fungono da test di integrazione tra i package
+ * com.kyloth.serleenacloud.datamodel e com.kyloth.serleenacloud.persistence.
+ *
+ * @author Gabriele Pozzan <gabriele.pozzan@studenti.unipd.it>
+ * @version 1.0.0
+ */
+
 public class ControllerTest {
     private static ApplicationContext context;
     private static DataRestController drc;
@@ -55,6 +74,10 @@ public class ControllerTest {
     private static AuthToken token;
 
     static ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+
+    /**
+     * Inizializza i campi dati necessari alla conduzione dei test.
+     */
 
     @BeforeClass
     public static void initialize() throws Exception {
@@ -70,13 +93,22 @@ public class ControllerTest {
         erc.setDataSource(ds);
     }
 
+    /**
+     * Libera il contesto per successivi test.
+     */
+
     @AfterClass
     public static void cleanUp() {
         ((ConfigurableApplicationContext)context).close();
     }
 
+    /**
+     * Testa le funzionalità offerte dal package controller, partendo
+     * dall'autenticazione e pairing fino ad arrivare alla sincronizzazione.
+     */
+
     @Test
-    public void controllerTest() throws com.fasterxml.jackson.core.JsonProcessingException{
+    public void controllerTest() throws com.fasterxml.jackson.core.JsonProcessingException {
         /**
          * Crea un utente con email "user1@serleena.com", password "psw1"
          * e id dispositivo "Kyloth-1".
