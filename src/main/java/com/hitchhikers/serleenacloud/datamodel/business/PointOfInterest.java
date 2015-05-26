@@ -79,7 +79,7 @@ public class PointOfInterest extends Point {
     public PointOfInterest(@JsonProperty("latitude") double latitude,
                            @JsonProperty("longitude") double longitude,
                            @JsonProperty("name") String name,
-                           @JsonProperty("type") POIType type) {
+                           @JsonProperty("poitype") POIType type) {
         super(latitude, longitude);
         this.name = name;
         this.type = type;

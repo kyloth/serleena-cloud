@@ -29,6 +29,7 @@ import java.util.Arrays;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * Classe che implementa ITrack.
@@ -39,6 +40,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @version 1.0
  */
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Track {
 
     /**
@@ -69,7 +71,7 @@ public class Track {
 
     @JsonCreator
     public Track(@JsonProperty("name") String name,
-                 @JsonProperty("checkpoints") Iterable<CheckPoint> checkpoints,
+                 @JsonProperty("checkPoints") Iterable<CheckPoint> checkpoints,
                  @JsonProperty("telemetries") Iterable<Telemetry> telemetries) {
         this.name = name;
         this.checkpoints = checkpoints;
