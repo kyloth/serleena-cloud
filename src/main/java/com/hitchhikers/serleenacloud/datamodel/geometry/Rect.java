@@ -26,6 +26,8 @@
 package com.kyloth.serleenacloud.datamodel.geometry;
 
 import java.util.Arrays;
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Classe rappresentante un'area rettangolare delimitata da coordinate geografiche.
@@ -62,6 +64,7 @@ public class Rect {
      * @return La collezione dei punti che delimitano il perimetro del rettangolo
      */
 
+    @JsonIgnore
     public Iterable<Point> getPoints() {
         if (points == null) {
             Point ne = new Point(nw.getLatitude(), se.getLongitude());
@@ -77,6 +80,7 @@ public class Rect {
      * @return La coordinata geografica dell'angolo Nord-Ovest
      */
 
+    @JsonGetter("topLeft")
     public Point getNWPoint() {
         return nw;
     }
@@ -87,6 +91,7 @@ public class Rect {
      * @return La coordinata geografica dell'angolo Sud-Est
      */
 
+    @JsonGetter("bottomRight")
     public Point getSEPoint() {
         return se;
     }

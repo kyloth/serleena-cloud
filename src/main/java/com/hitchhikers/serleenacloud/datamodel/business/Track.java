@@ -30,6 +30,7 @@ import java.util.Arrays;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Classe che rappresenta un Percorso.
@@ -118,6 +119,7 @@ public class Track {
      * @return Restituisce l'insieme dei dati di Tracciamento relativi al Percorso.
      */
 
+    @JsonIgnore
     public Iterable<Telemetry> getTelemetries() {
         return telemetries;
     }
