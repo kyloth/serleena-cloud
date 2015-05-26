@@ -32,6 +32,7 @@ import com.kyloth.serleenacloud.persistence.IDataSource;
 import com.kyloth.serleenacloud.persistence.DataSourceFactory;
 
 import com.kyloth.serleenacloud.datamodel.business.Experience;
+import com.kyloth.serleenacloud.datamodel.business.Telemetry;
 import com.kyloth.serleenacloud.datamodel.business.PointOfInterest;
 import com.kyloth.serleenacloud.datamodel.business.UserPoint;
 import com.kyloth.serleenacloud.datamodel.business.Track;
@@ -164,4 +165,25 @@ public class ExperienceRestController {
         return null;
     }
 
+    @RequestMapping(value= "/{id}/tracks/{track_id}/telemetries", method = RequestMethod.GET)
+    public Iterable<Telemetry> getTelemetriesList(@PathVariable("id") String id,
+                                               @PathVariable("track_id") String track_id,
+                                               @RequestHeader("X-AuthToken") String authToken) {
+        return get(id, track_id, authToken).getTelemetries();
+    }
+
+
+    @RequestMapping(value= "/{id}/tracks/{track_id}/telemetries/{telemetry_id}", method = RequestMethod.GET)
+    public Telemetry getTelemetry(@PathVariable("id") String id,
+                                  @PathVariable("track_id") String track_id,
+                                  @PathVariable("telemetry_id") String telemetry_id,
+                                  @RequestHeader("X-AuthToken") String authToken) {
+
+        Track track = get(id, track_id, authToken);
+        for(Telemetry t : track.getTelemetries())
+            if(t.getId().equals(telemetry_id))
+                return t;
+
+        return null;
+    }
 }
