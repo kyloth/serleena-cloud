@@ -64,19 +64,19 @@ public class RestAuthenticationFilter extends GenericFilterBean {
         "/data.*",
         "/experiences.*"
     };
-    
+
     /**
      * Metodo di filtraggio delle richieste.
      *
-     * @param request
-     * @param response
-     * @param chain
+     * @param request Rappresenta la richiesta http
+     * @param response Rappresenta la risposta http
+     * @param chain Lista di filtri da applicare a richiesta e risposta
      * @throws IOException
-     * @throws ServletException
+     * @throws ServletException Eccezione generale per problemi riguardanti le Servlet
      */
 
     @Override
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         HttpServletRequest req = (HttpServletRequest) request;
 
@@ -97,7 +97,7 @@ public class RestAuthenticationFilter extends GenericFilterBean {
         } else
             chain.doFilter(request, response);
     }
-    
+
     /**
      * Metodo che permette di stabilire se una richiesta richiede
      * autenticazione.
