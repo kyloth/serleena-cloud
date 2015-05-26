@@ -114,7 +114,7 @@ public class Telemetry {
     /**
      * Metodo getter che permette di ottenere la traccia a cui è associato il tracciamento
      *
-     * @return Restituisce la traccia a cui è associato il tracciamentoTracciamento.
+     * @return Restituisce la traccia a cui è associato il Tracciamento.
      */
 
     public String getTrack() {
