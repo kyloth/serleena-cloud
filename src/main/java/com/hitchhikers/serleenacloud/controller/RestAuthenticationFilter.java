@@ -43,7 +43,7 @@ public class RestAuthenticationFilter extends GenericFilterBean {
     static String[] patterns = new String[] {
         "/users/pair/?$",
         "/data.*",
-        "/experiences".*
+        "/experiences.*"
     };
 
     @Override
