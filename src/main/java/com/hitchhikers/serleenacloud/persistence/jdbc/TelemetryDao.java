@@ -65,24 +65,25 @@ public class TelemetryDao implements ITelemetryDao {
     public Iterable<Telemetry> findAll(final String trackName) {
         return tpl.query("SELECT Id FROM Telemetries WHERE TrackName = ?",
                          new Object[] {trackName},
-        new RowMapper<Telemetry>() {
-            @Override
-            public Telemetry mapRow(ResultSet rs, int rowNum) throws SQLException {
-                Iterable<TelemetryEvent> events =
-                    tpl.query("SELECT Value, Type, Date " +
-                              "FROM TelemetryEvents " +
-                              "WHERE TelemetryId = ?",
-                              new Object[] {rs.getString("Id")},
-                new RowMapper<TelemetryEvent>() {
-                    @Override
-                    public TelemetryEvent mapRow(ResultSet rs, int rowNum) throws SQLException {
-                        return new TelemetryEvent(TelemetryEvent.EventType.valueOf(rs.getString("Type")),
-                                                  rs.getDate("Date"),
-                                                  rs.getDouble("Value"));
-                    }
-                });
-                return new Telemetry(events, trackName);
-            }
-        });
+                         new RowMapper<Telemetry>() {
+                             @Override
+                             public Telemetry mapRow(ResultSet rs, int rowNum) throws SQLException {
+                                 String id = rs.getString("Id");
+                                 Iterable<TelemetryEvent> events =
+                                     tpl.query("SELECT Value, Type, Date " +
+                                               "FROM TelemetryEvents " +
+                                               "WHERE TelemetryId = ?",
+                                               new Object[] {id},
+                                               new RowMapper<TelemetryEvent>() {
+                                                   @Override
+                                                   public TelemetryEvent mapRow(ResultSet rs, int rowNum) throws SQLException {
+                                                       return new TelemetryEvent(TelemetryEvent.EventType.valueOf(rs.getString("Type")),
+                                                                                 rs.getDate("Date"),
+                                                                                 rs.getDouble("Value"));
+                                                   }
+                                               });
+                                 return new Telemetry(events, trackName, id);
+                             }
+                         });
     }
 }

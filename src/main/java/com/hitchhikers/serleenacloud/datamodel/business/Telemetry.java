@@ -53,6 +53,12 @@ public class Telemetry {
     String track;
 
     /**
+     * Identificativo del Tracciamento.
+     */
+
+    String id;
+
+    /**
      * Crea un nuovo oggetto Telemetry inizializzandone i campi dati.
      *
      * @param events Insieme degli eventi associati al Tracciamento.
@@ -63,6 +69,21 @@ public class Telemetry {
         this.events = events;
         this.track = track;
     }
+
+    /**
+     * Crea un nuovo oggetto Telemetry inizializzandone i campi dati.
+     *
+     * @param events Insieme degli eventi associati al Tracciamento.
+     * @param track Traccia a cui è associato il Tracciamento.
+     * @param track Identificativo del Tracciamento.
+     */
+
+    public Telemetry(Iterable<TelemetryEvent> events, String track, String id) {
+        this.events = events;
+        this.track = track;
+        this.id = id;
+    }
+
 
     /**
      * Crea un nuovo oggetto Telemetry inizializzandone i campi dati.
@@ -96,6 +117,16 @@ public class Telemetry {
 
     public String getTrack() {
         return track;
+    }
+
+    /**
+     * Metodo "getter" che permette di ottenere l'identificativo del Tracciamento
+     *
+     * @return Restituisce l'identificativo del Tracciamento
+     */
+
+    public String getId() {
+        return (id == null ? "" : id);
     }
 
     /**
