@@ -13,6 +13,16 @@
 ******************************************************************************/
 
 
+/**
+ * Name: Renderer.java
+ * Package: com.kyloth.serleenacloud.render
+ * Author: Nicola Mometto
+ *
+ * History:
+ * Version  Programmer      Changes
+ * 1.0.0    Nicola Mometto  Creazione file, codice e javadoc iniziali
+ */
+
 package com.kyloth.serleenacloud.render;
 
 import com.kyloth.serleenacloud.persistence.IDataSource;
@@ -29,6 +39,15 @@ import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 
 import java.util.ArrayList;
 
+/**
+ * Classe per la creazione del rendering delle Esperienze da offrire all'applicativo android.
+ *
+ * @use Prendendo in input un oggetto Experience, interagisce con le classi DAO del package Persistence per ottenere i dati di mappa circoscritti dall'esperienza e ritorna una collezione di RasterQuadrant.
+ *
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
+
 public class Renderer {
 
     static IDataSource ds = DataSourceFactory.getDataSource();
@@ -42,6 +61,12 @@ public class Renderer {
     Iterable<UserPoint> ups;
     Iterable<Track> tracks;
 
+    /**
+     * Costruisce un nuovo Renderer a partire da un'Esperienza.
+     *
+     * @param e Esperienza a partire dalla quale si vuole ottenere un insieme di RasterQuadrant.
+     */
+
     Renderer(Experience e) {
         this.rect = e.getBoundingRect();
         this.lakes = ds.lakeDao().findAll(rect);
@@ -51,6 +76,13 @@ public class Renderer {
         this.ups = e.getUserPoints();
         this.tracks = e.getTracks();
     }
+
+    /**
+     * Permette di ottenere un insieme di RasterQuadrant per
+     * l'Esperienza relativa al Renderer.
+     *
+     * @return Restituisce l'insieme di RasterQuadrant per l'Esperienza relativa al Renderer.
+     */
 
     public Iterable<RasterQuadrant> getRasterQuadrants() {
         RasterQuadrant rq = new RasterQuadrant(this, 0, 0);
@@ -65,6 +97,13 @@ public class Renderer {
         }
         return quadrants;
     }
+
+    /**
+     * Permette di ottenere un Renderer per una particolare Esperienza.
+     *
+     * @param e Esperienza di interesse.
+     * @return Restituisce un nuovo Renderer inizializzato a partire dall'Esperienza fornita.
+     */
 
     public static Renderer fromExperience(Experience e) {
         return new Renderer(e);
