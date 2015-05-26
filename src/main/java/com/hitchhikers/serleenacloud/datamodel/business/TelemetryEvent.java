@@ -29,6 +29,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -97,6 +98,7 @@ public class TelemetryEvent {
      * @return Restituisce la categoria dell'evento di Telemetria.
      */
 
+    @JsonGetter("type")
     public EventType eventType() {
         return type;
     }
