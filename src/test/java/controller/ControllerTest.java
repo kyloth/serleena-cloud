@@ -41,6 +41,9 @@ import com.kyloth.serleenacloud.datamodel.sync.SyncInputData;
 import com.kyloth.serleenacloud.persistence.jdbc.JDBCDataSource;
 import com.kyloth.serleenacloud.persistence.jdbc.UserDao;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+
 public class ControllerTest {
     private static ApplicationContext context;
     private static DataRestController drc;
@@ -50,6 +53,8 @@ public class ControllerTest {
     private static JDBCDataSource ds;
     private static JDBCDataSource ds_user;
     private static AuthToken token;
+
+    static ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 
     @BeforeClass
     public static void initialize() throws Exception {
@@ -71,7 +76,7 @@ public class ControllerTest {
     }
 
     @Test
-    public void controllerTest() {
+    public void controllerTest() throws com.fasterxml.jackson.core.JsonProcessingException{
         /**
          * Crea un utente con email "user1@serleena.com", password "psw1"
          * e id dispositivo "Kyloth-1".
@@ -118,10 +123,12 @@ public class ControllerTest {
          */
         // /experience POST
         erc.create("Experience_1",
-                   Arrays.asList(new PointOfInterest[] {poi_1, poi_2}),
-                   Arrays.asList(new UserPoint[] {user_point_1, user_point_2}),
-                   Arrays.asList(new Track[] {track_1}),
-                   from, to, authToken);
+                   ow.writeValueAsString(new PointOfInterest[] {poi_1, poi_2}),
+                   ow.writeValueAsString(new UserPoint[] {user_point_1, user_point_2}),
+                   ow.writeValueAsString(new Track[] {track_1}),
+                   ow.writeValueAsString(from),
+                   ow.writeValueAsString(to),
+                   authToken);
         assertTrue(erc.list(authToken).iterator().next().equals("Experience_1"));
         // /experience/:id: GET
         Experience experience = erc.get("Experience_1", authToken);
@@ -138,10 +145,12 @@ public class ControllerTest {
          */
         // /experience/:exp-id:/tracks/:track-id: GET
         erc.create("Experience_1",
-                   Arrays.asList(new PointOfInterest[] {poi_1, poi_2}),
-                   Arrays.asList(new UserPoint[] {user_point_1, user_point_2}),
-                   Arrays.asList(new Track[] {track_1}),
-                   from, to, authToken);
+                   ow.writeValueAsString(new PointOfInterest[] {poi_1, poi_2}),
+                   ow.writeValueAsString(new UserPoint[] {user_point_1, user_point_2}),
+                   ow.writeValueAsString(new Track[] {track_1}),
+                   ow.writeValueAsString(from),
+                   ow.writeValueAsString(to),
+                   authToken);
         Track track = erc.get("Experience_1", "Track_1", authToken);
         assertTrue(track.getName().equals("Track_1"));
 
@@ -171,9 +180,9 @@ public class ControllerTest {
                                               "Track_1");
         UserPoint user_point_3 = new UserPoint(1.5, 1.5, "UP3");
         SyncInputData sid = new SyncInputData("Experience_1",
-                                              Arrays.asList(new UserPoint[] {user_point_3}),
-                                              Arrays.asList(new Telemetry[] {telemetry_2}));
-        drc.put(Arrays.asList(new SyncInputData[] {sid}), authToken);
+                                              new UserPoint[] {user_point_3},
+                                              new Telemetry[] {telemetry_2});
+        drc.put(ow.writeValueAsString(new SyncInputData[] {sid}), authToken);
         Experience sid_experience = erc.get("Experience_1", authToken);
         Iterable<UserPoint> sid_up = sid_experience.getUserPoints();
         Iterator<UserPoint> i_sid_up = sid_up.iterator();
