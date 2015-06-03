@@ -84,8 +84,8 @@ public class MiscRestController {
     @RequestMapping(value= "/poi/{from}/{to}", method = RequestMethod.GET)
     public Iterable<PointOfInterest> poi(@PathVariable("from") String from,
                                          @PathVariable("to") String to) {
-        String[] _from = from.split(";");
-        String[] _to = to.split(";");
+        String[] _from = from.split(",");
+        String[] _to = to.split(",");
 
         Rect r = new Rect(new Point(Double.valueOf(_from[0]),
                                     Double.valueOf(_from[1])),
@@ -107,8 +107,8 @@ public class MiscRestController {
     @RequestMapping(value= "/paths/{from}/{to}", method = RequestMethod.GET)
     public Iterable<Path> paths(@PathVariable("from") String from,
                                 @PathVariable("to") String to) {
-        String[] _from = from.split(";");
-        String[] _to = to.split(";");
+        String[] _from = from.split(",");
+        String[] _to = to.split(",");
 
         Rect r = new Rect(new Point(Double.valueOf(_from[0]),
                                     Double.valueOf(_from[1])),
