@@ -9,9 +9,9 @@
 
   <bean name="JDBCdataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-    <property name="url" value="jdbc:mysql://localhost:3306/db" />
-    <property name="username" value="username" />
-    <property name="password" value="password" />
+    <property name="url" value="jdbc:mysql://starkenterprises.net:3306/serleenabackend" />
+    <property name="username" value="serleenacloud" />
+    <property name="password" value="?58,@24=0ni5^Sv" />
   </bean>
 
 </beans>
