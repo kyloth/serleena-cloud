@@ -79,6 +79,11 @@ public class RestAuthenticationFilter extends GenericFilterBean {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         HttpServletRequest req = (HttpServletRequest) request;
+        HttpServletResponse res = (HttpServletResponse) response;
+
+        res.addHeader("Access-Control-Allow-Origin", "*");
+        res.addHeader("Access-Control-Allow-Methods", "OPTIONS,GET,POST,PUT,DELETE");
+        res.addHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, X-AuthToken, X-AuthData");
 
         if (requiresAuth(req.getServletPath())) {
             String authToken = req.getHeader("X-AuthToken");
