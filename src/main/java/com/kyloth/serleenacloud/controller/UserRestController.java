@@ -84,6 +84,10 @@ public class UserRestController {
         return;
     }
     
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    class AuthFailException extends RuntimeException {}
+
     /**
      * Metodo che implementa la richiesta GET per ottenere
      * il token di autenticazione di un utente.
@@ -97,11 +101,12 @@ public class UserRestController {
 
         String[] userData = token.split("::");
 
-        User u = new User(userData[0], userData[1], null);
-        if (ds.userDao().find(userData[0]).equals(u))
+        User u = ds.userDao().find(userData[0]);
+
+        if (u != null && u.equals(new User(userData[0], userData[1], null)))
             return u.getAuthToken().getToken();
 
-        return null;
+        throw new AuthFailException();
     }
     
     /**
