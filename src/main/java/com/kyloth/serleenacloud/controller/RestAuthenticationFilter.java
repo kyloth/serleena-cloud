@@ -81,6 +81,19 @@ public class RestAuthenticationFilter extends GenericFilterBean {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
+        System.err.println("---- REQUEST -----");
+        java.util.Enumeration headerNames = req.getHeaderNames();
+        while(headerNames.hasMoreElements()) {
+            String headerName = (String)headerNames.nextElement();
+            System.err.println(headerName + ": " + req.getHeader(headerName));
+        }
+        java.util.Enumeration params = req.getParameterNames();
+        while(params.hasMoreElements()){
+            String paramName = (String)params.nextElement();
+            System.err.println("Attribute Name - "+paramName+", Value - "+req.getParameter(paramName));
+        }
+        System.err.println("---- REQUEST -----");
+
         res.addHeader("Access-Control-Allow-Origin", "http://api.kyloth.info");
         res.addHeader("Access-Control-Allow-Methods", "OPTIONS, GET, POST, PUT, DELETE");
         res.addHeader("Access-Control-Allow-Max-Age", "3600");
