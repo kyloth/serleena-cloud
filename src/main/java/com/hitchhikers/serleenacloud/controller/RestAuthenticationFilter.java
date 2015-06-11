@@ -34,10 +34,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.filter.GenericFilterBean;
 import org.springframework.stereotype.Component;
-import org.springframework.context.annotation.Bean;
 
 import com.kyloth.serleenacloud.persistence.IDataSource;
 import com.kyloth.serleenacloud.persistence.DataSourceFactory;
@@ -133,12 +131,5 @@ public class RestAuthenticationFilter extends GenericFilterBean {
                 return true;
         return false;
     }
-
-    @Bean
-	public DispatcherServlet dispatcherServlet() {
-	    DispatcherServlet servlet = new DispatcherServlet();
-	    servlet.setDispatchOptionsRequest(true);
-	    return servlet;
-	}
 
 }
