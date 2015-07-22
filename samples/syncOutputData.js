@@ -22,7 +22,7 @@
             }
         } ],
         "name" : "Experience_1",
-        "rasterData" : null,
+        "rasterData" : null, // stringa b64 di png
         "boundingRect" : {
             "topLeft" : {
                 "latitude" : 10.0,
@@ -81,6 +81,6 @@
             }
         },
         "temperature" : 35.0,
-        "time" : "2015-07-22"
+        "time" : 1437505820522
     } ]
 }
