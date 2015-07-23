@@ -70,8 +70,10 @@ public class TrackDao implements ITrackDao {
         String trackName = track.getName();
         tpl.update("INSERT INTO Tracks(Name) VALUES(?)", new Object[] {trackName});
 
-        for (Telemetry t : track.getTelemetries())
-            tDao.persist(trackName, t);
+        Iterable<Telemetry> ts = track.getTelemetries();
+        if(ts != null)
+            for (Telemetry t : ts)
+                tDao.persist(trackName, t);
 
         for (CheckPoint p : track.getCheckPoints())
             tpl.update("INSERT INTO Checkpoints(TrackName, Longitude, Latitude, Idx) " +
