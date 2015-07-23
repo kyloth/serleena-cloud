@@ -221,6 +221,7 @@ public class ControllerTest {
         assertTrue(i_sid_up.next().getName().equals("UP3"));
         assertTrue(i_sid_up.next().getName().equals("UP1"));
         assertTrue(i_sid_up.next().getName().equals("UP2"));
+        assertTrue(mrc.paths("45.31,10.65", "44.28,11.71").iterator().next().getName().equals("foo"));
     }
 
 }
