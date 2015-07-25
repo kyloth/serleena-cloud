@@ -26,6 +26,7 @@
 package com.kyloth.serleenacloud.datamodel.business;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -76,7 +77,7 @@ public class Track {
                  @JsonProperty("telemetries") Iterable<Telemetry> telemetries) {
         this.name = name;
         this.checkpoints = checkpoints;
-        this.telemetries = telemetries;
+        this.telemetries = telemetries != null ? telemetries : Collections.EMPTY_LIST;
     }
 
     /**
