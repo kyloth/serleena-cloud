@@ -58,13 +58,14 @@ public class WeatherForecastTest {
         Rect boundingRect = new Rect(nw, se);
         double temperature = 88.23;
         Date time = new Date(1500);
-        WeatherForecast wf = new WeatherForecast(time, boundingRect, temperature, forecast);
+        WeatherForecast.Forecast morning = new WeatherForecast.Forecast(temperature, forecast);
+        WeatherForecast wf = new WeatherForecast(time, boundingRect, morning, null, null);
         Rect wf_rect = wf.getBoundingRect();
         Iterable<Point> wf_points = wf_rect.getPoints();
         Iterator<Point> wf_iterator = wf_points.iterator();
 
-        assertTrue(wf.getForecast() == WeatherForecast.WeatherCondition.SNOWY);
-        assertTrue(wf.getTemperature() == 88.23);
+        assertTrue(wf.getMorning().getForecast() == WeatherForecast.WeatherCondition.SNOWY);
+        assertTrue(wf.getMorning().getTemperature() == 88.23);
         assertTrue(wf.getTime().equals(time));
         while(points_iterator.hasNext() && wf_iterator.hasNext()) {
             Point input_point = points_iterator.next();

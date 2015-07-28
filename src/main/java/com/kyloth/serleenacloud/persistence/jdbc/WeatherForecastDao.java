@@ -58,7 +58,7 @@ public class WeatherForecastDao implements IWeatherForecastDao {
     WeatherForecastDao(JDBCDataSource ds) {
         this.tpl = ds.getTpl();
     }
-    
+
     /**
      * Metodo che implementa IWeatherForecast.findAll(Rect, Date, Date).
      *
@@ -69,7 +69,7 @@ public class WeatherForecastDao implements IWeatherForecastDao {
      */
 
     public Iterable<WeatherForecast> findAll(Rect region, Date from, Date to) {
-        return tpl.query("SELECT Temperature, Date, Forecast, NWLongitude, NWLatitude, SELongitude, SELatitude " +
+        return tpl.query("SELECT MTemperature, MForecast, ATemperature, AForecast, NTemperature, NForecast, Date, NWLongitude, NWLatitude, SELongitude, SELatitude " +
                          "FROM WeatherForecasts " +
                          "WHERE (((NWLatitude BETWEEN ? AND ?) AND (NWLongitude BETWEEN ? AND ?)) " +
                          "OR ((SELatitude BETWEEN ? AND ? ) AND (SELongitude BETWEEN ? AND ? ))" +
@@ -93,9 +93,7 @@ public class WeatherForecastDao implements IWeatherForecastDao {
                              region.getNWPoint().getLatitude(),
                              region.getNWPoint().getLongitude(),
                              region.getSEPoint().getLongitude(),
-                             from,
-                             to
-                         },
+                             from, to},
         new RowMapper<WeatherForecast>() {
             @Override
             public WeatherForecast mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -104,8 +102,9 @@ public class WeatherForecastDao implements IWeatherForecastDao {
                                                     rs.getDouble("NWLongitude")),
                                                     new Point(rs.getDouble("SELatitude"),
                                                             rs.getDouble("SELongitude"))),
-                                           rs.getDouble("Temperature"),
-                                           WeatherForecast.WeatherCondition.valueOf(rs.getString("Forecast")));
+                                           new WeatherForecast.Forecast(rs.getDouble("MTemperature"), WeatherForecast.WeatherCondition.valueOf(rs.getString("MForecast"))),
+                                           new WeatherForecast.Forecast(rs.getDouble("ATemperature"), WeatherForecast.WeatherCondition.valueOf(rs.getString("AForecast"))),
+                                           new WeatherForecast.Forecast(rs.getDouble("MTemperature"), WeatherForecast.WeatherCondition.valueOf(rs.getString("MForecast"))));
             }
         });
     }
