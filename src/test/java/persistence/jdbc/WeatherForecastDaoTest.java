@@ -69,7 +69,7 @@ public class WeatherForecastDaoTest {
         context = new ClassPathXmlApplicationContext("Spring-ModuleTest.xml");
         ds = (JDBCDataSource) context.getBean("dataSource");
         tpl = ds.getTpl();
-        String insertWeatherForecast = "INSERT INTO WeatherForecasts (Temperature, Date, Forecast, NWLongitude, NWLatitude, SELongitude, SELatitude) VALUES (12, '1980-01-01 00:00:01', 'CLOUDY', 6, 15, 15, 6), (13, '1975-01-01 00:00:01', 'SUNNY', 6, 15, 15, 6), (14, '1980-01-01 00:00:01', 'SNOWY', 30, 20, 20, 30);";
+        String insertWeatherForecast = "INSERT INTO WeatherForecasts (MTemperature, ATemperature, NTemperature, Date, MForecast, AForecast, NForecast, NWLongitude, NWLatitude, SELongitude, SELatitude) VALUES (12, 12, 12, '1980-01-01 00:00:01', 'CLOUDY', 'CLOUDY', 'CLOUDY', 6, 15, 15, 6), (13, 13, 13, '1975-01-01 00:00:01', 'SUNNY', 'SUNNY', 'SUNNY', 6, 15, 15, 6), (14, 14, 14, '1980-01-01 00:00:01','SNOWY', 'SNOWY', 'SNOWY', 30, 20, 20, 30);";
         tpl.update(insertWeatherForecast);
         wfd = ds.weatherForecastDao();
     }
@@ -99,7 +99,7 @@ public class WeatherForecastDaoTest {
         Iterator<WeatherForecast> i_forecasts = forecasts.iterator();
         WeatherForecast wf = i_forecasts.next();
         assertFalse(i_forecasts.hasNext());
-        assertTrue(wf.getForecast() == WeatherForecast.WeatherCondition.CLOUDY);
+        assertTrue(wf.getMorning().getForecast() == WeatherForecast.WeatherCondition.CLOUDY);
 
     }
 }
