@@ -58,8 +58,8 @@ public class SyncOutputDataTest {
                                             });
         Iterator<Experience> i_experiences = experiences.iterator();
         Iterable<WeatherForecast> forecastData = Arrays.asList(new WeatherForecast[] {
-                    new WeatherForecast(new Date(100), null, 999, null),
-                    new WeatherForecast(new Date(200), null, 333, null)
+                new WeatherForecast(new Date(100), null, new WeatherForecast.Forecast(999, null), null, null),
+                new WeatherForecast(new Date(200), null, new WeatherForecast.Forecast(333, null), null, null)
                 });
         Iterator<WeatherForecast> i_forecasts = forecastData.iterator();
         Iterable<EmergencyContact> emergencyData = Arrays.asList(new EmergencyContact[] {
@@ -86,7 +86,7 @@ public class SyncOutputDataTest {
             WeatherForecast sod_forecast = i_sod_forecasts.next();
 
             assertTrue(input_forecast.getTime().equals(sod_forecast.getTime()));
-            assertTrue(input_forecast.getTemperature() == sod_forecast.getTemperature());
+            assertTrue(input_forecast.getMorning().getTemperature() == sod_forecast.getMorning().getTemperature());
         }
         while(i_emergencies.hasNext() && i_sod_emergencies.hasNext()) {
             EmergencyContact i_emergency = i_emergencies.next();

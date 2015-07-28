@@ -45,11 +45,50 @@ public class WeatherForecast {
         SUNNY, CLOUDY, RAINY, STORMY, SNOWY
     }
 
-    /**
-     * Rappresenta la condizione meteo prevista.
-     */
+    public static class Forecast {
 
-    private WeatherCondition forecast;
+        /**
+         * Rappresenta la condizione meteo prevista.
+         */
+
+        private WeatherCondition forecast;
+
+        /**
+         * Rappresenta la temperatura prevista.
+         */
+
+        private double temperature;
+
+        /**
+         * Crea una nuova previsione meteo inizializzandone i campi dati.
+         */
+
+        public Forecast(double temperature, WeatherCondition forecast) {
+            this.temperature = temperature;
+            this.forecast = forecast;
+        }
+
+        /**
+         * Metodo getter che permette di ottenere la temperatura prevista.
+         *
+         * @return Restituisce un valore double che rappresenta la temperatura prevista.
+         */
+
+        public double getTemperature() {
+            return temperature;
+        }
+
+        /**
+         * Metodo getter che permette di ottenere le condizioni meteo previste.
+         *
+         * @return Restituisce un valore WeatherCondition che rappresenta una condizione meteo.
+         */
+
+        public WeatherCondition getForecast() {
+            return forecast;
+        }
+    }
+
 
     /**
      * Rappresenta l'area geografica associata alla previsione meteo.
@@ -58,46 +97,69 @@ public class WeatherForecast {
     private Rect boundingRect;
 
     /**
-     * Rappresenta la temperatura prevista.
-     */
-
-    private double temperature;
-
-    /**
      * Data associata alla previsione meteo.
      */
 
     private Date time;
 
     /**
+     * Previsione meteo del mattino
+     */
+
+    private Forecast morning;
+
+    /**
+     * Previsione meteo del pomeriggio
+     */
+
+    private Forecast afternoon;
+
+    /**
+     * Previsione meteo della notte
+     */
+
+    private Forecast night;
+
+    /**
      * Crea una nuova previsione meteo inizializzandone i campi dati.
      */
 
-    public WeatherForecast(Date time, Rect boundingRect, double temperature, WeatherCondition forecast) {
+    public WeatherForecast(Date time, Rect boundingRect, Forecast morning, Forecast afternoon, Forecast night) {
         this.time = time;
         this.boundingRect = boundingRect;
-        this.temperature = temperature;
-        this.forecast = forecast;
+        this.night = night;
+        this.afternoon = afternoon;
+        this.morning = morning;
     }
 
     /**
-     * Metodo getter che permette di ottenere le condizioni meteo previste.
+     * Metodo getter che permette di ottenere la previsione meteo per il mattino
      *
-     * @return Restituisce un valore WeatherCondition che rappresenta una condizione meteo.
+     * @return Restituisce un oggetto di tipo Forecast che rappresenta la previsione meteo per il mattino
      */
 
-    public WeatherCondition getForecast() {
-        return forecast;
+    public Forecast getMorning() {
+        return morning;
     }
 
     /**
-     * Metodo getter che permette di ottenere la temperatura prevista.
+     * Metodo getter che permette di ottenere la previsione meteo per il pomeriggio
      *
-     * @return Restituisce un valore double che rappresenta la temperatura prevista.
+     * @return Restituisce un oggetto di tipo Forecast che rappresenta la previsione meteo per il pomeriggio
      */
 
-    public double getTemperature() {
-        return temperature;
+    public Forecast getAfternoon() {
+        return afternoon;
+    }
+
+    /**
+     * Metodo getter che permette di ottenere la previsione meteo per la notte
+     *
+     * @return Restituisce un oggetto di tipo Forecast che rappresenta la previsione meteo per la notte
+     */
+
+    public Forecast getNight() {
+        return night;
     }
 
     /**
