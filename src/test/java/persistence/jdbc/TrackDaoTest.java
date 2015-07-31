@@ -67,8 +67,8 @@ public class TrackDaoTest {
         ds = (JDBCDataSource) context.getBean("dataSource");
         tpl = ds.getTpl();
         String insertUser = "INSERT INTO Users (Email, Password, DeviceId) VALUES ('foo@bar.com', 'psw', 'Kyloth-1');";
-        String insertExperience = "INSERT INTO Experiences (Name, User, NWLongitude, NWLatitude, SELongitude, SELatitude) VALUES ('Experience_1', 'foo@bar.com', 1, 10, 10, 1), ('Experience_2', 'foo@bar.com', 1, 10, 10, 1);";
-        String insertExperienceTracks = "INSERT INTO ExperienceTracks (ExperienceName, TrackName) VALUES ('Experience_1', 'Track_1'), ('Experience_2', 'Track_2');";
+        String insertExperience = "INSERT INTO Experiences (Id, Name, User, NWLongitude, NWLatitude, SELongitude, SELatitude) VALUES ('id1', 'Experience_1', 'foo@bar.com', 1, 10, 10, 1), ('id2','Experience_2', 'foo@bar.com', 1, 10, 10, 1);";
+        String insertExperienceTracks = "INSERT INTO ExperienceTracks (ExperienceId, TrackName) VALUES ('id1', 'Track_1'), ('id2', 'Track_2');";
         String insertTracks = "INSERT INTO Tracks (Name) VALUES ('Track_1'), ('Track_2');";
         String insertCheckPoints = "INSERT INTO Checkpoints (TrackName, Longitude, Latitude, Idx) VALUES ('Track_1', 1, 1, 0), ('Track_2', 2, 2, 0);";
         String insertTelemetries = "INSERT INTO Telemetries (Id, TrackName) VALUES (0, 'Track_1'), (1, 'Track_2');";
@@ -118,7 +118,7 @@ public class TrackDaoTest {
 
     @Test
     public void testFindAllExperience() {
-        Iterable<Track> tracks = td.findAll("Experience_1");
+        Iterable<Track> tracks = td.findAll("id1");
         Iterator<Track> i_tracks = tracks.iterator();
         Track track = i_tracks.next();
         assertFalse(i_tracks.hasNext());

@@ -53,9 +53,9 @@ public class SyncOutputDataTest {
     @Test
     public void testConstructor() {
         Iterable<Experience> experiences = Arrays.asList(new Experience[] {
-                                                new Experience("Experience_1", null, new Track[1], new UserPoint[1], new PointOfInterest[1]),
-                                                new Experience("Experience_2", null, new Track[1], new UserPoint[1], new PointOfInterest[1])
-                                            });
+                new Experience("Experience_1", "id1", null, new Track[1], new UserPoint[1], new PointOfInterest[1]),
+                new Experience("Experience_2","id2", null, new Track[1], new UserPoint[1], new PointOfInterest[1])
+            });
         Iterator<Experience> i_experiences = experiences.iterator();
         Iterable<WeatherForecast> forecastData = Arrays.asList(new WeatherForecast[] {
                 new WeatherForecast(new Date(100), null, new WeatherForecast.Forecast(999, null), null, null),

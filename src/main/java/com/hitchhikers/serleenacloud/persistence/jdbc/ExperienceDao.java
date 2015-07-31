@@ -73,39 +73,40 @@ public class ExperienceDao implements IExperienceDao {
      */
 
     public void persist(Experience experience) {
-        String name = experience.getName();
+        String id = experience.getId();
 
         Rect r = experience.getBoundingRect();
         Point nw = r.getNWPoint();
         Point se = r.getSEPoint();
 
-        if (find(name) != null) {
-            delete(name);
+        if (find(id) != null) {
+            delete(id);
         }
 
-        tpl.update("INSERT INTO Experiences (Name, User, NWLongitude, NWLatitude, SELongitude, SELatitude) " +
-                   "VALUES (?, ?, ?, ?, ?, ?)", new Object[] {name,
-                           user.getEmail(),
-                           nw.getLongitude(),
-                           nw.getLatitude(),
-                           se.getLongitude(),
-                           se.getLatitude()
-                                                             });
+        tpl.update("INSERT INTO Experiences (Id, Name, User, NWLongitude, NWLatitude, SELongitude, SELatitude) " +
+                   "VALUES (?, ?, ?, ?, ?, ?, ?)", new Object[] {id,
+                                                              experience.getName(),
+                                                              user.getEmail(),
+                                                              nw.getLongitude(),
+                                                              nw.getLatitude(),
+                                                              se.getLongitude(),
+                                                              se.getLatitude()
+                   });
         for (Track t : experience.getTracks()) {
             tpl.update("DELETE FROM Tracks WHERE Name = ?", new Object[] {t.getName()});
             tDao.persist(t);
-            tpl.update("INSERT INTO ExperienceTracks(ExperienceName, TrackName) VALUES(?, ?)",
-                       new Object[] {name, t.getName()});
+            tpl.update("INSERT INTO ExperienceTracks(ExperienceId, TrackName) VALUES(?, ?)",
+                       new Object[] {id, t.getName()});
         }
 
         for (UserPoint p : experience.getUserPoints())
-            tpl.update("INSERT INTO ExperienceUserPoints(ExperienceName, Name, Longitude, Latitude) VALUES (?, ?, ?, ?) ",
-                       new Object[] {name, p.getName(), p.getLongitude(), p.getLatitude()});
+            tpl.update("INSERT INTO ExperienceUserPoints(ExperienceId, Name, Longitude, Latitude) VALUES (?, ?, ?, ?) ",
+                       new Object[] {id, p.getName(), p.getLongitude(), p.getLatitude()});
 
 
         for (PointOfInterest p : experience.getPOIs())
-            tpl.update("INSERT INTO ExperiencePOIs(ExperienceName, POIName) VALUES(?, ?)",
-                       new Object[] {name, p.getName()});
+            tpl.update("INSERT INTO ExperiencePOIs(ExperienceId, POIName) VALUES(?, ?)",
+                       new Object[] {id, p.getName()});
 
     }
 
@@ -115,12 +116,12 @@ public class ExperienceDao implements IExperienceDao {
      * @param name Nome dell'Esperienza da eliminare.
      */
 
-    public void delete(String name) {
-        tpl.update("DELETE FROM SyncList WHERE ExperienceName = ?", new Object[] {name});
-        tpl.update("DELETE FROM ExperienceTracks WHERE ExperienceName = ?", new Object[] {name});
-        tpl.update("DELETE FROM ExperiencePOIs WHERE ExperienceName = ?", new Object[] {name});
-        tpl.update("DELETE FROM ExperienceUserPoints WHERE ExperienceName = ?", new Object[] {name});
-        tpl.update("DELETE FROM Experiences WHERE Name = ?", new Object[] {name});
+    public void delete(String id) {
+        tpl.update("DELETE FROM SyncList WHERE ExperienceId = ?", new Object[] {id});
+        tpl.update("DELETE FROM ExperienceTracks WHERE ExperienceId = ?", new Object[] {id});
+        tpl.update("DELETE FROM ExperiencePOIs WHERE ExperienceId = ?", new Object[] {id});
+        tpl.update("DELETE FROM ExperienceUserPoints WHERE ExperienceId = ?", new Object[] {id});
+        tpl.update("DELETE FROM Experiences WHERE Id = ?", new Object[] {id});
     }
 
     /**
@@ -130,9 +131,9 @@ public class ExperienceDao implements IExperienceDao {
      * @return Restituisce l'Esperienza cercata, se presente.
      */
 
-    public Experience find(String name) {
+    public Experience find(String id) {
         for (Experience e : findAll())
-            if (e.getName().equals(name))
+            if (e.getId().equals(id))
                 return e;
         return null;
     }
@@ -144,24 +145,24 @@ public class ExperienceDao implements IExperienceDao {
      */
 
     public Iterable<Experience> findAll() {
-        return tpl.query("SELECT Name, NWLongitude, NWLatitude, SELongitude, SELatitude " +
+        return tpl.query("SELECT Id, Name, NWLongitude, NWLatitude, SELongitude, SELatitude " +
                          "FROM Experiences " +
                          "WHERE User =  ? ",
                          new Object[] {user.getEmail()},
         new RowMapper<Experience>() {
             @Override
             public Experience mapRow(ResultSet rs, int rowNum) throws SQLException {
-                String eName = rs.getString("Name");
-                return new Experience(eName,
+                String eId = rs.getString("Id");
+                return new Experience(rs.getString("Name"), eId,
                                       new Rect(new Point(rs.getDouble("NWLatitude"),
                                                rs.getDouble("NWLongitude")),
                                                new Point(rs.getDouble("SELatitude"),
                                                        rs.getDouble("SELongitude"))),
-                                      tDao.findAll(eName),
+                                      tDao.findAll(eId),
                                       tpl.query("SELECT Name, Longitude, Latitude " +
                                                 "FROM ExperienceUserPoints " +
-                                                "WHERE ExperienceName =  ? ",
-                                                new Object[] {eName},
+                                                "WHERE ExperienceId =  ? ",
+                                                new Object[] {eId},
                 new RowMapper<UserPoint>() {
                     @Override
                     public UserPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -172,8 +173,8 @@ public class ExperienceDao implements IExperienceDao {
                 }),
                 tpl.query("SELECT Name, Longitude, Latitude, Type " +
                           "FROM ExperiencePOIs ep, POIs p " +
-                          "WHERE ep.ExperienceName =  ?  AND ep.POIName = p.Name",
-                          new Object[] {eName},
+                          "WHERE ep.ExperienceId =  ?  AND ep.POIName = p.Name",
+                          new Object[] {eId},
                 new RowMapper<PointOfInterest>() {
                     @Override
                     public PointOfInterest mapRow(ResultSet rs, int rowNum) throws SQLException {

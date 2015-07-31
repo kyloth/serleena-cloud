@@ -70,7 +70,7 @@ public class ExperienceTest {
                                              new PointOfInterest(0, 0, "poi_2", PointOfInterest.POIType.FOOD)
                                          });
         Iterator<PointOfInterest> pois_iterator = pois.iterator();
-        Experience e = new Experience(name, rect, tracks, userPoints, pois);
+        Experience e = new Experience(name, "id1", rect, tracks, userPoints, pois);
         Rect e_rect = e.getBoundingRect();
         Iterable<Point> e_points = e_rect.getPoints();
         Iterator<Point> e_points_iterator = e_points.iterator();
