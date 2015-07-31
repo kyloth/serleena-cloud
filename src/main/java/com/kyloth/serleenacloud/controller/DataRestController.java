@@ -110,7 +110,7 @@ public class DataRestController {
 
         return new SyncOutputData(es, wf, ec);
     }
-    
+
     /**
      * Metodo che implementa la richiesta PUT per sincronizzare dati
      * dall'applicazione android al backend.
@@ -129,7 +129,7 @@ public class DataRestController {
         try {
             for (SyncInputData input : mapper.readValue(id, SyncInputData[].class)) {
 
-                Experience e = dataSource.experienceDao().find(input.getExperienceName());
+                Experience e = dataSource.experienceDao().find(input.getExperienceId());
                 ArrayList<UserPoint> userPoints = new ArrayList<UserPoint>();
 
                 for (UserPoint u : input.getUserPoints())
@@ -137,7 +137,7 @@ public class DataRestController {
                 for (UserPoint u : e.getUserPoints())
                     userPoints.add(u);
 
-                Experience newE = new Experience(e.getName(), e.getBoundingRect(), e.getTracks(), userPoints, e.getPOIs());
+                Experience newE = new Experience(e.getName(), e.getId(), e.getBoundingRect(), e.getTracks(), userPoints, e.getPOIs());
                 dataSource.experienceDao().persist(newE);
 
                 for (Telemetry t : input.getTelemetryData())
@@ -163,11 +163,11 @@ public class DataRestController {
 
         ArrayList<String> syncList = new ArrayList<String>();
         for(Experience e : dataSource.syncListDao().findAll())
-            syncList.add(e.getName());
+            syncList.add(e.getId());
 
         return syncList;
     }
-    
+
     /**
      * Metodo che implementa la richiesta PUT per aggiungere Esperienze
      * alla lista di sincronizzazione.
@@ -191,7 +191,6 @@ public class DataRestController {
 
             for (String e : experiences)
                 syncList.add(dataSource.experienceDao().find(e));
-
             dataSource.syncListDao().persist(syncList);
         } catch (IOException e) {}
     }

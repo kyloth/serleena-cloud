@@ -48,7 +48,7 @@ public class SyncInputDataTest {
      */
     @Test
     public void testConstructor() {
-        String experienceName = "Name";
+        String experienceId = "id";
         Iterable<UserPoint> userPoints = Arrays.asList(new UserPoint[] {
                                              new UserPoint(0, 0, "UserPoint_1"),
                                              new UserPoint(0, 0, "UserPoint_2")
@@ -65,13 +65,13 @@ public class SyncInputDataTest {
                                                          }), "track")
                                              });
         Iterator<Telemetry> i_telemetryData = telemetryData.iterator();
-        SyncInputData sid = new SyncInputData(experienceName, userPoints, telemetryData);
+        SyncInputData sid = new SyncInputData(experienceId, userPoints, telemetryData);
         Iterable<UserPoint> sid_userPoints = sid.getUserPoints();
         Iterator<UserPoint> i_sid_userPoints = sid_userPoints.iterator();
         Iterable<Telemetry> sid_telemetryData = sid.getTelemetryData();
         Iterator<Telemetry> i_sid_telemetryData = sid_telemetryData.iterator();
 
-        assertTrue(sid.getExperienceName().equals(experienceName));
+        assertTrue(sid.getExperienceId().equals(experienceId));
         while(i_userPoints.hasNext() && i_sid_userPoints.hasNext()) {
             UserPoint input_userPoint = i_userPoints.next();
             UserPoint sid_userPoint = i_sid_userPoints.next();

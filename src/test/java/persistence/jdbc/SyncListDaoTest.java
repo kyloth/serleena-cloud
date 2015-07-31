@@ -76,7 +76,7 @@ public class SyncListDaoTest {
         ds_user = (JDBCDataSource) ds.forUser(user);
         tpl = ds_user.getTpl();
         String insertUser = "INSERT INTO Users (Email, Password, DeviceId) VALUES ('foo@bar.com', 'psw' 'Kyloth-1')";
-        String insertExperiences = "INSERT INTO Experiences (Name, User, NWLongitude, NWLatitude, SELongitude, SWLatitude) VALUES ('Experience_1', 'foo@bar.com', 1, 10, 10, 1), ('Experience_2', 'foo@bar.com', 1, 10, 10, 1)";
+        String insertExperiences = "INSERT INTO Experiences (Id, Name, User, NWLongitude, NWLatitude, SELongitude, SWLatitude) VALUES ('id1', 'Experience_1', 'foo@bar.com', 1, 10, 10, 1), ('id2', 'Experience_2', 'foo@bar.com', 1, 10, 10, 1)";
         tpl.update(insertUser);
         tpl.update(insertExperiences);
         sld = ds_user.syncListDao();
@@ -96,13 +96,13 @@ public class SyncListDaoTest {
      * recuperi.
      */
     public void testPersistAndFindAll() {
-        Experience exp_1 = new Experience("Experience_1",
+        Experience exp_1 = new Experience("Experience_1", "id1",
                                           new Rect(new Point(10, 1),
                                                   new Point(1, 10)),
                                           Arrays.asList(new Track[] {}),
                                           Arrays.asList(new UserPoint[] {}),
                                           Arrays.asList(new PointOfInterest[] {}));
-        Experience exp_2 = new Experience("Experience_2",
+        Experience exp_2 = new Experience("Experience_2", "id2",
                                           new Rect(new Point(10, 1),
                                                   new Point(1, 10)),
                                           Arrays.asList(new Track[] {}),
