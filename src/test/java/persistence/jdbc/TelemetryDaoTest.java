@@ -42,7 +42,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import com.kyloth.serleenacloud.persistence.ITelemetryDao;
 
 import com.kyloth.serleenacloud.datamodel.business.Telemetry;
-import com.kyloth.serleenacloud.datamodel.business.TelemetryEvent;
 
 /**
  * Contiene test per la classe TelemetryDao.
@@ -88,23 +87,23 @@ public class TelemetryDaoTest {
 
     @Test
     public void testPersistAndFindAll() {
-        TelemetryEvent[] events_1 = {
-            new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, new Date(), 1),
-            new TelemetryEvent(TelemetryEvent.EventType.HEART, new Date(), 2),
-            new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, new Date(), 3),
-            new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, new Date(), 4)
+        Date[] events_1 = {
+            new Date(),
+            new Date(),
+            new Date(),
+            new Date()
         };
-        TelemetryEvent[] events_2 = {
-            new TelemetryEvent(TelemetryEvent.EventType.HEART, new Date(), 5),
-            new TelemetryEvent(TelemetryEvent.EventType.HEART, new Date(), 6),
-            new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, new Date(), 7),
-            new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, new Date(), 8)
+        Date[] events_2 = {
+            new Date(),
+            new Date(),
+            new Date(),
+            new Date()
         };
-        TelemetryEvent[] events_3 = {
-            new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, new Date(), 9),
-            new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, new Date(), 10),
-            new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, new Date(), 11),
-            new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, new Date(), 12)
+        Date[] events_3 = {
+            new Date(),
+            new Date(),
+            new Date(),
+            new Date()
         };
         Telemetry t1 = new Telemetry(events_1, "track");
         Telemetry t2 = new Telemetry(events_2, "track");
@@ -124,23 +123,5 @@ public class TelemetryDaoTest {
         Telemetry tel_3 = i_t_2.next();
         assertFalse(i_t_1.hasNext());
         assertFalse(i_t_2.hasNext());
-        Iterable<TelemetryEvent> t_events_1 = tel_1.getEvents();
-        Iterable<TelemetryEvent> t_events_2 = tel_2.getEvents();
-        Iterable<TelemetryEvent> t_events_3 = tel_3.getEvents();
-        Iterator<TelemetryEvent> i_e_1 = t_events_1.iterator();
-        Iterator<TelemetryEvent> i_e_2 = t_events_2.iterator();
-        Iterator<TelemetryEvent> i_e_3 = t_events_3.iterator();
-        assertTrue(i_e_1.next().getValue() == 1);
-        assertTrue(i_e_1.next().getValue() == 2);
-        assertTrue(i_e_1.next().getValue() == 3);
-        assertTrue(i_e_1.next().getValue() == 4);
-        assertTrue(i_e_2.next().getValue() == 5);
-        assertTrue(i_e_2.next().getValue() == 6);
-        assertTrue(i_e_2.next().getValue() == 7);
-        assertTrue(i_e_2.next().getValue() == 8);
-        assertTrue(i_e_3.next().getValue() == 9);
-        assertTrue(i_e_3.next().getValue() == 10);
-        assertTrue(i_e_3.next().getValue() == 11);
-        assertTrue(i_e_3.next().getValue() == 12);
     }
 }

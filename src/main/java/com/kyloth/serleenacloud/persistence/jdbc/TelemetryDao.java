@@ -26,7 +26,6 @@
 package com.kyloth.serleenacloud.persistence.jdbc;
 
 import com.kyloth.serleenacloud.datamodel.business.Telemetry;
-import com.kyloth.serleenacloud.datamodel.business.TelemetryEvent;
 import com.kyloth.serleenacloud.persistence.ITelemetryDao;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -62,7 +61,7 @@ public class TelemetryDao implements ITelemetryDao {
     TelemetryDao(JDBCDataSource ds) {
         this.tpl = ds.getTpl();
     }
-    
+
     /**
      * Metodo che implementa ITelemetryDao.persist(String, Telemetry).
      *
@@ -81,14 +80,15 @@ public class TelemetryDao implements ITelemetryDao {
             }
         },
         keyHolder);
-        for (TelemetryEvent event : t.getEvents()) {
-            tpl.update("INSERT INTO TelemetryEvents(TelemetryId, Value, Type, Date) " +
-                       "VALUES(?, ?, ?, ?)",
+        int i = 0;
+        for (Date event : t.getEvents()) {
+            tpl.update("INSERT INTO TelemetryEvents(TelemetryId, Value, Date) " +
+                       "VALUES(?, ?, ?)",
                        new Object[] { keyHolder.getKey(),
-                                      event.getValue(),
-                                      event.eventType().toString(),
-                                      event.getTime()
-                                    });
+                                      i,
+                                      event
+                       });
+            i++;
         }
     }
 
@@ -106,17 +106,16 @@ public class TelemetryDao implements ITelemetryDao {
                              @Override
                              public Telemetry mapRow(ResultSet rs, int rowNum) throws SQLException {
                                  String id = rs.getString("Id");
-                                 Iterable<TelemetryEvent> events =
-                                     tpl.query("SELECT Value, Type, Date " +
+                                 Iterable<Date> events =
+                                     tpl.query("SELECT Value, Date " +
                                                "FROM TelemetryEvents " +
-                                               "WHERE TelemetryId = ?",
+                                               "WHERE TelemetryId = ?" +
+                                               "ORDER BY Value",
                                                new Object[] {id},
-                                               new RowMapper<TelemetryEvent>() {
+                                               new RowMapper<Date>() {
                                                    @Override
-                                                   public TelemetryEvent mapRow(ResultSet rs, int rowNum) throws SQLException {
-                                                       return new TelemetryEvent(TelemetryEvent.EventType.valueOf(rs.getString("Type")),
-                                                                                 rs.getDate("Date"),
-                                                                                 rs.getDouble("Value"));
+                                                   public Date mapRow(ResultSet rs, int rowNum) throws SQLException {
+                                                       return rs.getDate("Date");
                                                    }
                                                });
                                  return new Telemetry(events, trackName, id);

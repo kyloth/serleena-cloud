@@ -42,7 +42,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import com.kyloth.serleenacloud.persistence.ITrackDao;
 import com.kyloth.serleenacloud.datamodel.business.CheckPoint;
 import com.kyloth.serleenacloud.datamodel.business.Telemetry;
-import com.kyloth.serleenacloud.datamodel.business.TelemetryEvent;
 import com.kyloth.serleenacloud.datamodel.business.Track;
 
 /**
@@ -73,7 +72,7 @@ public class TrackDaoTest {
         String insertTracks = "INSERT INTO Tracks (Name) VALUES ('Track_1'), ('Track_2');";
         String insertCheckPoints = "INSERT INTO Checkpoints (TrackName, Longitude, Latitude, Idx) VALUES ('Track_1', 1, 1, 0), ('Track_2', 2, 2, 0);";
         String insertTelemetries = "INSERT INTO Telemetries (Id, TrackName) VALUES (0, 'Track_1'), (1, 'Track_2');";
-        String insertTelEvents = "INSERT INTO TelemetryEvents (TelemetryId, Value, Type, Date) VALUES (0, 1, 'HEART', '2015-01-01 00:00:01'), (1, 2, 'CHECKPOINT', '2015-01-01 00:00:01');";
+        String insertTelEvents = "INSERT INTO TelemetryEvents (TelemetryId, Value, Date) VALUES (0, 1, '2015-01-01 00:00:01'), (1, 2,'2015-01-01 00:00:01');";
         tpl.update(insertUser);
         tpl.update(insertExperience);
         tpl.update(insertTracks);
@@ -101,8 +100,8 @@ public class TrackDaoTest {
     @Test
     public void testPersist() {
         CheckPoint[] cp = {new CheckPoint(12, 13, 1), new CheckPoint(14, 15, 2)};
-        TelemetryEvent[] events = {
-            new TelemetryEvent(TelemetryEvent.EventType.HEART, new Date(), 1)
+        Date[] events = {
+            new Date()
         };
         Telemetry[] telemetries = {new Telemetry(events, "track")};
         Track track = new Track("Track1", cp, telemetries);
@@ -127,11 +126,6 @@ public class TrackDaoTest {
         Iterable<CheckPoint> checkPoints = track.getCheckPoints();
         Iterator<CheckPoint> i_check = checkPoints.iterator();
         assertTrue(i_check.next().getLatitude() == 1);
-        Iterable<Telemetry> telemetries = track.getTelemetries();
-        Iterator<Telemetry> i_tel = telemetries.iterator();
-        Iterable<TelemetryEvent> events = i_tel.next().getEvents();
-        Iterator<TelemetryEvent> i_events = events.iterator();
-        assertTrue(i_events.next().getValue() == 1);
     }
 
     /**
