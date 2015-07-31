@@ -87,9 +87,9 @@ public class TrackDao implements ITrackDao {
      * @return Restituisce la lista dei percorsi relativi all'Esperienza specificata.
      */
 
-    public Iterable<Track> findAll(String experienceName) {
-        return tpl.query("SELECT TrackName FROM ExperienceTracks WHERE ExperienceName = ?",
-                         new Object[] {experienceName},
+    public Iterable<Track> findAll(String experienceId) {
+        return tpl.query("SELECT TrackName FROM ExperienceTracks WHERE ExperienceId = ?",
+                         new Object[] {experienceId},
         new RowMapper<Track>() {
             @Override
             public Track mapRow(ResultSet rs, int rowNum) throws SQLException {

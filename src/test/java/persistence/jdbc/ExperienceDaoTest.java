@@ -77,10 +77,10 @@ public class ExperienceDaoTest {
         ds_user = (JDBCDataSource) ds.forUser(user);
         tpl = ds_user.getTpl();
         String userInsert = "INSERT INTO Users (Email, Password, DeviceId) VALUES ('foo@bar.com', 'psw', 'Kyloth-1');";
-        String expInsert = "INSERT INTO Experiences (Name, User, NWLongitude, NWLatitude, SELongitude, SELatitude) VALUES ('Experience', 'foo@bar.com', 10.0, 2.0, 1.0, 7.0);";
-        String expUPInsert = "INSERT INTO ExperienceUserPoints (ExperienceName, Name, Longitude, Latitude) VALUES ('Experience', 'UP1', 3.0, 3.0), ('Experience', 'UP2', 5.0, 5.0);";
+        String expInsert = "INSERT INTO Experiences (Id, Name, User, NWLongitude, NWLatitude, SELongitude, SELatitude) VALUES ('id1','Experience', 'foo@bar.com', 10.0, 2.0, 1.0, 7.0);";
+        String expUPInsert = "INSERT INTO ExperienceUserPoints (ExperienceId, Name, Longitude, Latitude) VALUES ('id1', 'UP1', 3.0, 3.0), ('id1', 'UP2', 5.0, 5.0);";
         String insertPOIs = "INSERT INTO POIs (Name, Longitude, Latitude, Type) VALUES ('POI1', 4.0, 4.0, 'INFO'), ('POI2', 6.0, 6.0, 'WARNING');";
-        String insertExperiencePOIs = "INSERT INTO ExperiencePOIs (ExperienceName, POIName) VALUES ('Experience', 'POI1'), ('Experience', 'POI2');";
+        String insertExperiencePOIs = "INSERT INTO ExperiencePOIs (ExperienceId, POIName) VALUES ('id1', 'POI1'), ('id1', 'POI2');";
         tpl.update(userInsert);
         tpl.update(expInsert);
         tpl.update(expUPInsert);

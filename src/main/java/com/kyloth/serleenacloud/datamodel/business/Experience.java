@@ -75,17 +75,25 @@ public class Experience {
     private String name;
 
     /**
+     * Id dell'Esperienza.
+     */
+
+    private String id;
+
+    /**
      * Crea un oggetto Experience inizializzandone i campi dati.
      *
      * @param name Il nome dell'Esperienza.
+     * @param id L'id dell'Esperienza.
      * @param rect L'area geografica in cui è situata l'Esperienza.
      * @param tracks L'insieme dei Percorsi relativi all'Esperienza.
      * @param userPoints L'insieme dei Punti Utente relativi all'Esperienza.
      * @param pois L'insieme dei Punti di Interesse relativi all'Esperienza.
      */
 
-    public Experience(String name, Rect rect, Iterable<Track> tracks, Iterable<UserPoint> userPoints, Iterable<PointOfInterest> pois) {
+    public Experience(String name, String id, Rect rect, Iterable<Track> tracks, Iterable<UserPoint> userPoints, Iterable<PointOfInterest> pois) {
         this.name = name;
+        this.id = id;
         this.rect = rect;
         this.tracks = tracks;
         this.userPoints = userPoints;
@@ -96,14 +104,16 @@ public class Experience {
      * Crea un oggetto Experience inizializzandone i campi dati.
      *
      * @param name Il nome dell'Esperienza.
+     * @param id L'id dell'Esperienza.
      * @param rect L'area geografica in cui è situata l'Esperienza.
      * @param tracks L'array dei Percorsi relativi all'Esperienza.
      * @param userPoints L'array dei Punti Utente relativi all'Esperienza.
      * @param pois L'array dei Punti di Interesse relativi all'Esperienza.
      */
 
-    public Experience(String name, Rect rect, Track[] tracks, UserPoint[] userPoints, PointOfInterest[] pois) {
+    public Experience(String name, String id, Rect rect, Track[] tracks, UserPoint[] userPoints, PointOfInterest[] pois) {
         this.name = name;
+        this.id = id;
         this.rect = rect;
         this.tracks = Arrays.asList(tracks);
         this.userPoints = Arrays.asList(userPoints);
@@ -152,6 +162,16 @@ public class Experience {
     }
 
     /**
+     * Metodo getter che permette di ottenere l'id dell'Esperienza.
+     *
+     * @return Restituisce l'ud dell'Esperienza.
+     */
+
+    public String getId() {
+        return id;
+    }
+
+    /**
      * Metodo getter che permette di ottenere l'insieme dei Punti di Interesse dell'Esperienza.
      *
      * @return Restituisce l'insieme dei Punti di Interesse dell'Esperienza.
@@ -161,7 +181,7 @@ public class Experience {
     public Iterable<PointOfInterest> getPOIs() {
         return pois;
     }
-    
+
     /**
      * Metodo getter che permette di ottenere l'insieme dei quadranti raster
      * associati all'Esperienza.

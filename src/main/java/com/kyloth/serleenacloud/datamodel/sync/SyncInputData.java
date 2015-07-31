@@ -57,22 +57,22 @@ public class SyncInputData {
     private Iterable<Telemetry> telemetryData;
 
     /**
-     * Nome dell'Esperienza da sincronizzare.
+     * Id dell'Esperienza da sincronizzare.
      */
 
-    private String experienceName;
+    private String experienceId;
 
     /**
      * Crea un nuovo oggetto SyncInputData per una specifica Esperienza
      * da sincronizzare.
      *
-     * @param experienceName Nome dell'esperienza da sincronizzare.
+     * @param experienceId Id dell'esperienza da sincronizzare.
      * @param userPoints Insieme dei Punti Utente da sincronizzare.
      * @param telemetryData Insieme dei dati di telemetria da sincronizzare.
      */
 
-    public SyncInputData(String experienceName, Iterable<UserPoint> userPoints, Iterable<Telemetry> telemetryData) {
-        this.experienceName = experienceName;
+    public SyncInputData(String experienceId, Iterable<UserPoint> userPoints, Iterable<Telemetry> telemetryData) {
+        this.experienceId = experienceId;
         this.telemetryData = telemetryData;
         this.userPoints = userPoints;
     }
@@ -81,28 +81,28 @@ public class SyncInputData {
      * Crea un nuovo oggetto SyncInputData per una specifica Esperienza
      * da sincronizzare.
      *
-     * @param experienceName Nome dell'esperienza da sincronizzare.
+     * @param experienceId Id dell'esperienza da sincronizzare.
      * @param userPoints Array dei Punti Utente da sincronizzare.
      * @param telemetryData Array dei dati di telemetria da sincronizzare.
      */
 
     @JsonCreator
-    public SyncInputData(@JsonProperty("experience") String experienceName,
+    public SyncInputData(@JsonProperty("experience") String experienceId,
                          @JsonProperty("userPoints") UserPoint[] userPoints,
                          @JsonProperty("telemetryData") Telemetry[] telemetryData) {
-        this.experienceName = experienceName;
+        this.experienceId = experienceId;
         this.telemetryData = Arrays.asList(telemetryData);
         this.userPoints = Arrays.asList(userPoints);
     }
 
     /**
-     * Metodo getter per ottenere il nome dell'Esperienza da sincronizzare.
+     * Metodo getter per ottenere l'id dell'Esperienza da sincronizzare.
      *
-     * @return Restituisce il nome dell'Esperienza da sincronizzare.
+     * @return Restituisce l'id dell'Esperienza da sincronizzare.
      */
 
-    public String getExperienceName() {
-        return experienceName;
+    public String getExperienceId() {
+        return experienceId;
     }
 
     /**

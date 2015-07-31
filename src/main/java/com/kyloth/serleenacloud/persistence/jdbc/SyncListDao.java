@@ -49,7 +49,7 @@ public class SyncListDao implements ISyncListDao {
     private JdbcTemplate tpl;
     private User user;
     private IExperienceDao ed;
-    
+
     /**
      * Costruisce un nuovo SyncListDao.
      *
@@ -72,10 +72,10 @@ public class SyncListDao implements ISyncListDao {
         tpl.update("DELETE FROM SyncList WHERE User = ?", new Object[] {user.getEmail()});
 
         for (Experience e : es)
-            tpl.update("INSERT INTO SyncList(ExperienceName, User) VALUES(?, ?)",
-                       new Object[] {e.getName(), user.getEmail()});
+            tpl.update("INSERT INTO SyncList(ExperienceId, User) VALUES(?, ?)",
+                       new Object[] {e.getId(), user.getEmail()});
     }
-    
+
     /**
      * Metodo che implementa ISyncListDao.findAll().
      *
@@ -83,12 +83,12 @@ public class SyncListDao implements ISyncListDao {
      */
 
     public Iterable<Experience> findAll() {
-        return tpl.query("SELECT ExperienceName FROM SyncList WHERE User = ?",
+        return tpl.query("SELECT ExperienceId FROM SyncList WHERE User = ?",
                          new Object[] {user.getEmail()},
                          new RowMapper<Experience>() {
                              @Override
                              public Experience mapRow(ResultSet rs, int rowNum) throws SQLException {
-                                 return ed.find(rs.getString("ExperienceName"));
+                                 return ed.find(rs.getString("ExperienceId"));
                              }
                          });
     }
