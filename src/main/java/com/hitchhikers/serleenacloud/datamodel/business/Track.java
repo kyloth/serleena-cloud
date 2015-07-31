@@ -72,6 +72,7 @@ public class Track {
      */
 
     @JsonCreator
+    @SuppressWarnings("unchecked")
     public Track(@JsonProperty("name") String name,
                  @JsonProperty("checkPoints") Iterable<CheckPoint> checkpoints,
                  @JsonProperty("telemetries") Iterable<Telemetry> telemetries) {
