@@ -46,7 +46,7 @@ public class Telemetry {
      * Insieme degli eventi associati al Tracciamento.
      */
 
-    Iterable<TelemetryEvent> events;
+    Iterable<Date> events;
 
     /**
      * Traccia a cui è associato il Tracciamento.
@@ -67,7 +67,7 @@ public class Telemetry {
      * @param track Traccia a cui è associato il Tracciamento.
      */
 
-    public Telemetry(Iterable<TelemetryEvent> events, String track) {
+    public Telemetry(Iterable<Date> events, String track) {
         this.events = events;
         this.track = track;
     }
@@ -80,7 +80,7 @@ public class Telemetry {
      * @param track Identificativo del Tracciamento.
      */
 
-    public Telemetry(Iterable<TelemetryEvent> events, String track, String id) {
+    public Telemetry(Iterable<Date> events, String track, String id) {
         this.events = events;
         this.track = track;
         this.id = id;
@@ -95,7 +95,7 @@ public class Telemetry {
      */
 
     @JsonCreator
-    public Telemetry(@JsonProperty("events") TelemetryEvent[] events,
+    public Telemetry(@JsonProperty("events") Date[] events,
                      @JsonProperty("track") String track) {
         this.events = Arrays.asList(events);
         this.track = track;
@@ -107,7 +107,7 @@ public class Telemetry {
      * @return Restituisce l'insieme degli eventi associati al Tracciamento.
      */
 
-    public Iterable<TelemetryEvent> getEvents() {
+    public Iterable<Date> getEvents() {
         return events;
     }
 
@@ -160,13 +160,11 @@ public class Telemetry {
         long duration = 0;
         Date lastDate = null;
 
-        for (TelemetryEvent event : telemetry.getEvents())
-            if (event.eventType() == TelemetryEvent.EventType.CHECKPOINT) {
-                if (lastDate != null)
-                    duration += event.getTime().getTime() - lastDate.getTime();
-                lastDate = event.getTime();
-            }
+        for (Date event : telemetry.getEvents()) {
+            if (lastDate != null)
+                duration += event.getTime() - lastDate.getTime();
+            lastDate = event;
+        }
         return duration;
-
     }
 }

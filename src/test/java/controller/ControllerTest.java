@@ -135,9 +135,8 @@ public class ControllerTest {
          */
         CheckPoint check_point_1 = new CheckPoint(2, 2, 0);
         CheckPoint check_point_2 = new CheckPoint(3, 3, 1);
-        TelemetryEvent event_1 = new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT,
-                new Date(), 100);
-        Telemetry telemetry_1 = new Telemetry(Arrays.asList(new TelemetryEvent[] {event_1}),
+        Date event_1 = new Date();
+        Telemetry telemetry_1 = new Telemetry(Arrays.asList(new Date[] {event_1}),
                                               "Track_1");
         Track track_1 = new Track("Track_1",
                                   new CheckPoint[] {check_point_1, check_point_2},
@@ -205,10 +204,8 @@ public class ControllerTest {
         Iterable<EmergencyContact> sod_emergency = sod.getEmergencyData();
         Iterator<EmergencyContact> i_sod_emergency = sod_emergency.iterator();
         assertTrue(i_sod_emergency.next().getName().equals("Emergency_1"));
-        TelemetryEvent event_2 = new TelemetryEvent(TelemetryEvent.EventType.HEART,
-                new Date(),
-                50);
-        Telemetry telemetry_2 = new Telemetry(Arrays.asList(new TelemetryEvent[] {event_2}),
+        Date event_2 = new Date();
+        Telemetry telemetry_2 = new Telemetry(Arrays.asList(new Date[] {event_2}),
                                               "Track_1");
         UserPoint user_point_3 = new UserPoint(1.5, 1.5, "UP3");
         SyncInputData sid = new SyncInputData("Experience_1",
