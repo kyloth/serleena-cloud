@@ -33,7 +33,6 @@ import java.util.Iterator;
 import java.util.Date;
 import com.kyloth.serleenacloud.datamodel.business.UserPoint;
 import com.kyloth.serleenacloud.datamodel.business.Telemetry;
-import com.kyloth.serleenacloud.datamodel.business.TelemetryEvent;
 
 /**
  * Contiene test per la classe SyncInputData.
@@ -56,13 +55,13 @@ public class SyncInputDataTest {
                                          });
         Iterator<UserPoint> i_userPoints = userPoints.iterator();
         Iterable<Telemetry> telemetryData = Arrays.asList(new Telemetry[] {
-                                                 new Telemetry(Arrays.asList(new TelemetryEvent[] {
-                                                             new TelemetryEvent(null, new Date(100), 0),
-                                                             new TelemetryEvent(null, new Date(200), 1)
+                                                 new Telemetry(Arrays.asList(new Date[] {
+                                                             new Date(100),
+                                                             new Date(200)
                                                          }), "track"),
-                                                 new Telemetry(Arrays.asList(new TelemetryEvent[] {
-                                                             new TelemetryEvent(null, new Date(50), 0),
-                                                             new TelemetryEvent(null, new Date(300), 1)
+                                                 new Telemetry(Arrays.asList(new Date[] {
+                                                             new Date(50),
+                                                              new Date(300)
                                                          }), "track")
                                              });
         Iterator<Telemetry> i_telemetryData = telemetryData.iterator();

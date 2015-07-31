@@ -46,8 +46,8 @@ public class TrackTest {
     private Iterable<Telemetry> telemetries;
     private Iterator<CheckPoint> checkpoints_iterator;
     private Iterator<Telemetry> telemetries_iterator;
-    private TelemetryEvent[] first_events;
-    private TelemetryEvent[] second_events;
+    private Date[] first_events;
+    private Date[] second_events;
     private Track t;
     @Before
     public void initialize() {
@@ -58,13 +58,11 @@ public class TrackTest {
                                         new CheckPoint(-4.22, 22.53, 3),
                                         new CheckPoint(-12.32, -25.22, 4)
                                     });
-        first_events = new TelemetryEvent[] {
-            new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, new Date(100), 1),
-            new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, new Date(200), 1)
+        first_events = new Date[] {
+            new Date(100), new Date(200)
         };
-        second_events = new TelemetryEvent[] {
-            new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, new Date(100), 1),
-            new TelemetryEvent(TelemetryEvent.EventType.CHECKPOINT, new Date(150), 1)
+        second_events = new Date[] {
+            new Date(100), new Date(150)
         };
         telemetries = Arrays.asList(new Telemetry[] {
 		new Telemetry(first_events, "track"),
