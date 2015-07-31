@@ -37,7 +37,7 @@ import com.kyloth.serleenacloud.datamodel.business.Track;
  */
 
 public interface ITrackDao {
-    
+
     /**
      * Permette di inserire un nuovo percorso nella base di dati.
      *
@@ -45,7 +45,7 @@ public interface ITrackDao {
      */
 
     public void persist(Track e);
-    
+
     /**
      * Permette di ottenere un percorso presente nella base di dati a partire
      * dal nome.
@@ -54,16 +54,16 @@ public interface ITrackDao {
      */
 
     public Track find(String name);
-    
+
     /**
      * Permette di ottenere una lista di percorsi per una determinata
      * Esperienza.
      *
-     * @param experienceName Nome dell'Esperienza per la quale si vogliono ottenere i percorsi.
+     * @param experienceId Id dell'Esperienza per la quale si vogliono ottenere i percorsi.
      * @return Restituisce la lista dei percorsi relativi all'Esperienza specificata.
      */
 
-    public Iterable<Track> findAll(String experienceName);
+    public Iterable<Track> findAll(String experienceId);
 
     /**
      * Permette di ottenere tutti i percorsi salvati nella base di dati.

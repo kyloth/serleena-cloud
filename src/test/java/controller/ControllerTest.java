@@ -44,6 +44,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import com.kyloth.serleenacloud.datamodel.auth.AuthToken;
 import com.kyloth.serleenacloud.datamodel.auth.User;
 import com.kyloth.serleenacloud.datamodel.business.*;
+import com.kyloth.serleenacloud.datamodel.geometry.*;
 import com.kyloth.serleenacloud.datamodel.sync.*;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 import com.kyloth.serleenacloud.datamodel.sync.SyncOutputData;
@@ -153,49 +154,49 @@ public class ControllerTest {
          * Testa inserimento e recupero e cancellazione di un'esperienza.
          */
         // /experience POST
-        erc.create("Experience_1",
-                   ow.writeValueAsString(new PointOfInterest[] {poi_1, poi_2}),
-                   ow.writeValueAsString(new UserPoint[] {user_point_1, user_point_2}),
-                   ow.writeValueAsString(new Track[] {track_1}),
-                   ow.writeValueAsString(from),
-                   ow.writeValueAsString(to),
-                   authToken);
-        assertTrue(erc.list(authToken).iterator().next().equals("Experience_1"));
+        String eid = erc.create("Experience_1",
+                                ow.writeValueAsString(new PointOfInterest[] {poi_1, poi_2}),
+                                ow.writeValueAsString(new UserPoint[] {user_point_1, user_point_2}),
+                                ow.writeValueAsString(new Track[] {track_1}),
+                                ow.writeValueAsString(from),
+                                ow.writeValueAsString(to),
+                                authToken);
+        assertTrue(erc.list(authToken).iterator().next().equals(eid));
         // /experience/:id: GET
-        Experience experience = erc.get("Experience_1", authToken);
+        Experience experience = erc.get(eid, authToken);
         assertTrue(experience.getName().equals("Experience_1"));
         assertTrue(experience.getTracks().iterator().next().getName().equals("Track_1"));
         assertTrue(experience.getUserPoints().iterator().next().getName().equals("UP1"));
         assertTrue(experience.getPOIs().iterator().next().getName().equals("POI1"));
         // /experience/:exp_id: DELETE
-        erc.delete("Experience_1", authToken);
+        erc.delete(eid, authToken);
         assertFalse(erc.list(authToken).iterator().hasNext());
 
         /**
          * Testa il recupero delle informazioni riguardanti un percorso.
          */
         // /experience/:exp-id:/tracks/:track-id: GET
-        erc.create("Experience_1",
-                   ow.writeValueAsString(new PointOfInterest[] {poi_1, poi_2}),
-                   ow.writeValueAsString(new UserPoint[] {user_point_1, user_point_2}),
-                   ow.writeValueAsString(new Track[] {track_1}),
-                   ow.writeValueAsString(from),
-                   ow.writeValueAsString(to),
-                   authToken);
-        Track track = erc.get("Experience_1", "Track_1", authToken);
+        eid = erc.create("Experience_1",
+                         ow.writeValueAsString(new PointOfInterest[] {poi_1, poi_2}),
+                         ow.writeValueAsString(new UserPoint[] {user_point_1, user_point_2}),
+                         ow.writeValueAsString(new Track[] {track_1}),
+                         ow.writeValueAsString(from),
+                         ow.writeValueAsString(to),
+                         authToken);
+        Track track = erc.get(eid, "Track_1", authToken);
         assertTrue(track.getName().equals("Track_1"));
 
         /**
          * Testa le funzionalità di DataRestController.
          */
         LinkedMultiValueMap<String, String> syncBody = new LinkedMultiValueMap<String, String>();
-        syncBody.add("exp_list", "[\"Experience_1\"]");
+        syncBody.add("exp_list", "[\""+eid+"\"]");
         // /data/sync PUT
         drc.putSync(syncBody, authToken);
         // /data/sync GET
         Iterable<String> syncList = drc.getSync(authToken);
         Iterator<String> i_sync = syncList.iterator();
-        assertTrue(i_sync.next().equals("Experience_1"));
+        assertTrue(i_sync.next().equals(eid));
         // /data/sync GET
         SyncOutputData sod = drc.get(authToken);
         Iterable<Experience> sod_experiences = sod.getExperiences();
@@ -208,11 +209,11 @@ public class ControllerTest {
         Telemetry telemetry_2 = new Telemetry(Arrays.asList(new Date[] {event_2}),
                                               "Track_1");
         UserPoint user_point_3 = new UserPoint(1.5, 1.5, "UP3");
-        SyncInputData sid = new SyncInputData("Experience_1",
+        SyncInputData sid = new SyncInputData(eid,
                                               new UserPoint[] {user_point_3},
                                               new Telemetry[] {telemetry_2});
         drc.put(ow.writeValueAsString(new SyncInputData[] {sid}), authToken);
-        Experience sid_experience = erc.get("Experience_1", authToken);
+        Experience sid_experience = erc.get(eid, authToken);
         Iterable<UserPoint> sid_up = sid_experience.getUserPoints();
         Iterator<UserPoint> i_sid_up = sid_up.iterator();
         assertTrue(i_sid_up.next().getName().equals("UP3"));

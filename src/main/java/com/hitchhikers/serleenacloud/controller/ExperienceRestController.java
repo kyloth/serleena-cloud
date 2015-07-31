@@ -56,6 +56,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.util.MultiValueMap;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Controller REST per la gestione delle richieste CRUD riguardanti la gestione delle Esperienze.
@@ -82,9 +83,9 @@ public class ExperienceRestController {
      * Esperienze di un utente.
      *
      * @param authToken Token di riconoscimento.
-     * @return Restituisce la lista dei nomi delle Esperienze di un utente.
+     * @return Restituisce la lista degli id delle Esperienze di un utente.
      */
-    
+
     @RequestMapping(method = RequestMethod.GET)
     public Iterable<String> list(@RequestHeader("X-AuthToken") String authToken) {
 
@@ -94,10 +95,18 @@ public class ExperienceRestController {
 
         ArrayList<String> experiences = new ArrayList<String>();
         for(Experience e : dataSource.experienceDao().findAll())
-            experiences.add(e.getName());
+            experiences.add(e.getId());
 
         return experiences;
     }
+
+    /**
+     * Metodo che implementa la richiesta GET per ottenere
+     * un'Esperienza esistente.
+     *
+     * @param id id dell'Esperienza da ottenere..
+     * @param authToken Token di riconoscimento.
+     */
 
     @RequestMapping(value= "/{id}", method = RequestMethod.GET)
     public Experience get(@PathVariable("id") String id,
@@ -139,18 +148,19 @@ public class ExperienceRestController {
      * @param tracks Lista dei Percorsi in formato JSON.
      * @param from Punto che delimita la regione dell'Esperienza all'angolo nord ovest.
      * @param to Punto che delimita la regione dell'Esperienza all'angolo sud-est.
-     * @param authToke Token di riconoscimento.
+     * @param authToken Token di riconoscimento.
+     * @return Restituisce l'id dell'Esperienza create
      */
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void create(@RequestParam("name") String name,
-                       @RequestParam("points_of_interest") String pois,
-                       @RequestParam("user_points") String ups,
-                       @RequestParam("tracks") String tracks,
-                       @RequestParam("from") String from,
-                       @RequestParam("to") String to,
-                       @RequestHeader("X-AuthToken") String authToken) {
+    public String create(@RequestParam("name") String name,
+                         @RequestParam("points_of_interest") String pois,
+                         @RequestParam("user_points") String ups,
+                         @RequestParam("tracks") String tracks,
+                         @RequestParam("from") String from,
+                         @RequestParam("to") String to,
+                         @RequestHeader("X-AuthToken") String authToken) {
 
         AuthToken token = new AuthToken(authToken);
         User user = ds.userDao().find(token.getEmail());
@@ -163,13 +173,15 @@ public class ExperienceRestController {
             Point _from = mapper.readValue(from, Point.class);
             Point _to = mapper.readValue(to, Point.class);
 
-            Experience experience = new Experience(name, new Rect(_from, _to), _tracks, _ups, _pois);
+            String id = UUID.randomUUID().toString();
+            Experience experience = new Experience(name, id, new Rect(_from, _to), _tracks, _ups, _pois);
             dataSource.experienceDao().persist(experience);
+            return id;
         } catch (IOException e) {
-            System.err.println(e);
+            return null;
         }
     }
-    
+
     /**
      * Metodo che implementa la richiesta PUT per modificare una
      * Esperienza esistente.
@@ -189,13 +201,14 @@ public class ExperienceRestController {
         try {
 
             String name = mapper.readValue(body.getFirst("name"), String.class);
+            String id = mapper.readValue(body.getFirst("id"), String.class);
             PointOfInterest[] pois = mapper.readValue(body.getFirst("points_of_interest"), PointOfInterest[].class);
             UserPoint[] ups = mapper.readValue(body.getFirst("user_points"), UserPoint[].class);
             Track[] tracks = mapper.readValue(body.getFirst("tracks"), Track[].class);
             Point from = mapper.readValue(body.getFirst("from"), Point.class);
             Point to = mapper.readValue(body.getFirst("to"), Point.class);
 
-            Experience experience = new Experience(name, new Rect(from, to), tracks, ups, pois);
+            Experience experience = new Experience(name, id, new Rect(from, to), tracks, ups, pois);
             dataSource.experienceDao().persist(experience);
 
         } catch (IOException e) {}
@@ -228,8 +241,8 @@ public class ExperienceRestController {
 
     @RequestMapping(value= "/{id}/tracks/{track_id}/telemetries", method = RequestMethod.GET)
     public Iterable<Telemetry> getTelemetriesList(@PathVariable("id") String id,
-                                               @PathVariable("track_id") String track_id,
-                                               @RequestHeader("X-AuthToken") String authToken) {
+                                                  @PathVariable("track_id") String track_id,
+                                                  @RequestHeader("X-AuthToken") String authToken) {
         return get(id, track_id, authToken).getTelemetries();
     }
 
