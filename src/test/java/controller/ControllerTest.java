@@ -56,7 +56,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
 /**
- * Contiene test per il package com.kyloth.serleenacloud.controller.
+ * Contiene test per il package com.hiptchhikers.serleenacloud.controller.
  * Tali test fungono da test di integrazione tra i package
  * com.kyloth.serleenacloud.datamodel e com.kyloth.serleenacloud.persistence.
  *
@@ -161,7 +161,7 @@ public class ControllerTest {
                                 ow.writeValueAsString(from),
                                 ow.writeValueAsString(to),
                                 authToken);
-        assertTrue(erc.list(authToken).iterator().next().equals(eid));
+        assertTrue((erc.list(authToken).iterator().next())[0].equals(eid));
         // /experience/:id: GET
         Experience experience = erc.get(eid, authToken);
         assertTrue(experience.getName().equals("Experience_1"));
