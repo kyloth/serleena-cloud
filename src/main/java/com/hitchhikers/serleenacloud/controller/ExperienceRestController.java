@@ -83,19 +83,19 @@ public class ExperienceRestController {
      * Esperienze di un utente.
      *
      * @param authToken Token di riconoscimento.
-     * @return Restituisce la lista degli id delle Esperienze di un utente.
+     * @return Restituisce la lista degli id e dei nomi delle Esperienze di un utente.
      */
 
     @RequestMapping(method = RequestMethod.GET)
-    public Iterable<String> list(@RequestHeader("X-AuthToken") String authToken) {
+    public Iterable<String[]> list(@RequestHeader("X-AuthToken") String authToken) {
 
         AuthToken token = new AuthToken(authToken);
         User user = ds.userDao().find(token.getEmail());
         IDataSource dataSource = ds.forUser(user);
 
-        ArrayList<String> experiences = new ArrayList<String>();
+        ArrayList<String[]> experiences = new ArrayList<String[]>();
         for(Experience e : dataSource.experienceDao().findAll())
-            experiences.add(e.getId());
+            experiences.add(new String[]{e.getId(), e.getName()});
 
         return experiences;
     }
