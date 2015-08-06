@@ -25,9 +25,20 @@
 
 package com.kyloth.serleenacloud.render;
 
-import com.kyloth.serleenacloud.datamodel.geometry.Rect;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
-import java.awt.Image;
+import java.util.Base64;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+
+import com.kyloth.serleenacloud.datamodel.geometry.Rect;
+import com.kyloth.serleenacloud.datamodel.geometry.Point;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Classe per la gestione di un raster rappresentante una porzione di mappa.
@@ -40,18 +51,34 @@ import java.awt.Image;
 
 public class RasterQuadrant {
 
-    Rect rect;
+    ImageRenderer ir;
+    BufferedImage img;
+
+    int x;
+    int y;
+
+    static ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
+    static int quadrantHeight = (Integer)context.getBean("quadrantHeight");
+    static int quadrantWidth = (Integer)context.getBean("quadrantWidth");
 
     /**
      * Crea un nuovo RasterQuadrant.
      *
      * @param r Il Renderer relativo a questo quadrante.
-     * @param x Longitudine del punto nell'angolo nord ovest del quadrante.
-     * @param y Latitudine del punto nell'angolo nord ovest del quadrante.
      */
 
-    RasterQuadrant(Renderer r, int x, int y) {
+    RasterQuadrant(ImageRenderer ir) {
+        this.ir = ir;
+        this.img = ir.getImage();
+        this.x = 0;
+        this.y = quadrantHeight;
+    }
 
+    RasterQuadrant(ImageRenderer ir, int x, int y) {
+        this.ir = ir;
+        this.img = ir.getImage();
+        this.x = x;
+        this.y = y;
     }
 
     /**
@@ -61,17 +88,13 @@ public class RasterQuadrant {
      */
 
     public Rect getBoundingRect() {
-        return rect;
-    }
 
-    /**
-     * Restituisce il quadrante a nord.
-     *
-     * @return Restituisce un oggetto RasterQuadrant rappresentante il quadrante a nord.
-     */
+        Point nw = new Point(ir.YtoLat(img.getMinY()+y),
+                             ir.XtoLon(img.getMinX()+x));
+        Point se = new Point(ir.YtoLat(img.getMinY()+(y-quadrantHeight)),
+                             ir.XtoLon(img.getMinX()+(x+quadrantWidth)));
 
-    public RasterQuadrant getNorth() {
-        return null;
+        return new Rect(nw, se);
     }
 
     /**
@@ -80,8 +103,22 @@ public class RasterQuadrant {
      * @return Restituisce un oggetto RasterQuadrant rappresentante il quadrante a sud.
      */
 
+    @JsonIgnore
     public RasterQuadrant getSouth() {
-        return null;
+        int newY = y-quadrantWidth;
+        return newY <= 0 ? null : new RasterQuadrant(ir, x, newY);
+    }
+
+    /**
+     * Restituisce il quadrante a nord.
+     *
+     * @return Restituisce un oggetto RasterQuadrant rappresentante il quadrante a nord.
+     */
+
+    @JsonIgnore
+    public RasterQuadrant getNorth() {
+        int newY = y+quadrantHeight;
+        return newY > img.getHeight() ? null : new RasterQuadrant(ir, x, newY);
     }
 
     /**
@@ -90,8 +127,10 @@ public class RasterQuadrant {
      * @return Restituisce un oggetto RasterQuadrant rappresentante il quadrante ad est.
      */
 
+    @JsonIgnore
     public RasterQuadrant getEast() {
-        return null;
+        int newX = x+quadrantWidth;
+        return newX >= img.getWidth() ? null : new RasterQuadrant(ir, newX, y);
     }
 
     /**
@@ -100,8 +139,10 @@ public class RasterQuadrant {
      * @return Restituisce un oggetto RasterQuadrant rappresentante il quadrante ad ovest.
      */
 
+    @JsonIgnore
     public RasterQuadrant getWest() {
-        return null;
+        int newX = x-quadrantWidth;
+        return newX < 0 ? null : new RasterQuadrant(ir, newX, y);
     }
 
     /**
@@ -110,8 +151,19 @@ public class RasterQuadrant {
      * @return Restituisce un oggetto di tipo Image rappresentante la porzione di mappa relativa al quadrante.
      */
 
-    public Image getImage() {
-        return null;
+    public String getImage() {
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(currentQuadrant(), "png", baos);
+            return Base64.getEncoder().encodeToString(baos.toByteArray());
+        } catch (IOException e) {
+            System.err.println(e);
+            return null;
+        }
+    }
+
+    BufferedImage currentQuadrant() {
+        return img.getSubimage(img.getMinX()+ x, img.getHeight()-y, quadrantWidth, quadrantHeight);
     }
 
 }
