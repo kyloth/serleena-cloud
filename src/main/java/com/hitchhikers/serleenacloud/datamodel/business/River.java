@@ -26,7 +26,7 @@
 package com.kyloth.serleenacloud.datamodel.business;
 
 import com.kyloth.serleenacloud.datamodel.geometry.AWideLine;
-import com.kyloth.serleenacloud.datamodel.geometry.WeighedPoint;
+import com.kyloth.serleenacloud.datamodel.geometry.Point;
 
 /**
  * Classe che rappresenta un'entità di mappa di tipo fiume.
@@ -48,11 +48,11 @@ public class River extends AWideLine {
     /**
      * Crea un nuovo oggetto River inizializzandone i campi dati.
      *
-     * @param points Insieme di WeighedPoint che definiscono il fiume.
+     * @param points Insieme di Point che definiscono il fiume.
      * @param name Il nome del fiume.
      */
 
-    public River(Iterable<WeighedPoint> points, String name) {
+    public River(Iterable<Point> points, String name) {
         super(points);
         this.name = name;
     }
@@ -60,11 +60,11 @@ public class River extends AWideLine {
     /**
      * Crea un nuovo oggetto River inizializzandone i campi dati.
      *
-     * @param points Array di IWeighedPoint che definiscono il fiume.
+     * @param points Array di IPoint che definiscono il fiume.
      * @param name Il nome del fiume.
      */
 
-    public River(WeighedPoint[] points, String name) {
+    public River(Point[] points, String name) {
         super(points);
         this.name = name;
     }

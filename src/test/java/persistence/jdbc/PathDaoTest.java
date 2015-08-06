@@ -43,7 +43,6 @@ import com.kyloth.serleenacloud.persistence.IPathDao;
 
 import com.kyloth.serleenacloud.datamodel.business.Path;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
-import com.kyloth.serleenacloud.datamodel.geometry.WeighedPoint;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 
 
@@ -70,8 +69,8 @@ public class PathDaoTest {
         ds = (JDBCDataSource) context.getBean("dataSource");
         tpl = ds.getTpl();
         String insertPaths = "INSERT INTO Paths (Name) VALUES ('Path1'), ('Path2');";
-        String insertPathPoints1 = "INSERT INTO PathPoints (PathName, Latitude, Longitude, Radius, Idx) VALUES ('Path1', 3, 7, 2, 0), ('Path1', 4, 8, 2, 1);";
-        String insertPathPoints2 = "INSERT INTO PathPoints (PathName, Latitude, Longitude, Radius, Idx) VALUES ('Path2', 12, 4, 2, 0), ('Path2', 15, 7, 2, 1);";
+        String insertPathPoints1 = "INSERT INTO PathPoints (PathName, Latitude, Longitude, Idx) VALUES ('Path1', 3, 7, 0), ('Path1', 4, 8, 1);";
+        String insertPathPoints2 = "INSERT INTO PathPoints (PathName, Latitude, Longitude, Idx) VALUES ('Path2', 12, 4, 0), ('Path2', 15, 7, 1);";
         tpl.update(insertPaths);
         tpl.update(insertPathPoints1);
         tpl.update(insertPathPoints2);
@@ -101,10 +100,10 @@ public class PathDaoTest {
         Path path = i_paths.next();
         assertFalse(i_paths.hasNext());
         assertTrue(path.getName().equals("Path1"));
-        Iterable<WeighedPoint> points = path.getPoints();
-        Iterator<WeighedPoint> i_points = points.iterator();
-        WeighedPoint wp1 = i_points.next();
-        WeighedPoint wp2 = i_points.next();
+        Iterable<Point> points = path.getPoints();
+        Iterator<Point> i_points = points.iterator();
+        Point wp1 = i_points.next();
+        Point wp2 = i_points.next();
         assertTrue(wp1.getLatitude() == 3);
         assertTrue(wp1.getLongitude() == 7);
         assertTrue(wp2.getLatitude() == 4);
