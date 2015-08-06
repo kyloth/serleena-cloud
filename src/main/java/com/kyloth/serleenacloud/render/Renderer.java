@@ -85,7 +85,7 @@ public class Renderer {
      */
 
     public Iterable<RasterQuadrant> getRasterQuadrants() {
-        RasterQuadrant rq = new RasterQuadrant(this, 0, 0);
+        RasterQuadrant rq = new RasterQuadrant(new ImageRenderer(this));
         ArrayList<RasterQuadrant> quadrants = new ArrayList<RasterQuadrant>();
         while(rq != null) {
             RasterQuadrant curr = rq;
@@ -93,7 +93,7 @@ public class Renderer {
                 quadrants.add(curr);
                 curr = curr.getEast();
             }
-            rq = rq.getSouth();
+            rq = rq.getNorth();
         }
         return quadrants;
     }
