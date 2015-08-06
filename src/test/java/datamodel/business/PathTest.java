@@ -29,7 +29,7 @@ package com.kyloth.serleenacloud.datamodel.business;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.Before;
-import com.kyloth.serleenacloud.datamodel.geometry.WeighedPoint;
+import com.kyloth.serleenacloud.datamodel.geometry.Point;
 import java.util.Arrays;
 import java.util.Iterator;
 
@@ -45,9 +45,9 @@ public class PathTest {
     private double[] latitudes;
     private double[] longitudes;
     private double[] radiuses;
-    private WeighedPoint[] weighed_points;
-    private Iterable<WeighedPoint> i_weighed_points;
-    private Iterator<WeighedPoint> input_iterator;
+    private Point[] points;
+    private Iterable<Point> i_points;
+    private Iterator<Point> input_iterator;
     /**
      * Imposta i dati per i test.
      */
@@ -56,14 +56,13 @@ public class PathTest {
         name = new String("Path of the Dead");
         latitudes = new double[] {12.07, -44.38, 8.91, 22.76};
         longitudes = new double[] {45.92, 2.49, 88.48, 7.42};
-        radiuses = new double[] {11, 23, 93, 54};
-        weighed_points = new WeighedPoint[] {new WeighedPoint(latitudes[0], longitudes[0], radiuses[0]),
-                           new WeighedPoint(latitudes[1], longitudes[1], radiuses[1]),
-                           new WeighedPoint(latitudes[2], longitudes[2], radiuses[2]),
-                           new WeighedPoint(latitudes[3], longitudes[3], radiuses[3])
+        points = new Point[] {new Point(latitudes[0], longitudes[0]),
+                              new Point(latitudes[1], longitudes[1]),
+                              new Point(latitudes[2], longitudes[2]),
+                              new Point(latitudes[3], longitudes[3])
         };
-        i_weighed_points = Arrays.asList(weighed_points);
-        input_iterator = i_weighed_points.iterator();
+        i_points = Arrays.asList(points);
+        input_iterator = i_points.iterator();
     }
     /**
      * Testa la correttezza dei costruttori e dei metodi
@@ -71,8 +70,8 @@ public class PathTest {
      */
     @Test
     public void testConstructor() {
-        Path p_1 = new Path(i_weighed_points, name);
-        Path p_2 = new Path(weighed_points, name);
+        Path p_1 = new Path(i_points, name);
+        Path p_2 = new Path(points, name);
 
         assertTrue(p_1.getName().equals("Path of the Dead"));
         assertTrue(p_2.getName().equals("Path of the Dead"));
@@ -83,24 +82,22 @@ public class PathTest {
      */
     @Test
     public void testAbstractGetter() {
-        Path p_1 = new Path(i_weighed_points, name);
-        Path p_2 = new Path(weighed_points, name);
-        Iterable<WeighedPoint> p_1_points = p_1.getPoints();
-        Iterable<WeighedPoint> p_2_points = p_2.getPoints();
-        Iterator<WeighedPoint> p_1_iterator = p_1_points.iterator();
-        Iterator<WeighedPoint> p_2_iterator = p_2_points.iterator();
+        Path p_1 = new Path(i_points, name);
+        Path p_2 = new Path(points, name);
+        Iterable<Point> p_1_points = p_1.getPoints();
+        Iterable<Point> p_2_points = p_2.getPoints();
+        Iterator<Point> p_1_iterator = p_1_points.iterator();
+        Iterator<Point> p_2_iterator = p_2_points.iterator();
 
         while(p_1_iterator.hasNext() && p_2_iterator.hasNext()
                 && input_iterator.hasNext()) {
-            WeighedPoint p_1_point = p_1_iterator.next();
-            WeighedPoint p_2_point = p_2_iterator.next();
-            WeighedPoint input_point = input_iterator.next();
+            Point p_1_point = p_1_iterator.next();
+            Point p_2_point = p_2_iterator.next();
+            Point input_point = input_iterator.next();
             assertTrue(p_1_point.getLatitude() == input_point.getLatitude());
             assertTrue(p_2_point.getLatitude() == input_point.getLatitude());
             assertTrue(p_1_point.getLongitude() == input_point.getLongitude());
             assertTrue(p_2_point.getLongitude() == input_point.getLongitude());
-            assertTrue(p_1_point.getRadius() == input_point.getRadius());
-            assertTrue(p_2_point.getRadius() == input_point.getRadius());
         }
 
     }
