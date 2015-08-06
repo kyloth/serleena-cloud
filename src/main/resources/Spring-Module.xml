@@ -14,4 +14,40 @@
     <property name="password" value="?58,@24=0ni5^Sv" />
   </bean>
 
+  <bean id="backgroundColor" class="java.lang.String">
+    <constructor-arg value="black" />
+  </bean>
+
+  <bean id="lakeColor" class="java.lang.String">
+    <constructor-arg value="cyan" />
+  </bean>
+
+  <bean id="pathColor" class="java.lang.String">
+    <constructor-arg value="gray" />
+  </bean>
+
+  <bean id="riverColor" class="java.lang.String">
+    <constructor-arg value="blue" />
+  </bean>
+
+  <bean id="trackLineColor" class="java.lang.String">
+    <constructor-arg value="white" />
+  </bean>
+
+  <bean id="checkPointColor" class="java.lang.String">
+    <constructor-arg value="yellow" />
+  </bean>
+
+  <bean id="quadrantHeight" class="java.lang.Integer">
+    <constructor-arg value="240" />
+  </bean>
+
+  <bean id="quadrantWidth" class="java.lang.Integer">
+    <constructor-arg value="240" />
+  </bean>
+
+  <bean id="factor" class="java.lang.Integer">
+    <constructor-arg value="10000" />
+  </bean>
+
 </beans>
