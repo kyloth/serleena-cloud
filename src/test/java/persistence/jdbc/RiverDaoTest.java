@@ -14,7 +14,7 @@
 
 
 /**
- * Name: PointOfInterestDaoTest.java
+ * Name: RiverDaoTest.java
  * Package: com.kyloth.serleenacloud.persistence
  * Author: Gabriele Pozzan
  *
@@ -44,7 +44,7 @@ import com.kyloth.serleenacloud.persistence.IRiverDao;
 import com.kyloth.serleenacloud.datamodel.business.River;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
-import com.kyloth.serleenacloud.datamodel.geometry.WeighedPoint;
+
 
 /**
  * Contiene test per la classe RiverDao.
@@ -57,7 +57,7 @@ public class RiverDaoTest {
     private static ApplicationContext context;
     private static JDBCDataSource ds;
     private static JdbcTemplate tpl;
-    private static IRiverDao rd;
+    private static IRiverDao pd;
 
     /**
      * Inizializza i campi dati necessari alla conduzione dei test.
@@ -69,12 +69,12 @@ public class RiverDaoTest {
         ds = (JDBCDataSource) context.getBean("dataSource");
         tpl = ds.getTpl();
         String insertRivers = "INSERT INTO Rivers (Name) VALUES ('River1'), ('River2');";
-        String insertRiverPoints_1 = "INSERT INTO RiverPoints (RiverName, Latitude, Longitude, Radius, Idx) VALUES ('River1', 3, 2, 1, 0), ('River1', 5, 4, 1, 1), ('River1', 7, 6, 1, 2);";
-        String insertRiverPoints_2 = "INSERT INTO RiverPoints (RiverName, Latitude, Longitude, Radius, Idx) VALUES ('River2', 12, 11, 1, 0), ('River2', 7, 15, 1, 1);";
+        String insertRiverPoints1 = "INSERT INTO RiverPoints (RiverName, Latitude, Longitude, Idx) VALUES ('River1', 3, 7, 0), ('River1', 4, 8, 1);";
+        String insertRiverPoints2 = "INSERT INTO RiverPoints (RiverName, Latitude, Longitude, Idx) VALUES ('River2', 12, 4, 0), ('River2', 15, 7, 1);";
         tpl.update(insertRivers);
-        tpl.update(insertRiverPoints_1);
-        tpl.update(insertRiverPoints_2);
-        rd = ds.riverDao();
+        tpl.update(insertRiverPoints1);
+        tpl.update(insertRiverPoints2);
+        pd = ds.riverDao();
     }
 
     /**
@@ -87,29 +87,27 @@ public class RiverDaoTest {
     }
 
     /**
-     * Verifica che il metodo findAll restituisca tutti i fiumi
-     * il cui percorso intersechi la regione fornita come parametro.
+     * Verifica che il metodo findAll restituisca i sentieri la
+     * cui traiettoria intersechi quella della regione fornita come
+     * parametro.
      */
 
     @Test
     public void testFindAll() {
         Rect region = new Rect(new Point(10, 1), new Point(1, 10));
-        Iterable<River> rivers = rd.findAll(region);
+        Iterable<River> rivers = pd.findAll(region);
         Iterator<River> i_rivers = rivers.iterator();
         River river = i_rivers.next();
         assertFalse(i_rivers.hasNext());
-        Iterable<WeighedPoint> points = river.getPoints();
-        Iterator<WeighedPoint> i_points = points.iterator();
-        WeighedPoint wp1 = i_points.next();
-        WeighedPoint wp2 = i_points.next();
-        WeighedPoint wp3 = i_points.next();
+        assertTrue(river.getName().equals("River1"));
+        Iterable<Point> points = river.getPoints();
+        Iterator<Point> i_points = points.iterator();
+        Point wp1 = i_points.next();
+        Point wp2 = i_points.next();
         assertTrue(wp1.getLatitude() == 3);
-        assertTrue(wp1.getLongitude() == 2);
-        assertTrue(wp2.getLatitude() == 5);
-        assertTrue(wp2.getLongitude() == 4);
-        assertTrue(wp3.getLatitude() == 7);
-        assertTrue(wp3.getLongitude() == 6);
+        assertTrue(wp1.getLongitude() == 7);
+        assertTrue(wp2.getLatitude() == 4);
+        assertTrue(wp2.getLongitude() == 8);
         assertFalse(i_points.hasNext());
     }
-
 }

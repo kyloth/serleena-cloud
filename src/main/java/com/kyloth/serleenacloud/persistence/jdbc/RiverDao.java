@@ -27,7 +27,7 @@ package com.kyloth.serleenacloud.persistence.jdbc;
 
 import com.kyloth.serleenacloud.datamodel.business.River;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
-import com.kyloth.serleenacloud.datamodel.geometry.WeighedPoint;
+import com.kyloth.serleenacloud.datamodel.geometry.Point;
 import com.kyloth.serleenacloud.persistence.IRiverDao;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -78,16 +78,15 @@ public class RiverDao implements IRiverDao {
             @Override
             public River mapRow(ResultSet rs, int rowNum) throws SQLException {
                 String riverName = rs.getString("RiverName");
-                Iterable<WeighedPoint> points = tpl.query("SELECT Latitude, Longitude, Radius " +
+                Iterable<Point> points = tpl.query("SELECT Latitude, Longitude " +
                                                  "FROM RiverPoints " +
                                                  "WHERE RiverName = ? "+
                                                  "ORDER BY Idx",
                                                  new Object[] {riverName},
-                new RowMapper<WeighedPoint>() {
+                new RowMapper<Point>() {
                     @Override
-                    public WeighedPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
-                        return new WeighedPoint(rs.getDouble("Latitude"), rs.getDouble("Longitude"),
-                                                rs.getDouble("Radius"));
+                    public Point mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        return new Point(rs.getDouble("Latitude"), rs.getDouble("Longitude"));
                     }
                 });
                 return new River(points, riverName);

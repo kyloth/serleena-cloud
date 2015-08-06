@@ -27,7 +27,7 @@ package com.kyloth.serleenacloud.persistence.jdbc;
 
 import com.kyloth.serleenacloud.datamodel.business.Path;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
-import com.kyloth.serleenacloud.datamodel.geometry.WeighedPoint;
+import com.kyloth.serleenacloud.datamodel.geometry.Point;
 import com.kyloth.serleenacloud.persistence.IPathDao;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -78,16 +78,15 @@ public class PathDao implements IPathDao {
             @Override
             public Path mapRow(ResultSet rs, int rowNum) throws SQLException {
                 String pathName = rs.getString("PathName");
-                Iterable<WeighedPoint> points = tpl.query("SELECT Latitude, Longitude, Radius " +
-                                                 "FROM PathPoints " +
-                                                 "WHERE PathName = ? "+
-                                                 "ORDER BY Idx",
+                Iterable<Point> points = tpl.query("SELECT Latitude, Longitude " +
+                                                   "FROM PathPoints " +
+                                                   "WHERE PathName = ? "+
+                                                   "ORDER BY Idx",
                                                  new Object[] {pathName},
-                new RowMapper<WeighedPoint>() {
+                new RowMapper<Point>() {
                     @Override
-                    public WeighedPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
-                        return new WeighedPoint(rs.getDouble("Latitude"), rs.getDouble("Longitude"),
-                                                rs.getDouble("Radius"));
+                    public Point mapRow(ResultSet rs, int rowNum) throws SQLException {
+                        return new Point(rs.getDouble("Latitude"), rs.getDouble("Longitude"));
                     }
                 });
                 return new Path(points, pathName);
