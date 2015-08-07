@@ -165,7 +165,17 @@ public class JDBCDataSource implements IDataSource {
     public IWeatherForecastDao weatherForecastDao() {
         return new WeatherForecastDao(this);
     }
-    
+
+    /**
+     * Implementa IDataSource.elevationRectDao().
+     *
+     * @return Restituisce un IElevationRectDao.
+     */
+
+    public IElevationRectDao elevationRectDao() {
+        return new ElevationRectDao(this);
+    }
+
     /**
      * Implementa IDataSource.trackDao().
      *
