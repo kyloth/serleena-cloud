@@ -36,6 +36,7 @@ import com.kyloth.serleenacloud.datamodel.business.PointOfInterest;
 import com.kyloth.serleenacloud.datamodel.business.UserPoint;
 import com.kyloth.serleenacloud.datamodel.business.Track;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
+import com.kyloth.serleenacloud.datamodel.geometry.ElevationRect;
 
 import java.util.ArrayList;
 
@@ -54,6 +55,7 @@ public class Renderer {
 
     Rect rect;
 
+    Iterable<ElevationRect> elevations;
     Iterable<Lake> lakes;
     Iterable<River> rivers;
     Iterable<Path> paths;
@@ -71,6 +73,7 @@ public class Renderer {
         this.rect = e.getBoundingRect();
         this.lakes = ds.lakeDao().findAll(rect);
         this.rivers = ds.riverDao().findAll(rect);
+        this.elevations = ds.elevationRectDao().findAll(rect);
         this.paths = ds.pathDao().findAll(rect);
         this.pois = ds.pointOfInterestDao().findAll(rect);
         this.ups = e.getUserPoints();
