@@ -101,7 +101,15 @@ public interface IDataSource {
      */
 
     public IWeatherForecastDao weatherForecastDao();
-    
+
+    /**
+     * Restituisce una classe DAO di tipo IElevationRectDao.
+     *
+     * @return Restituisce un oggetto di tipo IElevationRectDao..
+     */
+
+    public IElevationRectDao elevationRectDao();
+
     /**
      * Restituisce una classe DAO di tipo ITrackDao.
      *
