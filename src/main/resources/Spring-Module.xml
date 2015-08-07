@@ -38,6 +38,10 @@
     <constructor-arg value="yellow" />
   </bean>
 
+  <bean id="elevationColor" class="java.lang.String">
+    <constructor-arg value="green" />
+  </bean>
+
   <bean id="quadrantHeight" class="java.lang.Integer">
     <constructor-arg value="240" />
   </bean>
