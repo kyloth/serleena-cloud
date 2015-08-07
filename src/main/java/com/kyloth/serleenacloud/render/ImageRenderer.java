@@ -36,6 +36,7 @@ import com.kyloth.serleenacloud.datamodel.business.PointOfInterest;
 import com.kyloth.serleenacloud.datamodel.business.UserPoint;
 import com.kyloth.serleenacloud.datamodel.business.Track;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
+import com.kyloth.serleenacloud.datamodel.geometry.ElevationRect;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 
 import java.awt.image.BufferedImage;
@@ -65,6 +66,8 @@ public class ImageRenderer {
     static Color pathColor;
     static Color riverColor;
     static Color backgroundColor;
+    static Color elevationColor;
+
 
     static BufferedImage up;
     static BufferedImage food;
@@ -85,6 +88,7 @@ public class ImageRenderer {
         pathColor = colorFromString((String)context.getBean("pathColor"));
         riverColor = colorFromString((String)context.getBean("riverColor"));
         backgroundColor = colorFromString((String)context.getBean("backgroundColor"));
+        elevationColor = colorFromString((String)context.getBean("elevationColor"));
 
         up = imageFromFile("up.png");
         food = imageFromFile("food.png");
@@ -158,6 +162,7 @@ public class ImageRenderer {
         g.setBackground(backgroundColor);
         g.clearRect(0, 0, round(width), round(height));
 
+        drawElevations();
         drawLakes();
         drawPaths();
         drawRivers();
@@ -167,8 +172,33 @@ public class ImageRenderer {
     }
 
 
-    void calcMaxLatLong() {
+    void drawElevations() {
+        for (ElevationRect r : renderer.elevations)
+            drawElevation(r);
+    }
 
+
+    void drawElevation(ElevationRect r) {
+        Color c = elevationColor;
+        for (int i = 0; i < r.getHeight(); i++)
+            c = c.darker();
+        g.setColor(c);
+
+        double nwLat = Math.min(rect.getNWPoint().getLatitude(), maxLatitude);
+        double nwLon = Math.max(rect.getNWPoint().getLongitude(), minLongitude);
+
+        double seLat = Math.max(rect.getSEPoint().getLatitude(), minLatitude);
+        double seLon = Math.min(rect.getSEPoint().getLongitude(), maxLongitude);
+
+        g.fillRect(round(normalizeLatitude(nwLat)),
+                   round(normalizeLongitude(nwLon)),
+                   round(normalizeLongitude(seLon))-round(normalizeLongitude(nwLon)),
+                   round(normalizeLatitude(nwLat))-round(normalizeLatitude(seLat)));
+
+    }
+
+
+    void calcMaxLatLong() {
 
         calcMaxLatLong(rect.getPoints());
 
