@@ -45,7 +45,7 @@ public class ElevationRectTest {
     public void testConstructor() {
         Point nw = new Point(12, 24);
         Point se = new Point(6, 15);
-        double height = 100;
+        int height = 100;
         ElevationRect er = new ElevationRect(nw, se, height);
 
         assertTrue(er.getHeight() == height);

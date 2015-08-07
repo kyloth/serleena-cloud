@@ -37,7 +37,7 @@ package com.kyloth.serleenacloud.datamodel.geometry;
 
 public class ElevationRect extends Rect {
 
-    private double height;
+    private int height;
 
 
     /**
@@ -49,7 +49,7 @@ public class ElevationRect extends Rect {
      * @param Altezza associata
      */
 
-    public ElevationRect(Point nw, Point se, double height) {
+    public ElevationRect(Point nw, Point se, int height) {
         super(nw, se);
         this.height = height;
     }
@@ -60,7 +60,7 @@ public class ElevationRect extends Rect {
      * @return L'altezza associata
      */
 
-    public double getHeight() {
+    public int getHeight() {
         return height;
     }
 }
