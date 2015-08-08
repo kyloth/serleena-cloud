@@ -109,7 +109,14 @@ public class ImageRenderer {
 
     static BufferedImage imageFromFile(String s) {
         try {
-            return ImageIO.read(Thread.currentThread().getContextClassLoader().getResource(s));
+            ClassLoader cl = Thread.currentThread().getContextClassLoader();
+            URL res = cl != null ? cl.getResource(s) : null;
+            if (res == null) {
+                cl = ImageRenderer.class.getClassLoader();
+                if (cl != null)
+                    res = cl.getResource(s);
+            }
+            return ImageIO.read(res);
         } catch (IOException e) {
             throw new RuntimeException("image not found");
         }
