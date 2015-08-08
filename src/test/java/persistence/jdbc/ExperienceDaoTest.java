@@ -108,7 +108,7 @@ public class ExperienceDaoTest {
         Iterable<Experience> experiences = ed.findAll();
         Iterator<Experience> i_experiences = experiences.iterator();
         Experience exp = i_experiences.next();
-        assertTrue(exp.getName().equals("Experience"));
+        assertTrue(exp.getId().equals("id1"));
         Iterable<UserPoint> userPoints = exp.getUserPoints();
         Iterator<UserPoint> i_userPoints = userPoints.iterator();
         Iterable<PointOfInterest> pointsOfInterest = exp.getPOIs();
@@ -123,5 +123,16 @@ public class ExperienceDaoTest {
         assertTrue(poi_1.getName().equals("POI1"));
         assertTrue(poi_2.getName().equals("POI2"));
         assertFalse(i_POIs.hasNext());
+    }
+
+    /**
+     * Verifica che il metodo persist aggiorni l'esperienza
+     */
+
+    @Test
+    public void testUpdate() {
+        Experience exp = ed.find("id1");
+        ed.persist(new Experience("Experience modificata", "id1", exp.getBoundingRect(), exp.getTracks(), exp.getUserPoints(), exp.getPOIs()));
+        assertEquals("Experience modificata", ed.find("id1").getName());
     }
 }
