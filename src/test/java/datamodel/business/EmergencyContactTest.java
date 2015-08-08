@@ -47,10 +47,10 @@ public class EmergencyContactTest {
      */
     @Test
     public void testConstructor() {
-        Point nw = new Point(12.53, 24.11);
+        Point nw = new Point(12.53, 4.11);
         Point se = new Point(9.09, 13.84);
         Point ne = new Point(12.53, 13.84);
-        Point sw = new Point(9.09, 24.11);
+        Point sw = new Point(9.09, 4.11);
         Rect boundingRect = new Rect(nw, se);
         String name = "Karma Police";
         String number = "01239473";

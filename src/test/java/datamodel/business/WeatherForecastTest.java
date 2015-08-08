@@ -49,10 +49,10 @@ public class WeatherForecastTest {
     @Test
     public void testConstructor() {
         WeatherForecast.WeatherCondition forecast = WeatherForecast.WeatherCondition.SNOWY;
-        Point nw = new Point(12.32, 74.23);
+        Point nw = new Point(12.32, 4.23);
         Point se = new Point(7.44, 44);
         Point ne = new Point(12.32, 44);
-        Point sw = new Point(7.44, 74.23);
+        Point sw = new Point(7.44, 4.23);
         Iterable<Point> points = Arrays.asList(new Point[] {nw, ne, se, sw});
         Iterator<Point> points_iterator = points.iterator();
         Rect boundingRect = new Rect(nw, se);

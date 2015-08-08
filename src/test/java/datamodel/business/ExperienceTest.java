@@ -48,10 +48,10 @@ public class ExperienceTest {
     @Test
     public void testConstructor() {
         String name = "Jimi Hendrix Experience";
-        Point nw = new Point(5.32, 32.65);
+        Point nw = new Point(5.32, 2.65);
         Point se = new Point(2.12, 16.59);
         Point ne = new Point(5.32, 16.59);
-        Point sw = new Point(2.12, 32.65);
+        Point sw = new Point(2.12, 2.65);
         Iterable<Point> points = Arrays.asList(new Point[] {nw, ne, se, sw});
         Iterator<Point> points_iterator = points.iterator();
         Rect rect = new Rect(nw, se);
