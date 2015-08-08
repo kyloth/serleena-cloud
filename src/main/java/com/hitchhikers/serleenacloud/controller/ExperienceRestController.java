@@ -186,12 +186,14 @@ public class ExperienceRestController {
      * Metodo che implementa la richiesta PUT per modificare una
      * Esperienza esistente.
      *
+     * @param id id dell'Esperienza da aggiornare.
      * @param body Mappa contenente i dati necessari all'aggiornamento in formato JSON.
      * @param authToken Token di riconoscimento.
      */
 
     @RequestMapping(value="/{id}", method = RequestMethod.PUT)
-    public void update(@RequestBody MultiValueMap<String,String> body,
+    public void update(@PathVariable("id") String id,
+                       @RequestBody MultiValueMap<String,String> body,
                        @RequestHeader("X-AuthToken") String authToken) {
 
         AuthToken token = new AuthToken(authToken);
@@ -199,9 +201,7 @@ public class ExperienceRestController {
         IDataSource dataSource = ds.forUser(user);
 
         try {
-
             String name = mapper.readValue(body.getFirst("name"), String.class);
-            String id = mapper.readValue(body.getFirst("id"), String.class);
             PointOfInterest[] pois = mapper.readValue(body.getFirst("points_of_interest"), PointOfInterest[].class);
             UserPoint[] ups = mapper.readValue(body.getFirst("user_points"), UserPoint[].class);
             Track[] tracks = mapper.readValue(body.getFirst("tracks"), Track[].class);
@@ -211,7 +211,9 @@ public class ExperienceRestController {
             Experience experience = new Experience(name, id, new Rect(from, to), tracks, ups, pois);
             dataSource.experienceDao().persist(experience);
 
-        } catch (IOException e) {}
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
