@@ -54,6 +54,8 @@ public class Rect {
      */
 
     public Rect(Point nw, Point se) {
+        assert(nw.getLatitude() >= se.getLatitude());
+        assert(nw.getLongitude() <= se.getLongitude());
         this.nw = nw;
         this.se = se;
     }
