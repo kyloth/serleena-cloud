@@ -44,7 +44,7 @@ public class RectTest {
      */
     @Test
     public void testConstructor() {
-        Point nw = new Point(12, 24);
+        Point nw = new Point(12, 4);
         Point se = new Point(5, 10);
         Rect r = new Rect(nw, se);
 
@@ -62,11 +62,11 @@ public class RectTest {
 
     @Test
     public void testGetPoints() {
-        Point nw = new Point(15, 50);
+        Point nw = new Point(15, 5);
         Point se = new Point(10, 35);
         Rect r = new Rect(nw, se);
         Point ne = new Point(15, 35);
-        Point sw = new Point(10, 50);
+        Point sw = new Point(10, 5);
         Iterable<Point> points = r.getPoints();
         Iterable<Point> testPoints = Arrays.asList(new Point[] {nw, ne, se, sw });
         Iterator<Point> i = points.iterator();
