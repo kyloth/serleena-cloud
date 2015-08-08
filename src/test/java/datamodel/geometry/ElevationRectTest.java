@@ -43,7 +43,7 @@ public class ElevationRectTest {
      */
     @Test
     public void testConstructor() {
-        Point nw = new Point(12, 24);
+        Point nw = new Point(12, 4);
         Point se = new Point(6, 15);
         int height = 100;
         ElevationRect er = new ElevationRect(nw, se, height);
