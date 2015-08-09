@@ -146,10 +146,8 @@ public class ImageRenderer {
         double seHeight = normalizeLatitude(rect.getSEPoint());
         double seWidth = normalizeLongitude(rect.getSEPoint());
 
-        width = Math.max(multipleOf(width, quadrantWidth),
-                         nwWidth+multipleOf(seWidth-nwWidth, quadrantWidth));
-        height = Math.max(multipleOf(height, quadrantHeight),
-                          seHeight+multipleOf(nwHeight-seHeight, quadrantHeight));
+        width = Math.max(width, nwWidth+multipleOf(seWidth-nwWidth, quadrantWidth));
+        height = Math.max(height, height-nwHeight+multipleOf(nwHeight-seHeight, quadrantHeight));
 
         img = new BufferedImage(round(width), round(height), BufferedImage.TYPE_INT_RGB);
         g = img.createGraphics();
@@ -197,8 +195,8 @@ public class ImageRenderer {
         double seLat = Math.max(rect.getSEPoint().getLatitude(), minLatitude);
         double seLon = Math.min(rect.getSEPoint().getLongitude(), maxLongitude);
 
-        g.fillRect(round(normalizeLatitude(nwLat)),
-                   round(normalizeLongitude(nwLon)),
+        g.fillRect(round(normalizeLongitude(nwLon)),
+                   round(height-normalizeLatitude(nwLat)),
                    round(normalizeLongitude(seLon))-round(normalizeLongitude(nwLon)),
                    round(normalizeLatitude(nwLat))-round(normalizeLatitude(seLat)));
 
