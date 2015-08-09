@@ -140,15 +140,6 @@ public class ImageRenderer {
         width = normalizeLongitude(maxLongitude);
         height = normalizeLatitude(maxLatitude);
 
-        double nwHeight = normalizeLatitude(rect.getNWPoint());
-        double nwWidth = normalizeLongitude(rect.getNWPoint());
-
-        double seHeight = normalizeLatitude(rect.getSEPoint());
-        double seWidth = normalizeLongitude(rect.getSEPoint());
-
-        width = Math.max(width, nwWidth+multipleOf(seWidth-nwWidth, quadrantWidth));
-        height = Math.max(height, height-nwHeight+multipleOf(nwHeight-seHeight, quadrantHeight));
-
         img = new BufferedImage(round(width), round(height), BufferedImage.TYPE_INT_RGB);
         g = img.createGraphics();
 
@@ -396,11 +387,20 @@ public class ImageRenderer {
         double seHeight = normalizeLatitude(rect.getSEPoint());
         double seWidth = normalizeLongitude(rect.getSEPoint());
 
-        int width = round(multipleOf(seWidth-nwWidth, quadrantWidth));
-        int height = round(multipleOf(nwHeight-seHeight, quadrantHeight));
+        int width = round(seWidth-nwWidth);
+        int height = round(nwHeight-seHeight);
 
         if (img.getWidth() != width || img.getHeight() != height)
             img = img.getSubimage(round(nwWidth), round(img.getHeight()-nwHeight), width, height);
+
+        int mWidth = round(multipleOf(width, quadrantWidth));
+        int mHeight = round(multipleOf(height, quadrantHeight));
+
+        if (mWidth != width || mHeight != height) {
+            BufferedImage _img = new BufferedImage(mWidth, mHeight, BufferedImage.TYPE_INT_RGB);
+            _img.createGraphics().drawImage(img, 0, mHeight-height, null);
+            img = _img;
+        }
         return img;
     }
 }
