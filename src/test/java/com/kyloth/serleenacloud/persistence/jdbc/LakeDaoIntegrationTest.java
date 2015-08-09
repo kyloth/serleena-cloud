@@ -14,7 +14,7 @@
 
 
 /**
- * Name: PointOfInterestDaoTest.java
+ * Name: LakeDaoIntegrationTest.java
  * Package: com.kyloth.serleenacloud.persistence
  * Author: Gabriele Pozzan
  *
@@ -39,24 +39,26 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.kyloth.serleenacloud.persistence.jdbc.JDBCDataSource;
-import com.kyloth.serleenacloud.persistence.IPointOfInterestDao;
+import com.kyloth.serleenacloud.persistence.ILakeDao;
 
-import com.kyloth.serleenacloud.datamodel.business.PointOfInterest;
+import com.kyloth.serleenacloud.datamodel.business.Lake;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
+import com.kyloth.serleenacloud.persistence.ILakeDao;
+
 
 /**
- * Contiene test per la classe PointOfInterestDao.
+ * Contiene test per la classe LakeDao.
  *
  * @author Gabriele Pozzan <gabriele.pozzan@studenti.unipd.it>
  * @version 1.0.0
  */
 
-public class PointOfInterestDaoTest {
+public class LakeDaoIntegrationTest {
     private static ApplicationContext context;
     private static JDBCDataSource ds;
     private static JdbcTemplate tpl;
-    private static IPointOfInterestDao poid;
+    private static ILakeDao ld;
 
     /**
      * Inizializza i campi dati necessari alla conduzione dei test.
@@ -67,9 +69,13 @@ public class PointOfInterestDaoTest {
         context = new ClassPathXmlApplicationContext("Spring-ModuleTest.xml");
         ds = (JDBCDataSource) context.getBean("dataSource");
         tpl = ds.getTpl();
-        String insertPOIs = "INSERT INTO POIs (Name, Latitude, Longitude, Type) VALUES ('POI1', 2, 4, 'FOOD'), ('POI2', 6, 8, 'INFO'), ('POI3', 12, 18, 'WARNING');";
-        tpl.update(insertPOIs);
-        poid = ds.pointOfInterestDao();
+        String insert_lakes = "INSERT INTO Lakes (Name) VALUES ('Lake1'), ('Lake2');";
+        String insert_lakepoints_1 = "INSERT INTO LakePoints (LakeName, Latitude, Longitude, Idx) VALUES ('Lake1', 3, 7, 0), ('Lake1', 4, 12, 1), ('Lake1', 8, 12, 2);";
+        String insert_lakepoints_2 = "INSERT INTO LakePoints (LakeName, Latitude, Longitude, Idx) VALUES ('Lake2', 12, 4, 0), ('Lake2', 15, 7, 1);";
+        tpl.update(insert_lakes);
+        tpl.update(insert_lakepoints_1);
+        tpl.update(insert_lakepoints_2);
+        ld = ds.lakeDao();
     }
 
     /**
@@ -82,19 +88,30 @@ public class PointOfInterestDaoTest {
     }
 
     /**
-     * Verifica che il metodo findAll restituisca tutti i Punti
-     * di Interesse contenuti nella regione fornita come parametro.
+     * Verifica che il metodo findAll restituisca i laghi compresi
+     * nella regione fornita come paramentro e il relativo insieme
+     * di punti.
      */
 
     @Test
     public void testFindAll() {
         Rect region = new Rect(new Point(10, 1), new Point(1, 10));
-        Iterable<PointOfInterest> pois = poid.findAll(region);
-        Iterator<PointOfInterest> i_pois = pois.iterator();
-        PointOfInterest poi1 = i_pois.next();
-        PointOfInterest poi2 = i_pois.next();
-        assertTrue(poi1.getName().equals("POI1"));
-        assertTrue(poi2.getName().equals("POI2"));
-        assertFalse(i_pois.hasNext());
+        Iterable<Lake> lakes = ld.findAll(region);
+        Iterator<Lake> i_lakes = lakes.iterator();
+        Lake lake = i_lakes.next();
+        assertTrue(lake.getName().equals("Lake1"));
+        assertFalse(i_lakes.hasNext());
+        Iterable<Point> points = lake.getPoints();
+        Iterator<Point> i_points = points.iterator();
+        Point p1 = i_points.next();
+        Point p2 = i_points.next();
+        Point p3 = i_points.next();
+        assertTrue(p1.getLatitude() == 3);
+        assertTrue(p1.getLongitude() == 7);
+        assertTrue(p2.getLatitude() == 4);
+        assertTrue(p2.getLongitude() == 12);
+        assertTrue(p3.getLatitude() == 8);
+        assertTrue(p3.getLongitude() == 12);
+        assertFalse(i_points.hasNext());
     }
 }

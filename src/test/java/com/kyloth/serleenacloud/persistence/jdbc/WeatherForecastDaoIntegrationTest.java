@@ -14,7 +14,7 @@
 
 
 /**
- * Name: PathDaoTest.java
+ * Name: WeatherForecastDaoIntegrationTest.java
  * Package: com.kyloth.serleenacloud.persistence
  * Author: Gabriele Pozzan
  *
@@ -32,6 +32,7 @@ import org.junit.BeforeClass;
 import org.junit.AfterClass;
 
 import java.util.Iterator;
+import java.util.Date;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -39,25 +40,25 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.kyloth.serleenacloud.persistence.jdbc.JDBCDataSource;
-import com.kyloth.serleenacloud.persistence.IPathDao;
+import com.kyloth.serleenacloud.persistence.IWeatherForecastDao;
 
-import com.kyloth.serleenacloud.datamodel.business.Path;
+import com.kyloth.serleenacloud.datamodel.business.WeatherForecast;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
-
+import com.kyloth.serleenacloud.persistence.IWeatherForecastDao;
 
 /**
- * Contiene test per la classe PathDao.
+ * Contiene test per la classe WeatherForecastDao.
  *
  * @author Gabriele Pozzan <gabriele.pozzan@studenti.unipd.it>
  * @version 1.0.0
  */
 
-public class PathDaoTest {
+public class WeatherForecastDaoIntegrationTest {
     private static ApplicationContext context;
     private static JDBCDataSource ds;
     private static JdbcTemplate tpl;
-    private static IPathDao pd;
+    private static IWeatherForecastDao wfd;
 
     /**
      * Inizializza i campi dati necessari alla conduzione dei test.
@@ -68,13 +69,9 @@ public class PathDaoTest {
         context = new ClassPathXmlApplicationContext("Spring-ModuleTest.xml");
         ds = (JDBCDataSource) context.getBean("dataSource");
         tpl = ds.getTpl();
-        String insertPaths = "INSERT INTO Paths (Name) VALUES ('Path1'), ('Path2');";
-        String insertPathPoints1 = "INSERT INTO PathPoints (PathName, Latitude, Longitude, Idx) VALUES ('Path1', 3, 7, 0), ('Path1', 4, 8, 1);";
-        String insertPathPoints2 = "INSERT INTO PathPoints (PathName, Latitude, Longitude, Idx) VALUES ('Path2', 12, 4, 0), ('Path2', 15, 7, 1);";
-        tpl.update(insertPaths);
-        tpl.update(insertPathPoints1);
-        tpl.update(insertPathPoints2);
-        pd = ds.pathDao();
+        String insertWeatherForecast = "INSERT INTO WeatherForecasts (MTemperature, ATemperature, NTemperature, Date, MForecast, AForecast, NForecast, NWLongitude, NWLatitude, SELongitude, SELatitude) VALUES (12, 12, 12, '1980-01-01 00:00:01', 'CLOUDY', 'CLOUDY', 'CLOUDY', 6, 15, 15, 6), (13, 13, 13, '1975-01-01 00:00:01', 'SUNNY', 'SUNNY', 'SUNNY', 6, 15, 15, 6), (14, 14, 14, '1980-01-01 00:00:01','SNOWY', 'SNOWY', 'SNOWY', 30, 20, 20, 30);";
+        tpl.update(insertWeatherForecast);
+        wfd = ds.weatherForecastDao();
     }
 
     /**
@@ -87,27 +84,22 @@ public class PathDaoTest {
     }
 
     /**
-     * Verifica che il metodo findAll restituisca i sentieri la
-     * cui traiettoria intersechi quella della regione fornita come
-     * parametro.
+     * Verifica che il metodo findAll restituisca tutte le previsioni
+     * meteo la cui regione di pertinenza intersechi la regione fornita
+     * come parametro e la cui data sia compresa tra le due date fornite
+     * come parametri.
      */
 
     @Test
     public void testFindAll() {
+        long timestamp_1 = 284043191000L;
+        long timestamp_2 = 347201591000L;
         Rect region = new Rect(new Point(10, 1), new Point(1, 10));
-        Iterable<Path> paths = pd.findAll(region);
-        Iterator<Path> i_paths = paths.iterator();
-        Path path = i_paths.next();
-        assertFalse(i_paths.hasNext());
-        assertTrue(path.getName().equals("Path1"));
-        Iterable<Point> points = path.getPoints();
-        Iterator<Point> i_points = points.iterator();
-        Point wp1 = i_points.next();
-        Point wp2 = i_points.next();
-        assertTrue(wp1.getLatitude() == 3);
-        assertTrue(wp1.getLongitude() == 7);
-        assertTrue(wp2.getLatitude() == 4);
-        assertTrue(wp2.getLongitude() == 8);
-        assertFalse(i_points.hasNext());
+        Iterable<WeatherForecast> forecasts = wfd.findAll(region, new Date(timestamp_1), new Date(timestamp_2));
+        Iterator<WeatherForecast> i_forecasts = forecasts.iterator();
+        WeatherForecast wf = i_forecasts.next();
+        assertFalse(i_forecasts.hasNext());
+        assertTrue(wf.getMorning().getForecast() == WeatherForecast.WeatherCondition.CLOUDY);
+
     }
 }

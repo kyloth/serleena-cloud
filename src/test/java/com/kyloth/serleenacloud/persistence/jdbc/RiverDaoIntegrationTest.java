@@ -14,7 +14,7 @@
 
 
 /**
- * Name: WeatherForecastDaoTest.java
+ * Name: RiverDaoIntegrationTest.java
  * Package: com.kyloth.serleenacloud.persistence
  * Author: Gabriele Pozzan
  *
@@ -32,7 +32,6 @@ import org.junit.BeforeClass;
 import org.junit.AfterClass;
 
 import java.util.Iterator;
-import java.util.Date;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -40,25 +39,25 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.kyloth.serleenacloud.persistence.jdbc.JDBCDataSource;
-import com.kyloth.serleenacloud.persistence.IWeatherForecastDao;
+import com.kyloth.serleenacloud.persistence.IRiverDao;
 
-import com.kyloth.serleenacloud.datamodel.business.WeatherForecast;
+import com.kyloth.serleenacloud.datamodel.business.River;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
-import com.kyloth.serleenacloud.persistence.IWeatherForecastDao;
+
 
 /**
- * Contiene test per la classe WeatherForecastDao.
+ * Contiene test per la classe RiverDao.
  *
  * @author Gabriele Pozzan <gabriele.pozzan@studenti.unipd.it>
  * @version 1.0.0
  */
 
-public class WeatherForecastDaoTest {
+public class RiverDaoIntegrationTest {
     private static ApplicationContext context;
     private static JDBCDataSource ds;
     private static JdbcTemplate tpl;
-    private static IWeatherForecastDao wfd;
+    private static IRiverDao pd;
 
     /**
      * Inizializza i campi dati necessari alla conduzione dei test.
@@ -69,9 +68,13 @@ public class WeatherForecastDaoTest {
         context = new ClassPathXmlApplicationContext("Spring-ModuleTest.xml");
         ds = (JDBCDataSource) context.getBean("dataSource");
         tpl = ds.getTpl();
-        String insertWeatherForecast = "INSERT INTO WeatherForecasts (MTemperature, ATemperature, NTemperature, Date, MForecast, AForecast, NForecast, NWLongitude, NWLatitude, SELongitude, SELatitude) VALUES (12, 12, 12, '1980-01-01 00:00:01', 'CLOUDY', 'CLOUDY', 'CLOUDY', 6, 15, 15, 6), (13, 13, 13, '1975-01-01 00:00:01', 'SUNNY', 'SUNNY', 'SUNNY', 6, 15, 15, 6), (14, 14, 14, '1980-01-01 00:00:01','SNOWY', 'SNOWY', 'SNOWY', 30, 20, 20, 30);";
-        tpl.update(insertWeatherForecast);
-        wfd = ds.weatherForecastDao();
+        String insertRivers = "INSERT INTO Rivers (Name) VALUES ('River1'), ('River2');";
+        String insertRiverPoints1 = "INSERT INTO RiverPoints (RiverName, Latitude, Longitude, Idx) VALUES ('River1', 3, 7, 0), ('River1', 4, 8, 1);";
+        String insertRiverPoints2 = "INSERT INTO RiverPoints (RiverName, Latitude, Longitude, Idx) VALUES ('River2', 12, 4, 0), ('River2', 15, 7, 1);";
+        tpl.update(insertRivers);
+        tpl.update(insertRiverPoints1);
+        tpl.update(insertRiverPoints2);
+        pd = ds.riverDao();
     }
 
     /**
@@ -84,22 +87,27 @@ public class WeatherForecastDaoTest {
     }
 
     /**
-     * Verifica che il metodo findAll restituisca tutte le previsioni
-     * meteo la cui regione di pertinenza intersechi la regione fornita
-     * come parametro e la cui data sia compresa tra le due date fornite
-     * come parametri.
+     * Verifica che il metodo findAll restituisca i sentieri la
+     * cui traiettoria intersechi quella della regione fornita come
+     * parametro.
      */
 
     @Test
     public void testFindAll() {
-        long timestamp_1 = 284043191000L;
-        long timestamp_2 = 347201591000L;
         Rect region = new Rect(new Point(10, 1), new Point(1, 10));
-        Iterable<WeatherForecast> forecasts = wfd.findAll(region, new Date(timestamp_1), new Date(timestamp_2));
-        Iterator<WeatherForecast> i_forecasts = forecasts.iterator();
-        WeatherForecast wf = i_forecasts.next();
-        assertFalse(i_forecasts.hasNext());
-        assertTrue(wf.getMorning().getForecast() == WeatherForecast.WeatherCondition.CLOUDY);
-
+        Iterable<River> rivers = pd.findAll(region);
+        Iterator<River> i_rivers = rivers.iterator();
+        River river = i_rivers.next();
+        assertFalse(i_rivers.hasNext());
+        assertTrue(river.getName().equals("River1"));
+        Iterable<Point> points = river.getPoints();
+        Iterator<Point> i_points = points.iterator();
+        Point wp1 = i_points.next();
+        Point wp2 = i_points.next();
+        assertTrue(wp1.getLatitude() == 3);
+        assertTrue(wp1.getLongitude() == 7);
+        assertTrue(wp2.getLatitude() == 4);
+        assertTrue(wp2.getLongitude() == 8);
+        assertFalse(i_points.hasNext());
     }
 }
