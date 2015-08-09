@@ -14,7 +14,7 @@
 
 
 /**
- * Name: RiverDaoTest.java
+ * Name: PathDaoIntegrationTest.java
  * Package: com.kyloth.serleenacloud.persistence
  * Author: Gabriele Pozzan
  *
@@ -39,25 +39,25 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.kyloth.serleenacloud.persistence.jdbc.JDBCDataSource;
-import com.kyloth.serleenacloud.persistence.IRiverDao;
+import com.kyloth.serleenacloud.persistence.IPathDao;
 
-import com.kyloth.serleenacloud.datamodel.business.River;
+import com.kyloth.serleenacloud.datamodel.business.Path;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 
 
 /**
- * Contiene test per la classe RiverDao.
+ * Contiene test per la classe PathDao.
  *
  * @author Gabriele Pozzan <gabriele.pozzan@studenti.unipd.it>
  * @version 1.0.0
  */
 
-public class RiverDaoTest {
+public class PathDaoIntegrationTest {
     private static ApplicationContext context;
     private static JDBCDataSource ds;
     private static JdbcTemplate tpl;
-    private static IRiverDao pd;
+    private static IPathDao pd;
 
     /**
      * Inizializza i campi dati necessari alla conduzione dei test.
@@ -68,13 +68,13 @@ public class RiverDaoTest {
         context = new ClassPathXmlApplicationContext("Spring-ModuleTest.xml");
         ds = (JDBCDataSource) context.getBean("dataSource");
         tpl = ds.getTpl();
-        String insertRivers = "INSERT INTO Rivers (Name) VALUES ('River1'), ('River2');";
-        String insertRiverPoints1 = "INSERT INTO RiverPoints (RiverName, Latitude, Longitude, Idx) VALUES ('River1', 3, 7, 0), ('River1', 4, 8, 1);";
-        String insertRiverPoints2 = "INSERT INTO RiverPoints (RiverName, Latitude, Longitude, Idx) VALUES ('River2', 12, 4, 0), ('River2', 15, 7, 1);";
-        tpl.update(insertRivers);
-        tpl.update(insertRiverPoints1);
-        tpl.update(insertRiverPoints2);
-        pd = ds.riverDao();
+        String insertPaths = "INSERT INTO Paths (Name) VALUES ('Path1'), ('Path2');";
+        String insertPathPoints1 = "INSERT INTO PathPoints (PathName, Latitude, Longitude, Idx) VALUES ('Path1', 3, 7, 0), ('Path1', 4, 8, 1);";
+        String insertPathPoints2 = "INSERT INTO PathPoints (PathName, Latitude, Longitude, Idx) VALUES ('Path2', 12, 4, 0), ('Path2', 15, 7, 1);";
+        tpl.update(insertPaths);
+        tpl.update(insertPathPoints1);
+        tpl.update(insertPathPoints2);
+        pd = ds.pathDao();
     }
 
     /**
@@ -95,12 +95,12 @@ public class RiverDaoTest {
     @Test
     public void testFindAll() {
         Rect region = new Rect(new Point(10, 1), new Point(1, 10));
-        Iterable<River> rivers = pd.findAll(region);
-        Iterator<River> i_rivers = rivers.iterator();
-        River river = i_rivers.next();
-        assertFalse(i_rivers.hasNext());
-        assertTrue(river.getName().equals("River1"));
-        Iterable<Point> points = river.getPoints();
+        Iterable<Path> paths = pd.findAll(region);
+        Iterator<Path> i_paths = paths.iterator();
+        Path path = i_paths.next();
+        assertFalse(i_paths.hasNext());
+        assertTrue(path.getName().equals("Path1"));
+        Iterable<Point> points = path.getPoints();
         Iterator<Point> i_points = points.iterator();
         Point wp1 = i_points.next();
         Point wp2 = i_points.next();

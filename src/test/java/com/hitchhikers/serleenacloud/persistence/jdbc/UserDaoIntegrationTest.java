@@ -14,7 +14,7 @@
 
 
 /**
- * Name: UserDaoTest.java
+ * Name: UserDaoIntegrationTest.java
  * Package: com.kyloth.serleenacloud.persistence
  * Author: Gabriele Pozzan
  *
@@ -44,7 +44,7 @@ import com.kyloth.serleenacloud.datamodel.auth.User;
  * @version 1.0.0
  */
 
-public class UserDaoTest {
+public class UserDaoIntegrationTest {
     private static ApplicationContext context;
     private static IDataSource ds;
     private static IUserDao ud;

@@ -14,7 +14,7 @@
 
 
 /**
- * Name: ControllerTest.java
+ * Name: ControllerIntegrationTest.java
  * Package: com.kyloth.serleenacloud.controller
  * Author: Gabriele Pozzan
  *
@@ -64,7 +64,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
  * @version 1.0.0
  */
 
-public class ControllerTest {
+public class ControllerIntegrationTest {
     private static ApplicationContext context;
     private static DataRestController drc;
     private static UserRestController ur;

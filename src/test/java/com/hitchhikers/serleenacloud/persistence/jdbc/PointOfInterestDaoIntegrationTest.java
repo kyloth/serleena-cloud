@@ -14,7 +14,7 @@
 
 
 /**
- * Name: EmergencyContactDaoTest.java
+ * Name: PointOfInterestDaoIntegrationTest.java
  * Package: com.kyloth.serleenacloud.persistence
  * Author: Gabriele Pozzan
  *
@@ -39,23 +39,24 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.kyloth.serleenacloud.persistence.jdbc.JDBCDataSource;
-import com.kyloth.serleenacloud.persistence.IEmergencyContactDao;
-import com.kyloth.serleenacloud.datamodel.business.EmergencyContact;
+import com.kyloth.serleenacloud.persistence.IPointOfInterestDao;
+
+import com.kyloth.serleenacloud.datamodel.business.PointOfInterest;
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 
 /**
- * Contiene test per la classe EmergencyContactDao.
+ * Contiene test per la classe PointOfInterestDao.
  *
  * @author Gabriele Pozzan <gabriele.pozzan@studenti.unipd.it>
  * @version 1.0.0
  */
 
-public class EmergencyContactDaoTest {
+public class PointOfInterestDaoIntegrationTest {
     private static ApplicationContext context;
     private static JDBCDataSource ds;
     private static JdbcTemplate tpl;
-    private static IEmergencyContactDao ecd;
+    private static IPointOfInterestDao poid;
 
     /**
      * Inizializza i campi dati necessari alla conduzione dei test.
@@ -66,13 +67,9 @@ public class EmergencyContactDaoTest {
         context = new ClassPathXmlApplicationContext("Spring-ModuleTest.xml");
         ds = (JDBCDataSource) context.getBean("dataSource");
         tpl = ds.getTpl();
-        String insert_1="INSERT INTO EmergencyContacts (Name, Number, NWLongitude, NWLatitude, SELongitude, SELatitude) VALUES ('Contact_1', '01', 3.5, 15.77, 12.54, 4.18);";
-        String insert_2="INSERT INTO EmergencyContacts (Name, Number, NWLongitude, NWLatitude, SELongitude, SELatitude) VALUES ('Contact_2', '02', 2.2, 16.18, 3.5, 14);";
-        String insert_3="INSERT INTO EmergencyContacts (Name, Number, NWLongitude, NWLatitude, SELongitude, SELatitude) VALUES ('Contact_3', '03', 3.2, 10.01, 15.4, 12.3);";
-        tpl.update(insert_1);
-        tpl.update(insert_2);
-        tpl.update(insert_3);
-        ecd = ds.emergencyContactDao();
+        String insertPOIs = "INSERT INTO POIs (Name, Latitude, Longitude, Type) VALUES ('POI1', 2, 4, 'FOOD'), ('POI2', 6, 8, 'INFO'), ('POI3', 12, 18, 'WARNING');";
+        tpl.update(insertPOIs);
+        poid = ds.pointOfInterestDao();
     }
 
     /**
@@ -85,21 +82,19 @@ public class EmergencyContactDaoTest {
     }
 
     /**
-     * Verifica che il metodo findAll restituisca gli EmergencyContacts
-     * la cui area di pertinenza intersechi quella fornita come parametro.
+     * Verifica che il metodo findAll restituisca tutti i Punti
+     * di Interesse contenuti nella regione fornita come parametro.
      */
 
     @Test
     public void testFindAll() {
-        Rect region = new Rect(new Point(16.18, 3.2), new Point(13.12, 4.9));
-        Iterable<EmergencyContact> contacts = ecd.findAll(region);
-        Iterator<EmergencyContact> i_contacts = contacts.iterator();
-        EmergencyContact ec_1 = i_contacts.next();
-        assertTrue(ec_1.getName().equals("Contact_1"));
-        EmergencyContact ec_2 = i_contacts.next();
-        assertTrue(ec_2.getName().equals("Contact_2"));
-        assertFalse(i_contacts.hasNext());
+        Rect region = new Rect(new Point(10, 1), new Point(1, 10));
+        Iterable<PointOfInterest> pois = poid.findAll(region);
+        Iterator<PointOfInterest> i_pois = pois.iterator();
+        PointOfInterest poi1 = i_pois.next();
+        PointOfInterest poi2 = i_pois.next();
+        assertTrue(poi1.getName().equals("POI1"));
+        assertTrue(poi2.getName().equals("POI2"));
+        assertFalse(i_pois.hasNext());
     }
-
-
 }
