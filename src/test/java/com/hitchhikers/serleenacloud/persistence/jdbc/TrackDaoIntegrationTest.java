@@ -14,7 +14,7 @@
 
 
 /**
- * Name: TrackDaoTest.java
+ * Name: TrackDaoIntegrationTest.java
  * Package: com.kyloth.serleenacloud.persistence
  * Author: Gabriele Pozzan
  *
@@ -51,7 +51,7 @@ import com.kyloth.serleenacloud.datamodel.business.Track;
  * @version 1.0.0
  */
 
-public class TrackDaoTest {
+public class TrackDaoIntegrationTest {
     private static ApplicationContext context;
     private static JDBCDataSource ds;
     private static JdbcTemplate tpl;

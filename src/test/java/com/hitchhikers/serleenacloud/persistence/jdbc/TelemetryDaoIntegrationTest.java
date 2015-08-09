@@ -14,7 +14,7 @@
 
 
 /**
- * Name: TelemetryDaoTest.java
+ * Name: TelemetryDaoIntegrationTest.java
  * Package: com.kyloth.serleenacloud.persistence
  * Author: Gabriele Pozzan
  *
@@ -50,7 +50,7 @@ import com.kyloth.serleenacloud.datamodel.business.Telemetry;
  * @version 1.0.0
  */
 
-public class TelemetryDaoTest {
+public class TelemetryDaoIntegrationTest {
     private static ApplicationContext context;
     private static JDBCDataSource ds;
     private static JdbcTemplate tpl;
