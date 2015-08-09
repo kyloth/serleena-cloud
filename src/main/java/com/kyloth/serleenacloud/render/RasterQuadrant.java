@@ -89,10 +89,10 @@ public class RasterQuadrant {
 
     public Rect getBoundingRect() {
 
-        Point nw = new Point(ir.YtoLat(img.getMinY()+y),
-                             ir.XtoLon(img.getMinX()+x));
-        Point se = new Point(ir.YtoLat(img.getMinY()+(y-quadrantHeight)),
-                             ir.XtoLon(img.getMinX()+(x+quadrantWidth)));
+        Point nw = new Point(ir.YtoLat(y),
+                             ir.XtoLon(+x));
+        Point se = new Point(ir.YtoLat(y-quadrantHeight),
+                             ir.XtoLon(x+quadrantWidth));
 
         return new Rect(nw, se);
     }
