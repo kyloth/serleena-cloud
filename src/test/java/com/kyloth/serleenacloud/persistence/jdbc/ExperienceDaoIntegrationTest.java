@@ -14,7 +14,7 @@
 
 
 /**
- * Name: ExperienceDaoTest.java
+ * Name: ExperienceDaoIntegrationTest.java
  * Package: com.kyloth.serleenacloud.persistence
  * Author: Gabriele Pozzan
  *
@@ -57,7 +57,7 @@ import com.kyloth.serleenacloud.persistence.ITrackDao;
  * @version 1.0.0
  */
 
-public class ExperienceDaoTest {
+public class ExperienceDaoIntegrationTest {
     private static ApplicationContext context;
     private static JDBCDataSource ds;
     private static JDBCDataSource ds_user;

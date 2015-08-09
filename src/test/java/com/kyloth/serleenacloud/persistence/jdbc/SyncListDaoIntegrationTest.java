@@ -14,7 +14,7 @@
 
 
 /**
- * Name: SyncListDaoTest.java
+ * Name: SyncListDaoIntegrationTest.java
  * Package: com.kyloth.serleenacloud.persistence
  * Author: Gabriele Pozzan
  *
@@ -57,7 +57,7 @@ import com.kyloth.serleenacloud.persistence.IDataSource;
  * @version 1.0.0
  */
 
-public class SyncListDaoTest {
+public class SyncListDaoIntegrationTest {
     private static ApplicationContext context;
     private static IDataSource ds;
     private static JDBCDataSource ds_user;
