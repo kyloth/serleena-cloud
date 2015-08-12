@@ -201,7 +201,7 @@ public class ExperienceRestController {
         IDataSource dataSource = ds.forUser(user);
 
         try {
-            String name = mapper.readValue(body.getFirst("name"), String.class);
+            String name = body.getFirst("name");
             PointOfInterest[] pois = mapper.readValue(body.getFirst("points_of_interest"), PointOfInterest[].class);
             UserPoint[] ups = mapper.readValue(body.getFirst("user_points"), UserPoint[].class);
             Track[] tracks = mapper.readValue(body.getFirst("tracks"), Track[].class);
