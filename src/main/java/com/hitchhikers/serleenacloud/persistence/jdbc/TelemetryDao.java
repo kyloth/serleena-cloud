@@ -80,15 +80,12 @@ public class TelemetryDao implements ITelemetryDao {
             }
         },
         keyHolder);
-        int i = 0;
         for (Date event : t.getEvents()) {
-            tpl.update("INSERT INTO TelemetryEvents(TelemetryId, Value, Date) " +
-                       "VALUES(?, ?, ?)",
+            tpl.update("INSERT INTO TelemetryEvents(TelemetryId, Date) " +
+                       "VALUES(?, ?)",
                        new Object[] { keyHolder.getKey(),
-                                      i,
                                       event
                        });
-            i++;
         }
     }
 
@@ -107,10 +104,10 @@ public class TelemetryDao implements ITelemetryDao {
                              public Telemetry mapRow(ResultSet rs, int rowNum) throws SQLException {
                                  String id = rs.getString("Id");
                                  Iterable<Date> events =
-                                     tpl.query("SELECT Value, Date " +
+                                     tpl.query("SELECT Date " +
                                                "FROM TelemetryEvents " +
                                                "WHERE TelemetryId = ?" +
-                                               "ORDER BY Value",
+                                               "ORDER BY Date",
                                                new Object[] {id},
                                                new RowMapper<Date>() {
                                                    @Override

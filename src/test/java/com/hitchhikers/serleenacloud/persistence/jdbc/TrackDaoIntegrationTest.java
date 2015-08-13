@@ -72,7 +72,7 @@ public class TrackDaoIntegrationTest {
         String insertTracks = "INSERT INTO Tracks (Name) VALUES ('Track_1'), ('Track_2');";
         String insertCheckPoints = "INSERT INTO Checkpoints (TrackName, Longitude, Latitude, Idx) VALUES ('Track_1', 1, 1, 0), ('Track_2', 2, 2, 0);";
         String insertTelemetries = "INSERT INTO Telemetries (Id, TrackName) VALUES (0, 'Track_1'), (1, 'Track_2');";
-        String insertTelEvents = "INSERT INTO TelemetryEvents (TelemetryId, Value, Date) VALUES (0, 1, '2015-01-01 00:00:01'), (1, 2,'2015-01-01 00:00:01');";
+        String insertTelEvents = "INSERT INTO TelemetryEvents (TelemetryId, Date) VALUES (0, '2015-01-01 00:00:01'), (1, '2015-01-01 00:00:01');";
         tpl.update(insertUser);
         tpl.update(insertExperience);
         tpl.update(insertTracks);
