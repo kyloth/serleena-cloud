@@ -122,7 +122,7 @@ public class TrackDao implements ITrackDao {
 
     public Track find(String name) {
         Iterable<CheckPoint> checkpoints =
-            tpl.query("SELECT Idx, Longitude, Latitude FROM Checkpoints WHERE TrackName = ?",
+            tpl.query("SELECT Idx, Longitude, Latitude FROM Checkpoints WHERE TrackName = ? ORDER BY Idx",
                       new Object[] {name},
         new RowMapper<CheckPoint>() {
             @Override
