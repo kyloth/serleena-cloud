@@ -69,7 +69,10 @@ public class MiscRestController {
 
     @RequestMapping(value= "/tokens/{kyloth_id}", method = RequestMethod.GET)
     public String token(@PathVariable("kyloth_id") String id) {
-        return (new TempToken(id)).getToken();
+        TempToken t = new TempToken(id);
+        ds.tempTokenDao().persist(t);
+        System.err.println(t.getToken());
+        return t.getToken();
     }
 
     /**
