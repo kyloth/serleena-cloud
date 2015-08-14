@@ -97,7 +97,7 @@ public class WeatherForecastDao implements IWeatherForecastDao {
         new RowMapper<WeatherForecast>() {
             @Override
             public WeatherForecast mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return new WeatherForecast(rs.getDate("Date"),
+                return new WeatherForecast(rs.getTimestamp("Date"),
                                            new Rect(new Point(rs.getDouble("NWLatitude"),
                                                     rs.getDouble("NWLongitude")),
                                                     new Point(rs.getDouble("SELatitude"),
