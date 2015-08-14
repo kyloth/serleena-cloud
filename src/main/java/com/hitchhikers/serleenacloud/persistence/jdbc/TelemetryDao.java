@@ -112,7 +112,7 @@ public class TelemetryDao implements ITelemetryDao {
                                                new RowMapper<Date>() {
                                                    @Override
                                                    public Date mapRow(ResultSet rs, int rowNum) throws SQLException {
-                                                       return rs.getDate("Date");
+                                                       return rs.getTimestamp("Date");
                                                    }
                                                });
                                  return new Telemetry(events, trackName, id);
