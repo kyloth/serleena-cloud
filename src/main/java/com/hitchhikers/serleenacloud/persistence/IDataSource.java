@@ -135,6 +135,14 @@ public interface IDataSource {
     public IExperienceDao experienceDao();
 
     /**
+     * Restituisce una classe DAO di tipo ITempTokenDao.
+     *
+     * @return Restituisce un oggetto di tipo ITempTokenDao.
+     */
+
+    public ITempTokenDao tempTokenDao();
+
+    /**
      * Restituisce in IDataSource per uno specifico utente.
      *
      * @param u Utente per il quale si vuole ottenere un IDataSource.

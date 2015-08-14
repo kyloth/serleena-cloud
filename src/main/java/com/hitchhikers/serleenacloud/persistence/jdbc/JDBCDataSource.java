@@ -195,7 +195,17 @@ public class JDBCDataSource implements IDataSource {
     public IExperienceDao experienceDao() {
         return new ExperienceDao(this);
     }
-    
+
+    /**
+     * Implementa IDataSource.tempTokenDao().
+     *
+     * @return Restituisce un ITempTokenDao.
+     */
+
+    public ITempTokenDao tempTokenDao() {
+        return new TempTokenDao(this);
+    }
+
     /**
      * Implementa IDataSource.syncListDao().
      *

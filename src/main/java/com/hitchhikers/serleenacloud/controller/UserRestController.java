@@ -43,7 +43,6 @@ import com.kyloth.serleenacloud.persistence.DataSourceFactory;
 
 import com.kyloth.serleenacloud.datamodel.auth.User;
 import com.kyloth.serleenacloud.datamodel.auth.AuthToken;
-import com.kyloth.serleenacloud.datamodel.auth.TempToken;
 
 import java.util.UUID;
 
@@ -126,7 +125,7 @@ public class UserRestController {
         AuthToken t = new AuthToken(authToken);
         User u = ds.userDao().find(t.getEmail());
 
-        ds.userDao().persist(new User(u.getEmail(), u.getPassword(), tempToken.split("::")[0]));
+        ds.userDao().persist(new User(u.getEmail(), u.getPassword(), ds.tempTokenDao().deviceId(tempToken)));
     }
     
     /**
@@ -140,7 +139,7 @@ public class UserRestController {
     @RequestMapping(value= "/pair/{temp_token}", method = RequestMethod.GET)
     public String pair(@PathVariable("temp_token") String tempToken) {
 
-        User u = ds.userDao().findDeviceId(tempToken.split("::")[0]);
+        User u = ds.userDao().findDeviceId(ds.tempTokenDao().deviceId(tempToken));
         return u.getAuthToken().getToken();
 
     }
