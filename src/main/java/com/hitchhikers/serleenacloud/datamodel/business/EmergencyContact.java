@@ -27,8 +27,6 @@ package com.kyloth.serleenacloud.datamodel.business;
 
 import com.kyloth.serleenacloud.datamodel.geometry.Rect;
 
-import java.util.Date;
-
 /**
  * Classe che rappresenta informazioni riguardanti contatti di emergenza
  * disponibili in un'area di mappa.
