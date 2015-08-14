@@ -25,7 +25,6 @@
 
 package com.kyloth.serleenacloud.datamodel.auth;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -52,6 +51,8 @@ public class TempToken {
 
     private String deviceId;
 
+    private Date date;
+
     /**
      * Costruisce un oggetto TempToken a partire da un deviceId.
      *
@@ -59,21 +60,9 @@ public class TempToken {
      */
 
     public TempToken(String deviceId) {
-        this(deviceId, new Date());
-    }
-
-    /**
-     * Costruisce un TempToken a partire da un deviceId e da un particolare
-     * timestamp.
-     *
-     * @param deviceId Id del dispositivo con cui effettuare il pairing.
-     * @param currDate Timestamp fornito per calcolare il token.
-     */
-
-    TempToken(String deviceId, Date currDate) {
         this.deviceId = deviceId;
-        String s = deviceId + currToken(currDate);
-        this.token = deviceId + "::" + Util.sha256(s);
+        this.date = new Date((new Date()).getTime() + 900000);
+        this.token = Util.sha256(deviceId + date.getTime()).substring(0,6).toUpperCase();
     }
 
     /**
@@ -96,16 +85,8 @@ public class TempToken {
         return deviceId;
     }
 
-    /**
-     * Restituisce il timestamp fornito secondo lo schema
-     * {anno}{mese}{giorno}{ora}.
-     *
-     * @param date Timestamp da formattare.
-     * @return Il timestamp formattato.
-     */
-
-    private static String currToken(Date date) {
-        return new SimpleDateFormat("yyyyMMddHH").format(date);
+    public Date getDate() {
+        return date;
     }
 
 }

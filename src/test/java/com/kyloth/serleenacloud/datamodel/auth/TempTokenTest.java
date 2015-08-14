@@ -48,12 +48,7 @@ public class TempTokenTest {
     @Test
     public void testConstructor() {
         String deviceId = "id";
-        String s = deviceId + new SimpleDateFormat("yyyyMMddHH").format(new Date(121542));
-        String token = deviceId + "::" + Util.sha256(s);
-        TempToken tt = new TempToken(deviceId, new Date(121542));
-
+        TempToken tt = new TempToken(deviceId);
         assertTrue(tt.getDeviceId().equals(deviceId));
-        assertTrue(tt.getToken().equals(token));
-
     }
 }
