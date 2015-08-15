@@ -34,10 +34,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * Classe che rappresenta un Percorso.
+ * Classe che rappresenta un percorso.
  *
  * @use Viene utilizzata da DataRestController e ExperienceRestController per creare o elaborare il JSON fornito o richiesto da frontend e applicazione android. Viene utilizzata da Render.Renderer durante la creazione dei quadranti raster.
- *
+ * @field name : String Nome del percorso
+ * @field checkpoints : Iterable<CheckPoint> Insieme dei checkpoint associati al percorso
+ * @field telemetries : Iterable<Telemetry> Insieme dei tracciamenti associati al percorso
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
@@ -46,19 +48,19 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Track {
 
     /**
-     * Il nome del Percorso.
+     * Il nome del percorso.
      */
 
     private String name;
 
     /**
-     * L'insieme dei Checkpoint del Percorso.
+     * L'insieme dei checkpoint del percorso.
      */
 
     private Iterable<CheckPoint> checkpoints;
 
     /**
-     * L'insieme dei Tracciamenti relativi al Percorso.
+     * L'insieme dei tracciamenti relativi al percorso.
      */
 
     private Iterable<Telemetry> telemetries;
@@ -66,9 +68,9 @@ public class Track {
     /**
      * Crea un nuovo Percorso inizializzandone i campi dati.
      *
-     * @param name Il nome del Percorso.
-     * @param checkpoints Insieme dei Checkpoint del Percorso.
-     * @param telemetries Insieme dei Tracciamenti relativi al Percorso.
+     * @param name Il nome del percorso.
+     * @param checkpoints Insieme dei checkpoint del percorso.
+     * @param telemetries Insieme dei tracciamenti relativi al percorso.
      */
 
     @JsonCreator
@@ -82,11 +84,11 @@ public class Track {
     }
 
     /**
-     * Crea un nuovo Percorso inizializzandone i campi dati.
+     * Crea un nuovo percorso inizializzandone i campi dati.
      *
-     * @param name Il nome del Percorso.
-     * @param checkpoints Array dei Checkpoint del Percorso.
-     * @param telemetries Array dei Tracciamenti relativi al Percorso.
+     * @param name Il nome del percorso.
+     * @param checkpoints Array dei checkpoint del percorso.
+     * @param telemetries Array dei tracciamenti relativi al percorso.
      */
 
     public Track(String name, CheckPoint[] checkpoints, Telemetry[] telemetries) {
@@ -96,9 +98,9 @@ public class Track {
     }
 
     /**
-     * Metodo getter che permette di ottenere l'insieme dei Checkpoint associati al Percorso.
+     * Metodo getter che permette di ottenere l'insieme dei checkpoint associati al percorso.
      *
-     * @return Restituisce l'insieme dei Checkpoint associati al Percorso.
+     * @return Restituisce l'insieme dei checkpoint associati al percorso.
      */
 
     public Iterable<CheckPoint> getCheckPoints() {
@@ -106,9 +108,9 @@ public class Track {
     }
 
     /**
-     * Metodo getter che permette di ottenere il nome del Percorso.
+     * Metodo getter che permette di ottenere il nome del percorso.
      *
-     * @return Restituisce il nome del Percorso.
+     * @return Restituisce il nome del percorso.
      */
 
     public String getName() {
@@ -116,9 +118,9 @@ public class Track {
     }
 
     /**
-     * Metodo getter che permette di ottenere l'insieme dei dati di Tracciamento relativi al Percorso.
+     * Metodo getter che permette di ottenere l'insieme dei dati di tracciamento relativi al percorso.
      *
-     * @return Restituisce l'insieme dei dati di Tracciamento relativi al Percorso.
+     * @return Restituisce l'insieme dei dati di tracciamento relativi al percorso.
      */
 
     @JsonIgnore
@@ -127,9 +129,9 @@ public class Track {
     }
 
     /**
-     * Metodo che permette di ottenere il miglior Tracciamento disponibile per il Percorso.
+     * Metodo che permette di ottenere il miglior tracciamento disponibile per il percorso.
      *
-     * @return Restituisce il miglior Tracciamento disponibile per il Percorso.
+     * @return Restituisce il miglior tracciamento disponibile per il percorso.
      */
 
     public Telemetry getBestTelemetry() {
