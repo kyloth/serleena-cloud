@@ -32,6 +32,9 @@ import java.util.Date;
  * Android.
  *
  * @use Espone metodi con il quale è possibile costruire un token con validità temporale limitata per un device id, ed ottenere il device id corrispondente ad un dato token.
+ * @field token : String Token associato al dispositivo
+ * @field deviceId : String Id del dispositivo per il quale viene costruito il token
+ * @field date : Date Timestamp per la costruzione del token
  *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
@@ -50,6 +53,10 @@ public class TempToken {
      */
 
     private String deviceId;
+    
+    /**
+     * Timestamp per la costruzione del token.
+     */
 
     private Date date;
 
