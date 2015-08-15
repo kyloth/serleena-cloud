@@ -75,7 +75,7 @@ public class Renderer {
         this.rivers = ds.riverDao().findAll(rect);
         this.elevations = ds.elevationRectDao().findAll(rect);
         this.paths = ds.pathDao().findAll(rect);
-        this.pois = ds.pointOfInterestDao().findAll(rect);
+        this.pois = e.getPOIs();
         this.ups = e.getUserPoints();
         this.tracks = e.getTracks();
     }
