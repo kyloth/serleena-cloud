@@ -112,7 +112,7 @@ public class DataRestController {
     }
 
     /**
-     * Metodo che implementa la richiesta PUT per sincronizzare dati
+     * Metodo che implementa la richiesta POST per sincronizzare dati
      * dall'applicazione android al backend.
      *
      * @param id JSON rappresentante una lista di oggetti di tipo SyncInputData.
@@ -120,8 +120,8 @@ public class DataRestController {
      */
 
     @RequestMapping(method = RequestMethod.POST)
-    public void put(@RequestParam("data") String id,
-                    @RequestHeader("X-AuthToken") String authToken) {
+    public void POST(@RequestParam("data") String id,
+                     @RequestHeader("X-AuthToken") String authToken) {
 
         AuthToken token = new AuthToken(authToken);
         User user = ds.userDao().find(token.getEmail());
