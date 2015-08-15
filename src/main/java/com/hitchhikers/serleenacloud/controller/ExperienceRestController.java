@@ -196,7 +196,7 @@ public class ExperienceRestController {
      * Metodo che implementa la richiesta PUT per modificare una
      * Esperienza esistente.
      *
-     * @param id id dell'Esperienza da aggiornare.
+     * @param id id delleEsperienza da aggiornare.
      * @param body Mappa contenente i dati necessari all'aggiornamento in formato JSON.
      * @param authToken Token di riconoscimento.
      */
@@ -230,9 +230,10 @@ public class ExperienceRestController {
      * Metodo che implementa la richiesta GET per ottenere un Percorso
      * al suo nome e al nome dell'Esperienza relativa.
      *
-     * @param id Nome dell'Esperienza cui il Percorso è relativo.
-     * @param track_id Nome del Percorso da ottenere.
-     * @return Restituisce un oggetto Track rappresentante il Percorso richiesto.
+     * @param id Nome dell'Esperienza cui il percorso è relativo.
+     * @param track_id Nome del percorso da ottenere.
+     * @param authToken Token di autenticazione
+     * @return Restituisce un oggetto Track rappresentante il percorso richiesto.
      */
 
     @RequestMapping(value= "/{id}/tracks/{track_id}", method = RequestMethod.GET)
@@ -251,6 +252,16 @@ public class ExperienceRestController {
         return null;
     }
 
+    /**
+     * Metodo che implementa la richiesta GET per ottenere la lista di
+     * tracciamenti relativi a un percorso.
+     *
+     * @param id Nome dell'esperienza cui il percorso è relativo.
+     * @param track_id Nome del percorso i cui tracciamenti si vogliono ottenere
+     * @param authToken Token di autenticazione
+     * @return Restituisce un insieme di tracciamenti relativi al percorso indicato
+     */
+
     @RequestMapping(value= "/{id}/tracks/{track_id}/telemetries", method = RequestMethod.GET)
     public Iterable<Telemetry> getTelemetriesList(@PathVariable("id") String id,
                                                   @PathVariable("track_id") String track_id,
@@ -258,6 +269,15 @@ public class ExperienceRestController {
         return get(id, track_id, authToken).getTelemetries();
     }
 
+    /**
+     * Metodo che implementa la richiesta GET per ottenere un particolare tracciamento.
+     *
+     * @param id Nome dell'esperienza cui il percorso è relativo.
+     * @param track_id Nome del percorso relativo al tracciamento cercato
+     * @param telemetry_id Nome del tracciamento che si vuole ottenere
+     * @param authToken Token di autenticazione
+     * @return Restituisce un oggetto Telemetry rappresentante il tracciamento richiesto
+     */
 
     @RequestMapping(value= "/{id}/tracks/{track_id}/telemetries/{telemetry_id}", method = RequestMethod.GET)
     public Telemetry getTelemetry(@PathVariable("id") String id,
