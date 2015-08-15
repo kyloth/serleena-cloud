@@ -30,12 +30,16 @@ package com.kyloth.serleenacloud.datamodel.geometry;
  * e` associata un'altezza
  *
  * @use Viene utilizzata per rappresentare le coordinate altimetriche della mappa
- *
+ * @field height : int Altezza associata all'area rettangolare
  * @author  Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
 
 public class ElevationRect extends Rect {
+    
+    /**
+     * Altezza associata all'area rettangolare.
+     */
 
     private int height;
 

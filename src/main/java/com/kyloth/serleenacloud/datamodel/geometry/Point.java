@@ -31,12 +31,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Rappresenta un generico punto geografico
  *
+ * @field latitude : double Valore della latitudine del punto geografico
+ * @field longitude : double Valore della longitudine del punto geografico
  * @author  Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
 
 public class Point {
+    
+    /**
+     * Latitudine relativa al punto geografico.
+     */
+
     private double latitude;
+    
+    /**
+     * Longitudine relativa al punto geografico.
+     */
+
     private double longitude;
 
 
