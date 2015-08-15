@@ -39,7 +39,7 @@ import com.kyloth.serleenacloud.datamodel.business.Experience;
 public interface IExperienceDao {
 
     /**
-     * Permette di inserire una nuova Esperienza nella base di dati.
+     * Permette di inserire una nuova esperienza nella base di dati.
      *
      * @param e Esperienza da inserire.
      */
@@ -47,7 +47,7 @@ public interface IExperienceDao {
     public void persist(Experience e);
 
     /**
-     * Restituisce tutte le Esperienze relative all'utente corrente.
+     * Restituisce tutte le esperienze relative all'utente corrente.
      *
      * @return Restituisce la lista delle Esperienze relative all'utente.
      */
@@ -55,18 +55,18 @@ public interface IExperienceDao {
     public Iterable<Experience> findAll();
 
     /**
-     * Permette di ottenere una particolare Esperienza.
+     * Permette di ottenere una particolare esperienza.
      *
-     * @param id Id dell'Esperienza da ottenere.
+     * @param id Id dell'esperienza da ottenere.
      * @return Restituisce l'Esperienza cercata, se presente.
      */
 
     public Experience find(String id);
 
     /**
-     * Permette di eliminare un'Esperienza dalla base di dati.
+     * Permette di eliminare un'esperienza dalla base di dati.
      *
-     * @param id Id dell'Esperienza da eliminare.
+     * @param id Id dell'esperienza da eliminare.
      */
 
     public void delete(String id);

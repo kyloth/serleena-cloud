@@ -39,7 +39,7 @@ import com.kyloth.serleenacloud.datamodel.business.Experience;
 public interface ISyncListDao {
     
     /**
-     * Permette di inserire una nuova Esperienza nella lista di
+     * Permette di inserire una nuova esperienza nella lista di
      * sincronizzazione.
      *
      * @param es L'Esperienza da inserire nella lista.
@@ -48,10 +48,10 @@ public interface ISyncListDao {
     public void persist(Iterable<Experience> es);
     
     /**
-     * Permette di ottenere tutte le Esperienze in lista di
+     * Permette di ottenere tutte le esperienze in lista di
      * sincronizzazione.
      *
-     * @return Restituisce la lista delle Esperienze in lista di sincronizzazione.
+     * @return Restituisce la lista delle esperienze in lista di sincronizzazione.
      */
 
     public Iterable<Experience> findAll();

@@ -40,14 +40,31 @@ import java.sql.SQLException;
 /**
  * Classe che concretizza ISyncListDao per database MySQL utilizzando JDBC.
  *
+ * @field tpl : JdbcTemplate Template JDBC per la connessione alla base di dati
+ * @field user : User Oggetto rappresentante l'utente i quali dati si vogliono manipolare
+ * @field ed : IExperienceDao DAO per oggetti di tipo Experience
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
 
 public class SyncListDao implements ISyncListDao {
 
+    /**
+     * Template JDBC per la connessione alla base di dati.
+     */
+
     private JdbcTemplate tpl;
+    
+    /**
+     * Utente i quali dati si vogliono manipolare.
+     */
+
     private User user;
+
+    /**
+     * DAO per oggetti di tipo Experience.
+     */
+
     private IExperienceDao ed;
 
     /**
