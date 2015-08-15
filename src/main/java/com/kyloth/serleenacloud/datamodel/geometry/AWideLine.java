@@ -31,12 +31,17 @@ import java.util.Arrays;
 /**
  * Rappresenta una generica entita` di mappa composta da una collezione ordinata
  * di Point
- *
+ * 
+ * @field points : Iterable<Point> Insieme dei punti che definiscono le coordinate dell'entità
  * @author  Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
 
 public abstract class AWideLine {
+    
+    /**
+     * Insieme dei punti che definiscono le coordinate dell'entità.
+     */
 
     private Iterable<Point> points;
 
