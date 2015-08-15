@@ -107,7 +107,10 @@ public class UserRestController {
 
         throw new AuthFailException();
     }
-    
+
+    @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
+    class PairingFailedException extends RuntimeException {}
+
     /**
      * Metodo che implementa la richiesta PUT per effettuare
      * il pairing tra backend e applicazione android.
@@ -124,10 +127,13 @@ public class UserRestController {
 
         AuthToken t = new AuthToken(authToken);
         User u = ds.userDao().find(t.getEmail());
+        String deviceId = ds.tempTokenDao().deviceId(tempToken);
+        if (deviceId == null)
+            throw new PairingFailedException();
 
-        ds.userDao().persist(new User(u.getEmail(), u.getPassword(), ds.tempTokenDao().deviceId(tempToken)));
+        ds.userDao().persist(new User(u.getEmail(), u.getPassword(), ));
     }
-    
+
     /**
      * Metodo che implementa la richiesta GET per la conferma del pairing
      * da parte dell'applicazione android.
