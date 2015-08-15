@@ -37,11 +37,16 @@ import java.sql.SQLException;
 /**
  * Classe che concretizza IUserDao per database MySQL utilizzando JDBC.
  *
+ * @field tpl : JdbcTemplate Template JDBC per la connessione alla base di dati
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
 
 public class UserDao implements IUserDao {
+
+    /**
+     * Template JDBC per la connessione alla base di dati.
+     */
 
     private JdbcTemplate tpl;
 

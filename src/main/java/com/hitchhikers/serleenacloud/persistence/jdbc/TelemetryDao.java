@@ -44,11 +44,16 @@ import java.sql.PreparedStatement;
 /**
  * Classe che concretizza ITelemetryDao per database MySQL utilizzando JDBC.
  *
+ * @field JdbcTemplate Template JDBC per la connessione alla base di dati
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
 
 public class TelemetryDao implements ITelemetryDao {
+
+    /**
+     * Template JDBC per la connessione alla base di dati.
+     */
 
     private JdbcTemplate tpl;
 
