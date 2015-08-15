@@ -40,13 +40,24 @@ import java.sql.SQLException;
 /**
  * Classe che concretizza ITrackDao per database MySQL utilizzando JDBC.
  *
+ * @field tpl : JdbcTemplate Template JDBC per la connessione alla base di dati
+ * @field tDao : ITelemetryDao DAO per oggetti di tipo Telemetry
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
 
 public class TrackDao implements ITrackDao {
 
+    /**
+     * Template JDBC per la connessione alla base di dati.
+     */
+
     private JdbcTemplate tpl;
+
+    /**
+     * DAO per oggetti di tipo Telemetry.
+     */
+
     private ITelemetryDao tDao;
 
     /**
