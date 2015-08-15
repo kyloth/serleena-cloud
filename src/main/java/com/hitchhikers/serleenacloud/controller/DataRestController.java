@@ -60,7 +60,8 @@ import java.util.ArrayList;
  * Controller REST per la gestione delle richieste riguardanti la gestione dei dati di sincronizzazione tra backend e applicativo android.
  *
  * @use Risponde alle richieste REST riguardanti la richiesta e offerta di dati di sincronizzazione, offrendo e ricevendo oggetti dal model che verranno automaticamente convertiti da o in JSON a Spring.
- *
+ * @field ds : IDataSource Campo dati statico contenente un oggetto che permette di interfacciarsi con il database tramite DAO
+ * @field mapper : ObjectMapper Campo dati statico contenente un oggetto di utilità per la conversione tra oggetti java e costrutti json
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
@@ -69,7 +70,16 @@ import java.util.ArrayList;
 @RequestMapping("/data")
 public class DataRestController {
 
+    /**
+     * Oggetto che permette di interfacciarsi con il database tramite oggetti DAO.
+     */
+
     static IDataSource ds = DataSourceFactory.getDataSource();
+    
+    /**
+     * Oggetto di utilità per la conversione tra oggetti java e costrutti json.
+     */
+
     static ObjectMapper mapper = new ObjectMapper();
 
     void setDataSource(IDataSource ds) {
