@@ -31,10 +31,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Classe che rappresente un Punto Utente in un'Esperienza.
+ * Classe che rappresente un punto utente in un'esperienza.
  *
- * @use Viene riferita da Experience nella collezione di Punti Utente di ogni esperienza
- *
+ * @use Viene riferita da Experience nella collezione di punti utente di ogni esperienza
+ * @field name : String Nome del punto utente
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
@@ -42,13 +42,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class UserPoint extends Point {
 
     /**
-     * Nome del Punto Utente.
+     * Nome del punto utente.
      */
 
     String name;
 
     /**
-     * Crea un nuovo Punto Utente inizializzandone i campi dati.
+     * Crea un nuovo punto utente inizializzandone i campi dati.
      *
      * @param latitude Latitudine del Punto Utente.
      * @param longitude Longitudine del Punto Utente.
@@ -64,9 +64,9 @@ public class UserPoint extends Point {
     }
 
     /**
-     * Metodo getter per ottenere il nome del Punto Utente.
+     * Metodo getter per ottenere il nome del punto utente.
      *
-     * @return Restituisce il nome del Punto Utente.
+     * @return Restituisce il nome del punto utente.
      */
 
     public String getName() {

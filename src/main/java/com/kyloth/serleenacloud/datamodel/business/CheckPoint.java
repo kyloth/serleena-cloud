@@ -31,10 +31,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.kyloth.serleenacloud.datamodel.geometry.Point;
 
 /**
- * Classe che rappresenta un Checkpoint in un Percorso.
+ * Classe che rappresenta un checkpoint in un percorso.
  *
- * @use Viene riferita da ITrack nella collezione di Punti Utente di ogni Percorso
- *
+ * @use Viene riferita da ITrack nella collezione di punti utente di ogni percorso
+ * @field id : int Id unico per il checkpoint
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
@@ -42,17 +42,17 @@ import com.kyloth.serleenacloud.datamodel.geometry.Point;
 public class CheckPoint extends Point {
 
     /**
-     * Id del Checkpoint.
+     * Id del checkpoint.
      */
 
     int id;
 
     /**
-     * Crea un nuovo oggetto Checkpoint.
+     * Crea un nuovo oggetto checkpoint.
      *
-     * @param latitude La latitude del Checkpoint.
-     * @param longitude La longitudine del Checkpoint.
-     * @param id L'id del Checkpoint.
+     * @param latitude La latitude del checkpoint.
+     * @param longitude La longitudine del checkpoint.
+     * @param id L'id del checkpoint.
      */
 
     @JsonCreator
@@ -64,9 +64,9 @@ public class CheckPoint extends Point {
     }
 
     /**
-     * Metodo "getter" per ottenere l'id del Checkpoint.
+     * Metodo getter per ottenere l'id del checkpoint.
      *
-     * @return Restituisce l'id del Checkpoint.
+     * @return Restituisce l'id del checkpoint.
      */
 
     public int getId() {
