@@ -212,7 +212,7 @@ public class ControllerIntegrationTest {
         SyncInputData sid = new SyncInputData(eid,
                                               new UserPoint[] {user_point_3},
                                               new Telemetry[] {telemetry_2});
-        drc.put(ow.writeValueAsString(new SyncInputData[] {sid}), authToken);
+        drc.post(ow.writeValueAsString(new SyncInputData[] {sid}), authToken);
         Experience sid_experience = erc.get(eid, authToken);
         Iterable<UserPoint> sid_up = sid_experience.getUserPoints();
         Iterator<UserPoint> i_sid_up = sid_up.iterator();
