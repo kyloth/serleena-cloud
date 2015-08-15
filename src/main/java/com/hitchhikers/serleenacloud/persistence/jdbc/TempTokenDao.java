@@ -63,14 +63,16 @@ public class TempTokenDao implements ITempTokenDao {
     }
 
     public void persist(TempToken t) {
-        // removeOld();
+        removeOld();
+        tpl.update("DELETE From TempTokens WHERE DeviceId = ?",
+                   new Object[] {t.getDeviceId()});
         tpl.update("INSERT INTO TempTokens(Date, DeviceId, Token) VALUES (?, ?, ?)",
                    new Object[] {t.getDate(), t.getDeviceId(), t.getToken()});
         return;
     }
 
     public String deviceId(final String token) {
-        //        removeOld();
+        removeOld();
         return tpl.query("SELECT DeviceId " +
                          "FROM TempTokens " +
                          "WHERE Token = ?",
