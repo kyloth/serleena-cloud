@@ -62,7 +62,8 @@ import java.util.UUID;
  * Controller REST per la gestione delle richieste CRUD riguardanti la gestione delle Esperienze.
  *
  * @use Risponde alle richieste REST riguardanti le Esperienze, ritornando oggetti del model che Spring convertirà automaticamente in risposte JSON.
- *
+ * @field ds : IDataSource Campo dati statico contenente un oggetto che permette di interfacciarsi con il database tramite oggetti DAO
+ * @field mapper : ObjectMapper Campo dati statico contenente un oggetto di utilità per la conversione tra oggetti java e costrutti json
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
@@ -70,8 +71,17 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/experiences")
 public class ExperienceRestController {
+    
+    /**
+     * Oggetto che permette di interfacciarsi con il database tramite oggetti DAO.
+     */
 
     static IDataSource ds = DataSourceFactory.getDataSource();
+    
+    /**
+     * Oggetto di utilità per la conversione tra oggetti java e costrutti json.
+     */
+
     static ObjectMapper mapper = new ObjectMapper();
 
     static void setDataSource(IDataSource ds) {
