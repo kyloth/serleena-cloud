@@ -50,7 +50,7 @@ import java.util.UUID;
  * Controller REST per la gestione delle richieste riguardanti la gestione degli utenti e del pairing utente-dispositivo.
  *
  * @use Risponde alle richieste REST riguardanti la creazione di utenti, pairing tra dispositivo e utente e recupero password.
- *
+ * @field ds : IDataSource Campo dati statico contente un oggetto che permette di interfacciarsi con il database tramite DAO
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
@@ -58,6 +58,10 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/users")
 public class UserRestController {
+    
+    /**
+     * Oggetto che permette di interfacciarsi con il database tramite oggetti DAO.
+     */
 
     static IDataSource ds = DataSourceFactory.getDataSource();
 

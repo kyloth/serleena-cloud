@@ -44,13 +44,17 @@ import com.kyloth.serleenacloud.datamodel.geometry.Point;
  * Controller REST per la gestione di alcune richiesta di utilità generale.
  *
  * @use Risponde alle richieste REST riguardanti la richiesta e offerta di dati di sincronizzazione, offrendo e ricevendo oggetti dal model che verranno automaticamente convertiti da o in JSON a Spring.
- *
+ * @field ds : IDataSource Campo dati statico contenente un oggetto che permette di interfacciarsi con il database tramite DAO
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
 
 @RestController
 public class MiscRestController {
+    
+    /**
+     * Oggetto che permette di interfacciarsi con il database tramite oggetti DAO.
+     */
 
     static IDataSource ds = DataSourceFactory.getDataSource();
 
