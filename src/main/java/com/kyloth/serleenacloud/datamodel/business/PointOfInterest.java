@@ -32,10 +32,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonGetter;
 
 /**
- * Classe che rappresenta un Punto di Interesse nella mappa.
+ * Classe che rappresenta un punto di interesse nella mappa.
  *
  * @use Viene utilizzata da Render.Renderer durante la creazione dei quadranti raster. Rende disponibile un metodo che ritorna un valore di un enum che identifica il tipo di punto di interesse
- *
+ * @field name : String Nome del punto di interesse
+ * @field type : POIType Categoria del punto di interesse
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
@@ -43,7 +44,7 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 public class PointOfInterest extends Point {
 
     /**
-     * Enumerazione per le diverse possibili categorie di Punti di Interesse.
+     * Enumerazione per le diverse possibili categorie di punti di interesse.
      */
 
     public static enum POIType {
@@ -56,24 +57,24 @@ public class PointOfInterest extends Point {
     }
 
     /**
-     * Nome del Punto di Interesse.
+     * Nome del punto di interesse.
      */
 
     String name;
 
     /**
-     * Categoria del Punto di Interesse.
+     * Categoria del punto di interesse.
      */
 
     POIType type;
 
     /**
-     * Crea un nuovo Punto di Interesse inizializzandone i campi dati.
+     * Crea un nuovo punto di interesse inizializzandone i campi dati.
      *
-     * @param latitude La latitudine del Punto di Interesse.
-     * @param longitude La longitudine del Punto di Interesse.
-     * @param name Il nome del Punto di Interesse.
-     * @param type La categoria del Punto di Interesse.
+     * @param latitude La latitudine del punto di interesse.
+     * @param longitude La longitudine del punto di interesse.
+     * @param name Il nome del punto di interesse.
+     * @param type La categoria del punto di interesse.
      */
 
     @JsonCreator
@@ -87,9 +88,9 @@ public class PointOfInterest extends Point {
     }
 
     /**
-     * Metodo getter per ottenere il nome del Punto di Interesse.
+     * Metodo getter per ottenere il nome del punto di interesse.
      *
-     * @return Restituisce il nome del Punto di Interesse.
+     * @return Restituisce il nome del punto di interesse.
      */
 
     public String getName() {
@@ -97,9 +98,9 @@ public class PointOfInterest extends Point {
     }
 
     /**
-     * Metodo getter per ottenere la categoria del Punto di Interesse.
+     * Metodo getter per ottenere la categoria del punto di interesse.
      *
-     * @return Restituisce la categoria del Punto di Interesse.
+     * @return Restituisce la categoria del punto di interesse.
      */
 
     @JsonGetter("type")
