@@ -44,14 +44,31 @@ import java.sql.SQLException;
 /**
  * Classe che concretizza IExperienceDao per database MySQL utilizzando JDBC.
  *
+ * @field tpl : JdbcTemplate Template JDBC per la connessione alla base di dati
+ * @field user : User Oggetto che rappresenta l'utente per il quale si vogliono ottenere dati dal database
+ * @field tDao : ITrackDao DAO per agire su oggetti di tipo Track nel database
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
 
 public class ExperienceDao implements IExperienceDao {
 
+    /**
+     * Template JDBC per la connessione alla base di dati.
+     */
+
     private JdbcTemplate tpl;
+    
+    /**
+     * Utente per il quale si vogliono ottenere dati dal database.
+     */
+
     private User user;
+    
+    /**
+     * DAO per gli oggetti di tipo Track.
+     */
+
     private ITrackDao tDao;
 
     /**
