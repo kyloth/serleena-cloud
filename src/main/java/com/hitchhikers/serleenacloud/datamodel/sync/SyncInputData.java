@@ -37,7 +37,9 @@ import java.util.Arrays;
  * Classe che modella i dati di sincronizzazione in input.
  *
  * @use Aggrega tutte le informazioni inviate dall'applicativo Android durante la sincronizzazione, viene utilizzata da DataRestController. I dati verranno inseriti nella base di dati contemporaneamente alla creazione dell'oggetto.
- *
+ * @field userPoints : Iterable<UserPoint> Insieme dei punti utente relativi all'esperienza da sincronizzare
+ * @field telemetryData : Iterable<Telemetry> Insieme dei tracciamenti relativi all'esperienza da sincronizzare
+ * @field experienceId : String Id dell'esperienza da sincronizzare
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
@@ -45,29 +47,29 @@ import java.util.Arrays;
 public class SyncInputData {
 
     /**
-     * Insieme di Punti Utente relativi all'Esperienza da sincronizzare.
+     * Insieme di punti utente relativi all'esperienza da sincronizzare.
      */
 
     private Iterable<UserPoint> userPoints;
 
     /**
-     * Insieme di dati telemetrici relativi all'Esperienza da sincronizzare.
+     * Insieme di dati telemetrici relativi all'esperienza da sincronizzare.
      */
 
     private Iterable<Telemetry> telemetryData;
 
     /**
-     * Id dell'Esperienza da sincronizzare.
+     * Id dell'esperienza da sincronizzare.
      */
 
     private String experienceId;
 
     /**
-     * Crea un nuovo oggetto SyncInputData per una specifica Esperienza
+     * Crea un nuovo oggetto SyncInputData per una specifica esperienza
      * da sincronizzare.
      *
      * @param experienceId Id dell'esperienza da sincronizzare.
-     * @param userPoints Insieme dei Punti Utente da sincronizzare.
+     * @param userPoints Insieme dei punti utente da sincronizzare.
      * @param telemetryData Insieme dei dati di telemetria da sincronizzare.
      */
 
@@ -78,11 +80,11 @@ public class SyncInputData {
     }
 
     /**
-     * Crea un nuovo oggetto SyncInputData per una specifica Esperienza
+     * Crea un nuovo oggetto SyncInputData per una specifica esperienza
      * da sincronizzare.
      *
      * @param experienceId Id dell'esperienza da sincronizzare.
-     * @param userPoints Array dei Punti Utente da sincronizzare.
+     * @param userPoints Array dei punti utente da sincronizzare.
      * @param telemetryData Array dei dati di telemetria da sincronizzare.
      */
 
@@ -96,9 +98,9 @@ public class SyncInputData {
     }
 
     /**
-     * Metodo getter per ottenere l'id dell'Esperienza da sincronizzare.
+     * Metodo getter per ottenere l'id dell'esperienza da sincronizzare.
      *
-     * @return Restituisce l'id dell'Esperienza da sincronizzare.
+     * @return Restituisce l'id dell'esperienza da sincronizzare.
      */
 
     public String getExperienceId() {
@@ -106,9 +108,9 @@ public class SyncInputData {
     }
 
     /**
-     * Metodo getter per ottenere l'insieme dei Punti Utente da sincronizzare.
+     * Metodo getter per ottenere l'insieme dei punti utente da sincronizzare.
      *
-     * @return Restituisce l'insieme dei Punti Utente da sincronizzare.
+     * @return Restituisce l'insieme dei punti utente da sincronizzare.
      */
 
     public Iterable<UserPoint> getUserPoints() {
