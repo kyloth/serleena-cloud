@@ -35,7 +35,9 @@ import java.util.Arrays;
  * Classe che modella i dati di sincronizzazione in output.
  *
  * @use Aggrega tutte le informazioni richiesta dall'applicativo Android durante la sincronizzazione, viene utilizzata da DataRestController
- *
+ * @field experiences : Iterable<Experience> Insieme delle esperienze da sincronizzare
+ * @field forecastData : Iterable<WeatherForecast> Insieme dei dati meteo da sincronizzare
+ * @field emergencyData : Iterable<EmergencyContact> Insieme dei dati relativi ai contatti di emergenza da sincronizzare
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
@@ -43,7 +45,7 @@ import java.util.Arrays;
 public class SyncOutputData {
 
     /**
-     * Insieme delle Esperienze da sincronizzare.
+     * Insieme delle esperienze da sincronizzare.
      */
 
     private Iterable<Experience> experiences;
@@ -63,7 +65,7 @@ public class SyncOutputData {
     /**
      * Crea un nuovo oggetto SyncOutputData.
      *
-     * @param experiences Insieme delle Esperienze da sincronizzare.
+     * @param experiences Insieme delle esperienze da sincronizzare.
      * @param forecastData Insieme dei dati meteo da sincronizzare.
      * @param emergencyData Insieme dei contatti di emergenza da sincronizzare.
      */
@@ -77,7 +79,7 @@ public class SyncOutputData {
     /**
      * Crea un nuovo oggetto SyncOutputData.
      *
-     * @param experiences Array delle Esperienze da sincronizzare.
+     * @param experiences Array delle esperienze da sincronizzare.
      * @param forecastData Array dei dati meteo da sincronizzare.
      * @param emergencyData Array dei contatti di emergenza da sincronizzare.
      */
@@ -89,9 +91,9 @@ public class SyncOutputData {
     }
 
     /**
-     * Metodo "getter" per ottenere l'insieme delle Esperienze da sincronizzare.
+     * Metodo getter per ottenere l'insieme delle rsperienze da sincronizzare.
      *
-     * @return Restituisce l'insieme delle Esperienze da sincronizzare.
+     * @return Restituisce l'insieme delle esperienze da sincronizzare.
      */
 
     public Iterable<Experience> getExperiences() {
@@ -99,7 +101,7 @@ public class SyncOutputData {
     }
 
     /**
-     * Metodo "getter" per ottenere l'insieme dei dati meteo da sincronizzare.
+     * Metodo getter per ottenere l'insieme dei dati meteo da sincronizzare.
      *
      * @return Restituisce l'insieme dei dati meteo da sincronizzare.
      */
@@ -109,7 +111,7 @@ public class SyncOutputData {
     }
 
     /**
-     * Metodo "getter" per ottenere l'insieme dei contatti di emergenza da sincronizzare.
+     * Metodo getter per ottenere l'insieme dei contatti di emergenza da sincronizzare.
      *
      * @return Restituisce l'insieme dei contatti di emergenza da sincronizzare.
      */
