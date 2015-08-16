@@ -33,15 +33,30 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * Classe rappresentante un'area rettangolare delimitata da coordinate geografiche.
  *
  * @use Contiene metodi per ottenere i due vertici da cui è delimitato il rettangolo. Viene utilizzata da numerose classi nel data model quando è necessario rappresentare una regione di mappa.
- *
+ * @field nw : Point Punto geografico sul vertice nord ovest dell'area rettangolare
+ * @field se : Point Punto geografico sul vertice sud est dell'area rettangolare
+ * @field points : Iterable<Point> Insieme dei vertici dell'area rettangolare
  * @author  Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0 
  */
 
 public class Rect {
 
+    /**
+     * Punto geografico sul vertice nord ovest dell'area rettangolare.
+     */
+
     private Point nw;
+    
+    /**
+     * Punto geografico sul vertice sud est dell'area rettangolare.
+     */
+
     private Point se;
+    
+    /**
+     * Insieme dei vertici dell'area rettangolare.
+     */
 
     private Iterable<Point> points;
 
