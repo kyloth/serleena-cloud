@@ -32,7 +32,9 @@ import com.kyloth.serleenacloud.datamodel.geometry.Rect;
  * disponibili in un'area di mappa.
  *
  * @use Viene utilizzata da DataRestController per creare JSON richiesto dall'applicazione android
- *
+ * @field boundingRect : Rect Oggetto rappresentante l'area geografica relativa al contatto di emergenza
+ * @field name : String Nome del contatto di emergenza
+ * @field number : String Numero per contattare il contatto di emergenza
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
@@ -72,7 +74,7 @@ public class EmergencyContact {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere l'area geografica relativa al contatto.
+     * Metodo getter che permette di ottenere l'area geografica relativa al contatto.
      *
      * @return Restituisce un oggetto di tipo Rect che rappresenta l'area geografica relativa al contatto.
      */

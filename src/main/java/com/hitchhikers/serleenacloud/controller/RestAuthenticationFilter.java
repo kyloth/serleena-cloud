@@ -49,7 +49,8 @@ import java.util.regex.Pattern;
  * Classe che si occupa di filtrare le richieste in arrivo assicurandosi che la richiesta contenga un token di autenticazione valido dove necessario.
  *
  * @use Ogni richiesta viene filtrata dal metodo doFilter, se la richiesta appartiene ad una classe di richieste definite nell'apposito file di configurazione come richiedente autenticazione, controlla che sia presente un token di autenticazione valido interagendo con AuthToken, rispondendo altrimenti alla richiesta con uno stato di errore.
- *
+ * @field ds : IDataSource Campo dati statico contenente un oggetto che permette di interfacciarsi con il database tramite DAO
+ * @field patterns : String[] Insieme statico di stringhe contenenti espressioni regolari che permettono di identificare le route che richiedono autenticazione
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
@@ -57,8 +58,15 @@ import java.util.regex.Pattern;
 @Component
 public class RestAuthenticationFilter extends GenericFilterBean {
 
+    /**
+     * Oggetto che permette di interfacciarsi con il database tramite oggetti DAO.
+     */
+
     static IDataSource ds = DataSourceFactory.getDataSource();
 
+    /**
+     * Insieme di stringhe rappresentanti espressioni regolari che permettono di identificare le route che richiedono autenticazione.
+     */
     static String[] patterns = new String[] {
         "/users/pair/?$",
         "/data.*",
