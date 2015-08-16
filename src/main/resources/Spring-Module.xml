@@ -9,25 +9,25 @@
 
   <bean name="JDBCdataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
     <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-    <property name="url" value="jdbc:mysql://127.0.0.1:3306/serleenabackend" />
-    <property name="username" value="serleenacloud" />
-    <property name="password" value="?58,@24=0ni5^Sv" />
+    <property name="url" value="jdbc:mysql://${db.server.host}:${db.server.port}/${db.server.db}" />
+    <property name="username" value="${db.server.username}" />
+    <property name="password" value="${db.server.password}" />
   </bean>
 
   <bean id="host" class="java.lang.String">
-    <constructor-arg value="smtp.gmail.com" />
+    <constructor-arg value="${mail.server.host}" />
   </bean>
 
   <bean id="username" class="java.lang.String">
-    <constructor-arg value="" />
+    <constructor-arg value="${mail.server.username}" />
   </bean>
 
   <bean id="password" class="java.lang.String">
-    <constructor-arg value="" />
+    <constructor-arg value="${mail.server.password}" />
   </bean>
 
   <bean id="port" class="java.lang.String">
-    <constructor-arg value="587" />
+    <constructor-arg value="${mail.server.port}" />
   </bean>
 
   <bean id="backgroundColor" class="java.lang.String">
