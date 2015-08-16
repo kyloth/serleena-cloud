@@ -68,10 +68,10 @@ public class TrackDaoIntegrationTest {
         tpl = ds.getTpl();
         String insertUser = "INSERT INTO Users (Email, Password, DeviceId) VALUES ('foo@bar.com', 'psw', 'Kyloth-1');";
         String insertExperience = "INSERT INTO Experiences (Id, Name, User, NWLongitude, NWLatitude, SELongitude, SELatitude) VALUES ('id1', 'Experience_1', 'foo@bar.com', 1, 10, 10, 1), ('id2','Experience_2', 'foo@bar.com', 1, 10, 10, 1);";
-        String insertExperienceTracks = "INSERT INTO ExperienceTracks (ExperienceId, TrackName) VALUES ('id1', 'Track_1'), ('id2', 'Track_2');";
-        String insertTracks = "INSERT INTO Tracks (Name) VALUES ('Track_1'), ('Track_2');";
-        String insertCheckPoints = "INSERT INTO Checkpoints (TrackName, Longitude, Latitude, Idx) VALUES ('Track_1', 1, 1, 0), ('Track_2', 2, 2, 0);";
-        String insertTelemetries = "INSERT INTO Telemetries (Id, TrackName) VALUES (0, 'Track_1'), (1, 'Track_2');";
+        String insertExperienceTracks = "INSERT INTO ExperienceTracks (ExperienceId, TrackId) VALUES ('id1', 'id1'), ('id2', 'id2');";
+        String insertTracks = "INSERT INTO Tracks (Id, Name) VALUES ('id1','Track_1'), ('id2', 'Track_2');";
+        String insertCheckPoints = "INSERT INTO Checkpoints (TrackId, Longitude, Latitude, Idx) VALUES ('id1', 1, 1, 0), ('id2', 2, 2, 0);";
+        String insertTelemetries = "INSERT INTO Telemetries (Id, TrackId) VALUES (0, 'id1'), (1, 'id2');";
         String insertTelEvents = "INSERT INTO TelemetryEvents (TelemetryId, Date) VALUES (0, '2015-01-01 00:00:01'), (1, '2015-01-01 00:00:01');";
         tpl.update(insertUser);
         tpl.update(insertExperience);
@@ -103,12 +103,12 @@ public class TrackDaoIntegrationTest {
         Date[] events = {
             new Date()
         };
-        Telemetry[] telemetries = {new Telemetry(events, "track")};
-        Track track = new Track("Track1", cp, telemetries);
+        Telemetry[] telemetries = {new Telemetry(events, "id3")};
+        Track track = new Track("Track3", "id3", cp, telemetries);
         td.persist(track);
-        String query = "SELECT Name FROM Tracks WHERE Name = 'Track1';";
+        String query = "SELECT Name FROM Tracks WHERE Id = 'id3';";
         String trackName = tpl.queryForObject(query, String.class);
-        assertTrue(trackName.equals("Track1"));
+        assertTrue(trackName.equals("Track3"));
     }
 
     /**

@@ -33,6 +33,7 @@ import com.kyloth.serleenacloud.persistence.ITelemetryDao;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.ResultSetExtractor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -79,15 +80,16 @@ public class TrackDao implements ITrackDao {
 
     public void persist(Track track) {
         String trackName = track.getName();
-        tpl.update("INSERT INTO Tracks(Name) VALUES(?)", new Object[] {trackName});
+        String trackId = track.getId();
+        tpl.update("INSERT INTO Tracks(Id, Name) VALUES(?, ?)", new Object[] {trackId, trackName});
 
         for (Telemetry t : track.getTelemetries())
-            tDao.persist(trackName, t);
+            tDao.persist(t);
 
         for (CheckPoint p : track.getCheckPoints())
-            tpl.update("INSERT INTO Checkpoints(TrackName, Longitude, Latitude, Idx) " +
+            tpl.update("INSERT INTO Checkpoints(TrackId, Longitude, Latitude, Idx) " +
                        "VALUES(?, ?, ?, ?)",
-                       new Object[] {trackName, p.getLongitude(), p.getLatitude(), p.getId()});
+                       new Object[] {trackId, p.getLongitude(), p.getLatitude(), p.getId()});
 
     }
 
@@ -99,12 +101,12 @@ public class TrackDao implements ITrackDao {
      */
 
     public Iterable<Track> findAll(String experienceId) {
-        return tpl.query("SELECT TrackName FROM ExperienceTracks WHERE ExperienceId = ?",
+        return tpl.query("SELECT TrackId FROM ExperienceTracks WHERE ExperienceId = ?",
                          new Object[] {experienceId},
         new RowMapper<Track>() {
             @Override
             public Track mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return find(rs.getString("TrackName"));
+                return find(rs.getString("TrackId"));
             }
         });
     }
@@ -116,11 +118,11 @@ public class TrackDao implements ITrackDao {
      */
 
     public Iterable<Track> findAll() {
-        return tpl.query("SELECT TrackName FROM ExperienceTracks",
+        return tpl.query("SELECT TrackId FROM ExperienceTracks",
         new RowMapper<Track>() {
             @Override
             public Track mapRow(ResultSet rs, int rowNum) throws SQLException {
-                return find(rs.getString("TrackName"));
+                return find(rs.getString("TrackId"));
             }
         });
     }
@@ -128,13 +130,13 @@ public class TrackDao implements ITrackDao {
     /**
      * Metodo che implementa ITrackDao.find(String).
      *
-     * @param name Nome del percorso da ottenere.
+     * @param id Id del percorso da ottenere.
      */
 
-    public Track find(String name) {
+    public Track find(String id) {
         Iterable<CheckPoint> checkpoints =
-            tpl.query("SELECT Idx, Longitude, Latitude FROM Checkpoints WHERE TrackName = ? ORDER BY Idx",
-                      new Object[] {name},
+            tpl.query("SELECT Idx, Longitude, Latitude FROM Checkpoints WHERE TrackId = ? ORDER BY Idx",
+                      new Object[] {id},
         new RowMapper<CheckPoint>() {
             @Override
             public CheckPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -144,7 +146,20 @@ public class TrackDao implements ITrackDao {
             }
         });
 
-        return new Track(name, checkpoints, tDao.findAll(name));
+        String name =  tpl.query("SELECT Name " +
+                                 "FROM Tracks " +
+                                 "WHERE Id = ?",
+                                 new Object[] { id },
+                                 new ResultSetExtractor<String>() {
+                                     @Override
+                                     public String extractData(ResultSet rs) throws SQLException {
+                                         if (!rs.first())
+                                             return null;
+                                         return rs.getString("Name");
+                                     }
+                                 });
+
+        return new Track(name, id, checkpoints, tDao.findAll(id));
 
     }
 }

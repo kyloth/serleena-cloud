@@ -155,7 +155,7 @@ public class DataRestController {
                 dataSource.experienceDao().persist(newE);
 
                 for (Telemetry t : input.getTelemetryData())
-                    dataSource.telemetryDao().persist(t.getTrack(), t);
+                    dataSource.telemetryDao().persist(t);
             }
         } catch (IOException e) {}
     }
