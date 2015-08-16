@@ -32,8 +32,8 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
  * Classe di utilità generale per il package controller.
@@ -51,16 +51,23 @@ public class Utils {
 
     private static JavaMailSenderImpl mailSender;
 
+    static ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
+    static String host = (String)context.getBean("host");
+    static String port = (String)context.getBean("port");
+    static String username = (String)context.getBean("username");
+    static String password = (String)context.getBean("password");
+
     static {
         mailSender = new JavaMailSenderImpl();
-        mailSender.setHost("localhost");
-        mailSender.setUsername("");
-        mailSender.setPassword("");
+        mailSender.setHost(host);
+        mailSender.setUsername(username);
+        mailSender.setPassword(password);
         Properties properties = new Properties();
         properties.setProperty("mail.smtp.auth", "true");
-        properties.setProperty("mail.smtp.socketFactory.port", "465");
+        properties.setProperty("mail.smtp.starttls.enable", "true");
+        properties.setProperty("mail.smtp.socketFactory.port", port);
         properties.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-        properties.setProperty("mail.smtp.port", "465");
+        properties.setProperty("mail.smtp.port", port);
         mailSender.setJavaMailProperties(properties);
     }
 
@@ -71,7 +78,7 @@ public class Utils {
      * @param subj Soggetto della email.
      * @param body Corpo del messaggio.
      */
-    
+
     public static void sendMail(String to, String subj, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
