@@ -30,7 +30,7 @@ import com.kyloth.serleenacloud.datamodel.business.Experience;
 /**
  * Interfaccia implementata da una classe che realizza la persistenza su database degli oggetti di tipo Experience.
  *
- * @use Contiene metodi per cercare e inserire Esperienze nella base di dati.
+ * @use Contiene metodi per cercare e inserire esperienze nella base di dati.
  *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
@@ -49,7 +49,7 @@ public interface IExperienceDao {
     /**
      * Restituisce tutte le esperienze relative all'utente corrente.
      *
-     * @return Restituisce la lista delle Esperienze relative all'utente.
+     * @return Restituisce la lista delle esperienze relative all'utente.
      */
 
     public Iterable<Experience> findAll();
@@ -58,7 +58,7 @@ public interface IExperienceDao {
      * Permette di ottenere una particolare esperienza.
      *
      * @param id Id dell'esperienza da ottenere.
-     * @return Restituisce l'Esperienza cercata, se presente.
+     * @return Restituisce l'esperienza cercata, se presente.
      */
 
     public Experience find(String id);

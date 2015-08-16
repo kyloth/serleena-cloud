@@ -28,7 +28,7 @@ package com.kyloth.serleenacloud.persistence;
 import com.kyloth.serleenacloud.datamodel.auth.TempToken;
 
 /**
- * Interfaccia implementata da una classe che realizza la persistenza su database degli oggetti di tipo TempoToken.
+ * Interfaccia implementata da una classe che realizza la persistenza su database degli oggetti di tipo TempToken.
  *
  * @use Contiene metodi per inserire un token temporaneo per un determinato dispositivo e ottenere l'id di questo dispositivo a partire dal token.
  *
