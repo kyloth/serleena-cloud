@@ -69,7 +69,7 @@ public class JDBCDataSource implements IDataSource {
      * Costruisce un nuovo JDBCDataSource per un particolare utente.
      *
      * @param tpl JdbcTemplate per la connessione al database.
-     * @param tpl user Utente per il quale si vuole creare il data source.
+     * @param user Utente per il quale si vuole creare il data source.
      */
 
     private JDBCDataSource(JdbcTemplate tpl, User user) {

@@ -94,8 +94,8 @@ public class TrackDao implements ITrackDao {
     /**
      * Metodo che implementa ITrackDao.findAll(String).
      *
-     * @param experienceName Nome dell'Esperienza per la quale si vogliono ottenere i percorsi.
-     * @return Restituisce la lista dei percorsi relativi all'Esperienza specificata.
+     * @param experienceName Nome dell'esperienza per la quale si vogliono ottenere i percorsi.
+     * @return Restituisce la lista dei percorsi relativi all'esperienza specificata.
      */
 
     public Iterable<Track> findAll(String experienceId) {
