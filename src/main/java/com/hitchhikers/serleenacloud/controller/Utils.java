@@ -38,11 +38,17 @@ import org.springframework.stereotype.Component;
 /**
  * Classe di utilità generale per il package controller.
  *
+ * @field mailSender : JavaMailSenderImpl Campo dati statico contenente un oggetto di utilità per l'invio di email
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
 
 public class Utils {
+    
+    /**
+     * Oggetto di utilità per l'inivio di email.
+     */
+
     private static JavaMailSenderImpl mailSender;
 
     static {

@@ -82,6 +82,10 @@ public class DataRestController {
 
     static ObjectMapper mapper = new ObjectMapper();
 
+    /**
+     * Metodo setter per il DataSource del controller.
+     */
+
     void setDataSource(IDataSource ds) {
         this.ds = ds;
     }
@@ -158,10 +162,10 @@ public class DataRestController {
 
     /**
      * Metodo che implementa la richiesta GET per ottenere la lista
-     * di Esperienze in lista di sincronizzazione.
+     * di esperienze in lista di sincronizzazione.
      *
      * @param authToken Token di riconoscimento.
-     * @return Restituisce la lista dei nomi delle Esperienze in lista di sincronizzazione.
+     * @return Restituisce la lista dei nomi delle esperienze in lista di sincronizzazione.
      */
 
     @RequestMapping(value= "/sync", method = RequestMethod.GET)
@@ -179,10 +183,10 @@ public class DataRestController {
     }
 
     /**
-     * Metodo che implementa la richiesta PUT per aggiungere Esperienze
+     * Metodo che implementa la richiesta PUT per aggiungere esperienze
      * alla lista di sincronizzazione.
      *
-     * @param body Mappa che contiene la lista delle Esperienze da sincronizzare in formato JSON.
+     * @param body Mappa che contiene la lista delle esperienze da sincronizzare in formato JSON.
      */
 
     @RequestMapping(value= "/sync", method = RequestMethod.PUT)
