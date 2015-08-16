@@ -65,6 +65,10 @@ public class UserRestController {
 
     static IDataSource ds = DataSourceFactory.getDataSource();
 
+    /**
+     * Metodo setter per il DataSource del controller.
+     */
+
     static void setDataSource(IDataSource ds) {
         UserRestController.ds = ds;
     }
@@ -87,6 +91,9 @@ public class UserRestController {
         return;
     }
     
+    /**
+     * Eccezione che comunica un errore di autenticazione.
+     */
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     class AuthFailException extends RuntimeException {}
