@@ -33,6 +33,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.UUID;
+
 /**
  * Classe che rappresenta un percorso.
  *
@@ -54,6 +56,12 @@ public class Track {
     private String name;
 
     /**
+     * L'id del percorso.
+     */
+
+    private String id;
+
+    /**
      * L'insieme dei checkpoint del percorso.
      */
 
@@ -69,6 +77,7 @@ public class Track {
      * Crea un nuovo Percorso inizializzandone i campi dati.
      *
      * @param name Il nome del percorso.
+     * @param id L'id del percorso.
      * @param checkpoints Insieme dei checkpoint del percorso.
      * @param telemetries Insieme dei tracciamenti relativi al percorso.
      */
@@ -76,11 +85,41 @@ public class Track {
     @JsonCreator
     @SuppressWarnings("unchecked")
     public Track(@JsonProperty("name") String name,
+                 @JsonProperty("id") String id,
                  @JsonProperty("checkPoints") Iterable<CheckPoint> checkpoints,
                  @JsonProperty("telemetries") Iterable<Telemetry> telemetries) {
         this.name = name;
+        this.id = id == null ? UUID.randomUUID().toString() : id;
         this.checkpoints = checkpoints;
         this.telemetries = telemetries != null ? telemetries : Collections.EMPTY_LIST;
+    }
+
+    /**
+     * Crea un nuovo percorso inizializzandone i campi dati.
+     *
+     * @param name Il nome del percorso.
+     * @param id L'id del percorso.
+     * @param checkpoints Array dei checkpoint del percorso.
+     * @param telemetries Array dei tracciamenti relativi al percorso.
+     */
+
+    public Track(String name, String id, CheckPoint[] checkpoints, Telemetry[] telemetries) {
+        this.name = name;
+        this.id = id == null ? UUID.randomUUID().toString() : id;
+        this.checkpoints = Arrays.asList(checkpoints);
+        this.telemetries = Arrays.asList(telemetries);
+    }
+
+    /**
+     * Crea un nuovo Percorso inizializzandone i campi dati.
+     *
+     * @param name Il nome del percorso.
+     * @param checkpoints Insieme dei checkpoint del percorso.
+     * @param telemetries Insieme dei tracciamenti relativi al percorso.
+     */
+
+    public Track(String name, Iterable<CheckPoint> checkpoints, Iterable<Telemetry> telemetries) {
+        this(name, null, checkpoints, telemetries);
     }
 
     /**
@@ -92,9 +131,7 @@ public class Track {
      */
 
     public Track(String name, CheckPoint[] checkpoints, Telemetry[] telemetries) {
-        this.name = name;
-        this.checkpoints = Arrays.asList(checkpoints);
-        this.telemetries = Arrays.asList(telemetries);
+        this(name, null, checkpoints, telemetries);
     }
 
     /**
@@ -141,4 +178,15 @@ public class Track {
                 best = telemetry;
         return best;
     }
+
+    /**
+     * Metodo getter che permette di ottenere l'id del percorso.
+     *
+     * @return Restituisce l'ud del percorso.
+     */
+
+    public String getId() {
+        return id;
+    }
+
 }

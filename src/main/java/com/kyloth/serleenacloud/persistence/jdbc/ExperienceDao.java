@@ -114,8 +114,8 @@ public class ExperienceDao implements IExperienceDao {
         for (Track t : experience.getTracks()) {
             tpl.update("DELETE FROM Tracks WHERE Name = ?", new Object[] {t.getName()});
             tDao.persist(t);
-            tpl.update("INSERT INTO ExperienceTracks(ExperienceId, TrackName) VALUES(?, ?)",
-                       new Object[] {id, t.getName()});
+            tpl.update("INSERT INTO ExperienceTracks(ExperienceId, TrackId) VALUES(?, ?)",
+                       new Object[] {id, t.getId()});
         }
 
         for (UserPoint p : experience.getUserPoints())
