@@ -146,8 +146,8 @@ public class ExperienceDao implements IExperienceDao {
     /**
      * Metodo che implementa IExperienceDao.find(String).
      *
-     * @param name Nome dell'Esperienza da ottenere.
-     * @return Restituisce l'Esperienza cercata, se presente.
+     * @param name Nome dell'esperienza da ottenere.
+     * @return Restituisce l'esperienza cercata, se presente.
      */
 
     public Experience find(String id) {
@@ -160,7 +160,7 @@ public class ExperienceDao implements IExperienceDao {
     /**
      * Metodo che implementa IExperienceDao.findAll().
      *
-     * @return Restituisce la lista delle Esperienze relative all'utente.
+     * @return Restituisce la lista delle esperienze relative all'utente.
      */
 
     public Iterable<Experience> findAll() {
