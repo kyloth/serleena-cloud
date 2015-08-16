@@ -56,11 +56,10 @@ public interface ITrackDao {
     public Track find(String name);
 
     /**
-     * Permette di ottenere una lista di percorsi per una determinata
-     * Esperienza.
+     * Permette di ottenere una lista di percorsi per una determinata esperienza.
      *
      * @param experienceId Id dell'Esperienza per la quale si vogliono ottenere i percorsi.
-     * @return Restituisce la lista dei percorsi relativi all'Esperienza specificata.
+     * @return Restituisce la lista dei percorsi relativi all'esperienza specificata.
      */
 
     public Iterable<Track> findAll(String experienceId);

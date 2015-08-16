@@ -33,7 +33,9 @@ import java.util.Arrays;
  * Classe che rappresenta un'entità di mappa di tipo lago.
  *
  * @use Viene utilizzata da Render.Renderer durante la creazione dei quadranti raster
- *
+ * @field points : Iterable<Point> Insieme dei punti che delimitano il perimetro dell'area poligonale del lago
+ * @field name : String Nome del lago
+ * 
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */

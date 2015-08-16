@@ -59,10 +59,11 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 /**
- * Controller REST per la gestione delle richieste CRUD riguardanti la gestione delle Esperienze.
+ * Controller REST per la gestione delle richieste CRUD riguardanti la gestione delle esperienze.
  *
- * @use Risponde alle richieste REST riguardanti le Esperienze, ritornando oggetti del model che Spring convertirà automaticamente in risposte JSON.
- *
+ * @use Risponde alle richieste REST riguardanti le esperienze, ritornando oggetti del model che Spring convertirà automaticamente in risposte JSON.
+ * @field ds : IDataSource Campo dati statico contenente un oggetto che permette di interfacciarsi con il database tramite oggetti DAO
+ * @field mapper : ObjectMapper Campo dati statico contenente un oggetto di utilità per la conversione tra oggetti java e costrutti json
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
@@ -70,9 +71,22 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/experiences")
 public class ExperienceRestController {
+    
+    /**
+     * Oggetto che permette di interfacciarsi con il database tramite oggetti DAO.
+     */
 
     static IDataSource ds = DataSourceFactory.getDataSource();
+    
+    /**
+     * Oggetto di utilità per la conversione tra oggetti java e costrutti json.
+     */
+
     static ObjectMapper mapper = new ObjectMapper();
+
+    /**
+     * Metodo setter per il DataSource del controller.
+     */
 
     static void setDataSource(IDataSource ds) {
         ExperienceRestController.ds = ds;
@@ -80,10 +94,10 @@ public class ExperienceRestController {
 
     /**
      * Implementa la richiesta GET per ottenere la lista dei nomi delle
-     * Esperienze di un utente.
+     * esperienze di un utente.
      *
      * @param authToken Token di riconoscimento.
-     * @return Restituisce la lista degli id e dei nomi delle Esperienze di un utente.
+     * @return Restituisce la lista degli id e dei nomi delle esperienze di un utente.
      */
 
     @RequestMapping(method = RequestMethod.GET)
@@ -102,7 +116,7 @@ public class ExperienceRestController {
 
     /**
      * Metodo che implementa la richiesta GET per ottenere
-     * un'Esperienza esistente.
+     * un'esperienza esistente.
      *
      * @param id id dell'Esperienza da ottenere..
      * @param authToken Token di riconoscimento.
@@ -121,9 +135,9 @@ public class ExperienceRestController {
 
     /**
      * Metodo che implementa la richiesta DELETE per cancellare
-     * un'Esperienza esistente.
+     * un'esperienza esistente.
      *
-     * @param id Nome dell'Esperienza da cancellare.
+     * @param id Nome dell'esperienza da cancellare.
      * @param authToken Token di riconoscimento.
      */
 
@@ -140,16 +154,16 @@ public class ExperienceRestController {
 
     /**
      * Metodo che implementa la richiesta POST per l'inserimento di
-     * una nuova Esperienza.
+     * una nuova esperienza.
      *
-     * @param name Nome della nuova Esperienza.
-     * @param pois Lista dei nomi dei Punti di Interesse in formato JSON.
-     * @param ups Lista dei nomi dei Punti Utente in formato JSON.
-     * @param tracks Lista dei Percorsi in formato JSON.
-     * @param from Punto che delimita la regione dell'Esperienza all'angolo nord ovest.
-     * @param to Punto che delimita la regione dell'Esperienza all'angolo sud-est.
+     * @param name Nome della nuova esperienza.
+     * @param pois Lista dei nomi dei punti di interesse in formato JSON.
+     * @param ups Lista dei nomi dei punti utente in formato JSON.
+     * @param tracks Lista dei percorsi in formato JSON.
+     * @param from Punto che delimita la regione dell'esperienza all'angolo nord ovest.
+     * @param to Punto che delimita la regione dell'esperienza all'angolo sud-est.
      * @param authToken Token di riconoscimento.
-     * @return Restituisce l'id dell'Esperienza create
+     * @return Restituisce l'id dell'esperienza creata
      */
 
     @RequestMapping(method = RequestMethod.POST)
@@ -184,9 +198,9 @@ public class ExperienceRestController {
 
     /**
      * Metodo che implementa la richiesta PUT per modificare una
-     * Esperienza esistente.
+     * esperienza esistente.
      *
-     * @param id id dell'Esperienza da aggiornare.
+     * @param id id dell'esperienza da aggiornare.
      * @param body Mappa contenente i dati necessari all'aggiornamento in formato JSON.
      * @param authToken Token di riconoscimento.
      */
@@ -217,12 +231,13 @@ public class ExperienceRestController {
     }
 
     /**
-     * Metodo che implementa la richiesta GET per ottenere un Percorso
-     * al suo nome e al nome dell'Esperienza relativa.
+     * Metodo che implementa la richiesta GET per ottenere un percorso
+     * al suo nome e al nome dell'esperienza relativa.
      *
-     * @param id Nome dell'Esperienza cui il Percorso è relativo.
-     * @param track_id Nome del Percorso da ottenere.
-     * @return Restituisce un oggetto Track rappresentante il Percorso richiesto.
+     * @param id Nome dell'esperienza cui il percorso è relativo.
+     * @param track_id Nome del percorso da ottenere.
+     * @param authToken Token di autenticazione
+     * @return Restituisce un oggetto Track rappresentante il percorso richiesto.
      */
 
     @RequestMapping(value= "/{id}/tracks/{track_id}", method = RequestMethod.GET)
@@ -241,6 +256,16 @@ public class ExperienceRestController {
         return null;
     }
 
+    /**
+     * Metodo che implementa la richiesta GET per ottenere la lista di
+     * tracciamenti relativi a un percorso.
+     *
+     * @param id Nome dell'esperienza cui il percorso è relativo.
+     * @param track_id Nome del percorso i cui tracciamenti si vogliono ottenere
+     * @param authToken Token di autenticazione
+     * @return Restituisce un insieme di tracciamenti relativi al percorso indicato
+     */
+
     @RequestMapping(value= "/{id}/tracks/{track_id}/telemetries", method = RequestMethod.GET)
     public Iterable<Telemetry> getTelemetriesList(@PathVariable("id") String id,
                                                   @PathVariable("track_id") String track_id,
@@ -248,6 +273,15 @@ public class ExperienceRestController {
         return get(id, track_id, authToken).getTelemetries();
     }
 
+    /**
+     * Metodo che implementa la richiesta GET per ottenere un particolare tracciamento.
+     *
+     * @param id Nome dell'esperienza cui il percorso è relativo.
+     * @param track_id Nome del percorso relativo al tracciamento cercato
+     * @param telemetry_id Nome del tracciamento che si vuole ottenere
+     * @param authToken Token di autenticazione
+     * @return Restituisce un oggetto Telemetry rappresentante il tracciamento richiesto
+     */
 
     @RequestMapping(value= "/{id}/tracks/{track_id}/telemetries/{telemetry_id}", method = RequestMethod.GET)
     public Telemetry getTelemetry(@PathVariable("id") String id,

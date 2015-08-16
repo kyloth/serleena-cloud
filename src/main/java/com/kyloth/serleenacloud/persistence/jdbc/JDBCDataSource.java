@@ -35,13 +35,24 @@ import javax.sql.DataSource;
 /**
  * Classe che concretizza IDataSource per database MySQL utilizzando JDBC.
  *
+ * @field tpl : JdbcTemplate Template JDBC per la connessione alla base di dati
+ * @field user : User Oggetto rappresentate l'utente i quali dati si vogliono manipolare
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
 
 public class JDBCDataSource implements IDataSource {
 
+    /**
+     * Template JDBC per la connessione alla base di dati.
+     */
+
     private JdbcTemplate tpl;
+    
+    /**
+     * Utente i quali dati si vogliono manipolare.
+     */
+
     private User user;
     
     /**
@@ -58,7 +69,7 @@ public class JDBCDataSource implements IDataSource {
      * Costruisce un nuovo JDBCDataSource per un particolare utente.
      *
      * @param tpl JdbcTemplate per la connessione al database.
-     * @param tpl user Utente per il quale si vuole creare il data source.
+     * @param user Utente per il quale si vuole creare il data source.
      */
 
     private JDBCDataSource(JdbcTemplate tpl, User user) {

@@ -32,7 +32,7 @@ import com.kyloth.serleenacloud.datamodel.geometry.Point;
  * Classe che rappresenta un'entità di mappa di tipo fiume.
  *
  * @use Viene utilizzata da Render.Renderer durante la creazione dei quadranti raster
- *
+ * @field name : String Nome del fiume
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */

@@ -37,11 +37,16 @@ import java.sql.SQLException;
 /**
  * Classe che concretizza IUserDao per database MySQL utilizzando JDBC.
  *
+ * @field tpl : JdbcTemplate Template JDBC per la connessione alla base di dati
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
 
 public class UserDao implements IUserDao {
+
+    /**
+     * Template JDBC per la connessione alla base di dati.
+     */
 
     private JdbcTemplate tpl;
 
@@ -78,6 +83,7 @@ public class UserDao implements IUserDao {
      * Metodo che implementa IUserDao.find(String).
      *
      * @param email Email dell'utente che si vuole ottenere.
+     * @return Restituisce un oggetto User rappresentante l'utente cercato, se presente.
      */
 
     public User find(final String email) {
@@ -96,6 +102,13 @@ public class UserDao implements IUserDao {
         });
 
     }
+    
+    /**
+     * Metodo che implementa IUserDao.findDeviceId(String).
+     *
+     * @param deviceId Id del dispositivo a partire dal quale si vuole trovare l'utente.
+     * @return Restituisce un oggetto User rappresentante l'utente cercato, se presente.
+     */
 
     public User findDeviceId(final String deviceId) {
         return tpl.query("SELECT Email, Password " +
