@@ -3,6 +3,10 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 			   http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="location" value="file:configuration.properties" />
+  </bean>
+
   <bean id="dataSource" class="com.kyloth.serleenacloud.persistence.jdbc.JDBCDataSource">
     <constructor-arg ref="JDBCdataSource" />
   </bean>
