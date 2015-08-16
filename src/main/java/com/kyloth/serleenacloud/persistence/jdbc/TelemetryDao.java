@@ -70,17 +70,17 @@ public class TelemetryDao implements ITelemetryDao {
     /**
      * Metodo che implementa ITelemetryDao.persist(String, Telemetry).
      *
-     * @param trackName Nome del percorso cui è relativo il tracciamento.
      * @param t Tracciamento da inserire.
      */
 
-    public void persist(final String trackName, Telemetry t) {
+    public void persist(Telemetry t) {
+        final String trackId = t.getTrack();
         KeyHolder keyHolder = new GeneratedKeyHolder();
         tpl.update(new PreparedStatementCreator() {
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                PreparedStatement ps = connection.prepareStatement("INSERT INTO Telemetries(TrackName) VALUES (?)",
+                PreparedStatement ps = connection.prepareStatement("INSERT INTO Telemetries(TrackId) VALUES (?)",
                                        new String[] {"Id"});
-                ps.setString(1, trackName);
+                ps.setString(1, trackId);
                 return ps;
             }
         },
@@ -97,13 +97,13 @@ public class TelemetryDao implements ITelemetryDao {
     /**
      * Metodo che implementa ITelemetryDao.findAll(String).
      *
-     * @param trackName Nome del percorso per il quale si vuole ottenere la lista di tracciamenti.
+     * @param trackId Id del percorso per il quale si vuole ottenere la lista di tracciamenti.
      * @return Restituisce la lista dei tracciamenti per il percorso specificato.
      */
 
-    public Iterable<Telemetry> findAll(final String trackName) {
-        return tpl.query("SELECT Id FROM Telemetries WHERE TrackName = ?",
-                         new Object[] {trackName},
+    public Iterable<Telemetry> findAll(final String trackId) {
+        return tpl.query("SELECT Id FROM Telemetries WHERE TrackId = ?",
+                         new Object[] {trackId},
                          new RowMapper<Telemetry>() {
                              @Override
                              public Telemetry mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -120,7 +120,7 @@ public class TelemetryDao implements ITelemetryDao {
                                                        return rs.getTimestamp("Date");
                                                    }
                                                });
-                                 return new Telemetry(events, trackName, id);
+                                 return new Telemetry(events, trackId, id);
                              }
                          });
     }

@@ -41,19 +41,19 @@ public interface ITrackDao {
     /**
      * Permette di inserire un nuovo percorso nella base di dati.
      *
-     * @param e Il percorso da inserire.
+     * @param t Il percorso da inserire.
      */
 
-    public void persist(Track e);
+    public void persist(Track t);
 
     /**
      * Permette di ottenere un percorso presente nella base di dati a partire
-     * dal nome.
+     * dal suo id.
      *
-     * @param name Nome del percorso da ottenere.
+     * @param id Id del percorso da ottenere.
      */
 
-    public Track find(String name);
+    public Track find(String id);
 
     /**
      * Permette di ottenere una lista di percorsi per una determinata esperienza.

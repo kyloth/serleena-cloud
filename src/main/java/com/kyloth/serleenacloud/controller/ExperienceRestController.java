@@ -232,10 +232,10 @@ public class ExperienceRestController {
 
     /**
      * Metodo che implementa la richiesta GET per ottenere un percorso
-     * al suo nome e al nome dell'esperienza relativa.
+     * al suo id e al'id dell'esperienza relativa.
      *
-     * @param id Nome dell'esperienza cui il percorso è relativo.
-     * @param track_id Nome del percorso da ottenere.
+     * @param id Id dell'esperienza cui il percorso è relativo.
+     * @param track_id  Id del percorso da ottenere.
      * @param authToken Token di autenticazione
      * @return Restituisce un oggetto Track rappresentante il percorso richiesto.
      */
@@ -249,19 +249,15 @@ public class ExperienceRestController {
         User user = ds.userDao().find(token.getEmail());
         IDataSource dataSource = ds.forUser(user);
 
-        for(Track t : dataSource.trackDao().findAll(id))
-            if (t.getName().equals(track_id))
-                return t;
-
-        return null;
+        return dataSource.trackDao().find(track_id);
     }
 
     /**
      * Metodo che implementa la richiesta GET per ottenere la lista di
      * tracciamenti relativi a un percorso.
      *
-     * @param id Nome dell'esperienza cui il percorso è relativo.
-     * @param track_id Nome del percorso i cui tracciamenti si vogliono ottenere
+     * @param id Id dell'esperienza cui il percorso è relativo.
+     * @param track_id Id del percorso i cui tracciamenti si vogliono ottenere
      * @param authToken Token di autenticazione
      * @return Restituisce un insieme di tracciamenti relativi al percorso indicato
      */
@@ -276,9 +272,9 @@ public class ExperienceRestController {
     /**
      * Metodo che implementa la richiesta GET per ottenere un particolare tracciamento.
      *
-     * @param id Nome dell'esperienza cui il percorso è relativo.
-     * @param track_id Nome del percorso relativo al tracciamento cercato
-     * @param telemetry_id Nome del tracciamento che si vuole ottenere
+     * @param id Id dell'esperienza cui il percorso è relativo.
+     * @param track_id Id del percorso relativo al tracciamento cercato
+     * @param telemetry_id Id del tracciamento che si vuole ottenere
      * @param authToken Token di autenticazione
      * @return Restituisce un oggetto Telemetry rappresentante il tracciamento richiesto
      */

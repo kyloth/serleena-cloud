@@ -138,8 +138,9 @@ public class ControllerIntegrationTest {
         CheckPoint check_point_2 = new CheckPoint(3, 3, 1);
         Date event_1 = new Date();
         Telemetry telemetry_1 = new Telemetry(Arrays.asList(new Date[] {event_1}),
-                                              "Track_1");
+                                              "id1");
         Track track_1 = new Track("Track_1",
+                                  "id1",
                                   new CheckPoint[] {check_point_1, check_point_2},
                                   new Telemetry[] {telemetry_1});
         UserPoint user_point_1 = new UserPoint(4, 4, "UP1");
@@ -183,7 +184,7 @@ public class ControllerIntegrationTest {
                          ow.writeValueAsString(from),
                          ow.writeValueAsString(to),
                          authToken);
-        Track track = erc.get(eid, "Track_1", authToken);
+        Track track = erc.get(eid, "id1", authToken);
         assertTrue(track.getName().equals("Track_1"));
 
         /**
@@ -207,7 +208,7 @@ public class ControllerIntegrationTest {
         assertTrue(i_sod_emergency.next().getName().equals("Emergency_1"));
         Date event_2 = new Date();
         Telemetry telemetry_2 = new Telemetry(Arrays.asList(new Date[] {event_2}),
-                                              "Track_1");
+                                              "id1");
         UserPoint user_point_3 = new UserPoint(1.5, 1.5, "UP3");
         SyncInputData sid = new SyncInputData(eid,
                                               new UserPoint[] {user_point_3},
