@@ -134,7 +134,7 @@ public class DataRestController {
      */
 
     @RequestMapping(method = RequestMethod.POST)
-    public void POST(@RequestParam("data") String id,
+    public void post(@RequestParam("data") String id,
                      @RequestHeader("X-AuthToken") String authToken) {
 
         AuthToken token = new AuthToken(authToken);
