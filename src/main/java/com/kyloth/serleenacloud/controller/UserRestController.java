@@ -142,7 +142,7 @@ public class UserRestController {
         if (deviceId == null)
             throw new PairingFailedException();
 
-        ds.userDao().persist(new User(u.getEmail(), u.getPassword(), ));
+        ds.userDao().persist(new User(u.getEmail(), u.getPassword(), deviceId));
     }
 
     /**
