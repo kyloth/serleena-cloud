@@ -34,16 +34,32 @@ import java.util.Date;
  * temperatura di un'area di mappa in un certo periodo di tempo.
  *
  * @use Viene utilizzata da DataRestController per creare JSON richiesto dall'applicazione android
- *
+ * @field boundingRect : Rect Oggetto rappresentante l'area geografica relativa alla previsione meteo
+ * @field time : Date Data associata alla previsione meteo
+ * @field morning : Forecast Previsione associata la mattino
+ * @field afternoon : Forecast Previsione associata al pomeriggio
+ * @field night : Forecast Previsione associata alla notte
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
 
 public class WeatherForecast {
+    
+    /**
+     * Enumerazione che rappresenta le diverse condizioni meteo possibili.
+     */
 
     public static enum WeatherCondition {
         SUNNY, CLOUDY, RAINY, STORMY, SNOWY
     }
+    
+    /**
+     * Classe che rappresenta una condizione meteo nei suoi aspetti di
+     * temperatura e tempo atmosferico. 
+     * @use Viene associata da WeatherForecast a diversi momenti della gioranta (mattina, pomeriggio, notte).
+     * @field forecast : WeatherCondition Rappresenta la condizione meteo prevista
+     * @field temperature : double Rappresenta la temperatura prevista
+     */
 
     public static class Forecast {
 

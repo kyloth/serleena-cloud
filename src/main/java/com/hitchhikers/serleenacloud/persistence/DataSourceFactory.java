@@ -36,6 +36,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 
 public class DataSourceFactory {
+    
+    /**
+     * Restituisce una classe factory per la creazione di oggetti DAO.
+     *
+     * @return Restituisce un IDataSource per ottenere oggetti DAO.
+     */
+
     public static IDataSource getDataSource() {
         ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
         return (IDataSource) context.getBean("dataSource");

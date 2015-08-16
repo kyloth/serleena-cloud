@@ -30,6 +30,8 @@ package com.kyloth.serleenacloud.datamodel.auth;
  *
  * @use Espone metodi con i quali è possibile verificare se il token autentica un utente, utilizzato dalla classe AbstractAuthenticationProcessingFilter
  *
+ * @field email : String Indirizzo email dell'utente
+ * @field token : String Token associato all'utente
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
@@ -72,7 +74,7 @@ public class AuthToken {
     }
 
     /**
-     * Metodo "getter" per ottenere il token.
+     * Metodo getter per ottenere il token.
      *
      * @return Il token di autenticazione.
      */
@@ -94,9 +96,9 @@ public class AuthToken {
 
 
     /**
-     * Metodo "getter" per ottenere l'email.
+     * Metodo getter per ottenere l'email.
      *
-     * @return L'email associata al token..
+     * @return L'email associata al token.
      */
 
     public String getEmail() {

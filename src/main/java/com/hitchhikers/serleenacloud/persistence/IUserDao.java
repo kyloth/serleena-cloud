@@ -50,8 +50,17 @@ public interface IUserDao {
      * Permette di ottenere un utente a partire dalla sua email.
      *
      * @param email Email dell'utente che si vuole ottenere.
+     * @return Restituisce l'utente cercato, se presente.
      */
 
     public User find(String email);
+    
+    /**
+     * Permette di ottenere un utente a partire dall'id di un dispositivo.
+     *
+     * @param deviceId L'id del dispositivo a partire dal quale si vuole cercare l'utente.
+     * @return Restituisce l'utente cercato, se presente.
+     */
+
     public User findDeviceId(String deviceId);
 }

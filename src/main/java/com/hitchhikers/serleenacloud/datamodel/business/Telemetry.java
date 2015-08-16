@@ -35,7 +35,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Classe che rappresenta informazioni di Tracciamento.
  *
  * @use Viene utilizzata da DataRestController e ExperienceRestController per creare o elaborare il JSON fornito o richiesto da frontend e applicazione android
- *
+ * @field events : Iterable<Date> Insieme dei timestamp degli eventi associati al tracciamento
+ * @field track : String Nome del percorso a cui è associato il tracciamento
+ * @field id : String Identificativo univoco per il tracciamento
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
@@ -43,19 +45,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Telemetry {
 
     /**
-     * Insieme degli eventi associati al Tracciamento.
+     * Insieme dei timestamp degli eventi associati al tracciamento.
      */
 
     Iterable<Date> events;
 
     /**
-     * Traccia a cui è associato il Tracciamento.
+     * Percorso a cui è associato il tracciamento.
      */
 
     String track;
 
     /**
-     * Identificativo del Tracciamento.
+     * Identificativo del tracciamento.
      */
 
     String id;
@@ -63,8 +65,8 @@ public class Telemetry {
     /**
      * Crea un nuovo oggetto Telemetry inizializzandone i campi dati.
      *
-     * @param events Insieme degli eventi associati al Tracciamento.
-     * @param track Traccia a cui è associato il Tracciamento.
+     * @param events Insieme dei timestamp degli eventi associati al tracciamento.
+     * @param track percorso a cui è associato il tracciamento.
      */
 
     public Telemetry(Iterable<Date> events, String track) {
@@ -75,9 +77,9 @@ public class Telemetry {
     /**
      * Crea un nuovo oggetto Telemetry inizializzandone i campi dati.
      *
-     * @param events Insieme degli eventi associati al Tracciamento.
-     * @param track Traccia a cui è associato il Tracciamento.
-     * @param track Identificativo del Tracciamento.
+     * @param events Insieme dei timestamp degli eventi associati al tracciamento.
+     * @param track percorso a cui è associato il tracciamento.
+     * @param track Identificativo del tracciamento.
      */
 
     public Telemetry(Iterable<Date> events, String track, String id) {
@@ -90,8 +92,8 @@ public class Telemetry {
     /**
      * Crea un nuovo oggetto Telemetry inizializzandone i campi dati.
      *
-     * @param events Array degli eventi associati al Tracciamento.
-     * @param track Traccia a cui è associato il Tracciamento.
+     * @param events Array dei timestamp degli eventi associati al tracciamento.
+     * @param track Percorso a cui è associato il tracciamento.
      */
 
     @JsonCreator
@@ -102,9 +104,9 @@ public class Telemetry {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere l'insieme degli eventi associati al Tracciamento.
+     * Metodo "getter" che permette di ottenere l'insieme dei timestamp degli eventi associati al tracciamento.
      *
-     * @return Restituisce l'insieme degli eventi associati al Tracciamento.
+     * @return Restituisce l'insieme dei timestamp degli eventi associati al tracciamento.
      */
 
     public Iterable<Date> getEvents() {
@@ -112,9 +114,9 @@ public class Telemetry {
     }
 
     /**
-     * Metodo getter che permette di ottenere la traccia a cui è associato il tracciamento
+     * Metodo getter che permette di ottenere il percorso a cui è associato il tracciamento
      *
-     * @return Restituisce la traccia a cui è associato il Tracciamento.
+     * @return Restituisce il percorso a cui è associato il tracciamento.
      */
 
     public String getTrack() {
@@ -122,9 +124,9 @@ public class Telemetry {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere l'identificativo del Tracciamento
+     * Metodo getter che permette di ottenere l'identificativo del tracciamento
      *
-     * @return Restituisce l'identificativo del Tracciamento
+     * @return Restituisce l'identificativo del tracciamento
      */
 
     public String getId() {
@@ -134,7 +136,7 @@ public class Telemetry {
     /**
      * Confronta due oggetti Telemetry sulla base del tempo totale registrato.
      *
-     * @param telemetry Il Tracciamento contro il quale effettuare il confronto.
+     * @param telemetry Il tracciamento contro il quale effettuare il confronto.
      * @return Restituisce 0 se i due oggetti hanno lo stesso tempo totale registrato, 1 se l'oggetto su cui è invocato il metodo ha tempo totale maggiore, -1 altrimenti.
      */
 
@@ -150,9 +152,9 @@ public class Telemetry {
     }
 
     /**
-     * Calcola il tempo totale registrato per un dato Tracciamento, in particolare tale durata viene calcolata in base ai timestamp degli eventi di tipo CHECKPOINT.
+     * Calcola il tempo totale registrato per un dato tracciamento.
      *
-     * @param telemetry Il Tracciamento di cui calcolare il tempo totale.
+     * @param telemetry Il tracciamento di cui calcolare il tempo totale.
      * @return Restituisce il tempo totale registrato.
      */
 

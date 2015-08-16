@@ -40,13 +40,24 @@ import java.sql.SQLException;
 /**
  * Classe che concretizza ITrackDao per database MySQL utilizzando JDBC.
  *
+ * @field tpl : JdbcTemplate Template JDBC per la connessione alla base di dati
+ * @field tDao : ITelemetryDao DAO per oggetti di tipo Telemetry
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
 
 public class TrackDao implements ITrackDao {
 
+    /**
+     * Template JDBC per la connessione alla base di dati.
+     */
+
     private JdbcTemplate tpl;
+
+    /**
+     * DAO per oggetti di tipo Telemetry.
+     */
+
     private ITelemetryDao tDao;
 
     /**
@@ -83,8 +94,8 @@ public class TrackDao implements ITrackDao {
     /**
      * Metodo che implementa ITrackDao.findAll(String).
      *
-     * @param experienceName Nome dell'Esperienza per la quale si vogliono ottenere i percorsi.
-     * @return Restituisce la lista dei percorsi relativi all'Esperienza specificata.
+     * @param experienceName Nome dell'esperienza per la quale si vogliono ottenere i percorsi.
+     * @return Restituisce la lista dei percorsi relativi all'esperienza specificata.
      */
 
     public Iterable<Track> findAll(String experienceId) {

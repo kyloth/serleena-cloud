@@ -34,10 +34,15 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import java.util.Arrays;
 
 /**
- * Classe che rappresenta un'Esperienza.
+ * Classe che rappresenta un'esperienza.
  *
  * @use Viene utilizzata da DataRestController e ExperienceRestController per creare o elaborare il JSON fornito o richiesto da frontend e applicazione android. Utilizza Render.Renderer per creare in modo lazy i quadranti raster.
- *
+ * @field tracks : Iterable<Track> Insieme dei percorsi relativi all'esperienza
+ * @field userPoints : Iterable<UserPoint> Insieme dei punti utente relativi all'esperienza
+ * @field pois : Iterable<PointOfInterest> Insieme dei punti di interesse relativi all'esperienza
+ * @field rect : Rect Oggetto rappresentante l'area geografica relativa all'esperienza
+ * @field name : String Nome dell'esperienza
+ * @field id : String Id unico per l'esperienza
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
@@ -45,37 +50,37 @@ import java.util.Arrays;
 public class Experience {
 
     /**
-     * Insieme dei Percorsi relativi all'Esperienza.
+     * Insieme dei percorsi relativi all'esperienza.
      */
 
     private Iterable<Track> tracks;
 
     /**
-     * Insieme dei Punti Utente relativi all'Esperienza.
+     * Insieme dei punti utente relativi all'esperienza.
      */
 
     private Iterable<UserPoint> userPoints;
 
     /**
-     * Insieme dei Punti di Interesse relativi all'Esperienza.
+     * Insieme dei punti di interesse relativi all'esperienza.
      */
 
     private Iterable<PointOfInterest> pois;
 
     /**
-     * Rappresenta l'area geografica in cui è situata l'Esperienza.
+     * Rappresenta l'area geografica in cui è situata l'esperienza.
      */
 
     private Rect rect;
 
     /**
-     * Nome dell'Esperienza.
+     * Nome dell'esperienza.
      */
 
     private String name;
 
     /**
-     * Id dell'Esperienza.
+     * Id dell'esperienza.
      */
 
     private String id;
@@ -83,12 +88,12 @@ public class Experience {
     /**
      * Crea un oggetto Experience inizializzandone i campi dati.
      *
-     * @param name Il nome dell'Esperienza.
-     * @param id L'id dell'Esperienza.
-     * @param rect L'area geografica in cui è situata l'Esperienza.
-     * @param tracks L'insieme dei Percorsi relativi all'Esperienza.
-     * @param userPoints L'insieme dei Punti Utente relativi all'Esperienza.
-     * @param pois L'insieme dei Punti di Interesse relativi all'Esperienza.
+     * @param name Il nome dell'esperienza.
+     * @param id L'id dell'esperienza.
+     * @param rect L'area geografica in cui è situata l'esperienza.
+     * @param tracks L'insieme dei percorsi relativi all'esperienza.
+     * @param userPoints L'insieme dei punti utente relativi all'esperienza.
+     * @param pois L'insieme dei punti di interesse relativi all'esperienza.
      */
 
     public Experience(String name, String id, Rect rect, Iterable<Track> tracks, Iterable<UserPoint> userPoints, Iterable<PointOfInterest> pois) {
@@ -103,12 +108,12 @@ public class Experience {
     /**
      * Crea un oggetto Experience inizializzandone i campi dati.
      *
-     * @param name Il nome dell'Esperienza.
-     * @param id L'id dell'Esperienza.
-     * @param rect L'area geografica in cui è situata l'Esperienza.
-     * @param tracks L'array dei Percorsi relativi all'Esperienza.
-     * @param userPoints L'array dei Punti Utente relativi all'Esperienza.
-     * @param pois L'array dei Punti di Interesse relativi all'Esperienza.
+     * @param name Il nome dell'esperienza.
+     * @param id L'id dell'esperienza.
+     * @param rect L'area geografica in cui è situata l'esperienza.
+     * @param tracks L'array dei percorsi relativi all'esperienza.
+     * @param userPoints L'array dei punti utente relativi all'esperienza.
+     * @param pois L'array dei punti di interesse relativi all'esperienza.
      */
 
     public Experience(String name, String id, Rect rect, Track[] tracks, UserPoint[] userPoints, PointOfInterest[] pois) {
@@ -121,9 +126,9 @@ public class Experience {
     }
 
     /**
-     * Metodo getter che permette di ottenere l'insieme dei Percorsi relativi all'Esperienza.
+     * Metodo getter che permette di ottenere l'insieme dei percorsi relativi all'esperienza.
      *
-     * @return Restituisce l'insieme dei percorsi relativi all'Esperienza.
+     * @return Restituisce l'insieme dei percorsi relativi all'esperienza.
      */
 
     public Iterable<Track> getTracks() {
@@ -131,9 +136,9 @@ public class Experience {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere l'insieme dei Punti Utente relativi all'Esperienza.
+     * Metodo getter che permette di ottenere l'insieme dei punti utente relativi all'esperienza.
      *
-     * @return Restituisce l'insieme dei Punti Utente relativi all'Esperienza.
+     * @return Restituisce l'insieme dei punti utente relativi all'esperienza.
      */
 
     @JsonGetter("user_points")
@@ -142,9 +147,9 @@ public class Experience {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere un oggetto di tipo IRect che rappresenta l'area geografica relativa all'Esperienza.
+     * Metodo getter che permette di ottenere un oggetto di tipo IRect che rappresenta l'area geografica relativa all'esperienza.
      *
-     * @return Restituisce un Rect che rappresenta l'area geografica dell'Esperienza.
+     * @return Restituisce un Rect che rappresenta l'area geografica dell'esperienza.
      */
 
     public Rect getBoundingRect() {
@@ -152,9 +157,9 @@ public class Experience {
     }
 
     /**
-     * Metodo getter che permette di ottenere il nome dell'Esperienza.
+     * Metodo getter che permette di ottenere il nome dell'esperienza.
      *
-     * @return Restituisce il nome dell'Esperienza.
+     * @return Restituisce il nome dell'esperienza.
      */
 
     public String getName() {
@@ -162,9 +167,9 @@ public class Experience {
     }
 
     /**
-     * Metodo getter che permette di ottenere l'id dell'Esperienza.
+     * Metodo getter che permette di ottenere l'id dell'esperienza.
      *
-     * @return Restituisce l'ud dell'Esperienza.
+     * @return Restituisce l'ud dell'esperienza.
      */
 
     public String getId() {
@@ -172,9 +177,9 @@ public class Experience {
     }
 
     /**
-     * Metodo getter che permette di ottenere l'insieme dei Punti di Interesse dell'Esperienza.
+     * Metodo getter che permette di ottenere l'insieme dei punti di interesse dell'esperienza.
      *
-     * @return Restituisce l'insieme dei Punti di Interesse dell'Esperienza.
+     * @return Restituisce l'insieme dei punti di interesse dell'esperienza.
      */
 
     @JsonGetter("points_of_interest")
@@ -184,9 +189,9 @@ public class Experience {
 
     /**
      * Metodo getter che permette di ottenere l'insieme dei quadranti raster
-     * associati all'Esperienza.
+     * associati all'esperienza.
      *
-     * @return Restituisce l'insieme dei quadranti raster associati all'Esperienza.
+     * @return Restituisce l'insieme dei quadranti raster associati all'esperienza.
      */
 
     public Iterable<RasterQuadrant> getRasterData() {
