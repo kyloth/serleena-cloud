@@ -65,7 +65,7 @@ public class TelemetryDaoIntegrationTest {
         context = new ClassPathXmlApplicationContext("Spring-ModuleTest.xml");
         ds = (JDBCDataSource) context.getBean("dataSource");
         tpl = ds.getTpl();
-        String insertTracks = "INSERT INTO Tracks (Name) VALUES ('Track1'), ('Track2');";
+        String insertTracks = "INSERT INTO Tracks (Id,Name) VALUES ('id1','Track1'), ('id2','Track2');";
         tpl.update(insertTracks);
         td = ds.telemetryDao();
     }
@@ -105,14 +105,14 @@ public class TelemetryDaoIntegrationTest {
             new Date(),
             new Date()
         };
-        Telemetry t1 = new Telemetry(events_1, "track");
-        Telemetry t2 = new Telemetry(events_2, "track");
-        Telemetry t3 = new Telemetry(events_3, "track");
-        td.persist("Track1", t1);
-        td.persist("Track1", t2);
-        td.persist("Track2", t3);
-        Iterable<Telemetry> telemetries_1 = td.findAll("Track1");
-        Iterable<Telemetry> telemetries_2 = td.findAll("Track2");
+        Telemetry t1 = new Telemetry(events_1, "id1");
+        Telemetry t2 = new Telemetry(events_2, "id1");
+        Telemetry t3 = new Telemetry(events_3, "id2");
+        td.persist(t1);
+        td.persist(t2);
+        td.persist(t3);
+        Iterable<Telemetry> telemetries_1 = td.findAll("id1");
+        Iterable<Telemetry> telemetries_2 = td.findAll("id2");
         Iterable<Telemetry> telemetries_3 = td.findAll("FalseTrack");
         Iterator<Telemetry> i_t_1 = telemetries_1.iterator();
         Iterator<Telemetry> i_t_2 = telemetries_2.iterator();

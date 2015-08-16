@@ -37,22 +37,21 @@ import com.kyloth.serleenacloud.datamodel.business.Telemetry;
  */
 
 public interface ITelemetryDao {
-    
+
     /**
      * Permette di inserire un nuovo tracciamento nella base di dati.
      *
-     * @param trackName Nome del percorso cui è relativo il tracciamento.
      * @param t Tracciamento da inserire.
      */
 
-    public void persist(String trackName, Telemetry t);
-    
+    public void persist(Telemetry t);
+
     /**
      * Permette di ottenere tutti i tracciamenti per un certo percorso.
      *
-     * @param trackName Nome del percorso per il quale si vuole ottenere la lista di tracciamenti.
+     * @param trackId Id del percorso per il quale si vuole ottenere la lista di tracciamenti.
      * @return Restituisce la lista dei tracciamenti per il percorso specificato.
      */
 
-    public Iterable<Telemetry> findAll(String trackName);
+    public Iterable<Telemetry> findAll(String trackId);
 }
