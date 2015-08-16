@@ -74,7 +74,7 @@ public class EmergencyContact {
     }
 
     /**
-     * Metodo "getter" che permette di ottenere l'area geografica relativa al contatto.
+     * Metodo getter che permette di ottenere l'area geografica relativa al contatto.
      *
      * @return Restituisce un oggetto di tipo Rect che rappresenta l'area geografica relativa al contatto.
      */

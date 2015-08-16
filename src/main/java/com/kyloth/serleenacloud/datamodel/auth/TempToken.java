@@ -91,6 +91,12 @@ public class TempToken {
     public String getDeviceId() {
         return deviceId;
     }
+    
+    /**
+     * Metodo getter per ottenere la data di scadenza di validità del token.
+     *
+     * @return Restituisce la data di scadenza del token.
+     */
 
     public Date getDate() {
         return date;
