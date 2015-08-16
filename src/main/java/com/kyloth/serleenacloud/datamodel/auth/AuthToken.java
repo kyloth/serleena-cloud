@@ -74,7 +74,7 @@ public class AuthToken {
     }
 
     /**
-     * Metodo "getter" per ottenere il token.
+     * Metodo getter per ottenere il token.
      *
      * @return Il token di autenticazione.
      */
@@ -96,7 +96,7 @@ public class AuthToken {
 
 
     /**
-     * Metodo "getter" per ottenere l'email.
+     * Metodo getter per ottenere l'email.
      *
      * @return L'email associata al token.
      */
