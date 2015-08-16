@@ -82,7 +82,7 @@ public class SyncListDao implements ISyncListDao {
     /**
      * Metodo che implementa ISyncListDao.persist(Iterable<Experience>).
      *
-     * @param es L'Esperienza da inserire nella lista.
+     * @param es L'esperienza da inserire nella lista.
      */
 
     public void persist(Iterable<Experience> es) {
@@ -96,7 +96,7 @@ public class SyncListDao implements ISyncListDao {
     /**
      * Metodo che implementa ISyncListDao.findAll().
      *
-     * @return Restituisce la lista delle Esperienze in lista di sincronizzazione.
+     * @return Restituisce la lista delle esperienze in lista di sincronizzazione.
      */
 
     public Iterable<Experience> findAll() {
