@@ -78,8 +78,8 @@ public class Telemetry {
      * Crea un nuovo oggetto Telemetry inizializzandone i campi dati.
      *
      * @param events Insieme dei timestamp degli eventi associati al tracciamento.
-     * @param track percorso a cui è associato il tracciamento.
-     * @param track Identificativo del tracciamento.
+     * @param track Percorso a cui è associato il tracciamento.
+     * @param id Identificativo del tracciamento.
      */
 
     public Telemetry(Iterable<Date> events, String track, String id) {
