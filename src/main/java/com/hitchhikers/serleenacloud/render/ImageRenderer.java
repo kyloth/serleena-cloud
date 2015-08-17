@@ -48,24 +48,107 @@ import java.net.URL;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * Classe che si occupa del rendering effettivo degli elementi di un'Esperienza in un'immagine
+ *
+ * @use Prendendo in input un oggetto Renderer,
+ * @field factor : int Campo dati statico rappresentante il fattore moltiplicativo per la conversione da gradi a pixel
+ * @field trackLineColor : Color Campo dati statico rappresentante il colore da utilizzare per i percorsi
+ * @field checkPointColor : Color Campo dati statico rappresentante il colore da utilizzare per i checkpoint
+ * @field lakeColor : Color Campo dati statico rappresentante il colore da utilizzare per i laghi
+ * @field pathColor : Color Campo dati statico rappresentante il colore da utilizzare per i sentieri
+ * @field riverColor : Color Campo dati statico rappresentante il colore da utilizzare per i fiumi
+ * @field backgroundColor : Color Campo dati statico rappresentante il colore da utilizzare per lo sfondo
+ * @field elevationColor : Color Campo dati statico rappresentante il colore base per i quadranti di altitudine
+ * @field up : BufferedImage Campo dati statico contenente l'immagine da usare per un punto utente
+ * @field food : BufferedImage Campo dati statico contenente l'immagine da usare per un punto d'interesse di tipo FOOD
+ * @field info : BufferedImage Campo dati statico contenente l'immagine da usare per un punto d'interesse di tipo INFO
+ * @field warning : BufferedImage Campo dati statico contenente l'immagine da usare per un punto d'interesse di tipo WARNING
+ * @field r: Renderer Campo dati contenente un oggetto da cui ottenere le informazioni sulle entità dell'Esperienza da renderizzare
+ * @field img : BufferedImage Campo dati contenente l'immagine generata
+ * @field g : Graphics2d Campo dati rappresentante l'oggetto su cui disegnare l'immagine
+ * @field width : int Campo dati rappresentante la larghezza totale dell'immagine in pixel
+ * @field height : int Campo dati rappresentante l'altezza totale dell'immagine in pixel
+ * @field maxLatitude : double Campo dati rappresentante la latitudine massima tra le entità dell'Esperienza
+ * @field maxLongitude : double Campo dati rappresentante la longitudine massima tra le entità dell'Esperienza
+ * @field minLatitude : double Campo dati rappresentante la latitudine minima tra le entità dell'Esperienza
+ * @field minLongitude : double Campo dati rappresentante la longitudine minima tra le entità dell'Esperienza
+ * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
+ * @version 1.0
+ */
 
 public class ImageRenderer {
 
+    /**
+     * Fattore moltiplicativo per la conversione da gradi a pixel.
+     */
 
     static int factor;
 
+    /**
+     * Colore da utilizzare per i percorsi.
+     */
+
     static Color trackLineColor;
+
+    /**
+     * Colore da utilizzare per i checkpoint.
+     */
+
     static Color checkPointColor;
+
+    /**
+     * Colore da utilizzare per i laghi.
+     */
+
     static Color lakeColor;
+
+    /**
+     * Colore da utilizzare per i sentieri..
+     */
+
     static Color pathColor;
+
+    /**
+     * Colore da utilizzare per i fiumi..
+     */
+
     static Color riverColor;
+
+    /**
+     * Colore da utilizzare per lo sfondo..
+     */
+
     static Color backgroundColor;
+
+    /**
+     * Colore base per i quadranti di altitudine.
+     */
+
     static Color elevationColor;
 
+    /**
+     * Immagine da usare per un punto utente
+     */
 
     static BufferedImage up;
+
+    /**
+     * Immagine da usare per un punto d'interesse di tipo FOOD.
+     */
+
     static BufferedImage food;
+
+    /**
+     * Immagine da usare per un punto d'interesse di tipo INFO.
+     */
+
     static BufferedImage info;
+
+    /**
+     * Immagine da usare per un punto d'interesse di tipo WARNING.
+     */
+
     static BufferedImage warning;
 
     static {
@@ -88,19 +171,67 @@ public class ImageRenderer {
         warning = imageFromFile("warning.png");
     }
 
+    /**
+     * Oggetto da cui ottenere le informazioni sulle entità dell'Esperienza da renderizzare.
+     */
+
     Renderer r;
 
     /**
+     * Immagine generata.
+     */
+
     BufferedImage img;
+
+    /**
+     * Oggetto su cui disegnare l'immagine.
+     */
+
     Graphics2D g;
 
+    /**
+     * Larghezza totale dell'immagine in pixel.
+     */
+
     double width;
+
+    /**
+     * Altezza totale dell'immagine in pixel.
+     */
+
     double height;
 
+
+    /**
+     * Latitudine massima tra le entità dell'Esperienza.
+     */
+
     double maxLatitude = Double.MIN_VALUE;
+
+    /**
+     * Longitudine massima tra le entità dell'Esperienza.
+     */
+
     double maxLongitude = Double.MIN_VALUE;
+
+    /**
+     * Latitudine minima tra le entità dell'Esperienza.
+     */
+
     double minLatitude = Double.MAX_VALUE;
+
+    /**
+     * Longitudine minima tra le entità dell'Esperienza.
+     */
+
     double minLongitude = Double.MAX_VALUE;
+
+    /**
+     * Resituisce un oggetto BufferedImage rappresentante l'immagine in classpath individuata dalla stringa.
+     *
+     * @param s Posizione in classpath dell'immagine
+     * @return Restituisce un oggetto BufferedImage rappresentante l'immagine
+     */
 
     static BufferedImage imageFromFile(String s) {
         try {
@@ -117,6 +248,13 @@ public class ImageRenderer {
         }
     }
 
+    /**
+     * Resituisce un oggetto Color a partire dal suo nome
+     *
+     * @param s Nome del colore
+     * @return Restituisce l'oggetto Color richiesto
+     */
+
     static Color colorFromString(String s) {
         try {
             return (Color)Color.class.getField(s).get(null);
@@ -124,6 +262,12 @@ public class ImageRenderer {
             throw new RuntimeException("color not found");
         }
     }
+
+    /**
+     * Costruisce un nuovo ImageRenderer a partire dal Renderer
+     *
+     * @param r Renderer a partire dalla quale costruire l'ImageRenderer
+     */
 
     ImageRenderer(Renderer r) {
 
@@ -139,6 +283,10 @@ public class ImageRenderer {
 
         draw();
     }
+
+    /**
+     * Disegna le entità.
+     */
 
     void draw() {
         g.setBackground(backgroundColor);
@@ -167,6 +315,12 @@ public class ImageRenderer {
 
     }
 
+    /**
+     * Disegna le informazioni di altitudine.
+     *
+     * @param er ElevationRect da disegnare.
+     */
+
     void drawElevation(ElevationRect er) {
         Color c = elevationColor;
         for (int i = 0; i < er.getHeight(); i++)
@@ -185,6 +339,10 @@ public class ImageRenderer {
                    Utils.round(normalizeLatitude(nwLat))-Utils.round(normalizeLatitude(seLat)));
     }
 
+    /**
+     * Individua le latitudini e longitudini massime e minime tra le entità da disegnare.
+     */
+
     void calcMaxLatLong() {
 
         calcMaxLatLong(r.rect.getPoints());
@@ -202,6 +360,12 @@ public class ImageRenderer {
             calcMaxLatLong(t.getPoints());
 
     }
+
+    /**
+     * Individua le latitudini e longitudini massime e minime nella lista dei punti.
+     *
+     * @param points Punti su cui individuare latitudine e longitudine massima e minima.
+     */
 
     void calcMaxLatLong(Iterable<? extends Point> points) {
         for (Point p : points) {
@@ -222,6 +386,12 @@ public class ImageRenderer {
         }
     }
 
+    /**
+     * Disegna un punto d'interesse.
+     *
+     * @param p Punto d'interesse da disegnare.
+     */
+
     void drawPOI(PointOfInterest p) {
         BufferedImage i = null;
         switch (p.getPOIType()) {
@@ -238,13 +408,32 @@ public class ImageRenderer {
         g.drawImage(i, Utils.round(normalizeLongitude(p)), Utils.round(height-normalizeLatitude(p)), null);
     }
 
+    /**
+     * Disegna un punto utente.
+     *
+     * @param p Punto utente da disegnare.
+     */
+
     void drawUP(UserPoint p) {
         g.drawImage(up, Utils.round(normalizeLongitude(p)), Utils.round(height-normalizeLatitude(p)), null);
     }
 
+    /**
+     * Disegna un lago.
+     *
+     * @param l Lago da disegnare.
+     */
+
     void drawLake(Lake l) {
         drawPoly(lakeColor, l.getPoints());
     }
+
+    /**
+     * Disegna un poligono riempito di un colore.
+     *
+     * @param color Colore di cui riempire il poligono.
+     * @param points Insieme di punti individuanti il poligono.
+     */
 
     void drawPoly(Color color, Iterable<Point> points) {
         int size = 0;
@@ -265,6 +454,12 @@ public class ImageRenderer {
         g.fillPolygon(x, y, size);
     }
 
+    /**
+     * Disegna un sentiero.
+     *
+     * @param p Sentiero da disegnare.
+     */
+
     void drawPath(Path p) {
         ArrayList<Point> points = new ArrayList<Point>();
         for (Point point : p.getPoints()) {
@@ -272,6 +467,12 @@ public class ImageRenderer {
         }
         drawPoly(pathColor, points);
     }
+
+    /**
+     * Disegna un fiume.
+     *
+     * @param r Fiume da disegnare.
+     */
 
     void drawRiver(River r) {
         ArrayList<Point> points = new ArrayList<Point>();
@@ -281,6 +482,12 @@ public class ImageRenderer {
 
         drawPoly(riverColor, points);
     }
+
+    /**
+     * Disegna un percorso.
+     *
+     * @param t Percorso da disegnare.
+     */
 
     void drawTrack(Track t) {
         int size = 0;
@@ -308,29 +515,80 @@ public class ImageRenderer {
         }
     }
 
+    /**
+     * Dato un punto con coordinate in gradi, ritorna la sua latitudine in pixel.
+     *
+     * @param p Punto di cui interessa la latitudine
+     * @return Restituisce la latitudine in pixel
+     */
+
     double normalizeLatitude(Point p) {
         return normalizeLatitude(p.getLatitude());
     }
+
+    /**
+     * Data una coordinata latitudinale in gradi, ritorna la sua proiezione in pixel.
+     *
+     * @param lat Coordinata latitudinaale in gradi
+     * @return Restituisce la proiezione della latitudine in pixel
+     */
 
     double normalizeLatitude(double lat) {
         return (Utils.projLatitude(lat)-Utils.projLatitude(minLatitude))*factor/180;
     }
 
+    /**
+     * Dato un punto con coordinate in gradi, ritorna la sua longitudine in pixel.
+     *
+     * @param p Punto di cui interessa la longitudine
+     * @return Restituisce la longitudine in pixel
+     */
+
     double normalizeLongitude(Point p) {
         return normalizeLongitude(p.getLongitude());
     }
+
+    /**
+     * Data una coordinata longitudinale in gradi, ritorna la sua proiezione in pixel.
+     *
+     * @param lon Coordinata longitudinaale in gradi
+     * @return Restituisce la proiezione della longitudine in pixel
+     */
 
     double normalizeLongitude(double lon) {
         // lonFactor == 100 -> 1 grado per 100 pixel
         return ((lon-minLongitude)*factor)/360;
     }
 
-    double YtoLat(double x) {
-        return Utils.projY(x*180/factor+Utils.projLatitude(minLatitude));
+    /**
+     * Data una proiezione latitudinale in pixel, ritorna la sua coordinata approssimativa in gradi.
+     *
+     * @param y Proiezione latitudinale in pixel
+     * @return Restituisce la coordinata latitudinale in gradi corrispondente alla proiezione in pixel
+     */
+
+    double YtoLat(double y) {
+        return Utils.projY(y*180/factor+Utils.projLatitude(minLatitude));
     }
+
+
+    /**
+     * Data una proiezione longitudinale in pixel, ritorna la sua coordinata approssimativa in gradi.
+     *
+     * @param x Proiezione longitudinale in pixel
+     * @return Restituisce la coordinata longitudinale in gradi corrispondente alla proiezione in pixel
+     */
+
     double XtoLon(double x) {
         return x*360/factor+minLongitude;
     }
+
+
+    /**
+     * Restituisce l'immagine renderizzata, con dimensioni multiple di Utils.quadrantHeight e Utils.quadrantWidth
+     *
+     * @return Restituisce l'immagine renderizzata
+     */
 
     BufferedImage getImage() {
 
