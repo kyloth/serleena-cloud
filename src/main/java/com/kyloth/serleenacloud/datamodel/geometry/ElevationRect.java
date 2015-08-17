@@ -47,9 +47,9 @@ public class ElevationRect extends Rect {
     /**
      * Costruisce un nuovo oggetto ElevationRect dati i due punti geografici degli angoli nord ovest e sud est e l'altezza associata.
      * 
-     * @param Punto geografico dell'angolo Nord-Ovest
-     * @param Punto geografico dell'angolo Sud-Est
-     * @param Altezza associata
+     * @param nw Punto geografico dell'angolo Nord-Ovest
+     * @param se Punto geografico dell'angolo Sud-Est
+     * @param height Altezza associata
      */
 
     public ElevationRect(Point nw, Point se, int height) {
