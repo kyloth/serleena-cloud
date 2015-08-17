@@ -45,38 +45,77 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  *
  * @use Ogni quadrante ritornato contiene un puntatore ai quattro quadranti adiacenti (o null) e all'oggetto di tipo Image che rappresenta una porzione di mappa renderizzata.
  *
+ * @field ir : ImageRenderer Campo dati contenente l'oggetto rappresentante il rendering dell'Esperienza
+ * @field x : int Campo dati rappresentante la coordinata x in pixel dell'angolo nord-ovest del quadrante
+ * @field y : int Campo dati rappresentante la coordinata y in pixel dell'angolo nord-ovest del quadrante
+ * @field quadrantHeight : int Campo dati statico contentente l'altezza in pixel di un quadrante
+ * @field quadrantWidth : int Campo dati statico contentente la larghezza in pixel di un quadrante
+ *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
 
 public class RasterQuadrant {
 
+    /**
+     * Oggetto rappresentante il rendering dell'Esperienza.
+     */
+
     ImageRenderer ir;
-    BufferedImage img;
+
+    /**
+     * Coordinata x in pixel dell'angolo nord-ovest del quadrante.
+     */
 
     int x;
+
+    /**
+     * Coordinata y in pixel dell'angolo nord-ovest del quadrante.
+     */
+
     int y;
 
-    static ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
-    static int quadrantHeight = (Integer)context.getBean("quadrantHeight");
-    static int quadrantWidth = (Integer)context.getBean("quadrantWidth");
+    /**
+     * Altezza in pixel di un quadrante.
+     */
+
+    static int quadrantHeight;
+
+    /**
+     * Larghezza in pixel di un quadrante.
+     */
+
+    static int quadrantWidth;
+
+    static {
+        ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
+
+        quadrantWidth = (Integer)context.getBean("quadrantWidth");
+        quadrantHeight = (Integer)context.getBean("quadrantHeight");
+    }
 
     /**
      * Crea un nuovo RasterQuadrant.
      *
-     * @param r Il Renderer relativo a questo quadrante.
+     * @param r ImageRenderer relativo all'Esperienza.
      */
 
     RasterQuadrant(ImageRenderer ir) {
         this.ir = ir;
-        this.img = ir.getImage();
         this.x = 0;
         this.y = quadrantHeight;
     }
 
+    /**
+     * Crea un nuovo RasterQuadrant.
+     *
+     * @param r ImageRenderer relativo all'Esperienza.
+     * @param x coordinata x in pixel dell'angolo nord-ovest del quadrante
+     * @param y coordinata y in pixel dell'angolo nord-ovest del quadrante
+     */
+
     RasterQuadrant(ImageRenderer ir, int x, int y) {
         this.ir = ir;
-        this.img = ir.getImage();
         this.x = x;
         this.y = y;
     }
@@ -118,7 +157,7 @@ public class RasterQuadrant {
     @JsonIgnore
     public RasterQuadrant getNorth() {
         int newY = y+quadrantHeight;
-        return newY > img.getHeight() ? null : new RasterQuadrant(ir, x, newY);
+        return newY > ir.getImage().getHeight() ? null : new RasterQuadrant(ir, x, newY);
     }
 
     /**
@@ -130,7 +169,7 @@ public class RasterQuadrant {
     @JsonIgnore
     public RasterQuadrant getEast() {
         int newX = x+quadrantWidth;
-        return newX >= img.getWidth() ? null : new RasterQuadrant(ir, newX, y);
+        return newX >= ir.getImage().getWidth() ? null : new RasterQuadrant(ir, newX, y);
     }
 
     /**
@@ -148,7 +187,7 @@ public class RasterQuadrant {
     /**
      * Restituisce la porzione di mappa renderizzata relativa al quadrante.
      *
-     * @return Restituisce un oggetto di tipo Image rappresentante la porzione di mappa relativa al quadrante.
+     * @return Restituisce una String rappresentante l'encoding base64 di un'immagine PNG rappresentante la porzione di mappa relativa al quadrante.
      */
 
     public String getImage() {
@@ -162,8 +201,17 @@ public class RasterQuadrant {
         }
     }
 
+    /**
+     * Restituisce la porzione di mappa renderizzata relativa al quadrante.
+     *
+     * @return Restituisce una BufferedImage rappresentante la porzione di mappa relativa al quadrante.
+     */
+
     BufferedImage currentQuadrant() {
-        return img.getSubimage(img.getMinX()+ x, img.getHeight()-y, quadrantWidth, quadrantHeight);
+        return ir.getImage().getSubimage(ir.getImage().getMinX()+ x,
+                                         ir.getImage().getHeight()-y,
+                                         quadrantWidth,
+                                         quadrantHeight);
     }
 
 }
