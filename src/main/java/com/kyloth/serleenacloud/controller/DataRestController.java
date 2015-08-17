@@ -33,6 +33,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+import org.springframework.http.HttpStatus;
 
 import com.kyloth.serleenacloud.persistence.IDataSource;
 import com.kyloth.serleenacloud.persistence.DataSourceFactory;
@@ -125,6 +128,11 @@ public class DataRestController {
         return new SyncOutputData(es, wf, ec);
     }
 
+
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    class FailedSyncException extends RuntimeException {}
+
     /**
      * Metodo che implementa la richiesta POST per sincronizzare dati
      * dall'applicazione android al backend.
@@ -157,7 +165,9 @@ public class DataRestController {
                 for (Telemetry t : input.getTelemetryData())
                     dataSource.telemetryDao().persist(t);
             }
-        } catch (IOException e) {}
+        } catch (Exception e) {
+            throw new FailedSyncException();
+        }
     }
 
     /**
