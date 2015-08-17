@@ -82,10 +82,10 @@ public class Utils {
     static {
         ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
 
-        host =  = (String)context.getBean("host");
-        port =  = (String)context.getBean("port");
-        username =  = (String)context.getBean("username");
-        password =  = (String)context.getBean("password");
+        host = (String)context.getBean("host");
+        port = (String)context.getBean("port");
+        username  = (String)context.getBean("username");
+        password  = (String)context.getBean("password");
 
         mailSender = new JavaMailSenderImpl();
         mailSender.setHost(host);
