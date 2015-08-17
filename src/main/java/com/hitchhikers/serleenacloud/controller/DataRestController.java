@@ -187,6 +187,7 @@ public class DataRestController {
      * alla lista di sincronizzazione.
      *
      * @param body Mappa che contiene la lista delle esperienze da sincronizzare in formato JSON.
+     * @param authToken Token di autenticazione.
      */
 
     @RequestMapping(value= "/sync", method = RequestMethod.PUT)

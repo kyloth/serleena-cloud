@@ -48,7 +48,7 @@ public abstract class AWideLine {
     /**
      * Crea un nuovo oggetto AWideLine
      *
-     * @param  La collezione di oggetti Point associati
+     * @param points La collezione di oggetti Point associati
      */
 
     public AWideLine(Iterable<Point> points) {
@@ -57,7 +57,7 @@ public abstract class AWideLine {
     /**
      * Crea un nuovo oggetto AWideLine
      *
-     * @param  Array di oggetti Point associati
+     * @param points Array di oggetti Point associati
      */
 
     public AWideLine(Point[] points) {
