@@ -43,7 +43,16 @@ import java.util.ArrayList;
 /**
  * Classe per la creazione del rendering delle Esperienze da offrire all'applicativo android.
  *
- * @use Prendendo in input un oggetto Experience, interagisce con le classi DAO del package Persistence per ottenere i dati di mappa circoscritti dall'esperienza e ritorna una collezione di RasterQuadrant.
+ * @use Prendendo in input un oggetto Experience, interagisce con le classi DAO del package Persistence per ottenere i dati di mappa circoscritti dall'Esperienza e ritorna una collezione di RasterQuadrant.
+ * @field ds : IDataSource Campo dati statico contenente un oggetto che permette di interfacciarsi con il database tramite oggetti DAO
+ * @field rect : Rect Rettangolo di coordinate delimitanti l'Esperienza
+ * @field elevations : Iterable<ElevationRect> Insieme di ElevationRect disponibili nell'area dell'Esperienza
+ * @field lakes : Iterable<Lake> Insieme di laghi disponibili nell'area dell'Esperienza
+ * @field rivers : Iterable<River> Insieme di fiumi disponibili nell'area dell'Esperienza
+ * @field paths : Iterable<Path> Insieme di sentieri disponibili nell'area dell'Esperienza
+ * @field pois : Iterable<PointOfInterest> Insieme di punti d'interesse disponibili nell'area dell'Esperienza
+ * @field ups : Iterable<UserPoint> Insieme di punti utente disponibili nell'area dell'Esperienza
+ * @field tracks : Iterable<Track> Insieme di percorsi disponibili nell'area dell'Esperienza
  *
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
@@ -51,16 +60,58 @@ import java.util.ArrayList;
 
 public class Renderer {
 
+    /**
+     * Oggetto che permette di interfacciarsi con il database tramite oggetti DAO.
+     */
+
     static IDataSource ds = DataSourceFactory.getDataSource();
+
+    /**
+     * Rettangolo di coordinate delimitanti l'Esperienza.
+     */
 
     Rect rect;
 
+    /**
+     *  Insieme di ElevationRect disponibili nell'area dell'Esperienza.
+     */
+
     Iterable<ElevationRect> elevations;
+
+    /**
+     * Insieme di laghi disponibili nell'area dell'Esperienza.
+     */
+
     Iterable<Lake> lakes;
+
+    /**
+     * Insieme di fiumi disponibili nell'area dell'Esperienza.
+     */
+
     Iterable<River> rivers;
+
+    /**
+     * Insieme di sentieri disponibili nell'area dell'Esperienza.
+     */
+
     Iterable<Path> paths;
+
+    /**
+     * Insieme di punti d'interesse disponibili nell'area dell'Esperienza.
+     */
+
     Iterable<PointOfInterest> pois;
+
+    /**
+     * Insieme di punti utente disponibili nell'area dell'Esperienza.
+     */
+
     Iterable<UserPoint> ups;
+
+    /**
+     * Insieme di percorsi disponibili nell'area dell'Esperienza.
+     */
+
     Iterable<Track> tracks;
 
     /**
