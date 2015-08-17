@@ -114,6 +114,7 @@ public class User {
     /**
      * Confronta due utenti e stabilisce se sono uguali.
      *
+     * @param u L'utente con il quale si vuole effettuare il confronto.
      * @return True se i due utenti sono uguali, False altrimenti.
      */
 

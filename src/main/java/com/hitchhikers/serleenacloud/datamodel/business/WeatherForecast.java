@@ -77,6 +77,9 @@ public class WeatherForecast {
 
         /**
          * Crea una nuova previsione meteo inizializzandone i campi dati.
+	 * 
+	 * @param temperature Temperatura prevista, espressa in double.
+	 * @param forecast Condizione meteo prevista.
          */
 
         public Forecast(double temperature, WeatherCondition forecast) {
@@ -138,6 +141,12 @@ public class WeatherForecast {
 
     /**
      * Crea una nuova previsione meteo inizializzandone i campi dati.
+     *
+     * @param time Data relativa alle previsioni.
+     * @param boundingRect Area geografica relativa alle previsioni.
+     * @param morning Previsioni del mattino.
+     * @param afternoon Previsioni del pomeriggio.
+     * @param night Previsioni della sera.
      */
 
     public WeatherForecast(Date time, Rect boundingRect, Forecast morning, Forecast afternoon, Forecast night) {
