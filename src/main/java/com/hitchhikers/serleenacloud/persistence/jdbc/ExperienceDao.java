@@ -97,8 +97,6 @@ public class ExperienceDao implements IExperienceDao {
         Point se = r.getSEPoint();
 
         if (find(id) != null) {
-            System.err.println("deleting");
-            System.err.println(find(id));
             delete(id);
         }
 
