@@ -79,7 +79,7 @@ public class RestAuthenticationFilter extends GenericFilterBean {
      * @param request Rappresenta la richiesta http
      * @param response Rappresenta la risposta http
      * @param chain Lista di filtri da applicare a richiesta e risposta
-     * @throws IOException
+     * @throws IOException Eccezione generale per problemi di input output
      * @throws ServletException Eccezione generale per problemi riguardanti le Servlet
      */
 
