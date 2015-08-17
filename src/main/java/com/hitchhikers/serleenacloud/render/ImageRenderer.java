@@ -48,15 +48,9 @@ import java.net.URL;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
 public class ImageRenderer {
 
-    Rect rect;
-    Renderer renderer;
-
-    static ApplicationContext context;
-
-    static int quadrantHeight;
-    static int quadrantWidth;
 
     static int factor;
 
@@ -75,10 +69,8 @@ public class ImageRenderer {
     static BufferedImage warning;
 
     static {
-        context = new ClassPathXmlApplicationContext("Spring-Module.xml");
 
-        quadrantHeight = (Integer)context.getBean("quadrantHeight");
-        quadrantWidth = (Integer)context.getBean("quadrantWidth");
+        ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
 
         factor = (Integer)context.getBean("factor");
 
@@ -96,6 +88,9 @@ public class ImageRenderer {
         warning = imageFromFile("warning.png");
     }
 
+    Renderer r;
+
+    /**
     BufferedImage img;
     Graphics2D g;
 
@@ -132,82 +127,78 @@ public class ImageRenderer {
 
     ImageRenderer(Renderer r) {
 
-        renderer = r;
-        rect = r.rect;
+        this.r = r;
 
         calcMaxLatLong();
 
         width = normalizeLongitude(maxLongitude);
         height = normalizeLatitude(maxLatitude);
 
-        img = new BufferedImage(round(width), round(height), BufferedImage.TYPE_INT_RGB);
+        img = new BufferedImage(Utils.round(width), Utils.round(height), BufferedImage.TYPE_INT_RGB);
         g = img.createGraphics();
 
         draw();
     }
 
-    int round (double x) {
-        return (int) Math.round(x);
-    }
-
-    double multipleOf(double a, double b) {
-        return Math.ceil(a/b)*b;
-    }
-
     void draw() {
         g.setBackground(backgroundColor);
-        g.clearRect(0, 0, round(width), round(height));
+        g.clearRect(0, 0, Utils.round(width), Utils.round(height));
 
-        drawElevations();
-        drawLakes();
-        drawPaths();
-        drawRivers();
-        drawTracks();
-        drawPOIs();
-        drawUPs();
+        for (ElevationRect er : r.elevations)
+            drawElevation(er);
+
+        for (Lake t : r.lakes)
+            drawLake(t);
+
+        for (River t : r.rivers)
+            drawRiver(t);
+
+        for (Path t : r.paths)
+            drawPath(t);
+
+        for (Track t : r.tracks)
+            drawTrack(t);
+
+        for (PointOfInterest p : r.pois)
+            drawPOI(p);
+
+        for (UserPoint p : r.ups)
+            drawUP(p);
+
     }
 
-
-    void drawElevations() {
-        for (ElevationRect r : renderer.elevations)
-            drawElevation(r);
-    }
-
-
-    void drawElevation(ElevationRect r) {
+    void drawElevation(ElevationRect er) {
         Color c = elevationColor;
-        for (int i = 0; i < r.getHeight(); i++)
+        for (int i = 0; i < er.getHeight(); i++)
             c = c.darker();
         g.setColor(c);
 
-        double nwLat = Math.min(rect.getNWPoint().getLatitude(), maxLatitude);
-        double nwLon = Math.max(rect.getNWPoint().getLongitude(), minLongitude);
+        double nwLat = Math.min(er.getNWPoint().getLatitude(), maxLatitude);
+        double nwLon = Math.max(er.getNWPoint().getLongitude(), minLongitude);
 
-        double seLat = Math.max(rect.getSEPoint().getLatitude(), minLatitude);
-        double seLon = Math.min(rect.getSEPoint().getLongitude(), maxLongitude);
+        double seLat = Math.max(er.getSEPoint().getLatitude(), minLatitude);
+        double seLon = Math.min(er.getSEPoint().getLongitude(), maxLongitude);
 
-        g.fillRect(round(normalizeLongitude(nwLon)),
-                   round(height-normalizeLatitude(nwLat)),
-                   round(normalizeLongitude(seLon))-round(normalizeLongitude(nwLon)),
-                   round(normalizeLatitude(nwLat))-round(normalizeLatitude(seLat)));
-
+        g.fillRect(Utils.round(normalizeLongitude(nwLon)),
+                   Utils.round(height-normalizeLatitude(nwLat)),
+                   Utils.round(normalizeLongitude(seLon))-Utils.round(normalizeLongitude(nwLon)),
+                   Utils.round(normalizeLatitude(nwLat))-Utils.round(normalizeLatitude(seLat)));
     }
-
 
     void calcMaxLatLong() {
 
-        calcMaxLatLong(rect.getPoints());
+        calcMaxLatLong(r.rect.getPoints());
 
-        calcMaxLatLong(renderer.pois);
-        calcMaxLatLong(renderer.ups);
+        calcMaxLatLong(r.pois);
+        calcMaxLatLong(r.ups);
 
-        for (Track t : renderer.tracks)
+        for (Track t : r.tracks)
             calcMaxLatLong(t.getCheckPoints());
-        for (Path t : renderer.paths)
+        for (Path t : r.paths)
             calcMaxLatLong(t.getPoints());
-        for (River t : renderer.rivers)
+        for (River t : r.rivers)
             calcMaxLatLong(t.getPoints());
-        for (Lake t : renderer.lakes)
+        for (Lake t : r.lakes)
             calcMaxLatLong(t.getPoints());
 
     }
@@ -231,36 +222,6 @@ public class ImageRenderer {
         }
     }
 
-    void drawPOIs() {
-        for (PointOfInterest p : renderer.pois)
-            drawPOI(p);
-    }
-
-    void drawUPs() {
-        for (UserPoint p : renderer.ups)
-            drawUP(p);
-    }
-
-    void drawTracks() {
-        for (Track t : renderer.tracks)
-            drawTrack(t);
-    }
-
-    void drawPaths() {
-        for (Path t : renderer.paths)
-            drawPath(t);
-    }
-
-    void drawRivers() {
-        for (River t : renderer.rivers)
-            drawRiver(t);
-    }
-
-    void drawLakes() {
-        for (Lake t : renderer.lakes)
-            drawLake(t);
-    }
-
     void drawPOI(PointOfInterest p) {
         BufferedImage i = null;
         switch (p.getPOIType()) {
@@ -274,11 +235,11 @@ public class ImageRenderer {
             i = warning;
             break;
         }
-        g.drawImage(i, round(normalizeLongitude(p)), round(height-normalizeLatitude(p)), null);
+        g.drawImage(i, Utils.round(normalizeLongitude(p)), Utils.round(height-normalizeLatitude(p)), null);
     }
 
     void drawUP(UserPoint p) {
-        g.drawImage(up, round(normalizeLongitude(p)), round(height-normalizeLatitude(p)), null);
+        g.drawImage(up, Utils.round(normalizeLongitude(p)), Utils.round(height-normalizeLatitude(p)), null);
     }
 
     void drawLake(Lake l) {
@@ -297,8 +258,8 @@ public class ImageRenderer {
         g.setColor(color);
         int i = 0;
         for (Point p : points) {
-            x[i] = round(normalizeLongitude(p));
-            y[i] = round(height-normalizeLatitude(p));
+            x[i] = Utils.round(normalizeLongitude(p));
+            y[i] = Utils.round(height-normalizeLatitude(p));
         }
 
         g.fillPolygon(x, y, size);
@@ -333,8 +294,8 @@ public class ImageRenderer {
         g.setColor(checkPointColor);
         int i = 0;
         for (Point p : t.getCheckPoints()) {
-            x[i] = round(normalizeLongitude(p));
-            y[i] = round(height-normalizeLatitude(p));
+            x[i] = Utils.round(normalizeLongitude(p));
+            y[i] = Utils.round(height-normalizeLatitude(p));
         }
 
         g.setColor(trackLineColor);
@@ -351,12 +312,8 @@ public class ImageRenderer {
         return normalizeLatitude(p.getLatitude());
     }
 
-    double projLatitude(double lat) {
-        return Math.toDegrees(Math.log(Math.tan(Math.PI/4+Math.toRadians(lat)/2)));
-    }
-
     double normalizeLatitude(double lat) {
-        return (projLatitude(lat)-projLatitude(minLatitude))*factor/180;
+        return (Utils.projLatitude(lat)-Utils.projLatitude(minLatitude))*factor/180;
     }
 
     double normalizeLongitude(Point p) {
@@ -368,33 +325,29 @@ public class ImageRenderer {
         return ((lon-minLongitude)*factor)/360;
     }
 
-    double projY(double x) {
-        return Math.toDegrees(2* Math.atan(Math.exp(Math.toRadians(x))) - Math.PI/2);
-    }
-
     double YtoLat(double x) {
-        return projY(x*180/factor+projLatitude(minLatitude));
+        return Utils.projY(x*180/factor+Utils.projLatitude(minLatitude));
     }
     double XtoLon(double x) {
         return x*360/factor+minLongitude;
     }
 
-    public BufferedImage getImage() {
+    BufferedImage getImage() {
 
-        double nwHeight = normalizeLatitude(rect.getNWPoint());
-        double nwWidth = normalizeLongitude(rect.getNWPoint());
+        double nwHeight = normalizeLatitude(r.rect.getNWPoint());
+        double nwWidth = normalizeLongitude(r.rect.getNWPoint());
 
-        double seHeight = normalizeLatitude(rect.getSEPoint());
-        double seWidth = normalizeLongitude(rect.getSEPoint());
+        double seHeight = normalizeLatitude(r.rect.getSEPoint());
+        double seWidth = normalizeLongitude(r.rect.getSEPoint());
 
-        int width = round(seWidth-nwWidth);
-        int height = round(nwHeight-seHeight);
+        int width = Utils.round(seWidth-nwWidth);
+        int height = Utils.round(nwHeight-seHeight);
 
         if (img.getWidth() != width || img.getHeight() != height)
-            img = img.getSubimage(round(nwWidth), round(img.getHeight()-nwHeight), width, height);
+            img = img.getSubimage(Utils.round(nwWidth), Utils.round(img.getHeight()-nwHeight), width, height);
 
-        int mWidth = round(multipleOf(width, quadrantWidth));
-        int mHeight = round(multipleOf(height, quadrantHeight));
+        int mWidth = Utils.round(Utils.multipleOf(width, RasterQuadrant.quadrantWidth));
+        int mHeight = Utils.round(Utils.multipleOf(height, RasterQuadrant.quadrantHeight));
 
         if (mWidth != width || mHeight != height) {
             BufferedImage _img = new BufferedImage(mWidth, mHeight, BufferedImage.TYPE_INT_RGB);
