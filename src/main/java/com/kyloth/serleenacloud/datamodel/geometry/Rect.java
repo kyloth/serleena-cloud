@@ -64,8 +64,8 @@ public class Rect {
      * Costruisce un nuovo oggetto Rect dati i due punti geografici degli angoli
      * Nord-Ovest e Sud-Est
      *
-     * @param Punto geografico dell'angolo Nord-Ovest
-     * @param Punto geografico dell'angolo Sud-Est
+     * @param nw Punto geografico dell'angolo Nord-Ovest
+     * @param se Punto geografico dell'angolo Sud-Est
      */
 
     public Rect(Point nw, Point se) {
