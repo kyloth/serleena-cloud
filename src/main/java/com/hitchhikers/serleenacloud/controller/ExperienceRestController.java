@@ -120,6 +120,7 @@ public class ExperienceRestController {
      *
      * @param id id dell'Esperienza da ottenere..
      * @param authToken Token di riconoscimento.
+     * @return Restituisce l'esperienza richiesta, se presente.
      */
 
     @RequestMapping(value= "/{id}", method = RequestMethod.GET)
