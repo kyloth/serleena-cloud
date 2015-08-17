@@ -187,17 +187,46 @@ class Utils {
         }
     }
 
+    /**
+     * Data una coordinata latitudinale in gradi, ritorna la sua proiezione in pixel.
+     *
+     * @param lat Coordinata latitudinaale in gradi
+     * @return Restituisce la proiezione della latitudine in pixel
+     */
+
     static double projLatitude(double lat) {
         return Math.toDegrees(Math.log(Math.tan(Math.PI/4+Math.toRadians(lat)/2)));
     }
+
+    /**
+     * Data una proiezione latitudinale in pixel, ritorna la sua coordinata approssimativa in gradi.
+     *
+     * @param y Proiezione latitudinale in pixel
+     * @return Restituisce la coordinata latitudinale in gradi corrispondente alla proiezione in pixel
+     */
 
     static double projY(double x) {
         return Math.toDegrees(2* Math.atan(Math.exp(Math.toRadians(x))) - Math.PI/2);
     }
 
+    /**
+     * Data un valore decimale ritorna un intero che lo arrotondato
+     *
+     * @param x Valore decimale
+     * @return Restituisce l'intero che lo arrotonda
+     */
+
     static int round (double x) {
         return (int) Math.round(x);
     }
+
+    /**
+     * Data un valore maggiore o uguale ad a, multiplo di b
+     *
+     * @param a Valore da arrotondare
+     * @param b Valore di cui il risultato deve essere multiplo
+     * @return Restituisce il valore maggiore o uguale ad a, multiplo di b
+     */
 
     static double multipleOf(double a, double b) {
         return Math.ceil(a/b)*b;
