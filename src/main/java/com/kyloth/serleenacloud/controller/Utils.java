@@ -39,25 +39,54 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * Classe di utilità generale per il package controller.
  *
  * @field mailSender : JavaMailSenderImpl Campo dati statico contenente un oggetto di utilità per l'invio di email
+ * @field host : String Campo dati statico contenente l'host SMTP verso cui stabilire una connessione.
+ * @field port : String Campo dati statico contenente la porta dell'host SMTP verso cui stabilire una connessione.
+ * @field username : String Campo dati statico contenente l'username dell'host SMTP verso cui stabilire una connessione.
+ * @field password : String Campo dati statico contenente la password dell'host SMTP verso cui stabilire una connessione.
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
 
 public class Utils {
-    
+
     /**
      * Oggetto di utilità per l'inivio di email.
      */
 
     private static JavaMailSenderImpl mailSender;
 
-    static ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
-    static String host = (String)context.getBean("host");
-    static String port = (String)context.getBean("port");
-    static String username = (String)context.getBean("username");
-    static String password = (String)context.getBean("password");
+    /**
+     * Host SMTP verso cui stabilire una connessione.
+     */
+
+    private static String host;
+
+    /**
+     * Porta dell'host SMTP verso cui stabilire una connessione.
+     */
+
+    private static String port;
+
+    /**
+     * Username dell'host SMTP verso cui stabilire una connessione.
+     */
+
+    private static String username;
+
+    /**
+     * Password dell'host SMTP verso cui stabilire una connessione.
+     */
+
+    private static String password;
 
     static {
+        ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Module.xml");
+
+        host =  = (String)context.getBean("host");
+        port =  = (String)context.getBean("port");
+        username =  = (String)context.getBean("username");
+        password =  = (String)context.getBean("password");
+
         mailSender = new JavaMailSenderImpl();
         mailSender.setHost(host);
         mailSender.setUsername(username);
