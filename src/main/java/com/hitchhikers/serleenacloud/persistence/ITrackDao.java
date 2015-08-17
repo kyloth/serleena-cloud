@@ -51,6 +51,7 @@ public interface ITrackDao {
      * dal suo id.
      *
      * @param id Id del percorso da ottenere.
+     * @return Restituisce il percorso cercato, se presente.
      */
 
     public Track find(String id);
