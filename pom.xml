@@ -57,6 +57,26 @@
   <build>
     <plugins>
       <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <formats>
+            <format>html</format>
+            <format>xml</format>
+          </formats>
+          <instrumentation>
+            <excludes>
+              <exclude>com/kyloth/serleenacloud/SerleenaCloud.class</exclude>
+              <exclude>com/kyloth/serleenacloud/controller/RestAuthenticationFilter.class</exclude>
+              <exclude>com/kyloth/serleenacloud/controller/Utils.class</exclude>
+              <exclude>com/kyloth/serleenacloud/persistence/*.class</exclude>
+            </excludes>
+          </instrumentation>
+        </configuration>
+      </plugin>
+
+      <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
