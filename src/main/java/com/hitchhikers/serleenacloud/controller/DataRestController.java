@@ -162,8 +162,9 @@ public class DataRestController {
                 Experience newE = new Experience(e.getName(), e.getId(), e.getBoundingRect(), e.getTracks(), userPoints, e.getPOIs());
                 dataSource.experienceDao().persist(newE);
 
-                for (Telemetry t : input.getTelemetryData())
+                for (Telemetry t : input.getTelemetryData()) {
                     dataSource.telemetryDao().persist(t);
+                }
             }
         } catch (Exception e) {
             throw new FailedSyncException();
