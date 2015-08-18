@@ -46,7 +46,7 @@ import java.sql.SQLException;
 
 public class EmergencyContactDao implements IEmergencyContactDao {
 
-    
+
     /**
      * Template JDBC per la connessione alla base di dati.
      */
@@ -76,7 +76,23 @@ public class EmergencyContactDao implements IEmergencyContactDao {
                          "WHERE ((NWLatitude BETWEEN ? AND ?) AND (NWLongitude BETWEEN ? AND ?)) " +
                          "OR ((SELatitude BETWEEN ? AND ?) AND (SELongitude BETWEEN ? AND ?)) " +
                          "OR ((NWLongitude BETWEEN ? AND ?) AND (SELatitude BETWEEN ? AND ?)) " +
-                         "OR ((NWLatitude BETWEEN ? AND ?) AND (SELongitude BETWEEN ? AND ?)) ",
+                         "OR ((NWLatitude BETWEEN ? AND ?) AND (SELongitude BETWEEN ? AND ?)) " +
+                         "OR ((" + region.getNWPoint().getLatitude() +
+                         "BETWEEN SELatitude AND NWLatitude) AND (" +
+                         region.getNWPoint().getLongitude() +
+                         "BETWEEN NWLongitude AND SELongitude)) " +
+                         "OR ((" + region.getSEPoint().getLatitude() +
+                         " BETWEEN SELatitude AND NWLatitude) AND (" +
+                         region.getSEPoint().getLongitude() +
+                         " BETWEEN NWLongitude AND SELongitude)) " +
+                         "OR ((" + region.getNWPoint().getLongitude() +
+                         " BETWEEN NWLongitude AND SELongitude) AND (" +
+                         region.getSEPoint().getLatitude() +
+                         " BETWEEN SELatitude AND NWLatitude)) " +
+                         "OR ((" + region.getNWPoint().getLatitude() +
+                         " BETWEEN SELatitude AND NWLatitude) AND (" +
+                         region.getSEPoint().getLongitude() +
+                         " BETWEEN NWLongitude AND SELongitude))",
                          new Object[] {
                              region.getSEPoint().getLatitude(),
                              region.getNWPoint().getLatitude(),
