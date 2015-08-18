@@ -33,7 +33,6 @@ import com.kyloth.serleenacloud.persistence.ITelemetryDao;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.ResultSetExtractor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -146,18 +145,10 @@ public class TrackDao implements ITrackDao {
             }
         });
 
-        String name =  tpl.query("SELECT Name " +
-                                 "FROM Tracks " +
-                                 "WHERE Id = ?",
-                                 new Object[] { id },
-                                 new ResultSetExtractor<String>() {
-                                     @Override
-                                     public String extractData(ResultSet rs) throws SQLException {
-                                         if (!rs.first())
-                                             return null;
-                                         return rs.getString("Name");
-                                     }
-                                 });
+        String name = tpl.queryForObject("SELECT Name " +
+                                         "FROM Tracks " +
+                                         "WHERE Id = ?",
+                                         new Object[] { id }, String.class);
 
         return new Track(name, id, checkpoints, tDao.findAll(id));
 

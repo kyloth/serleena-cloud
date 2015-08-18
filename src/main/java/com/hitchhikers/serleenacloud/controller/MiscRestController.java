@@ -79,7 +79,6 @@ public class MiscRestController {
     public String token(@PathVariable("kyloth_id") String id) {
         TempToken t = new TempToken(id);
         ds.tempTokenDao().persist(t);
-        System.err.println(t.getToken());
         return t.getToken();
     }
 

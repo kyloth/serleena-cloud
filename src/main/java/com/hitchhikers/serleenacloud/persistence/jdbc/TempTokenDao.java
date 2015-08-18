@@ -29,7 +29,6 @@ import com.kyloth.serleenacloud.persistence.ITempTokenDao;
 import com.kyloth.serleenacloud.datamodel.auth.TempToken;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.ResultSetExtractor;
 
 import java.util.Date;
 
@@ -79,18 +78,10 @@ public class TempTokenDao implements ITempTokenDao {
 
     public String deviceId(final String token) {
         removeOld();
-        return tpl.query("SELECT DeviceId " +
-                         "FROM TempTokens " +
-                         "WHERE Token = ?",
-                         new Object[] { token },
-        new ResultSetExtractor<String>() {
-            @Override
-            public String extractData(ResultSet rs) throws SQLException {
-                if (!rs.first())
-                    return null;
-                return rs.getString("DeviceId");
-            }
-        });
-
+        return tpl.queryForObject("SELECT DeviceId " +
+                                  "FROM TempTokens " +
+                                  "WHERE Token = ?",
+                                  new Object[] { token },
+                                  String.class);
     }
 }
