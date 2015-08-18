@@ -86,7 +86,6 @@ public class TelemetryDao implements ITelemetryDao {
                     }
                 },
                 keyHolder);
-            System.err.println(keyHolder.getKey());
             for (Date event : t.getEvents()) {
                 tpl.update("INSERT INTO TelemetryEvents(TelemetryId, Date) " +
                            "VALUES(?, ?)",
