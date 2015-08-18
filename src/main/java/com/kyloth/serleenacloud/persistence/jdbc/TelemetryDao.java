@@ -74,23 +74,26 @@ public class TelemetryDao implements ITelemetryDao {
      */
 
     public void persist(Telemetry t) {
-        final String trackId = t.getTrack();
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        tpl.update(new PreparedStatementCreator() {
-            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
-                PreparedStatement ps = connection.prepareStatement("INSERT INTO Telemetries(TrackId) VALUES (?)",
-                                       new String[] {"Id"});
-                ps.setString(1, trackId);
-                return ps;
+        if (t.getEvents().iterator().hasNext()) {
+            final String trackId = t.getTrack();
+            KeyHolder keyHolder = new GeneratedKeyHolder();
+            tpl.update(new PreparedStatementCreator() {
+                    public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                        PreparedStatement ps = connection.prepareStatement("INSERT INTO Telemetries(TrackId) VALUES (?)",
+                                                                           new String[] {"Id"});
+                        ps.setString(1, trackId);
+                        return ps;
+                    }
+                },
+                keyHolder);
+            System.err.println(keyHolder.getKey());
+            for (Date event : t.getEvents()) {
+                tpl.update("INSERT INTO TelemetryEvents(TelemetryId, Date) " +
+                           "VALUES(?, ?)",
+                           new Object[] { keyHolder.getKey(),
+                                          event
+                           });
             }
-        },
-        keyHolder);
-        for (Date event : t.getEvents()) {
-            tpl.update("INSERT INTO TelemetryEvents(TelemetryId, Date) " +
-                       "VALUES(?, ?)",
-                       new Object[] { keyHolder.getKey(),
-                                      event
-                       });
         }
     }
 
