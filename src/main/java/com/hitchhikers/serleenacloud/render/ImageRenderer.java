@@ -408,7 +408,7 @@ public class ImageRenderer {
 
     double normalizeLongitude(double lon) {
         // lonUtils.Factor == 100 -> 1 grado per 100 pixel
-        return ((lon-minLongitude)*Utils.factor)/360;
+        return ((lon-minLongitude)*Utils.factor)/180;
     }
 
     /**
