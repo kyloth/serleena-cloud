@@ -134,7 +134,6 @@ public class ExperienceDao implements IExperienceDao {
      */
 
     public void delete(String id) {
-        tpl.update("DELETE FROM SyncList WHERE ExperienceId = ?", new Object[] {id});
         tpl.update("DELETE FROM ExperienceTracks WHERE ExperienceId = ?", new Object[] {id});
         tpl.update("DELETE FROM ExperiencePOIs WHERE ExperienceId = ?", new Object[] {id});
         tpl.update("DELETE FROM ExperienceUserPoints WHERE ExperienceId = ?", new Object[] {id});
