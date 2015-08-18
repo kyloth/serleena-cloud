@@ -53,6 +53,18 @@ public class RectTest {
         assertTrue(r.getSEPoint().getLatitude() == se.getLatitude());
         assertTrue(r.getSEPoint().getLongitude() == se.getLongitude());
     }
+
+    /**
+     * Testa che il costruttore della classe validi i dati in input
+     */
+
+    @Test(expected = AssertionError.class)
+    public void testConstructorAssert() {
+        Point nw = new Point(12, 4);
+        Point se = new Point(5, 10);
+        Rect r = new Rect(se, nw);
+    }
+
     /**
      * Testa la correttezza del metodo getPoints
      *
