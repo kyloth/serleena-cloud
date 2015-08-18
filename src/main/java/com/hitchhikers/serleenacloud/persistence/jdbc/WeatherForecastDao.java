@@ -80,6 +80,22 @@ public class WeatherForecastDao implements IWeatherForecastDao {
                          "OR ((SELatitude BETWEEN ? AND ? ) AND (SELongitude BETWEEN ? AND ? ))" +
                          "OR ((NWLongitude BETWEEN ? AND ?) AND (SELatitude BETWEEN ? AND ?)) " +
                          "OR ((NWLatitude BETWEEN ? AND ?) AND (SELongitude BETWEEN ? AND ?))) " +
+                         "OR ((" + region.getNWPoint().getLatitude() +
+                         "BETWEEN SELatitude AND NWLatitude) AND (" +
+                         region.getNWPoint().getLongitude() +
+                         "BETWEEN NWLongitude AND SELongitude)) " +
+                         "OR ((" + region.getSEPoint().getLatitude() +
+                         " BETWEEN SELatitude AND NWLatitude) AND (" +
+                         region.getSEPoint().getLongitude() +
+                         " BETWEEN NWLongitude AND SELongitude)) " +
+                         "OR ((" + region.getNWPoint().getLongitude() +
+                         " BETWEEN NWLongitude AND SELongitude) AND (" +
+                         region.getSEPoint().getLatitude() +
+                         " BETWEEN SELatitude AND NWLatitude)) " +
+                         "OR ((" + region.getNWPoint().getLatitude() +
+                         " BETWEEN SELatitude AND NWLatitude) AND (" +
+                         region.getSEPoint().getLongitude() +
+                         " BETWEEN NWLongitude AND SELongitude))" +
                          "AND (Date BETWEEN ? AND ?)",
                          new Object[] {
                              region.getSEPoint().getLatitude(),
@@ -98,7 +114,8 @@ public class WeatherForecastDao implements IWeatherForecastDao {
                              region.getNWPoint().getLatitude(),
                              region.getNWPoint().getLongitude(),
                              region.getSEPoint().getLongitude(),
-                             from, to},
+                             from, to
+                         },
         new RowMapper<WeatherForecast>() {
             @Override
             public WeatherForecast mapRow(ResultSet rs, int rowNum) throws SQLException {
