@@ -238,6 +238,23 @@ public class ImageRenderer {
     }
 
     /**
+     * Disegna un icona nell'immagine..
+     *
+     * @param i L'icona da disegnare.
+     * @param x La coordinata x
+     * @param x La coordinata y
+     */
+
+    void drawImage(BufferedImage i, int x, int y) {
+        int off = (int)i.getHeight()/2;
+        x = x-off;
+        y = y-off;
+        x = x < off ? off :x;
+        y = x < off ? off :y;
+        g.drawImage(i, x, y, null);
+    }
+
+    /**
      * Disegna un punto d'interesse.
      *
      * @param p Punto d'interesse da disegnare.
@@ -256,7 +273,7 @@ public class ImageRenderer {
             i = Utils.warning;
             break;
         }
-        g.drawImage(i, Utils.round(normalizeLongitude(p)), Utils.round(height-normalizeLatitude(p)), null);
+        drawImage(i, Utils.round(normalizeLongitude(p)), Utils.round(height-normalizeLatitude(p)));
     }
 
     /**
@@ -266,7 +283,7 @@ public class ImageRenderer {
      */
 
     void drawUP(UserPoint p) {
-        g.drawImage(Utils.up, Utils.round(normalizeLongitude(p)), Utils.round(height-normalizeLatitude(p)), null);
+        drawImage(Utils.up, Utils.round(normalizeLongitude(p)), Utils.round(height-normalizeLatitude(p)));
     }
 
     /**
@@ -354,6 +371,7 @@ public class ImageRenderer {
         for (Point p : t.getCheckPoints()) {
             x[i] = Utils.round(normalizeLongitude(p));
             y[i] = Utils.round(height-normalizeLatitude(p));
+            i++;
         }
 
         g.setColor(Utils.trackLineColor);
@@ -361,7 +379,7 @@ public class ImageRenderer {
 
         i = 0;
         while (i < size) {
-            img.setRGB(x[i], y[i], Utils.checkPointColor.getRGB());
+            drawImage(Utils.cp, x[i], y[i]);
             i++;
         }
     }
