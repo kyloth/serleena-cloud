@@ -107,6 +107,12 @@ class Utils {
     static Color elevationColor;
 
     /**
+     * Immagine da usare per un checkpoint
+     */
+
+    static BufferedImage cp;
+
+    /**
      * Immagine da usare per un punto utente
      */
 
@@ -145,6 +151,7 @@ class Utils {
         elevationColor = colorFromString((String)context.getBean("elevationColor"));
 
         up = imageFromFile("up.png");
+        cp = imageFromFile("cp.png");
         food = imageFromFile("food.png");
         info = imageFromFile("info.png");
         warning = imageFromFile("warning.png");
