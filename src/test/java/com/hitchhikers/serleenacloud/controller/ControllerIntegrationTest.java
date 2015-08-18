@@ -115,19 +115,21 @@ public class ControllerIntegrationTest {
          * e id dispositivo "Kyloth-1".
          */
         UserDao ud = (UserDao) ds.userDao();
-        // /user
+        // /users
         ur.create("user1@serleena.com", "psw1");
         assertTrue(ud.find("user1@serleena.com").getEmail().equals("user1@serleena.com"));
-        // /user/token
+        // /users/token
         String authToken = ur.token("user1@serleena.com::psw1");
-        // /token/:kyloth_id:
+        // /tokens/:kyloth_id:
+        String _tempToken = mrc.token("Kyloth-1");
         String tempToken = mrc.token("Kyloth-1");
+        assertFalse(_tempToken.equals(tempToken));
         LinkedMultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
         body.add("temp_token", tempToken);
-        // /user/pair
+        // /users/pair
         ur.pair(authToken, body);
         assertTrue(ud.find("user1@serleena.com").getDeviceId().equals("Kyloth-1"));
-        // /user/pair/:temp_token:
+        // /users/pair/:temp_token:
         String returnAuthToken = ur.pair(tempToken);
         assertTrue(returnAuthToken.equals(authToken));
 
