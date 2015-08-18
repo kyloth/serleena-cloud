@@ -26,7 +26,9 @@
 package com.kyloth.serleenacloud.persistence.jdbc;
 
 import com.kyloth.serleenacloud.persistence.ITempTokenDao;
+import com.kyloth.serleenacloud.persistence.IUserDao;
 import com.kyloth.serleenacloud.datamodel.auth.TempToken;
+import com.kyloth.serleenacloud.datamodel.auth.User;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -52,6 +54,13 @@ public class TempTokenDao implements ITempTokenDao {
 
     private JdbcTemplate tpl;
 
+
+    /**
+     * DAO per oggetti di tipo User.
+     */
+
+    private IUserDao ud;
+
     /**
      * Costruisce un nuovo TempTokenDao.
      *
@@ -60,6 +69,7 @@ public class TempTokenDao implements ITempTokenDao {
 
     TempTokenDao(JDBCDataSource ds) {
         this.tpl = ds.getTpl();
+        this.ud = ds.userDao();
     }
 
     void removeOld() {
@@ -69,6 +79,12 @@ public class TempTokenDao implements ITempTokenDao {
 
     public void persist(TempToken t) {
         removeOld();
+
+        User u = ud.findDeviceId(t.getDeviceId());
+        if (u != null) {
+            tpl.update("UPDATE Users SET DeviceId = NULL WHERE Email = ?", new Object[] {u.getEmail()});
+        }
+
         tpl.update("DELETE From TempTokens WHERE DeviceId = ?",
                    new Object[] {t.getDeviceId()});
         tpl.update("INSERT INTO TempTokens(Date, DeviceId, Token) VALUES (?, ?, ?)",
