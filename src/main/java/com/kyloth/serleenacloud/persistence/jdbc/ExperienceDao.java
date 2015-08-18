@@ -96,7 +96,11 @@ public class ExperienceDao implements IExperienceDao {
         Point nw = r.getNWPoint();
         Point se = r.getSEPoint();
 
+        boolean sync = false;
         if (find(id) != null) {
+            sync = (tpl.queryForObject("SELECT COUNT(*) FROM SyncList WHERE ExperienceId = ?",
+                                       new Object[] {id},
+                                       Integer.class).equals(1));
             delete(id);
         }
 
@@ -109,6 +113,12 @@ public class ExperienceDao implements IExperienceDao {
                                                               se.getLongitude(),
                                                               se.getLatitude()
                    });
+
+        if(sync) {
+            tpl.update("INSERT INTO SyncList(ExperienceId, User) VALUES(?, ?)",
+                       new Object[] {id, user.getEmail()});
+        }
+
         for (Track t : experience.getTracks()) {
             tpl.update("DELETE FROM Tracks WHERE Name = ?", new Object[] {t.getName()});
             tDao.persist(t);
@@ -134,6 +144,7 @@ public class ExperienceDao implements IExperienceDao {
      */
 
     public void delete(String id) {
+        tpl.update("DELETE FROM SyncList WHERE ExperienceId = ?", new Object[] {id});
         tpl.update("DELETE FROM ExperienceTracks WHERE ExperienceId = ?", new Object[] {id});
         tpl.update("DELETE FROM ExperiencePOIs WHERE ExperienceId = ?", new Object[] {id});
         tpl.update("DELETE FROM ExperienceUserPoints WHERE ExperienceId = ?", new Object[] {id});
