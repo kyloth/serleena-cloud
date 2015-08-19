@@ -38,7 +38,6 @@ import java.util.Date;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.LinkedMultiValueMap;
 
 import com.kyloth.serleenacloud.datamodel.auth.AuthToken;
@@ -46,11 +45,8 @@ import com.kyloth.serleenacloud.datamodel.auth.User;
 import com.kyloth.serleenacloud.datamodel.business.*;
 import com.kyloth.serleenacloud.datamodel.geometry.*;
 import com.kyloth.serleenacloud.datamodel.sync.*;
-import com.kyloth.serleenacloud.datamodel.geometry.Point;
-import com.kyloth.serleenacloud.datamodel.sync.SyncOutputData;
-import com.kyloth.serleenacloud.datamodel.sync.SyncInputData;
-import com.kyloth.serleenacloud.persistence.jdbc.JDBCDataSource;
-import com.kyloth.serleenacloud.persistence.jdbc.UserDao;
+import com.kyloth.serleenacloud.persistence.IDataSource;
+import com.kyloth.serleenacloud.persistence.IUserDao;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -70,8 +66,7 @@ public class ControllerIntegrationTest {
     private static UserRestController ur;
     private static MiscRestController mrc;
     private static ExperienceRestController erc;
-    private static JDBCDataSource ds;
-    private static JDBCDataSource ds_user;
+    private static IDataSource ds;
     private static AuthToken token;
 
     static ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
@@ -83,7 +78,7 @@ public class ControllerIntegrationTest {
     @BeforeClass
     public static void initialize() throws Exception {
         context = new ClassPathXmlApplicationContext("Spring-ModuleControllerTest.xml");
-        ds = (JDBCDataSource) context.getBean("dataSource");
+        ds = (IDataSource) context.getBean("dataSource");
         drc = new DataRestController();
         ur = new UserRestController();
         mrc = new MiscRestController();
@@ -114,7 +109,7 @@ public class ControllerIntegrationTest {
          * Crea un utente con email "user1@serleena.com", password "psw1"
          * e id dispositivo "Kyloth-1".
          */
-        UserDao ud = (UserDao) ds.userDao();
+        IUserDao ud = ds.userDao();
         // /users
         ur.create("user1@serleena.com", "psw1");
         assertTrue(ud.find("user1@serleena.com").getEmail().equals("user1@serleena.com"));
