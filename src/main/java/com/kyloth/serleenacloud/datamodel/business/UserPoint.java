@@ -41,12 +41,23 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class UserPoint extends Point {
 
+    /**
+     * Crea un nuovo punto utente inizializzandone i campi dati.
+     *
+     * @param latitude Latitudine del Punto Utente.
+     * @param longitude Longitudine del Punto Utente.
+     * @param name Nome del Punto Utente.
+     */
+
     @JsonCreator
     public UserPoint(@JsonProperty("latitude") double latitude,
                      @JsonProperty("longitude") double longitude) {
         super(latitude, longitude);
     }
 
+    /**
+     * @deprecated  Metodo deprecato, mantenuto per compatibilità
+     */
     public String getName() {
         return "";
     }
