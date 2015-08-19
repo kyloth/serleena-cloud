@@ -154,7 +154,7 @@ public class ControllerIntegrationTest {
         // /experience POST
         String eid = erc.create("Experience_1",
                                 ow.writeValueAsString(new PointOfInterest[] {poi_1, poi_2}),
-                                ow.writeValueAsString(new UserPoint[] {user_point_1, user_point_2}),
+                                ow.writeValueAsString(new UserPoint[] {user_point_1, user_point_2, user_point_1}),
                                 ow.writeValueAsString(new Track[] {track_1}),
                                 ow.writeValueAsString(from),
                                 ow.writeValueAsString(to),
