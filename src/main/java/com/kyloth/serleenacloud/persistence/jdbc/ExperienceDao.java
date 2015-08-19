@@ -41,6 +41,8 @@ import org.springframework.jdbc.core.RowMapper;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import java.util.ArrayList;
+
 /**
  * Classe che concretizza IExperienceDao per database MySQL utilizzando JDBC.
  *
@@ -96,6 +98,14 @@ public class ExperienceDao implements IExperienceDao {
         Point nw = r.getNWPoint();
         Point se = r.getSEPoint();
 
+        ArrayList<Track> tracks = new ArrayList<Track>();
+        for (Track t : experience.getTracks()) {
+            Track _t = tDao.find(t.getId());
+            if (_t == null)
+                _t = t;
+            tracks.add(_t);
+        }
+
         boolean sync = false;
         if (find(id) != null) {
             sync = (tpl.queryForObject("SELECT COUNT(*) FROM SyncList WHERE ExperienceId = ?",
@@ -119,12 +129,10 @@ public class ExperienceDao implements IExperienceDao {
                        new Object[] {id, user.getEmail()});
         }
 
-        for (Track t : experience.getTracks()) {
-            if (tDao.find(t.getId()) == null) {
+        for (Track t : tracks) {
                 tDao.persist(t);
                 tpl.update("INSERT INTO ExperienceTracks(ExperienceId, TrackId) VALUES(?, ?)",
                            new Object[] {id, t.getId()});
-            }
         }
 
         for (UserPoint p : experience.getUserPoints())
@@ -146,6 +154,14 @@ public class ExperienceDao implements IExperienceDao {
 
     public void delete(String id) {
         tpl.update("DELETE FROM SyncList WHERE ExperienceId = ?", new Object[] {id});
+        tpl.query("SELECT TrackId From ExperienceTracks WHERE ExperienceId = ?", new Object[] {id},
+                  new RowMapper<Object>() {
+                      @Override
+                      public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+                          tpl.update("DELETE FROM Tracks WHERE Id = ?", new Object[] {rs.getString("TrackId")});
+                          return null;
+                      }
+                  });
         tpl.update("DELETE FROM ExperienceTracks WHERE ExperienceId = ?", new Object[] {id});
         tpl.update("DELETE FROM ExperiencePOIs WHERE ExperienceId = ?", new Object[] {id});
         tpl.update("DELETE FROM ExperienceUserPoints WHERE ExperienceId = ?", new Object[] {id});
