@@ -449,7 +449,7 @@ public class ImageRenderer {
      */
 
     double XtoLon(double x) {
-        return x*360/Utils.factor+minLongitude;
+        return x*180/Utils.factor+minLongitude;
     }
 
 
