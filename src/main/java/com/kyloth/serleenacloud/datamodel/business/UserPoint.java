@@ -29,6 +29,7 @@ import com.kyloth.serleenacloud.datamodel.geometry.Point;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * Classe che rappresente un punto utente in un'esperienza.
@@ -37,7 +38,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Nicola Mometto <nicola.mometto@studenti.unipd.it>
  * @version 1.0
  */
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class UserPoint extends Point {
 
     @JsonCreator
