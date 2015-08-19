@@ -46,4 +46,8 @@ public class UserPoint extends Point {
                      @JsonProperty("longitude") double longitude) {
         super(latitude, longitude);
     }
+
+    public String getName() {
+        return "";
+    }
 }
