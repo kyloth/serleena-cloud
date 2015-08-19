@@ -61,8 +61,8 @@ public class ExperienceTest {
                                                 });
         Iterator<Track> tracks_iterator = tracks.iterator();
         Iterable<UserPoint> userPoints = Arrays.asList(new UserPoint[] {
-                                             new UserPoint(0, 0, "up_1"),
-                                             new UserPoint(0, 0, "up_2")
+                                             new UserPoint(0, 0),
+                                             new UserPoint(0, 0)
                                          });
         Iterator<UserPoint> userPoints_iterator = userPoints.iterator();
         Iterable<PointOfInterest> pois = Arrays.asList(new PointOfInterest[] {
@@ -100,7 +100,7 @@ public class ExperienceTest {
             UserPoint input_userPoint = userPoints_iterator.next();
             UserPoint e_userPoint = e_userPoints_iterator.next();
 
-            assertTrue(input_userPoint.getName().equals(e_userPoint.getName()));
+            assertTrue(input_userPoint.getLatitude() == (e_userPoint.getLatitude()));
         }
         while(pois_iterator.hasNext() && e_pois_iterator.hasNext()) {
             PointOfInterest input_poi = pois_iterator.next();

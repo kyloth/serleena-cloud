@@ -128,8 +128,8 @@ public class ExperienceDao implements IExperienceDao {
         }
 
         for (UserPoint p : experience.getUserPoints())
-            tpl.update("INSERT INTO ExperienceUserPoints(ExperienceId, Name, Longitude, Latitude) VALUES (?, ?, ?, ?) ",
-                       new Object[] {id, p.getName(), p.getLongitude(), p.getLatitude()});
+            tpl.update("INSERT INTO ExperienceUserPoints(ExperienceId, Longitude, Latitude) VALUES (?, ?, ?) ",
+                       new Object[] {id, p.getLongitude(), p.getLatitude()});
 
 
         for (PointOfInterest p : experience.getPOIs())
@@ -187,7 +187,7 @@ public class ExperienceDao implements IExperienceDao {
                                                new Point(rs.getDouble("SELatitude"),
                                                        rs.getDouble("SELongitude"))),
                                       tDao.findAll(eId),
-                                      tpl.query("SELECT Name, Longitude, Latitude " +
+                                      tpl.query("SELECT Longitude, Latitude " +
                                                 "FROM ExperienceUserPoints " +
                                                 "WHERE ExperienceId =  ? ",
                                                 new Object[] {eId},
@@ -195,8 +195,7 @@ public class ExperienceDao implements IExperienceDao {
                     @Override
                     public UserPoint mapRow(ResultSet rs, int rowNum) throws SQLException {
                         return new UserPoint(rs.getDouble("Latitude"),
-                                             rs.getDouble("Longitude"),
-                                             rs.getString("Name"));
+                                             rs.getDouble("Longitude"));
                     }
                 }),
                 tpl.query("SELECT Name, Longitude, Latitude, Type " +
