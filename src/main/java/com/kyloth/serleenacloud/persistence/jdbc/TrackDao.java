@@ -133,6 +133,12 @@ public class TrackDao implements ITrackDao {
      */
 
     public Track find(String id) {
+        if (tpl.queryForObject("SELECT COUNT(*) " +
+                               "FROM Tracks " +
+                               "WHERE Id = ?",
+                               new Object[] { id }, Integer.class).equals(0))
+            return null;
+
         Iterable<CheckPoint> checkpoints =
             tpl.query("SELECT Idx, Longitude, Latitude FROM Checkpoints WHERE TrackId = ? ORDER BY Idx",
                       new Object[] {id},

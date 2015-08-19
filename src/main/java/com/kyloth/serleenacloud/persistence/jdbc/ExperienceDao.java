@@ -120,10 +120,11 @@ public class ExperienceDao implements IExperienceDao {
         }
 
         for (Track t : experience.getTracks()) {
-            tpl.update("DELETE FROM Tracks WHERE Id = ?", new Object[] {t.getId()});
-            tDao.persist(t);
-            tpl.update("INSERT INTO ExperienceTracks(ExperienceId, TrackId) VALUES(?, ?)",
-                       new Object[] {id, t.getId()});
+            if (tDao.find(t.getId()) == null) {
+                tDao.persist(t);
+                tpl.update("INSERT INTO ExperienceTracks(ExperienceId, TrackId) VALUES(?, ?)",
+                           new Object[] {id, t.getId()});
+            }
         }
 
         for (UserPoint p : experience.getUserPoints())
