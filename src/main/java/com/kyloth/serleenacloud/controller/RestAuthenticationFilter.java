@@ -90,6 +90,8 @@ public class RestAuthenticationFilter extends GenericFilterBean {
         HttpServletResponse res = (HttpServletResponse) response;
 
         System.err.println("---- REQUEST -----");
+        System.err.println("["+req.getMethod()+"] " +req.getRequestURL().toString());
+
         java.util.Enumeration headerNames = req.getHeaderNames();
         while(headerNames.hasMoreElements()) {
             String headerName = (String)headerNames.nextElement();
