@@ -128,9 +128,10 @@ public class ExperienceDao implements IExperienceDao {
         }
 
         for (UserPoint p : experience.getUserPoints())
-            tpl.update("INSERT INTO ExperienceUserPoints(ExperienceId, Name, Longitude, Latitude) VALUES (?, ?, ?, ?) ",
-                       new Object[] {id, p.getName(), p.getLongitude(), p.getLatitude()});
-
+            try {
+                tpl.update("INSERT INTO ExperienceUserPoints(ExperienceId, Name, Longitude, Latitude) VALUES (?, ?, ?, ?) ",
+                           new Object[] {id, p.getName(), p.getLongitude(), p.getLatitude()});
+            } catch (org.springframework.dao.DuplicateKeyException e) {}
 
         for (PointOfInterest p : experience.getPOIs())
             tpl.update("INSERT INTO ExperiencePOIs(ExperienceId, POIName) VALUES(?, ?)",
