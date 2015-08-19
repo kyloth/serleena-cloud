@@ -140,8 +140,8 @@ public class ControllerIntegrationTest {
                                   "id1",
                                   new CheckPoint[] {check_point_1, check_point_2},
                                   new Telemetry[] {telemetry_1});
-        UserPoint user_point_1 = new UserPoint(4, 4, "UP1");
-        UserPoint user_point_2 = new UserPoint(5, 5, "UP2");
+        UserPoint user_point_1 = new UserPoint(4, 4);
+        UserPoint user_point_2 = new UserPoint(5, 5);
         PointOfInterest poi_1 = new PointOfInterest(6, 6, "POI1",
                 PointOfInterest.POIType.INFO);
         PointOfInterest poi_2 = new PointOfInterest(7, 7, "POI2",
@@ -164,7 +164,6 @@ public class ControllerIntegrationTest {
         Experience experience = erc.get(eid, authToken);
         assertTrue(experience.getName().equals("Experience_1"));
         assertTrue(experience.getTracks().iterator().next().getName().equals("Track_1"));
-        assertTrue(experience.getUserPoints().iterator().next().getName().equals("UP1"));
         assertTrue(experience.getPOIs().iterator().next().getName().equals("POI1"));
         // /experience/:exp_id: DELETE
         erc.delete(eid, authToken);
@@ -206,17 +205,12 @@ public class ControllerIntegrationTest {
         Date event_2 = new Date();
         Telemetry telemetry_2 = new Telemetry(Arrays.asList(new Date[] {event_2}),
                                               "id1");
-        UserPoint user_point_3 = new UserPoint(1.5, 1.5, "UP3");
+        UserPoint user_point_3 = new UserPoint(1.5, 1.5);
         SyncInputData sid = new SyncInputData(eid,
                                               new UserPoint[] {user_point_3},
                                               new Telemetry[] {telemetry_2});
         drc.post(ow.writeValueAsString(new SyncInputData[] {sid}), authToken);
         Experience sid_experience = erc.get(eid, authToken);
-        Iterable<UserPoint> sid_up = sid_experience.getUserPoints();
-        Iterator<UserPoint> i_sid_up = sid_up.iterator();
-        assertTrue(i_sid_up.next().getName().equals("UP3"));
-        assertTrue(i_sid_up.next().getName().equals("UP1"));
-        assertTrue(i_sid_up.next().getName().equals("UP2"));
         assertTrue(mrc.paths("45.31,10.65", "44.28,11.71").iterator().next().getName().equals("foo"));
     }
 
