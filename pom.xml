@@ -71,6 +71,9 @@
               <exclude>com/kyloth/serleenacloud/controller/RestAuthenticationFilter.class</exclude>
               <exclude>com/kyloth/serleenacloud/controller/Utils.class</exclude>
               <exclude>com/kyloth/serleenacloud/persistence/*.class</exclude>
+              <exclude>com/kyloth/serleenacloud/render/RasterQuadrant.class</exclude>
+              <exclude>com/kyloth/serleenacloud/render/Renderer.class</exclude>
+              <exclude>com/kyloth/serleenacloud/render/ImageRenderer*.class</exclude>
             </excludes>
           </instrumentation>
         </configuration>
