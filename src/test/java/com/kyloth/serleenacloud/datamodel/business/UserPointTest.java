@@ -46,9 +46,8 @@ public class UserPointTest {
     public void testConstructor() {
         double latitude = 11.50;
         double longitude = 73.37;
-        String name = "Cirith Ungol";
-        UserPoint up = new UserPoint(latitude, longitude, name);
+        UserPoint up = new UserPoint(latitude, longitude);
 
-        assertTrue(up.getName().equals("Cirith Ungol"));
+        assertTrue(up.getLatitude() == 11.50);
     }
 }

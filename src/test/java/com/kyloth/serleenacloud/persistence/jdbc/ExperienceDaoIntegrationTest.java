@@ -78,7 +78,7 @@ public class ExperienceDaoIntegrationTest {
         tpl = ds_user.getTpl();
         String userInsert = "INSERT INTO Users (Email, Password, DeviceId) VALUES ('foo@bar.com', 'psw', 'Kyloth-1');";
         String expInsert = "INSERT INTO Experiences (Id, Name, User, NWLongitude, NWLatitude, SELongitude, SELatitude) VALUES ('id1','Experience', 'foo@bar.com', 2.0, 10.0, 7.0, 2.0);";
-        String expUPInsert = "INSERT INTO ExperienceUserPoints (ExperienceId, Name, Longitude, Latitude) VALUES ('id1', 'UP1', 3.0, 3.0), ('id1', 'UP2', 5.0, 5.0);";
+        String expUPInsert = "INSERT INTO ExperienceUserPoints (ExperienceId, Longitude, Latitude) VALUES ('id1', 3.0, 3.0), ('id1', 5.0, 5.0);";
         String insertPOIs = "INSERT INTO POIs (Name, Longitude, Latitude, Type) VALUES ('POI1', 4.0, 4.0, 'INFO'), ('POI2', 6.0, 6.0, 'WARNING');";
         String insertExperiencePOIs = "INSERT INTO ExperiencePOIs (ExperienceId, POIName) VALUES ('id1', 'POI1'), ('id1', 'POI2');";
         tpl.update(userInsert);
@@ -109,17 +109,10 @@ public class ExperienceDaoIntegrationTest {
         Iterator<Experience> i_experiences = experiences.iterator();
         Experience exp = i_experiences.next();
         assertTrue(exp.getId().equals("id1"));
-        Iterable<UserPoint> userPoints = exp.getUserPoints();
-        Iterator<UserPoint> i_userPoints = userPoints.iterator();
         Iterable<PointOfInterest> pointsOfInterest = exp.getPOIs();
         Iterator<PointOfInterest> i_POIs = pointsOfInterest.iterator();
-        UserPoint up_1 = i_userPoints.next();
-        UserPoint up_2 = i_userPoints.next();
         PointOfInterest poi_1 = i_POIs.next();
         PointOfInterest poi_2 = i_POIs.next();
-        assertTrue(up_1.getName().equals("UP1"));
-        assertTrue(up_2.getName().equals("UP2"));
-        assertFalse(i_userPoints.hasNext());
         assertTrue(poi_1.getName().equals("POI1"));
         assertTrue(poi_2.getName().equals("POI2"));
         assertFalse(i_POIs.hasNext());
