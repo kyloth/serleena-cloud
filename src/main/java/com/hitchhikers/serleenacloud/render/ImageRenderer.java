@@ -319,6 +319,7 @@ public class ImageRenderer {
             y[i] = Utils.round(height-normalizeLatitude(p));
         }
 
+        g.drawPolygon(x, y, size);
         g.fillPolygon(x, y, size);
     }
 
