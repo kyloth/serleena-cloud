@@ -317,6 +317,7 @@ public class ImageRenderer {
         for (Point p : points) {
             x[i] = Utils.round(normalizeLongitude(p));
             y[i] = Utils.round(height-normalizeLatitude(p));
+            i++;
         }
 
         g.drawPolygon(x, y, size);
