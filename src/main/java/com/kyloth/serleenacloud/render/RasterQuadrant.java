@@ -196,7 +196,6 @@ public class RasterQuadrant {
             ImageIO.write(currentQuadrant(), "png", baos);
             return Base64.getEncoder().encodeToString(baos.toByteArray());
         } catch (IOException e) {
-            System.err.println(e);
             return null;
         }
     }
