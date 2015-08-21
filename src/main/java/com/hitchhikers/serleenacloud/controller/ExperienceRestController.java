@@ -211,8 +211,6 @@ public class ExperienceRestController {
                        @RequestBody MultiValueMap<String,String> body,
                        @RequestHeader("X-AuthToken") String authToken) {
 
-        System.err.println(java.util.Arrays.toString(body.toSingleValueMap().entrySet().toArray()));
-
         AuthToken token = new AuthToken(authToken);
         User user = ds.userDao().find(token.getEmail());
         IDataSource dataSource = ds.forUser(user);
