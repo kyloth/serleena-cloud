@@ -44,7 +44,7 @@ import java.util.ArrayList;
 /**
  * Classe che si occupa del rendering effettivo degli elementi di un'Esperienza in un'immagine
  *
- * @use Prendendo in input un oggetto Renderer,
+ * @use Prendendo in input un oggetto Renderer, disegna gli elementi dell'Esperienza associata in un Image.
  * @field img : BufferedImage Campo dati contenente l'immagine generata
  * @field g : Graphics2d Campo dati rappresentante l'oggetto su cui disegnare l'immagine
  * @field width : int Campo dati rappresentante la larghezza totale dell'immagine in pixel
