@@ -25,13 +25,6 @@
 
 package com.kyloth.serleenacloud.render;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
-import java.util.Base64;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-
 import com.kyloth.serleenacloud.datamodel.business.River;
 import com.kyloth.serleenacloud.datamodel.business.Path;
 import com.kyloth.serleenacloud.datamodel.business.Lake;
@@ -486,25 +479,21 @@ public class ImageRenderer {
             int width = Utils.round(seWidth-nwWidth);
             int height = Utils.round(nwHeight-seHeight);
 
-            if (img.getWidth() != width || img.getHeight() != height)
-                img = img.getSubimage(Utils.round(nwWidth), Utils.round(img.getHeight()-nwHeight), width, height);
+            _img = img;
+            img = null;
+
+            if (_img.getWidth() != width || _img.getHeight() != height)
+                _img = _img.getSubimage(Utils.round(nwWidth), Utils.round(_img.getHeight()-nwHeight), width, height);
 
             int mWidth = Utils.round(Utils.multipleOf(width, RasterQuadrant.quadrantWidth));
             int mHeight = Utils.round(Utils.multipleOf(height, RasterQuadrant.quadrantHeight));
 
             if (mWidth != width || mHeight != height) {
-                _img = new BufferedImage(mWidth, mHeight, BufferedImage.TYPE_INT_RGB);
-                _img.createGraphics().drawImage(img, 0, mHeight-height, null);
+                BufferedImage __img = new BufferedImage(mWidth, mHeight, BufferedImage.TYPE_INT_RGB);
+                __img.createGraphics().drawImage(_img, 0, mHeight-height, null);
+                _img = __img;
             }
-
-            img = null;
         }
-
-        try {
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(_img, "png", baos);
-            System.err.println(Base64.getEncoder().encodeToString(baos.toByteArray()));
-        } catch (IOException e) {}
 
         return _img;
     }
