@@ -123,15 +123,18 @@ public class RasterQuadrant {
     /**
      * Restituisce la regione di mappa relativa al quadrante.
      *
-     * @return Restituisce un oggetto di ripo Rect rappresentante la regione di mappa relativa al quadrante.
+     * @return Restituisce un oggetto di tipo Rect rappresentante la regione di mappa relativa al quadrante.
      */
 
     public Rect getBoundingRect() {
 
-        Point nw = new Point(ir.YtoLat(y),
-                             ir.XtoLon(+x));
-        Point se = new Point(ir.YtoLat(y-quadrantHeight),
-                             ir.XtoLon(x+quadrantWidth));
+        int _x = x + Utils.round(ir.normalizeLongitude(ir.r.rect.getNWPoint()));
+        int _y = y + Utils.round(ir.normalizeLatitude(ir.r.rect.getSEPoint()));
+
+        Point nw = new Point(ir.YtoLat(_y),
+                             ir.XtoLon(_x));
+        Point se = new Point(ir.YtoLat(_y-quadrantHeight),
+                             ir.XtoLon(_x+quadrantWidth));
 
         return new Rect(nw, se);
     }
