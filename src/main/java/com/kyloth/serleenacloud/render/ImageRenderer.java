@@ -25,6 +25,13 @@
 
 package com.kyloth.serleenacloud.render;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+
+import java.util.Base64;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+
 import com.kyloth.serleenacloud.datamodel.business.River;
 import com.kyloth.serleenacloud.datamodel.business.Path;
 import com.kyloth.serleenacloud.datamodel.business.Lake;
@@ -238,7 +245,7 @@ public class ImageRenderer {
     }
 
     /**
-     * Disegna un icona nell'immagine..
+     * Disegna un icona nell'immagine.
      *
      * @param i L'icona da disegnare.
      * @param x La coordinata x
@@ -317,8 +324,12 @@ public class ImageRenderer {
         for (Point p : points) {
             x[i] = Utils.round(normalizeLongitude(p));
             y[i] = Utils.round(height-normalizeLatitude(p));
+            System.err.println(x[i]);
+            System.err.println(y[i]);
             i++;
         }
+        System.err.println(width);
+        System.err.println(height);
 
         g.drawPolygon(x, y, size);
         g.fillPolygon(x, y, size);
@@ -471,6 +482,13 @@ public class ImageRenderer {
 
         int width = Utils.round(seWidth-nwWidth);
         int height = Utils.round(nwHeight-seHeight);
+
+
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            ImageIO.write(img, "png", baos);
+            System.err.println(Base64.getEncoder().encodeToString(baos.toByteArray()));
+        } catch (IOException e) {}
 
         if (img.getWidth() != width || img.getHeight() != height)
             img = img.getSubimage(Utils.round(nwWidth), Utils.round(img.getHeight()-nwHeight), width, height);
