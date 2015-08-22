@@ -79,6 +79,12 @@ public class ImageRenderer {
     BufferedImage img;
 
     /**
+     * Cache per getImage();
+     */
+
+    BufferedImage _img = null;
+
+    /**
      * Oggetto su cui disegnare l'immagine.
      */
 
@@ -324,13 +330,8 @@ public class ImageRenderer {
         for (Point p : points) {
             x[i] = Utils.round(normalizeLongitude(p));
             y[i] = Utils.round(height-normalizeLatitude(p));
-            System.err.println(x[i]);
-            System.err.println(y[i]);
             i++;
         }
-        System.err.println(width);
-        System.err.println(height);
-
         g.drawPolygon(x, y, size);
         g.fillPolygon(x, y, size);
     }
@@ -474,33 +475,37 @@ public class ImageRenderer {
 
     BufferedImage getImage() {
 
-        double nwHeight = normalizeLatitude(r.rect.getNWPoint());
-        double nwWidth = normalizeLongitude(r.rect.getNWPoint());
+        if (_img == null) {
 
-        double seHeight = normalizeLatitude(r.rect.getSEPoint());
-        double seWidth = normalizeLongitude(r.rect.getSEPoint());
+            double nwHeight = normalizeLatitude(r.rect.getNWPoint());
+            double nwWidth = normalizeLongitude(r.rect.getNWPoint());
 
-        int width = Utils.round(seWidth-nwWidth);
-        int height = Utils.round(nwHeight-seHeight);
+            double seHeight = normalizeLatitude(r.rect.getSEPoint());
+            double seWidth = normalizeLongitude(r.rect.getSEPoint());
 
+            int width = Utils.round(seWidth-nwWidth);
+            int height = Utils.round(nwHeight-seHeight);
+
+            if (img.getWidth() != width || img.getHeight() != height)
+                img = img.getSubimage(Utils.round(nwWidth), Utils.round(img.getHeight()-nwHeight), width, height);
+
+            int mWidth = Utils.round(Utils.multipleOf(width, RasterQuadrant.quadrantWidth));
+            int mHeight = Utils.round(Utils.multipleOf(height, RasterQuadrant.quadrantHeight));
+
+            if (mWidth != width || mHeight != height) {
+                _img = new BufferedImage(mWidth, mHeight, BufferedImage.TYPE_INT_RGB);
+                _img.createGraphics().drawImage(img, 0, mHeight-height, null);
+            }
+
+            img = null;
+        }
 
         try {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            ImageIO.write(img, "png", baos);
+            ImageIO.write(_img, "png", baos);
             System.err.println(Base64.getEncoder().encodeToString(baos.toByteArray()));
         } catch (IOException e) {}
 
-        if (img.getWidth() != width || img.getHeight() != height)
-            img = img.getSubimage(Utils.round(nwWidth), Utils.round(img.getHeight()-nwHeight), width, height);
-
-        int mWidth = Utils.round(Utils.multipleOf(width, RasterQuadrant.quadrantWidth));
-        int mHeight = Utils.round(Utils.multipleOf(height, RasterQuadrant.quadrantHeight));
-
-        if (mWidth != width || mHeight != height) {
-            BufferedImage _img = new BufferedImage(mWidth, mHeight, BufferedImage.TYPE_INT_RGB);
-            _img.createGraphics().drawImage(img, 0, mHeight-height, null);
-            img = _img;
-        }
-        return img;
+        return _img;
     }
 }
